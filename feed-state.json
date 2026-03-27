@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "last_full_sweep": null,
+  "feeds": {
+    "threatfox": {
+      "last_query_time": null,
+      "last_id": null
+    },
+    "malwarebazaar": {
+      "last_query_time": null
+    },
+    "urlhaus": {
+      "last_query_time": null
+    },
+    "asb": {
+      "last_bulletin": null
+    },
+    "nvd": {
+      "last_modified": null
+    },
+    "stalkerware_indicators": {
+      "last_commit_sha": null
+    },
+    "attack_mobile": {
+      "last_version": null
+    }
+  }
+}
