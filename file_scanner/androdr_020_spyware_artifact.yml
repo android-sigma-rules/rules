@@ -1,0 +1,19 @@
+title: Known spyware file artifact found
+id: androdr-020
+status: production
+description: A file at a known spyware artifact path was found on the device.
+author: AndroDR
+date: 2026/03/27
+tags:
+    - attack.t1533
+logsource:
+    product: androdr
+    service: file_scanner
+detection:
+    selection:
+        file_exists: true
+    condition: selection
+level: critical
+remediation:
+    - "Files associated with known spyware were found on this device."
+    - "This may indicate a current or past compromise."

@@ -1,0 +1,19 @@
+title: Running process matches known spyware daemon
+id: androdr-030
+status: production
+description: A running process name matches a known spyware or stalkerware daemon.
+author: AndroDR
+date: 2026/03/27
+tags:
+    - attack.t1629
+logsource:
+    product: androdr
+    service: process_monitor
+detection:
+    selection:
+        process_name|ioc_lookup: process_name_ioc_db
+    condition: selection
+level: critical
+remediation:
+    - "A running process matches a known spyware daemon name."
+    - "This indicates active spyware on the device."
