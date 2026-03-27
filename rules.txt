@@ -16,3 +16,4 @@ device_auditor/androdr_044_stale_patch.yml
 device_auditor/androdr_045_bootloader_unlocked.yml
 device_auditor/androdr_046_wifi_adb.yml
 dns_monitor/androdr_003_domain_ioc.yml
+dns_monitor/androdr_005_graphite_paragon.yml
