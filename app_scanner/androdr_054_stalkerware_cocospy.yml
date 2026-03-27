@@ -1,0 +1,56 @@
+title: Cocospy/Spyzie stalkerware cluster package detected
+id: androdr-054
+status: experimental
+description: >
+    Detects installed apps whose package name matches the Cocospy family
+    of stalkerware, which operates under at least 9 brand names: Cocospy,
+    Spyic, Spyzie, Spyine, Minspy, Neatspy, Safespy, Spyier, and
+    TeenSafe.  All share a common codebase with packages typically under
+    the com.duiyun, com.sc, or com.dy namespaces.
+author: AndroDR AI Pipeline
+date: 2026/03/28
+references:
+    - https://github.com/AssoEchap/stalkerware-indicators
+    - https://techcrunch.com/tag/cocospy/
+tags:
+    - attack.t1418
+    - attack.t1636
+logsource:
+    product: androdr
+    service: app_scanner
+detection:
+    selection_cocospy:
+        package_name|contains:
+            - com.cocospy
+            - com.duiyun
+            - com.sc.cocospy
+            - com.sc.fonemonitor
+            - com.sc.spyic
+            - com.sc.spyzie
+            - com.sc.spyine
+            - com.sc.spyier
+            - com.sc.minspy
+            - com.sc.neatspy
+            - com.sc.safespy
+            - com.sc.teensafe
+            - com.dy.spyzie
+            - com.spyic
+            - com.minspy
+    selection_infra:
+        package_name|startswith:
+            - com.aiyi.admin
+            - com.wb.production
+            - com.ws.sc
+    condition: selection_cocospy or selection_infra
+level: high
+falsepositives:
+    - "com.ws.sc is a short namespace that could theoretically collide with unrelated apps; however this exact prefix is not known to be used by legitimate software"
+display:
+    category: app_risk
+    icon: visibility_off
+    triggered_title: "Stalkerware: Cocospy Cluster"
+    evidence_type: ioc_match
+remediation:
+    - "This app belongs to the Cocospy/Spyzie stalkerware cluster. It can track location, read messages, monitor calls, and capture photos."
+    - "Uninstall immediately. Consider a factory reset if you did not install it yourself."
+    - "If you suspect someone installed this without your consent, contact a domestic violence hotline for guidance."

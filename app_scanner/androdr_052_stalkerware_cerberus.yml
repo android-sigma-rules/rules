@@ -1,0 +1,41 @@
+title: Cerberus stalkerware package detected
+id: androdr-052
+status: experimental
+description: >
+    Detects installed apps whose package name matches known Cerberus
+    stalkerware variants.  Cerberus is marketed as an anti-theft app
+    but includes full surveillance capabilities (call recording, ambient
+    listening, screen capture) commonly abused as stalkerware.
+author: AndroDR AI Pipeline
+date: 2026/03/28
+references:
+    - https://github.com/AssoEchap/stalkerware-indicators
+    - https://www.cerberusapp.com  # vendor site (for attribution only)
+tags:
+    - attack.t1418
+    - attack.t1636
+logsource:
+    product: androdr
+    service: app_scanner
+detection:
+    selection_primary:
+        package_name|contains:
+            - com.lsdroid.cerberus
+    selection_alias:
+        package_name|contains:
+            - com.surebrec
+            - com.ssurebrec
+    condition: selection_primary or selection_alias
+level: high
+falsepositives:
+    - "Cerberus has a legitimate anti-theft use case; users who intentionally installed Cerberus for device recovery will see this alert"
+display:
+    category: app_risk
+    icon: visibility_off
+    triggered_title: "Stalkerware: Cerberus"
+    evidence_type: ioc_match
+remediation:
+    - "This app belongs to the Cerberus stalkerware family. While marketed for anti-theft, it has full surveillance capabilities."
+    - "If you installed Cerberus yourself for anti-theft purposes, you may dismiss this finding."
+    - "If you did not install it, uninstall immediately and consider a factory reset."
+    - "If you suspect someone installed this without your consent, contact a domestic violence hotline for guidance."

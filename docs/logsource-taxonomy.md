@@ -59,7 +59,7 @@ any app running on the device.
 
 | Field | Type | Description |
 |---|---|---|
-| `query_domain` | string | The domain name being resolved (e.g. `api.example.com`) |
+| `domain` | string | The domain name being resolved (e.g. `api.example.com`) |
 | `source_package` | string | Package name of the app that issued the DNS query |
 | `query_type` | string | DNS record type requested: `A`, `AAAA`, `CNAME`, `MX`, `TXT`, etc. |
 
