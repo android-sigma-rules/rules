@@ -1,6 +1,7 @@
 title: USB Debugging enabled
 id: androdr-040
 status: production
+description: USB Debugging (ADB) is enabled, allowing shell access over USB without authentication.
 author: AndroDR
 date: 2026/03/27
 tags:

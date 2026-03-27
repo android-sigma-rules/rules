@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Structured Intelligence Record (SIR)",
+  "type": "object",
+  "required": ["source", "threat", "indicators", "confidence", "rule_hint"],
+  "properties": {
+    "source": {
+      "type": "object",
+      "required": ["feed", "url", "retrieved_at"],
+      "properties": {
+        "feed": { "type": "string" },
+        "url": { "type": "string" },
+        "retrieved_at": { "type": "string" }
+      }
+    },
+    "threat": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "families": { "type": "array", "items": { "type": "string" }, "default": [] },
+        "description": { "type": "string", "default": "" }
+      }
+    },
+    "attack_techniques": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^T\\d{4}(\\.\\d{3})?$" },
+          "name": { "type": "string" }
+        }
+      },
+      "default": []
+    },
+    "indicators": {
+      "type": "object",
+      "properties": {
+        "package_names": { "type": "array", "items": { "type": "string" }, "default": [] },
+        "cert_hashes": { "type": "array", "items": { "type": "string" }, "default": [] },
+        "domains": { "type": "array", "items": { "type": "string" }, "default": [] },
+        "file_hashes": { "type": "array", "items": { "type": "string" }, "default": [] },
+        "urls": { "type": "array", "items": { "type": "string" }, "default": [] },
+        "ips": { "type": "array", "items": { "type": "string" }, "default": [] }
+      }
+    },
+    "vulnerabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^CVE-\\d{4}-\\d+$" },
+          "cvss": { "type": "number" },
+          "affected_versions": { "type": "array", "items": { "type": "string" } }
+        }
+      },
+      "default": []
+    },
+    "behavioral_signals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type"],
+        "properties": {
+          "type": { "type": "string" },
+          "permissions": { "type": "array", "items": { "type": "string" } },
+          "description": { "type": "string" }
+        }
+      },
+      "default": []
+    },
+    "confidence": { "type": "string", "enum": ["high", "medium", "low", "none"] },
+    "rule_hint": { "type": "string", "enum": ["ioc_lookup", "behavioral", "device_posture", "network", "hybrid"] }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "adb_enabled": false,
+  "dev_options_enabled": false,
+  "unknown_sources_enabled": false,
+  "screen_lock_enabled": true,
+  "patch_level": "2026-03-01",
+  "patch_age_days": 27,
+  "bootloader_unlocked": false,
+  "wifi_adb_enabled": false
+}

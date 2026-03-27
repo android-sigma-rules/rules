@@ -1,0 +1,12 @@
+{
+  "package_name": "com.google.android.gm",
+  "app_name": "Gmail",
+  "cert_hash": "sha256:f0fd6c5b410f25cb25c3b53346c8972fae30f8ee7411df910480ad6b2d60db83",
+  "is_system_app": false,
+  "from_trusted_store": true,
+  "is_known_oem_app": false,
+  "has_accessibility_service": false,
+  "has_device_admin": false,
+  "surveillance_permission_count": 0,
+  "permissions": ["INTERNET", "READ_CONTACTS", "GET_ACCOUNTS"]
+}

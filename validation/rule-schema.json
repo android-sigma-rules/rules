@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AndroDR SIGMA Rule",
+  "type": "object",
+  "required": ["title", "id", "status", "description", "logsource", "detection", "level", "tags"],
+  "properties": {
+    "title": { "type": "string", "minLength": 1 },
+    "id": { "type": "string", "pattern": "^androdr-\\d{3}$" },
+    "status": { "type": "string", "enum": ["experimental", "test", "production"] },
+    "description": { "type": "string" },
+    "author": { "type": "string" },
+    "date": { "type": "string" },
+    "logsource": {
+      "type": "object",
+      "required": ["product", "service"],
+      "properties": {
+        "product": { "const": "androdr" },
+        "service": {
+          "type": "string",
+          "enum": ["app_scanner", "device_auditor", "dns_monitor", "process_monitor", "file_scanner"]
+        }
+      }
+    },
+    "detection": {
+      "type": "object",
+      "required": ["condition"],
+      "properties": {
+        "condition": { "type": "string", "minLength": 1 }
+      }
+    },
+    "level": { "type": "string", "enum": ["critical", "high", "medium", "low"] },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "falsepositives": { "type": "array", "items": { "type": "string" } },
+    "remediation": { "type": "array", "items": { "type": "string" } },
+    "display": {
+      "type": "object",
+      "properties": {
+        "category": { "type": "string", "enum": ["app_risk", "device_posture", "network"] },
+        "icon": { "type": "string" },
+        "triggered_title": { "type": "string" },
+        "safe_title": { "type": "string" },
+        "evidence_type": { "type": "string", "enum": ["none", "cve_list", "ioc_match", "permission_cluster"] },
+        "summary_template": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,8 +1,11 @@
 title: Security patch more than 90 days old
 id: androdr-044
 status: production
+description: The device security patch level is over 90 days old, leaving it exposed to publicly known Android vulnerabilities.
 author: AndroDR
 date: 2026/03/27
+tags:
+    - attack.t1400
 logsource:
     product: androdr
     service: device_auditor

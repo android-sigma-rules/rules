@@ -1,6 +1,7 @@
 title: Install from Unknown Sources allowed
 id: androdr-042
 status: production
+description: The device permits installation of apps from sources outside the official app store, increasing exposure to trojanized APKs.
 author: AndroDR
 date: 2026/03/27
 tags:
