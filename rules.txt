@@ -19,3 +19,9 @@ dns_monitor/androdr_003_domain_ioc.yml
 dns_monitor/androdr_005_graphite_paragon.yml
 file_scanner/androdr_020_spyware_artifact.yml
 process_monitor/androdr_030_spyware_process.yml
+accessibility_audit/androdr_060_active_accessibility.yml
+receiver_audit/androdr_061_sms_receiver.yml
+receiver_audit/androdr_062_call_receiver.yml
+appops_audit/androdr_063_appops_microphone.yml
+appops_audit/androdr_064_appops_camera.yml
+appops_audit/androdr_065_appops_install_packages.yml
