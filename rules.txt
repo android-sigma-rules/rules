@@ -8,11 +8,6 @@ app_scanner/androdr_014_app_impersonation.yml
 app_scanner/androdr_015_firmware_implant.yml
 app_scanner/androdr_016_system_name_disguise.yml
 app_scanner/androdr_017_accessibility_surveillance_combo.yml
-app_scanner/androdr_050_stalkerware_thetruthspy.yml
-app_scanner/androdr_051_stalkerware_flexispy.yml
-app_scanner/androdr_052_stalkerware_cerberus.yml
-app_scanner/androdr_053_stalkerware_mspy.yml
-app_scanner/androdr_054_stalkerware_cocospy.yml
 device_auditor/androdr_040_adb_enabled.yml
 device_auditor/androdr_041_dev_options.yml
 device_auditor/androdr_042_unknown_sources.yml
@@ -22,6 +17,5 @@ device_auditor/androdr_045_bootloader_unlocked.yml
 device_auditor/androdr_046_wifi_adb.yml
 dns_monitor/androdr_003_domain_ioc.yml
 dns_monitor/androdr_005_graphite_paragon.yml
-dns_monitor/androdr_055_stalkerware_c2_domains.yml
 file_scanner/androdr_020_spyware_artifact.yml
 process_monitor/androdr_030_spyware_process.yml
