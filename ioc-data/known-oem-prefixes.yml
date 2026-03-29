@@ -63,8 +63,9 @@ us_carrier_prefixes:
   - "com.verizon."
 
 # Carrier pre-install platforms
+# NOTE: com.ironsrc.aura.* is intentionally EXCLUDED — IronSource Aura
+# silently installs sponsored apps and should be flagged as invasive bloatware.
 carrier_platform_prefixes:
-  - "com.ironsrc.aura."
   - "com.dti."
   - "com.digitalturbine."
 
