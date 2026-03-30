@@ -1,0 +1,82 @@
+version: "2026-03-30"
+description: >
+  Well-known legitimate Android apps that should not generate
+  low-confidence findings (accessibility, camera, mic, install-packages).
+  These are apps with 10M+ installs on Google Play whose permission
+  usage is expected and documented. Maintained in this repo so the list
+  is updatable without app rebuilds.
+
+sources:
+  - play-store-top-apps
+  - wikipedia-most-downloaded
+  - manual-curation
+
+# Category POPULAR — suppresses low-confidence SIGMA findings via
+# the known_good_app_db IOC lookup filter. Does NOT suppress IOC
+# matches, sideload detection, or other high-confidence signals.
+
+entries:
+  # Password managers (accessibility service expected)
+  - packageName: "com.x8bit.bitwarden"
+    displayName: "Bitwarden"
+    reason: "Password manager — accessibility service required for autofill"
+
+  - packageName: "com.lastpass.lpandroid"
+    displayName: "LastPass"
+    reason: "Password manager — accessibility service required for autofill"
+
+  - packageName: "com.onepassword.android"
+    displayName: "1Password"
+    reason: "Password manager — accessibility service required for autofill"
+
+  - packageName: "com.dashlane"
+    displayName: "Dashlane"
+    reason: "Password manager — accessibility service required for autofill"
+
+  # Security apps (accessibility service expected)
+  - packageName: "com.microsoft.scmx"
+    displayName: "Microsoft Defender"
+    reason: "Security app — accessibility service required for web protection"
+
+  - packageName: "com.lookout"
+    displayName: "Lookout Security"
+    reason: "Security app — accessibility service and device admin expected"
+
+  # AI assistants (camera + microphone expected)
+  - packageName: "ai.perplexity.app.android"
+    displayName: "Perplexity AI"
+    reason: "AI assistant — camera and microphone for voice/visual input"
+
+  - packageName: "com.openai.chatgpt"
+    displayName: "ChatGPT"
+    reason: "AI assistant — microphone for voice input"
+
+  # Communication (camera + microphone expected)
+  - packageName: "org.telegram.messenger"
+    displayName: "Telegram"
+    reason: "Messaging — camera and microphone for calls/media"
+
+  - packageName: "com.whatsapp"
+    displayName: "WhatsApp"
+    reason: "Messaging — camera and microphone for calls/media"
+
+  - packageName: "com.Slack"
+    displayName: "Slack"
+    reason: "Workplace messaging — camera and microphone for huddles"
+
+  - packageName: "us.zoom.videomeetings"
+    displayName: "Zoom"
+    reason: "Video conferencing — camera and microphone expected"
+
+  - packageName: "com.microsoft.teams"
+    displayName: "Microsoft Teams"
+    reason: "Video conferencing — camera and microphone expected"
+
+  # File managers (install packages expected)
+  - packageName: "com.google.android.apps.docs"
+    displayName: "Google Drive"
+    reason: "File manager — can install APKs from downloaded files"
+
+  - packageName: "com.google.android.apps.nbu.files"
+    displayName: "Files by Google"
+    reason: "File manager — can install APKs from downloaded files"
