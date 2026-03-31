@@ -1,7 +1,6 @@
 title: Install from Unknown Sources allowed
 id: androdr-042
 status: production
-description: The device permits installation of apps from sources outside the official app store, increasing exposure to trojanized APKs.
 author: AndroDR
 date: 2026/03/27
 tags:
@@ -14,5 +13,11 @@ detection:
         unknown_sources_enabled: true
     condition: selection
 level: high
+display:
+    category: device_posture
+    icon: warning
+    triggered_title: "Unknown Sources Enabled"
+    safe_title: "Unknown Sources Disabled"
+    evidence_type: none
 remediation:
-    - "Disable installation from unknown sources to prevent sideloaded threats."
+    - "Go to Settings > Apps > Special access > Install unknown apps and turn off all entries. This prevents apps from installing other apps without your knowledge."

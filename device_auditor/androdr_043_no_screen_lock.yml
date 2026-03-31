@@ -1,11 +1,8 @@
 title: No screen lock configured
 id: androdr-043
 status: production
-description: No screen lock (PIN, password, pattern, or biometric) is configured, leaving the device accessible to anyone with physical access.
 author: AndroDR
 date: 2026/03/27
-tags:
-    - attack.t1432
 logsource:
     product: androdr
     service: device_auditor
@@ -14,5 +11,11 @@ detection:
         screen_lock_enabled: false
     condition: selection
 level: critical
+display:
+    category: device_posture
+    icon: lock_open
+    triggered_title: "No Screen Lock"
+    safe_title: "Screen Lock Enabled"
+    evidence_type: none
 remediation:
-    - "Set a PIN, password, pattern, or biometric lock to protect your device."
+    - "Go to Settings > Lock Screen > Screen lock type and set a PIN, password, or fingerprint. Without a lock, anyone can access your phone."

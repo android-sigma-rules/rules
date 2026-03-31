@@ -1,11 +1,8 @@
 title: Developer Options enabled
 id: androdr-041
 status: production
-description: Developer Options are enabled, exposing low-level device settings that can be abused by malware or an attacker with physical access.
 author: AndroDR
 date: 2026/03/27
-tags:
-    - attack.t1404
 logsource:
     product: androdr
     service: device_auditor
@@ -14,5 +11,11 @@ detection:
         dev_options_enabled: true
     condition: selection
 level: medium
+display:
+    category: device_posture
+    icon: settings
+    triggered_title: "Developer Options Enabled"
+    safe_title: "Developer Options Disabled"
+    evidence_type: none
 remediation:
-    - "Disable Developer Options unless actively needed."
+    - "Go to Settings > Developer Options > toggle OFF at the top. Developer Options gives apps and USB connections extra access to your phone. Turn it off unless you are actively developing apps."

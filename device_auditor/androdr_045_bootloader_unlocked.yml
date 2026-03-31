@@ -1,11 +1,8 @@
 title: Bootloader unlocked
 id: androdr-045
 status: production
-description: The device bootloader is unlocked, disabling Android Verified Boot and allowing persistent firmware-level tampering.
 author: AndroDR
 date: 2026/03/27
-tags:
-    - attack.t1401
 logsource:
     product: androdr
     service: device_auditor
@@ -14,5 +11,11 @@ detection:
         bootloader_unlocked: true
     condition: selection
 level: critical
+display:
+    category: device_posture
+    icon: lock_open
+    triggered_title: "Bootloader Unlocked"
+    safe_title: "Bootloader Locked"
+    evidence_type: none
 remediation:
-    - "Re-lock the bootloader unless you need it for custom ROM development."
+    - "Your bootloader is unlocked, which allows unsigned software to run. If you did not unlock it intentionally, this could indicate tampering. Contact your device manufacturer for relocking instructions."

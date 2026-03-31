@@ -1,11 +1,8 @@
 title: Wireless ADB enabled
 id: androdr-046
 status: production
-description: Wireless ADB (Android Debug Bridge over Wi-Fi) is active, allowing any device on the same network to issue shell commands without a USB connection.
 author: AndroDR
 date: 2026/03/27
-tags:
-    - attack.t1404
 logsource:
     product: androdr
     service: device_auditor
@@ -14,5 +11,11 @@ detection:
         wifi_adb_enabled: true
     condition: selection
 level: high
+display:
+    category: device_posture
+    icon: wifi
+    triggered_title: "Wireless ADB Enabled"
+    safe_title: "Wireless ADB Disabled"
+    evidence_type: none
 remediation:
-    - "Disable Wireless ADB — any device on the same network can connect."
+    - "Go to Settings > Developer Options > turn off Wireless debugging. When enabled, any device on your Wi-Fi network can connect to your phone."
