@@ -17,17 +17,17 @@ detection:
     selection_name:
         app_name|contains:
             - System
-            - Service
             - Google
             - Android
             - Samsung
-            - Update
-            - Security
             - Settings
-            - Phone
-            - Messenger
     condition: selection_untrusted and selection_name
 level: high
+display:
+    category: app_risk
+    icon: masks
+    triggered_title: "System Name Disguise"
+    evidence_type: none
 falsepositives:
     - Legitimate developer tools with system-sounding names
 remediation:
