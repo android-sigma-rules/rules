@@ -1,5 +1,6 @@
 app_scanner/androdr_001_package_ioc.yml
 app_scanner/androdr_002_cert_hash_ioc.yml
+app_scanner/androdr_004_apk_hash_ioc.yml
 app_scanner/androdr_010_sideloaded_app.yml
 app_scanner/androdr_011_surveillance_permissions.yml
 app_scanner/androdr_012_accessibility_abuse.yml
@@ -15,6 +16,10 @@ device_auditor/androdr_043_no_screen_lock.yml
 device_auditor/androdr_044_stale_patch.yml
 device_auditor/androdr_045_bootloader_unlocked.yml
 device_auditor/androdr_046_wifi_adb.yml
+device_auditor/androdr_047_cve_exploit.yml
+device_auditor/androdr_048_pegasus_cves.yml
+device_auditor/androdr_049_predator_cves.yml
+device_auditor/androdr_050_graphite_cves.yml
 dns_monitor/androdr_003_domain_ioc.yml
 dns_monitor/androdr_005_graphite_paragon.yml
 file_scanner/androdr_020_spyware_artifact.yml
