@@ -1,0 +1,21 @@
+title: Security patch more than 90 days old
+id: androdr-044
+status: production
+author: AndroDR
+date: 2026/03/27
+logsource:
+    product: androdr
+    service: device_auditor
+detection:
+    selection:
+        patch_age_days|gte: 90
+    condition: selection
+level: high
+display:
+    category: device_posture
+    icon: update
+    triggered_title: "Security Patch Outdated"
+    safe_title: "Security Patch Current"
+    evidence_type: none
+remediation:
+    - "Go to Settings > Software Update > Download and Install. Also check Play Store > Settings > About > Google Play system update. Your security patch is more than 90 days old."
