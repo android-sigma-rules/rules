@@ -1,28 +1,27 @@
 {
   "version": 1,
-  "last_full_sweep": null,
+  "last_full_sweep": "2026-04-02",
   "feeds": {
     "threatfox": {
-      "last_query_time": null,
-      "last_id": null
+      "last_query_time": "2026-04-01T18:36:30Z"
     },
     "malwarebazaar": {
-      "last_query_time": null
-    },
-    "urlhaus": {
-      "last_query_time": null
+      "last_query_time": "2026-04-01T16:43:59Z"
     },
     "asb": {
-      "last_bulletin": null
+      "last_bulletin": "2025-05-01"
     },
     "nvd": {
       "last_modified": null
     },
     "stalkerware_indicators": {
-      "last_commit_sha": null
+      "last_commit_sha": "348fd7b"
     },
     "attack_mobile": {
-      "last_version": null
+      "last_version": "15.1"
+    },
+    "amnesty": {
+      "last_checked": "2026-04-01"
     }
   }
 }
