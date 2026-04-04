@@ -96,6 +96,13 @@ custom_rom_prefixes:
 trusted_installers:
   - "com.android.vending"             # Google Play Store
   - "com.sec.android.app.samsungapps" # Samsung Galaxy Store
+  - "com.samsung.android.app.updatecenter" # Samsung Update Center
+  - "com.samsung.android.app.watchmanager" # Samsung Wearable Manager
+  - "com.samsung.android.scloud"      # Samsung Cloud restore
+  - "com.samsung.android.themestore"  # Samsung Theme Store
+  - "com.samsung.android.spay"        # Samsung Pay
+  - "com.sec.android.app.sbrowser"    # Samsung Internet (WebAPKs)
+  - "com.facebook.system"             # Meta/Facebook pre-install agent (Samsung partnership)
   - "com.xiaomi.market"               # Xiaomi GetApps
   - "com.xiaomi.mipicks"              # Xiaomi Mi Picks
   - "com.miui.packageinstaller"       # MIUI Package Installer
