@@ -17,6 +17,7 @@ chipset_prefixes:
   - "com.qti."
   - "vendor.qti."
   - "com.mediatek."
+  - "com.shannon."
   - "com.mtk."
 
 # Board support / ODM
