@@ -14,9 +14,7 @@ detection:
         is_system_app: false
         from_trusted_store: false
         known_app_category: USER_APP
-    filter_known_good:
-        package_name|ioc_lookup: known_good_app_db
-    condition: selection and not filter_known_good
+    condition: selection
 level: high
 display:
     category: app_risk
