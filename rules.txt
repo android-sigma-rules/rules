@@ -30,3 +30,4 @@ receiver_audit/androdr_062_call_receiver.yml
 appops_audit/androdr_063_appops_microphone.yml
 appops_audit/androdr_064_appops_camera.yml
 appops_audit/androdr_065_appops_install_packages.yml
+app_scanner/androdr_068_hidden_launcher.yml
