@@ -1,0 +1,47 @@
+[
+  {
+    "id": "stalkerware-indicators",
+    "name": "AssoEchap Stalkerware Indicators",
+    "url": "https://github.com/AssoEchap/stalkerware-indicators"
+  },
+  {
+    "id": "malwarebazaar",
+    "name": "abuse.ch MalwareBazaar",
+    "url": "https://bazaar.abuse.ch"
+  },
+  {
+    "id": "threatfox",
+    "name": "abuse.ch ThreatFox",
+    "url": "https://threatfox.abuse.ch"
+  },
+  {
+    "id": "amnesty-tech",
+    "name": "Amnesty International Security Lab",
+    "url": "https://github.com/AmnestyTech/investigations"
+  },
+  {
+    "id": "amnesty-investigations",
+    "name": "Amnesty International Security Lab (investigations)",
+    "url": "https://github.com/AmnestyTech/investigations"
+  },
+  {
+    "id": "citizenlab-indicators",
+    "name": "Citizen Lab Malware Indicators",
+    "url": "https://github.com/citizenlab/malware-indicators"
+  },
+  {
+    "id": "mvt-indicators",
+    "name": "MVT Project STIX2 Indicators",
+    "url": "https://github.com/mvt-project/mvt-indicators"
+  },
+  {
+    "id": "virustotal",
+    "name": "VirusTotal Intelligence",
+    "url": "https://www.virustotal.com"
+  },
+  {
+    "id": "android-security-bulletin",
+    "name": "Google Android Security Bulletins",
+    "url": "https://source.android.com/docs/security/bulletin"
+  }
+]
