@@ -2,14 +2,18 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "AndroDR SIGMA Rule",
   "type": "object",
-  "required": ["title", "id", "status", "description", "logsource", "detection", "level", "tags"],
+  "required": ["title", "id", "status", "description", "logsource", "detection", "level", "tags", "category"],
   "properties": {
     "title": { "type": "string", "minLength": 1 },
-    "id": { "type": "string", "pattern": "^androdr-\\d{3}$" },
+    "id": { "type": "string", "pattern": "^androdr-(\\d{3}|atom-[a-z-]+|corr-\\d{3})$" },
     "status": { "type": "string", "enum": ["experimental", "test", "production"] },
     "description": { "type": "string" },
     "author": { "type": "string" },
     "date": { "type": "string" },
+    "references": { "type": "array", "items": { "type": "string" } },
+    "category": { "type": "string", "enum": ["incident", "device_posture"] },
+    "enabled": { "type": "boolean" },
+    "report_safe_state": { "type": "boolean" },
     "logsource": {
       "type": "object",
       "required": ["product", "service"],
@@ -17,7 +21,12 @@
         "product": { "const": "androdr" },
         "service": {
           "type": "string",
-          "enum": ["app_scanner", "device_auditor", "dns_monitor", "process_monitor", "file_scanner"]
+          "enum": [
+            "app_scanner", "device_auditor", "dns_monitor",
+            "process_monitor", "file_scanner",
+            "receiver_audit", "tombstone_parser",
+            "accessibility", "appops", "network_monitor"
+          ]
         }
       }
     },
@@ -43,7 +52,8 @@
         "triggered_title": { "type": "string" },
         "safe_title": { "type": "string" },
         "evidence_type": { "type": "string", "enum": ["none", "cve_list", "ioc_match", "permission_cluster"] },
-        "summary_template": { "type": "string" }
+        "summary_template": { "type": "string" },
+        "guidance": { "type": "string" }
       }
     }
   }

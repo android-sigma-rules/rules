@@ -60,7 +60,12 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str]) -> list[str]:
     logsource = rule.get("logsource", {})
     if logsource.get("product") != "androdr":
         errors.append(f"logsource.product must be 'androdr', got: {logsource.get('product')}")
-    valid_services = {"app_scanner", "device_auditor", "dns_monitor", "process_monitor", "file_scanner"}
+    valid_services = {
+        "app_scanner", "device_auditor", "dns_monitor",
+        "process_monitor", "file_scanner",
+        "receiver_audit", "tombstone_parser",
+        "accessibility", "appops", "network_monitor",
+    }
     if logsource.get("service") not in valid_services:
         errors.append(f"Invalid logsource.service: {logsource.get('service')}")
 
