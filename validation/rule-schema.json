@@ -6,11 +6,9 @@
     "title",
     "id",
     "status",
-    "description",
     "logsource",
     "detection",
     "level",
-    "tags",
     "category"
   ],
   "properties": {
@@ -71,16 +69,22 @@
         "service": {
           "type": "string",
           "enum": [
+            "accessibility_audit",
             "app_scanner",
+            "appops_audit",
+            "battery_daily",
+            "db_info",
             "device_auditor",
             "dns_monitor",
-            "process_monitor",
             "file_scanner",
+            "network_monitor",
+            "package_install_history",
+            "platform_compat",
+            "process_monitor",
             "receiver_audit",
+            "timeline",
             "tombstone_parser",
-            "accessibility",
-            "appops",
-            "network_monitor"
+            "wakelock_parser"
           ]
         }
       }
