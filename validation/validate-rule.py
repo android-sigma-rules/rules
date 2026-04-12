@@ -53,7 +53,7 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str]) -> list[str]:
     if "status" in rule and rule["status"] not in ("experimental", "test", "production"):
         errors.append(f"Invalid status: {rule['status']}")
 
-    if "level" in rule and rule["level"] not in ("critical", "high", "medium", "low"):
+    if "level" in rule and rule["level"] not in ("critical", "high", "medium", "low", "informational"):
         errors.append(f"Invalid level: {rule['level']}")
 
     # Logsource

@@ -2,58 +2,164 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "AndroDR SIGMA Rule",
   "type": "object",
-  "required": ["title", "id", "status", "description", "logsource", "detection", "level", "tags", "category"],
+  "required": [
+    "title",
+    "id",
+    "status",
+    "description",
+    "logsource",
+    "detection",
+    "level",
+    "tags",
+    "category"
+  ],
   "properties": {
-    "title": { "type": "string", "minLength": 1 },
-    "id": { "type": "string", "pattern": "^androdr-(\\d{3}|atom-[a-z-]+|corr-\\d{3})$" },
-    "status": { "type": "string", "enum": ["experimental", "test", "production"] },
-    "description": { "type": "string" },
-    "author": { "type": "string" },
-    "date": { "type": "string" },
-    "references": { "type": "array", "items": { "type": "string" } },
-    "category": { "type": "string", "enum": ["incident", "device_posture"] },
-    "enabled": { "type": "boolean" },
-    "report_safe_state": { "type": "boolean" },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^androdr-(\\d{3}|atom-[a-z-]+|corr-\\d{3})$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "experimental",
+        "test",
+        "production"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "incident",
+        "device_posture"
+      ]
+    },
+    "enabled": {
+      "type": "boolean"
+    },
+    "report_safe_state": {
+      "type": "boolean"
+    },
     "logsource": {
       "type": "object",
-      "required": ["product", "service"],
+      "required": [
+        "product",
+        "service"
+      ],
       "properties": {
-        "product": { "const": "androdr" },
+        "product": {
+          "const": "androdr"
+        },
         "service": {
           "type": "string",
           "enum": [
-            "app_scanner", "device_auditor", "dns_monitor",
-            "process_monitor", "file_scanner",
-            "receiver_audit", "tombstone_parser",
-            "accessibility", "appops", "network_monitor"
+            "app_scanner",
+            "device_auditor",
+            "dns_monitor",
+            "process_monitor",
+            "file_scanner",
+            "receiver_audit",
+            "tombstone_parser",
+            "accessibility",
+            "appops",
+            "network_monitor"
           ]
         }
       }
     },
     "detection": {
       "type": "object",
-      "required": ["condition"],
+      "required": [
+        "condition"
+      ],
       "properties": {
-        "condition": { "type": "string", "minLength": 1 }
+        "condition": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
-    "level": { "type": "string", "enum": ["critical", "high", "medium", "low"] },
+    "level": {
+      "type": "string",
+      "enum": [
+        "critical",
+        "high",
+        "medium",
+        "low",
+        "informational"
+      ]
+    },
     "tags": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
-    "falsepositives": { "type": "array", "items": { "type": "string" } },
-    "remediation": { "type": "array", "items": { "type": "string" } },
+    "falsepositives": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "remediation": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "display": {
       "type": "object",
       "properties": {
-        "category": { "type": "string", "enum": ["app_risk", "device_posture", "network"] },
-        "icon": { "type": "string" },
-        "triggered_title": { "type": "string" },
-        "safe_title": { "type": "string" },
-        "evidence_type": { "type": "string", "enum": ["none", "cve_list", "ioc_match", "permission_cluster"] },
-        "summary_template": { "type": "string" },
-        "guidance": { "type": "string" }
+        "category": {
+          "type": "string",
+          "enum": [
+            "app_risk",
+            "device_posture",
+            "network"
+          ]
+        },
+        "icon": {
+          "type": "string"
+        },
+        "triggered_title": {
+          "type": "string"
+        },
+        "safe_title": {
+          "type": "string"
+        },
+        "evidence_type": {
+          "type": "string",
+          "enum": [
+            "none",
+            "cve_list",
+            "ioc_match",
+            "permission_cluster"
+          ]
+        },
+        "summary_template": {
+          "type": "string"
+        },
+        "guidance": {
+          "type": "string"
+        }
       }
     }
   }
