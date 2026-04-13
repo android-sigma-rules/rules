@@ -20,11 +20,6 @@
     "url": "https://github.com/AmnestyTech/investigations"
   },
   {
-    "id": "amnesty-investigations",
-    "name": "Amnesty International Security Lab (investigations)",
-    "url": "https://github.com/AmnestyTech/investigations"
-  },
-  {
     "id": "citizenlab-indicators",
     "name": "Citizen Lab Malware Indicators",
     "url": "https://github.com/citizenlab/malware-indicators"
