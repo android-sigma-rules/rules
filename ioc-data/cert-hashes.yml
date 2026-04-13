@@ -1,7 +1,7 @@
 version: "2026-04-02"
 description: "Known malicious APK signing certificate hashes"
 sources:
-  - amnesty-tech
+  - amnesty-investigations
   - mvt-indicators
   - stalkerware-indicators
 entries:
@@ -11,19 +11,19 @@ entries:
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "NoviSpy signing certificate"
-    source: "amnesty-tech"
+    source: "amnesty-investigations"
   - indicator: "35926e966186c8f2deec66864389d73989c75c85cb6668da2f455db6fe67e91f"
     family: "NoviSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "NoviSpy signing certificate variant"
-    source: "amnesty-tech"
+    source: "amnesty-investigations"
   - indicator: "38693e1ea0fbf39d28f66b1714fdeed4e23b3973276481097d2d66e87f3647eb"
     family: "NoviSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "NoviSpy signing certificate variant"
-    source: "amnesty-tech"
+    source: "amnesty-investigations"
 
   # ResidentBat (Belarus) — RSF / RESIDENT.NGO
   - indicator: "18afc5c6bfaee504a26291f6bf3e6f823dbedd54bba0c4acac2e7c2414b3e24d"
