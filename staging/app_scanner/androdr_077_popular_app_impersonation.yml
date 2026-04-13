@@ -1,6 +1,7 @@
 title: Sideloaded app impersonating popular application
-id: androdr-071
+id: androdr-077
 status: experimental
+category: incident
 description: >
     A sideloaded app uses a package name prefix belonging to a well-known
     application (WhatsApp, Snapchat, Instagram, etc.) but was not installed

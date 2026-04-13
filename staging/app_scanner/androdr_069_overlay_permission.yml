@@ -1,6 +1,7 @@
 title: Sideloaded app with screen overlay permission
 id: androdr-069
 status: experimental
+category: incident
 description: >
     A sideloaded app requests SYSTEM_ALERT_WINDOW permission, which allows
     it to draw overlays on top of other apps. Banking trojans use this to
@@ -23,7 +24,7 @@ detection:
     filter_known_good:
         package_name|ioc_lookup: known_good_app_db
     condition: selection and not filter_known_good
-level: high
+level: medium
 display:
     category: app_risk
     icon: layers

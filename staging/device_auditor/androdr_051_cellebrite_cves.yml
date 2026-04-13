@@ -1,6 +1,7 @@
 title: CVE exploited by Cellebrite UFED
 id: androdr-051
 status: experimental
+category: device_posture
 description: >
     Device has unpatched CVEs known to be exploited by Cellebrite's UFED
     forensic extraction tool. These vulnerabilities were used to unlock and
