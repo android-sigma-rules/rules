@@ -1,0 +1,204 @@
+# Logsource Field Taxonomy — AndroDR SIGMA Rule Engine
+#
+# Authoritative reference for which fields each logsource service provides.
+# Field names are the map keys from toFieldMap(), NOT Kotlin property names.
+# The Rule Author skill uses this to constrain detection block fields.
+# LogsourceTaxonomyCrossCheckTest.kt validates this matches the Kotlin runtime.
+
+product: androdr
+
+services:
+  # ── Member-function toFieldMap() (data model classes) ──────────────
+
+  app_scanner:
+    model_class: AppTelemetry
+    field_map: member
+    status: active
+    fields:
+      package_name: { type: string, description: "Android package name (e.g., com.example.app)" }
+      app_name: { type: string, description: "User-visible app label" }
+      cert_hash: { type: string, nullable: true, description: "SHA-256 of signing certificate" }
+      apk_hash: { type: string, nullable: true, description: "SHA-256 of APK file" }
+      is_system_app: { type: boolean, description: "True if app is in /system partition" }
+      from_trusted_store: { type: boolean, description: "True if installed from Play Store or other trusted source" }
+      installer: { type: string, nullable: true, description: "Package name of the installer (e.g., com.android.vending)" }
+      is_sideloaded: { type: boolean, description: "True if installed outside trusted stores" }
+      is_known_oem_app: { type: boolean, description: "True if package matches known OEM prefix list" }
+      permissions: { type: list, description: "List of declared Android permissions" }
+      surveillance_permission_count: { type: int, description: "Count of surveillance-related permissions (camera, mic, location, SMS, etc.)" }
+      has_accessibility_service: { type: boolean, description: "True if app declares an accessibility service" }
+      has_device_admin: { type: boolean, description: "True if app declares a device admin receiver" }
+      known_app_category: { type: string, nullable: true, description: "Category from known-good apps DB (e.g., SOCIAL, PRODUCTIVITY)" }
+      service_permissions: { type: list, description: "Permissions declared on exported services" }
+      receiver_permissions: { type: list, description: "Permissions declared on broadcast receivers" }
+      has_launcher_activity: { type: boolean, description: "True if app has a launcher-visible activity" }
+      first_install_time: { type: long, description: "Epoch ms of first install (0 = unknown)" }
+      last_update_time: { type: long, description: "Epoch ms of last update (0 = unknown)" }
+
+  device_auditor:
+    model_class: DeviceTelemetry
+    field_map: member
+    status: active
+    fields:
+      check_id: { type: string, description: "Identifier for the specific device check" }
+      is_triggered: { type: boolean, description: "True if the check found an issue" }
+      adb_enabled: { type: boolean, description: "USB debugging enabled" }
+      dev_options_enabled: { type: boolean, description: "Developer options enabled" }
+      unknown_sources_enabled: { type: boolean, description: "Install from unknown sources enabled" }
+      screen_lock_enabled: { type: boolean, description: "Screen lock is configured" }
+      patch_level: { type: string, description: "Android security patch level (YYYY-MM-DD)" }
+      patch_age_days: { type: int, description: "Days since last security patch" }
+      bootloader_unlocked: { type: boolean, description: "Bootloader is unlocked" }
+      wifi_adb_enabled: { type: boolean, description: "Wireless ADB debugging enabled" }
+      unpatched_cve_count: { type: int, description: "Number of unpatched CVEs for this patch level" }
+      unpatched_cves: { type: list, description: "List of CveEntity objects" }
+      unpatched_cve_id: { type: string, description: "Comma-joined CVE IDs (derived field, not a constructor param)" }
+
+  dns_monitor:
+    model_class: DnsEvent
+    field_map: member
+    status: active
+    fields:
+      domain: { type: string, description: "Queried domain name" }
+      app_uid: { type: int, description: "UID of the app that made the DNS query" }
+      source_package: { type: string, nullable: true, description: "Package name of querying app (key differs from property appName)" }
+      is_blocked: { type: boolean, description: "True if DNS response was replaced with NXDOMAIN" }
+      reason: { type: string, nullable: true, description: "Reason for blocking (blocklist match, etc.)" }
+
+  process_monitor:
+    model_class: ProcessTelemetry
+    field_map: member
+    status: active
+    fields:
+      process_name: { type: string, description: "Process name from /proc" }
+      process_uid: { type: int, description: "Linux UID of the process" }
+      package_name: { type: string, nullable: true, description: "Android package name if resolvable" }
+      is_foreground: { type: boolean, description: "True if process is in foreground" }
+
+  file_scanner:
+    model_class: FileArtifactTelemetry
+    field_map: member
+    status: active
+    fields:
+      file_path: { type: string, description: "Absolute path to the file" }
+      file_exists: { type: boolean, description: "True if the file exists at scan time" }
+      file_size: { type: long, nullable: true, description: "File size in bytes" }
+      file_modified: { type: long, nullable: true, description: "Last modified timestamp (epoch ms)" }
+
+  receiver_audit:
+    model_class: ReceiverTelemetry
+    field_map: member
+    status: active
+    fields:
+      package_name: { type: string, description: "Package declaring the receiver" }
+      intent_action: { type: string, description: "Intent action the receiver listens for" }
+      component_name: { type: string, description: "Fully qualified receiver class name" }
+      is_system_app: { type: boolean, description: "True if declaring app is a system app" }
+
+  accessibility_audit:
+    model_class: AccessibilityTelemetry
+    field_map: member
+    status: active
+    fields:
+      package_name: { type: string, description: "Package declaring the accessibility service" }
+      service_name: { type: string, description: "Fully qualified service class name" }
+      is_system_app: { type: boolean, description: "True if declaring app is a system app" }
+      is_enabled: { type: boolean, description: "True if the service is currently enabled" }
+
+  appops_audit:
+    model_class: AppOpsTelemetry
+    field_map: member
+    status: active
+    fields:
+      package_name: { type: string, description: "Package the operation belongs to" }
+      operation: { type: string, description: "AppOps operation name (e.g., android:camera)" }
+      last_access_time: { type: long, description: "Epoch ms of last access" }
+      last_reject_time: { type: long, description: "Epoch ms of last rejection" }
+      access_count: { type: int, description: "Total access count" }
+      is_system_app: { type: boolean, description: "True if app is a system app" }
+
+  network_monitor:
+    model_class: NetworkTelemetry
+    field_map: member
+    status: unwired  # toFieldMap() exists but NO evaluate method in SigmaRuleEngine — rules cannot fire
+    fields:
+      destination_ip: { type: string, description: "Destination IP address" }
+      destination_port: { type: int, description: "Destination port number" }
+      protocol: { type: string, description: "Protocol (TCP/UDP)" }
+      app_uid: { type: int, description: "UID of the app making the connection" }
+      app_name: { type: string, nullable: true, description: "Package name of the connecting app" }
+      timestamp: { type: long, description: "Connection timestamp (epoch ms)" }
+
+  # ── Extension-function toFieldMap() (TelemetryFieldMaps.kt) ────────
+
+  tombstone_parser:
+    model_class: TombstoneEvent
+    field_map: extension  # internal fun TombstoneEvent.toFieldMap() in com.androdr.sigma
+    status: active
+    fields:
+      process_name: { type: string, description: "Crashed process name" }
+      package_name: { type: string, nullable: true, description: "Package name if resolvable" }
+      signal_number: { type: int, nullable: true, description: "Signal that caused the crash" }
+      abort_message: { type: string, nullable: true, description: "Abort message from the crash" }
+      crash_timestamp: { type: long, description: "When the crash occurred (epoch ms)" }
+      source: { type: string, description: "TelemetrySource enum name (LIVE_SCAN or BUGREPORT_IMPORT)" }
+      captured_at: { type: long, description: "When this telemetry was captured (epoch ms)" }
+
+  wakelock_parser:
+    model_class: WakelockAcquisition
+    field_map: extension
+    status: active
+    fields:
+      package_name: { type: string, description: "Package holding the wakelock" }
+      wakelock_tag: { type: string, description: "Wakelock tag string" }
+      acquired_at: { type: long, description: "When the wakelock was acquired (epoch ms)" }
+      duration_millis: { type: long, nullable: true, description: "How long the wakelock was held" }
+      source: { type: string, description: "TelemetrySource enum name" }
+      captured_at: { type: long, description: "When this telemetry was captured (epoch ms)" }
+
+  battery_daily:
+    model_class: BatteryDailyEvent
+    field_map: extension
+    status: active
+    fields:
+      day_index: { type: int, description: "Day offset in the battery stats history" }
+      event_type: { type: string, description: "Battery event type" }
+      package_name: { type: string, nullable: true, description: "Package associated with the event" }
+      description: { type: string, description: "Human-readable event description" }
+      source: { type: string, description: "TelemetrySource enum name" }
+      captured_at: { type: long, description: "When this telemetry was captured (epoch ms)" }
+
+  package_install_history:
+    model_class: PackageInstallHistoryEntry
+    field_map: extension
+    status: active
+    fields:
+      package_name: { type: string, description: "Installed/updated/uninstalled package name" }
+      event_type: { type: string, description: "INSTALL, UNINSTALL, or UPDATE" }
+      timestamp: { type: long, description: "When the event occurred (epoch ms)" }
+      version_code: { type: long, nullable: true, description: "Version code at time of event" }
+      source: { type: string, description: "TelemetrySource enum name" }
+      captured_at: { type: long, description: "When this telemetry was captured (epoch ms)" }
+
+  platform_compat:
+    model_class: PlatformCompatChange
+    field_map: extension
+    status: active
+    fields:
+      change_id: { type: string, description: "Platform compatibility change ID" }
+      package_name: { type: string, description: "Package affected by the change" }
+      enabled: { type: boolean, description: "Whether the compat change is enabled" }
+      source: { type: string, description: "TelemetrySource enum name" }
+      captured_at: { type: long, description: "When this telemetry was captured (epoch ms)" }
+
+  db_info:
+    model_class: DatabasePathObservation
+    field_map: extension
+    status: active
+    fields:
+      file_path: { type: string, description: "Absolute path to the database file" }
+      process_name: { type: string, nullable: true, description: "Process that owns the database" }
+      package_name: { type: string, nullable: true, description: "Package that owns the database" }
+      observation_timestamp: { type: long, description: "When the database was observed (epoch ms)" }
+      source: { type: string, description: "TelemetrySource enum name" }
+      captured_at: { type: long, description: "When this telemetry was captured (epoch ms)" }
