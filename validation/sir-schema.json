@@ -72,6 +72,11 @@
       "default": []
     },
     "confidence": { "type": "string", "enum": ["high", "medium", "low", "none"] },
-    "rule_hint": { "type": "string", "enum": ["ioc_lookup", "behavioral", "device_posture", "network", "hybrid"] }
+    "rule_hint": { "type": "string", "enum": ["ioc_lookup", "behavioral", "device_posture", "network", "hybrid"] },
+    "requires_verification": {
+      "type": "boolean",
+      "description": "True when SIR is built from a single unstructured source. Signals the Rule Author to record an ioc_confidence decision.",
+      "default": false
+    }
   }
 }
