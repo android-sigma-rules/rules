@@ -1,6 +1,7 @@
 title: App registered for boot-completed broadcast
 id: androdr-066
 status: experimental
+category: incident
 description: >
     A non-system app is registered to start automatically when the device
     boots. While many legitimate apps use this (messaging apps, security
@@ -16,16 +17,15 @@ logsource:
     product: androdr
     service: receiver_audit
 detection:
-    selection_boot:
-        intent_action: "android.intent.action.BOOT_COMPLETED"
-        is_system_app: false
-    selection_locked_boot:
-        intent_action: "android.intent.action.LOCKED_BOOT_COMPLETED"
+    selection:
+        intent_action:
+            - "android.intent.action.BOOT_COMPLETED"
+            - "android.intent.action.LOCKED_BOOT_COMPLETED"
         is_system_app: false
     filter_known_good:
         package_name|ioc_lookup: known_good_app_db
-    condition: (selection_boot or selection_locked_boot) and not filter_known_good
-level: medium
+    condition: selection and not filter_known_good
+level: low
 display:
     category: app_risk
     icon: restart_alt
