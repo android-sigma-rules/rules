@@ -95,9 +95,15 @@ def main():
 
     try:
         manifest = load(path)
-    except (json.JSONDecodeError, Exception) as e:
+    except json.JSONDecodeError as e:
         print(f"Parse error: {e}", file=sys.stderr)
         sys.exit(2)
+    except Exception as e:  # noqa: BLE001 — yaml.YAMLError if pyyaml available, OSError, etc.
+        if yaml is not None and isinstance(e, yaml.YAMLError):
+            print(f"Parse error: {e}", file=sys.stderr)
+            sys.exit(2)
+        # Re-raise anything else so real bugs aren't masked as parse errors
+        raise
 
     errors = validate(manifest)
     if errors:

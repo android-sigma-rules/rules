@@ -22,7 +22,7 @@ SCHEMA_PATH = SCRIPT_DIR / "feed-state-schema.json"
 ISO_TS_RE = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?Z$")
 ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 SHA_RE = re.compile(r"^[0-9a-f]{7,40}$")
-VERSION_RE = re.compile(r"^\d+\.\d+$")
+VERSION_RE = re.compile(r"^v?\d+\.\d+$")
 
 
 def _check_iso_timestamp(value, path, errors):

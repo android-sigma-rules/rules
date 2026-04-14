@@ -99,8 +99,8 @@
         "last_seen_timestamp": { "type": "string", "format": "date-time" },
         "last_version": {
           "type": "string",
-          "pattern": "^\\d+\\.\\d+$",
-          "description": "MITRE ATT&CK Mobile version string (e.g. '15.1')."
+          "pattern": "^v?\\d+\\.\\d+$",
+          "description": "MITRE ATT&CK Mobile version string (e.g. 'v18.1' or '15.1'). Optional 'v' prefix matches MITRE's tag format."
         }
       }
     }
