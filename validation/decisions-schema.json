@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AndroDR Rule Author Decision Manifest",
+  "description": "Schema for the 'decisions' array returned by update-rules-author.",
+  "type": "object",
+  "required": ["decisions"],
+  "additionalProperties": false,
+  "properties": {
+    "decisions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/Decision" }
+    }
+  },
+  "$defs": {
+    "Decision": {
+      "type": "object",
+      "required": ["field", "chosen", "alternative", "reasoning"],
+      "additionalProperties": false,
+      "properties": {
+        "rule_id": {
+          "type": ["string", "null"],
+          "pattern": "^androdr-(NNN|\\d{3}|corr-\\d{3}|atom-[a-z0-9-]+)$",
+          "description": "Rule ID the decision applies to, or null for pre-creation decisions (skip, telemetry_gap)."
+        },
+        "field": {
+          "type": "string",
+          "description": "Field name the decision applies to, 'rule_creation' for meta-decisions, or 'ioc_data' for IOC-level decisions."
+        },
+        "type": {
+          "type": "string",
+          "enum": ["ioc_confidence", "telemetry_gap"],
+          "description": "Decision type. Omitted for generic ambiguity flags (severity, IOC breadth, behavioral borderline)."
+        },
+        "chosen": {
+          "type": "string",
+          "description": "The choice the Rule Author made."
+        },
+        "alternative": {
+          "type": "string",
+          "description": "The alternative that was rejected."
+        },
+        "reasoning": {
+          "type": "string",
+          "description": "Why the chosen option was picked over the alternative."
+        },
+        "missing_field": {
+          "type": "string",
+          "description": "Only present for type=telemetry_gap. The taxonomy field that would have been needed."
+        },
+        "suggested_service": {
+          "type": "string",
+          "description": "Only present for type=telemetry_gap. The logsource service the missing field should belong to."
+        }
+      },
+      "allOf": [
+        {
+          "if":   { "properties": { "type": { "const": "telemetry_gap" } }, "required": ["type"] },
+          "then": { "required": ["missing_field", "suggested_service"] }
+        },
+        {
+          "if":   { "not": { "properties": { "type": { "const": "telemetry_gap" } }, "required": ["type"] } },
+          "then": {
+            "properties": {
+              "missing_field":     { "not": {} },
+              "suggested_service": { "not": {} }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
