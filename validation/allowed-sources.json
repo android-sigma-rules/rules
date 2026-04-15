@@ -38,5 +38,10 @@
     "id": "android-security-bulletin",
     "name": "Google Android Security Bulletins",
     "url": "https://source.android.com/docs/security/bulletin"
+  },
+  {
+    "id": "zimperium-ioc",
+    "name": "Zimperium IOC Repository",
+    "url": "https://github.com/Zimperium/IOC"
   }
 ]
