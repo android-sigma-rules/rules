@@ -19,9 +19,11 @@ except ImportError:
     sys.exit("pyyaml required: pip install pyyaml")
 
 SCRIPT_DIR = Path(__file__).parent
+# "all" is a combiner (trailing), not a base modifier. Grammar allowed:
+#   field|base | field|base|all | field|all (standalone, maps to ALL semantics).
 VALID_MODIFIERS = {
     "contains", "startswith", "endswith", "re",
-    "gte", "lte", "gt", "lt", "ioc_lookup",
+    "gte", "lte", "gt", "lt", "ioc_lookup", "all",
 }
 MAX_REGEX_LENGTH = 500
 
@@ -84,18 +86,38 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str]) -> list[str]:
         if sel_name == "condition" or not isinstance(sel_value, dict):
             continue
         for field_key in sel_value:
-            if "|" in field_key:
-                _, modifier = field_key.rsplit("|", 1)
+            if "|" not in field_key:
+                continue
+            tokens = field_key.split("|")
+            modifiers = tokens[1:]
+            # Grammar: chain must be [base] or [base, "all"]. Mirrors Kotlin
+            # SigmaRuleParser's single-base-modifier-plus-optional-|all rule.
+            if "all" in modifiers[:-1]:
+                errors.append(
+                    f"'all' must be the trailing combiner in '{field_key}'"
+                )
+            if len(modifiers) > 2 or (len(modifiers) == 2 and modifiers[-1] != "all"):
+                errors.append(
+                    f"Chain too long in '{field_key}': expected at most one modifier "
+                    f"(optionally followed by |all). Got: {'|'.join(modifiers)}"
+                )
+            # tokens[0] is the field name; tokens[1:] are modifiers (chain).
+            for modifier in tokens[1:]:
                 if modifier not in VALID_MODIFIERS:
-                    errors.append(f"Invalid modifier '{modifier}' in field '{field_key}'")
-                if modifier == "re":
-                    values = sel_value[field_key]
-                    if isinstance(values, list):
-                        for v in values:
-                            if isinstance(v, str) and len(v) > MAX_REGEX_LENGTH:
-                                errors.append(f"Regex pattern exceeds {MAX_REGEX_LENGTH} chars in '{field_key}'")
-                    elif isinstance(values, str) and len(values) > MAX_REGEX_LENGTH:
-                        errors.append(f"Regex pattern exceeds {MAX_REGEX_LENGTH} chars in '{field_key}'")
+                    errors.append(
+                        f"Invalid modifier '{modifier}' in field '{field_key}'. "
+                        f"Supported: {', '.join(sorted(VALID_MODIFIERS))}"
+                    )
+            # Regex length check fires whenever 're' appears anywhere in the modifier
+            # chain (e.g. 'url|re|all' must still enforce the max pattern length).
+            if "re" in tokens[1:]:
+                values = sel_value[field_key]
+                if isinstance(values, list):
+                    for v in values:
+                        if isinstance(v, str) and len(v) > MAX_REGEX_LENGTH:
+                            errors.append(f"Regex pattern exceeds {MAX_REGEX_LENGTH} chars in '{field_key}'")
+                elif isinstance(values, str) and len(values) > MAX_REGEX_LENGTH:
+                    errors.append(f"Regex pattern exceeds {MAX_REGEX_LENGTH} chars in '{field_key}'")
 
     # Display block
     display = rule.get("display", {})
