@@ -1,0 +1,52 @@
+name: validate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  validate-ioc-data:
+    name: Validate ioc-data/*.yml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: pip install pyyaml jsonschema
+      - name: Validate every ioc-data file
+        run: |
+          for f in ioc-data/*.yml; do
+            python3 validation/validate-ioc-data.py "$f"
+          done
+
+  validate-feed-state:
+    name: Validate feed-state.json
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: pip install pyyaml jsonschema
+      - name: Validate feed-state.json
+        run: python3 validation/validate-feed-state.py
+
+  validate-rules:
+    name: Validate rules/**/*.yml
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: pip install pyyaml jsonschema
+      - name: Validate every rule
+        run: |
+          find app_scanner device_auditor dns_monitor process_monitor file_scanner accessibility_audit appops_audit receiver_audit staging -name '*.yml' -print0 \
+            | xargs -0 -I{} python3 validation/validate-rule.py "{}"
