@@ -31,6 +31,45 @@ BLOCKED_FAMILY_PATTERNS = re.compile(
 )
 HEX_SHA256 = re.compile(r"^[0-9a-f]{64}$")
 HEX_SHA1 = re.compile(r"^[0-9a-f]{40}$")
+HEX_MD5 = re.compile(r"^[0-9a-f]{32}$")
+HEX_TLSH = re.compile(r"^[0-9a-f]{72}$")
+HEX_SHA512 = re.compile(r"^[0-9a-f]{128}$")
+
+
+def classify_hash(indicator: str) -> str:
+    """Return a human-readable hint for why a hash indicator is not a usable APK/cert hash.
+
+    Recognizes common wrong formats that have slipped into threat-intel reports
+    (MD5 from Kaspersky, TLSH from MalwareBazaar metadata, etc.) and returns a
+    short diagnostic message. Returns the empty string if the indicator does
+    not match any known format — the caller should still report a generic
+    format-mismatch error.
+    """
+    s = indicator.lower()
+    if HEX_MD5.match(s):
+        return (
+            "32 hex chars — likely MD5 (or PE imphash). AndroDR uses SHA-256 "
+            "only for APK lookup. Re-fetch the sample from MalwareBazaar/"
+            "VirusTotal to obtain SHA-256."
+        )
+    if HEX_SHA1.match(s):
+        return (
+            "40 hex chars — SHA-1 is not matched on-device for APK hashes. "
+            "SHA-1 is accepted only in cert-hashes.yml."
+        )
+    if HEX_TLSH.match(s):
+        return (
+            "72 hex chars — looks like TLSH (fuzzy similarity hash). "
+            "Not supported as APK_HASH."
+        )
+    if HEX_SHA512.match(s):
+        return (
+            "128 hex chars — SHA-512 is not supported as APK_HASH; AndroDR "
+            "uses SHA-256."
+        )
+    if re.fullmatch(r"[0-9]+:[A-Za-z0-9+/]+:[A-Za-z0-9+/]+", indicator):
+        return "ssdeep fuzzy hash format — not supported as APK_HASH or CERT_HASH."
+    return ""
 
 
 def load_allowed_sources(path: Path) -> set[str]:
@@ -60,6 +99,12 @@ def validate_ioc_file(data: dict, allowed_sources: set[str], filename: str) -> l
 
     seen_indicators = set()
     is_cert_file = "cert" in filename.lower()
+    # APK-hash files (malware-hashes.yml is the active one; apk-hashes.yml is
+    # reserved per ioc-lookup-definitions.yml). Both must carry SHA-256 only,
+    # because IndicatorResolver.isKnownBadApkHash does not look up MD5 or SHA-1.
+    is_apk_hash_file = (
+        "malware-hashes" in filename.lower() or "apk-hashes" in filename.lower()
+    )
 
     for idx, entry in enumerate(entries):
         prefix = f"entries[{idx}]"
@@ -92,11 +137,38 @@ def validate_ioc_file(data: dict, allowed_sources: set[str], filename: str) -> l
         indicator = entry.get("indicator", "")
         if is_cert_file and indicator:
             if not (HEX_SHA256.match(indicator) or HEX_SHA1.match(indicator)):
-                errors.append(
-                    f"{prefix}: invalid cert hash format "
-                    f"(expected 64-char SHA-256 or 40-char SHA-1 lowercase hex): "
-                    f"'{indicator[:20]}...'"
-                )
+                hint = classify_hash(indicator)
+                if hint:
+                    errors.append(
+                        f"{prefix}: invalid cert hash format for "
+                        f"'{indicator[:40]}...' — {hint} "
+                        f"(cert-hashes.yml accepts SHA-256 or SHA-1 only)"
+                    )
+                else:
+                    errors.append(
+                        f"{prefix}: invalid cert hash format "
+                        f"(expected 64-char SHA-256 or 40-char SHA-1 lowercase hex): "
+                        f"'{indicator[:20]}...'"
+                    )
+
+        # APK hash format — malware-hashes.yml / apk-hashes.yml accept SHA-256
+        # only. MD5 (32 hex, common from Kaspersky/Dr.Web) and SHA-1 (40 hex,
+        # legacy reports) never match on-device; AndroDR's
+        # IndicatorResolver.isKnownBadApkHash uses SHA-256 exclusively.
+        if is_apk_hash_file and indicator:
+            if not HEX_SHA256.match(indicator):
+                hint = classify_hash(indicator)
+                if hint:
+                    errors.append(
+                        f"{prefix}: invalid APK hash format for "
+                        f"'{indicator[:40]}...' — {hint}"
+                    )
+                else:
+                    errors.append(
+                        f"{prefix}: invalid APK hash format "
+                        f"(expected 64-char SHA-256 lowercase hex): "
+                        f"'{indicator[:40]}...'"
+                    )
 
         # Duplicate check
         if indicator:
