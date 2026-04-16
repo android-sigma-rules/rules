@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AndroDR IOC Entry",
+  "description": "Schema for a single entry in any ioc-data/*.yml file. Covers two legitimate entry shapes surfaced by the Task 1a audit: (1) a threat-IOC entry keyed on 'indicator' (used by c2-domains.yml, cert-hashes.yml, malware-hashes.yml, package-names.yml), and (2) a known-good allowlist entry keyed on 'packageName' (used by popular-apps.yml). Files that have no 'entries' list at all (e.g. known-oem-prefixes.yml, which uses structural prefix-group keys) are handled by the validator's early-return path and are not reached by this schema.",
+  "oneOf": [
+    { "$ref": "#/$defs/threatIocEntry" },
+    { "$ref": "#/$defs/knownGoodAppEntry" }
+  ],
+  "$defs": {
+    "threatIocEntry": {
+      "type": "object",
+      "description": "Threat IOC: a malicious indicator (domain, hash, package name) with provenance.",
+      "required": ["indicator", "category", "severity", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "indicator":   { "type": "string", "minLength": 1 },
+        "family":      { "type": "string" },
+        "category":    {
+          "type": "string",
+          "enum": [
+            "STALKERWARE",
+            "SPYWARE",
+            "MALWARE",
+            "NATION_STATE_SPYWARE",
+            "FORENSIC_TOOL",
+            "MONITORING"
+          ]
+        },
+        "severity":    { "type": "string", "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"] },
+        "source":      { "type": "string", "minLength": 1 },
+        "description": { "type": "string" }
+      }
+    },
+    "knownGoodAppEntry": {
+      "type": "object",
+      "description": "Known-good allowlist entry: a legitimate popular Android app whose permission usage should not generate low-confidence findings.",
+      "required": ["packageName", "displayName", "reason"],
+      "additionalProperties": false,
+      "properties": {
+        "packageName": { "type": "string", "minLength": 1 },
+        "displayName": { "type": "string", "minLength": 1 },
+        "reason":      { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

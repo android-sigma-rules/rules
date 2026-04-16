@@ -1,0 +1,35 @@
+# Upstream feeds that AndroDR's Kotlin bypass feed clients fetch directly.
+# Entries in ioc-data/*.yml must NOT duplicate anything in these feeds —
+# enforced by validate-ioc-complementarity.py.
+#
+# This list MUST match the set of in-scope bypass feed classes in AndroDR's
+# app/src/main/java/com/androdr/ioc/feeds/. Drift is caught by the
+# Kotlin-side KotlinMirrorFeedsCrossCheckTest.
+#
+# Out of scope (intentionally omitted):
+# - HaGeZi (1M-entry DNS blocklist, wrong shape for YAML)
+# - UAD, Plexus (known-good datasets, opposite trust polarity)
+# - Zimperium (third-party mirror-of-a-mirror)
+# - MalwareBazaarCertFeed (stub — no upstream wired yet)
+
+version: 1
+feeds:
+  - id: stalkerware-indicators
+    url: https://raw.githubusercontent.com/AssoEchap/stalkerware-indicators/master/ioc.yaml
+    parser: stalkerware-yaml
+    types: [PACKAGE_NAME]
+
+  - id: mvt-indicators
+    url: https://raw.githubusercontent.com/mvt-project/mvt-indicators/main/indicators.yaml
+    parser: mvt-stix
+    types: [PACKAGE_NAME, C2_DOMAIN]
+
+  - id: threatfox
+    url: https://threatfox.abuse.ch/export/json/recent/
+    parser: threatfox-json
+    types: [C2_DOMAIN]
+
+  - id: malwarebazaar
+    url: https://bazaar.abuse.ch/export/csv/recent/
+    parser: malwarebazaar-csv
+    types: [APK_HASH]

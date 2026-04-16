@@ -1,0 +1,36 @@
+# Canonical map of SIGMA `ioc_lookup` database names to IOC types and
+# source files. Consumers implementing the SIGMA dialect use this to
+# resolve `field|ioc_lookup: <db_name>` against the ioc-data/*.yml files.
+#
+# The names in this file MUST match the map in AndroDR's
+# ScanOrchestrator.initRuleEngine(). Drift is caught by the Kotlin-side
+# IocLookupDefinitionsCrossCheckTest.
+
+version: 1
+lookups:
+  package_ioc_db:
+    type: PACKAGE_NAME
+    files: [ioc-data/package-names.yml]
+    description: "Known-malicious Android package names (stalkerware, spyware, malware)"
+
+  cert_hash_ioc_db:
+    type: CERT_HASH
+    files: [ioc-data/cert-hashes.yml]
+    description: "Known-malicious APK signing-cert SHA-256 and SHA-1 hashes"
+
+  domain_ioc_db:
+    type: C2_DOMAIN
+    files: [ioc-data/c2-domains.yml]
+    description: "Known-malicious command-and-control domains"
+
+  apk_hash_ioc_db:
+    type: APK_HASH
+    files: [ioc-data/malware-hashes.yml]
+    description: "Known-malicious APK file SHA-256 hashes"
+
+  known_good_app_db:
+    type: PACKAGE_NAME
+    files:
+      - ioc-data/popular-apps.yml
+      - ioc-data/known-oem-prefixes.yml
+    description: "Allowlist of popular legitimate apps and OEM package prefixes"

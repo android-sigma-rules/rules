@@ -19,6 +19,11 @@ try:
 except ImportError:
     sys.exit("pyyaml required: pip install pyyaml")
 
+try:
+    from jsonschema import Draft202012Validator
+except ImportError:
+    sys.exit("jsonschema required: pip install jsonschema")
+
 SCRIPT_DIR = Path(__file__).parent
 BLOCKED_CATEGORIES = {"TEST", "FIXTURE", "SIMULATION", "DEBUG"}
 BLOCKED_FAMILY_PATTERNS = re.compile(
@@ -42,11 +47,29 @@ def validate_ioc_file(data: dict, allowed_sources: set[str], filename: str) -> l
         errors.append("No 'entries' list found in file")
         return errors
 
+    # Schema validation (runs first; legacy checks below still run for defense-in-depth)
+    schema_path = SCRIPT_DIR / "ioc-entry-schema.json"
+    if not schema_path.exists():
+        sys.exit(f"ioc-entry-schema.json not found at: {schema_path}")
+    with open(schema_path) as f:
+        entry_schema = json.load(f)
+    validator = Draft202012Validator(entry_schema)
+    for idx, entry in enumerate(entries):
+        for err in validator.iter_errors(entry):
+            errors.append(f"entries[{idx}]: schema violation: {err.message}")
+
     seen_indicators = set()
     is_cert_file = "cert" in filename.lower()
 
     for idx, entry in enumerate(entries):
         prefix = f"entries[{idx}]"
+
+        # Known-good allowlist entries (popular-apps.yml shape) don't carry
+        # threat-IOC provenance fields. Skip threat-IOC-specific legacy checks
+        # for them; the schema above already validated their required fields.
+        is_known_good_entry = "packageName" in entry and "indicator" not in entry
+        if is_known_good_entry:
+            continue
 
         # Source field
         source = entry.get("source")
@@ -113,7 +136,13 @@ def main():
         sys.exit(0)
 
     entries = data.get("entries")
-    if entries is not None and len(entries) == 0:
+    # Treat "entries missing entirely" the same as "entries: []". This covers
+    # structural files like known-oem-prefixes.yml, which use prefix-group keys
+    # (aosp_prefixes, samsung_prefixes, ...) instead of an entries list. Those
+    # files have no per-entry provenance to validate, so there is nothing for
+    # this validator to do. Chose this over a per-filename allowlist so future
+    # prefix-group-style files are handled without code changes.
+    if entries is None or len(entries) == 0:
         print(f"PASS: {ioc_path.name} (no entries)")
         sys.exit(0)
 
