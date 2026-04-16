@@ -49,13 +49,14 @@ def validate_ioc_file(data: dict, allowed_sources: set[str], filename: str) -> l
 
     # Schema validation (runs first; legacy checks below still run for defense-in-depth)
     schema_path = SCRIPT_DIR / "ioc-entry-schema.json"
-    if schema_path.exists():
-        with open(schema_path) as f:
-            entry_schema = json.load(f)
-        validator = Draft202012Validator(entry_schema)
-        for idx, entry in enumerate(entries):
-            for err in validator.iter_errors(entry):
-                errors.append(f"entries[{idx}]: schema violation: {err.message}")
+    if not schema_path.exists():
+        sys.exit(f"ioc-entry-schema.json not found at: {schema_path}")
+    with open(schema_path) as f:
+        entry_schema = json.load(f)
+    validator = Draft202012Validator(entry_schema)
+    for idx, entry in enumerate(entries):
+        for err in validator.iter_errors(entry):
+            errors.append(f"entries[{idx}]: schema violation: {err.message}")
 
     seen_indicators = set()
     is_cert_file = "cert" in filename.lower()
