@@ -37,6 +37,24 @@
         "attack_mobile":          { "$ref": "#/$defs/FeedCursorWithVersion" },
         "amnesty":                { "$ref": "#/$defs/FeedCursor" }
       }
+    },
+    "discover": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sources"],
+      "properties": {
+        "sources": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "securelist":     { "$ref": "#/$defs/DiscoverSourceCursor" },
+            "welivesecurity": { "$ref": "#/$defs/DiscoverSourceCursor" },
+            "zimperium":      { "$ref": "#/$defs/DiscoverSourceCursor" },
+            "lookout":        { "$ref": "#/$defs/DiscoverSourceCursor" },
+            "google-tag":     { "$ref": "#/$defs/DiscoverSourceCursor" }
+          }
+        }
+      }
     }
   },
   "$defs": {
@@ -126,6 +144,23 @@
           "type": "string",
           "pattern": "^v?\\d+\\.\\d+$",
           "description": "MITRE ATT&CK Mobile version string (e.g. 'v18.1' or '15.1'). Optional 'v' prefix matches MITRE's tag format."
+        }
+      }
+    },
+    "DiscoverSourceCursor": {
+      "type": "object",
+      "required": ["last_seen_timestamp", "last_post_url"],
+      "additionalProperties": false,
+      "properties": {
+        "last_seen_timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 UTC timestamp of the most recent post successfully ingested from this source."
+        },
+        "last_post_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the most recent post ingested. Used for CMS-migration fallback detection."
         }
       }
     }
