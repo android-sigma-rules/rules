@@ -7,7 +7,6 @@ description: >
     launcher icon to avoid detection by the device owner.
 author: AndroDR
 date: 2026/04/04
-category: incident
 tags:
     - attack.t1628.002
 logsource:
@@ -24,6 +23,7 @@ detection:
         from_trusted_store: true
     condition: selection and not filter_known_good and not filter_trusted_store
 level: high
+category: incident
 display:
     category: app_risk
     icon: visibility_off
