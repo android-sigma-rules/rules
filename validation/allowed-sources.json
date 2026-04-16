@@ -43,5 +43,10 @@
     "id": "zimperium-ioc",
     "name": "Zimperium IOC Repository",
     "url": "https://github.com/Zimperium/IOC"
+  },
+  {
+    "id": "threat_research",
+    "name": "AI Pipeline Threat Research (cross-vendor)",
+    "url": "https://github.com/yasirhamza/AndroDR"
   }
 ]
