@@ -19,6 +19,19 @@ Exit codes:
   0 -- no strict-mode violations (advisory warnings may have been emitted)
   1 -- one or more strict-mode violations
   2 -- setup / fetch / parse error
+
+Parser parity:
+  The four parsers (stalkerware-yaml, threatfox-json, malwarebazaar-csv,
+  mvt-stix) match the format assumptions in AndroDR's Kotlin bypass feed
+  clients — they are deliberately bug-for-bug consistent with the Kotlin
+  side, because the invariant being enforced is "no ioc-data entry
+  duplicates what the Kotlin client would deliver." If the Kotlin feed's
+  upstream format differs from reality (e.g., mvt-indicators.yaml is
+  actually a two-level index of STIX2 bundles, which the current Kotlin
+  MvtIndicatorsFeed.kt traverses in two phases but this Python parser
+  does not), the Python side should be brought in line in a coordinated
+  PR with the Kotlin side. See follow-up issue TBD for parser-fidelity
+  audit.
 """
 
 import argparse
@@ -42,7 +55,7 @@ FETCH_TIMEOUT = 30  # seconds
 
 
 def load_mirror_feeds(path: pathlib.Path) -> list[dict]:
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         data = yaml.safe_load(f)
     return data.get("feeds", [])
 
@@ -142,12 +155,19 @@ def build_union_snapshot(feeds: list[dict], allow_unreachable: bool) -> tuple[se
     union: set[tuple[str, str]] = set()
     warnings: list[str] = []
     for feed in feeds:
-        fid = feed["id"]
-        url = feed["url"]
-        parser_name = feed["parser"]
+        fid = feed.get("id")
+        url = feed.get("url")
+        parser_name = feed.get("parser")
+        if not (fid and url and parser_name):
+            print(
+                f"[complementarity] malformed feed entry in mirror-feeds.yml: {feed}",
+                file=sys.stderr,
+            )
+            sys.exit(2)
         parser = PARSERS.get(parser_name)
         if parser is None:
-            raise SystemExit(f"Unknown parser '{parser_name}' for feed '{fid}'")
+            print(f"[complementarity] Unknown parser '{parser_name}' for feed '{fid}'", file=sys.stderr)
+            sys.exit(2)
         try:
             body = fetch_url(url)
             snapshot = parser(body)
@@ -159,13 +179,14 @@ def build_union_snapshot(feeds: list[dict], allow_unreachable: bool) -> tuple[se
             if allow_unreachable:
                 print(msg, file=sys.stderr)
             else:
-                raise SystemExit(f"[complementarity] fetch failed for '{fid}': {e}")
+                print(f"[complementarity] fetch failed for '{fid}': {e}", file=sys.stderr)
+                sys.exit(2)
     return union, warnings
 
 
 def load_offline_snapshot(path: pathlib.Path) -> set[tuple[str, str]]:
     out: set[tuple[str, str]] = set()
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         for line in f:
             line = line.rstrip("\n")
             if not line or line.startswith("#"):
@@ -189,9 +210,14 @@ IOC_TYPE_BY_FILENAME = {
 def check_file(ioc_file: pathlib.Path, upstream_union: set[tuple[str, str]]) -> list[str]:
     ioc_type = IOC_TYPE_BY_FILENAME.get(ioc_file.name)
     if ioc_type is None:
-        return [f"[complementarity] unknown filename '{ioc_file.name}' — add to IOC_TYPE_BY_FILENAME"]
+        print(
+            f"[complementarity] Unknown filename '{ioc_file.name}' — add to "
+            f"IOC_TYPE_BY_FILENAME. This is a setup error, not a violation.",
+            file=sys.stderr,
+        )
+        sys.exit(2)
 
-    with open(ioc_file) as f:
+    with open(ioc_file, encoding="utf-8") as f:
         data = yaml.safe_load(f) or {}
 
     violations: list[str] = []
