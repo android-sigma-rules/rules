@@ -50,3 +50,42 @@ jobs:
         run: |
           find app_scanner device_auditor dns_monitor process_monitor file_scanner accessibility_audit appops_audit receiver_audit staging -name '*.yml' -print0 \
             | xargs -0 -I{} python3 validation/validate-rule.py "{}"
+
+  validate-complementarity-changed:
+    name: Complementarity (strict on changed files)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: pip install pyyaml
+      - name: Identify changed ioc-data files
+        id: changed
+        run: |
+          CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- 'ioc-data/*.yml' | tr '\n' ' ')
+          echo "files=$CHANGED" >> "$GITHUB_OUTPUT"
+      - name: Strict check on changed files
+        if: steps.changed.outputs.files != ''
+        run: |
+          for f in ${{ steps.changed.outputs.files }}; do
+            python3 validation/validate-ioc-complementarity.py --file "$f" --mode strict
+          done
+
+  validate-complementarity-all-advisory:
+    name: Complementarity (advisory on all files)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: pip install pyyaml
+      - name: Advisory check on every file
+        run: |
+          python3 validation/validate-ioc-complementarity.py --all --mode advisory
