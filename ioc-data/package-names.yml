@@ -1,7 +1,10 @@
-version: "2026-04-02"
+version: "2026-04-17"
 description: "Known malicious Android package names"
 sources:
   - stalkerware-indicators
+  - mvt-indicators
+  - amnesty-investigations
+  - threat_research
 entries:
 - indicator: com.thetruthspy
   family: TheTruthSpy
@@ -164,3 +167,60 @@ entries:
   description: Cellebrite UFED agent — presence indicates physical device extraction
     occurred
   source: mvt-indicators
+- indicator: org.lgvvfj.pluscqpuj
+  family: Mirax Bot
+  category: MALWARE
+  severity: CRITICAL
+  description: Mirax Bot Android banking RAT — masquerades as video player (Meta-ads
+    distribution, 2025-12+)
+  source: threat_research
+- indicator: org.yjeiwd.plusdc71
+  family: Mirax Bot
+  category: MALWARE
+  severity: CRITICAL
+  description: Mirax Bot Android banking RAT variant
+  source: threat_research
+- indicator: org.dawme.secure5ny
+  family: Mirax Bot
+  category: MALWARE
+  severity: CRITICAL
+  description: Mirax Bot Android banking RAT variant
+  source: threat_research
+- indicator: org.azgaw.managergst1d
+  family: Mirax Bot
+  category: MALWARE
+  severity: CRITICAL
+  description: Mirax Bot Android banking RAT variant
+  source: threat_research
+- indicator: com.oblivion.client
+  family: Oblivion RAT
+  category: SPYWARE
+  severity: CRITICAL
+  description: Oblivion RAT Android MaaS — masquerades as Google Play update (2026-03)
+  source: threat_research
+- indicator: com.oblivion.dropper
+  family: Oblivion RAT
+  category: SPYWARE
+  severity: CRITICAL
+  description: Oblivion RAT dropper APK
+  source: threat_research
+- indicator: com.yandexxxx.update
+  family: Oblivion RAT
+  category: SPYWARE
+  severity: CRITICAL
+  description: Oblivion RAT — typosquats Yandex update
+  source: threat_research
+- indicator: ru.y34tuy.t8595
+  family: TaxiSpy
+  category: MALWARE
+  severity: CRITICAL
+  description: TaxiSpy Android banking RAT — hijacks default SMS handler, Firebase
+    C2 (Russian banking targets, 2026-03)
+  source: threat_research
+- indicator: net.ustexas.myavlive
+  family: PromptSpy
+  category: MALWARE
+  severity: CRITICAL
+  description: PromptSpy — first Android malware to abuse Google Gemini at runtime;
+    JPMorgan Chase impersonation in Argentina (2026-03)
+  source: threat_research

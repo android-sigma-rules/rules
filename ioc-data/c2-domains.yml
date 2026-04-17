@@ -1,7 +1,10 @@
-version: "2026-04-13"
+version: "2026-04-17"
 description: "Known command-and-control domains for Android malware"
 sources:
   - stalkerware-indicators
+  - amnesty-investigations
+  - zimperium-ioc
+  - threat_research
 entries:
   # TheTruthSpy
   - indicator: "thetruthspy.com"
@@ -499,3 +502,54 @@ entries:
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+
+  # PixRevolution (Brazilian PIX banking trojan, agent-in-the-loop, 2026-03)
+  - indicator: "aplicativo-br.com"
+    family: "PixRevolution"
+    category: "MALWARE"
+    severity: "CRITICAL"
+    description: "PixRevolution C2 / fake Google Play listing page"
+    source: "threat_research"
+  - indicator: "expedia.aplicativo-br.com"
+    family: "PixRevolution"
+    category: "MALWARE"
+    severity: "CRITICAL"
+    description: "PixRevolution subdomain impersonating Expedia"
+    source: "threat_research"
+  - indicator: "correios.aplicativo-br.com"
+    family: "PixRevolution"
+    category: "MALWARE"
+    severity: "CRITICAL"
+    description: "PixRevolution subdomain impersonating Correios"
+    source: "threat_research"
+
+  # Oblivion RAT (Android MaaS RAT, 2026-03)
+  - indicator: "oblvn.sbs"
+    family: "Oblivion RAT"
+    category: "SPYWARE"
+    severity: "CRITICAL"
+    description: "Oblivion RAT operator panel / C2"
+    source: "threat_research"
+
+  # PromptSpy (AI-phishing, MorganArg JPMorgan impersonation, 2026-03)
+  - indicator: "mgardownload.com"
+    family: "PromptSpy"
+    category: "MALWARE"
+    severity: "CRITICAL"
+    description: "PromptSpy C2 / download domain impersonating JPMorgan"
+    source: "threat_research"
+  - indicator: "m-mgarg.com"
+    family: "PromptSpy"
+    category: "MALWARE"
+    severity: "CRITICAL"
+    description: "PromptSpy C2 / phishing domain impersonating JPMorgan"
+    source: "threat_research"
+
+  # SurxRAT (AI-enhanced Android RAT, Firebase RTDB C2, 2026-03)
+  - indicator: "xrat-sisuriya-default-rtdb.firebaseio.com"
+    family: "SurxRAT"
+    category: "SPYWARE"
+    severity: "HIGH"
+    description: "SurxRAT Firebase Realtime Database C2 endpoint (specific attacker
+      instance; DO NOT add parent firebaseio.com — legit platform)"
+    source: "threat_research"
