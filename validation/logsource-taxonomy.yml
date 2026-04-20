@@ -18,6 +18,7 @@ services:
       package_name: { type: string, description: "Android package name (e.g., com.example.app)" }
       app_name: { type: string, description: "User-visible app label" }
       cert_hash: { type: string, nullable: true, description: "SHA-256 of signing certificate" }
+      cert_hash_sha1: { type: string, nullable: true, description: "SHA-1 of signing certificate — required to match community feeds (stalkerware-indicators, MVT) that index cert IOCs by SHA-1, per the Android ecosystem convention (apksigner --print-certs)" }
       apk_hash: { type: string, nullable: true, description: "SHA-256 of APK file" }
       is_system_app: { type: boolean, description: "True if app is in /system partition" }
       from_trusted_store: { type: boolean, description: "True if installed from Play Store or other trusted source" }
