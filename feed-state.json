@@ -3,10 +3,10 @@
   "last_full_sweep": "2026-04-17",
   "feeds": {
     "threatfox": {
-      "last_seen_timestamp": "2026-04-18T00:00:00Z"
+      "last_seen_timestamp": "2026-04-23T05:22:04Z"
     },
     "malwarebazaar": {
-      "last_seen_timestamp": "2026-04-18T00:00:00Z"
+      "last_seen_timestamp": "2026-04-23T18:21:02Z"
     },
     "asb": {
       "last_seen_timestamp": "2026-04-17T00:00:00Z",
