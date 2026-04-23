@@ -11,6 +11,10 @@
 # - UAD, Plexus (known-good datasets, opposite trust polarity)
 # - Zimperium (third-party mirror-of-a-mirror)
 # - MalwareBazaarCertFeed (stub — no upstream wired yet)
+# - MalwareBazaar APK hashes (AndroDR issue #146): the only useful endpoint
+#   (query=get_file_type&file_type=apk) is Auth-Key-gated; the device
+#   cannot hold a key. APK hashes are ingested into
+#   ioc-data/malware-hashes.yml by the update-rules pipeline instead.
 
 version: 1
 feeds:
@@ -28,8 +32,3 @@ feeds:
     url: https://threatfox.abuse.ch/export/json/recent/
     parser: threatfox-json
     types: [C2_DOMAIN]
-
-  - id: malwarebazaar
-    url: https://bazaar.abuse.ch/export/csv/recent/
-    parser: malwarebazaar-csv
-    types: [APK_HASH]

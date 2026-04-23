@@ -21,17 +21,21 @@ Exit codes:
   2 -- setup / fetch / parse error
 
 Parser parity:
-  The four parsers (stalkerware-yaml, threatfox-json, malwarebazaar-csv,
-  mvt-stix) match the format assumptions in AndroDR's Kotlin bypass feed
-  clients — they are deliberately bug-for-bug consistent with the Kotlin
-  side, because the invariant being enforced is "no ioc-data entry
-  duplicates what the Kotlin client would deliver." If the Kotlin feed's
-  upstream format differs from reality (e.g., mvt-indicators.yaml is
-  actually a two-level index of STIX2 bundles, which the current Kotlin
-  MvtIndicatorsFeed.kt traverses in two phases but this Python parser
-  does not), the Python side should be brought in line in a coordinated
-  PR with the Kotlin side. See follow-up issue TBD for parser-fidelity
-  audit.
+  The three parsers (stalkerware-yaml, threatfox-json, mvt-stix) match
+  the format assumptions in AndroDR's Kotlin bypass feed clients — they
+  are deliberately bug-for-bug consistent with the Kotlin side, because
+  the invariant being enforced is "no ioc-data entry duplicates what the
+  Kotlin client would deliver." If the Kotlin feed's upstream format
+  differs from reality (e.g., mvt-indicators.yaml is actually a two-level
+  index of STIX2 bundles, which the current Kotlin MvtIndicatorsFeed.kt
+  traverses in two phases but this Python parser does not), the Python
+  side should be brought in line in a coordinated PR with the Kotlin
+  side. See follow-up issue TBD for parser-fidelity audit.
+
+  MalwareBazaar APK hashes were descoped from this contract (AndroDR
+  issue #146): the only useful upstream query is Auth-Key-gated, so the
+  device cannot bypass directly. APK hashes are ingested into
+  ioc-data/malware-hashes.yml by the update-rules pipeline instead.
 """
 
 import argparse
@@ -108,24 +112,6 @@ def parse_threatfox_json(body: bytes) -> set[tuple[str, str]]:
     return out
 
 
-def parse_malwarebazaar_csv(body: bytes) -> set[tuple[str, str]]:
-    """MalwareBazaar recent CSV: comma-separated, # comments. SHA256 is column 2."""
-    out: set[tuple[str, str]] = set()
-    for line in body.decode("utf-8", errors="replace").splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"):
-            continue
-        parts = [p.strip().strip('"') for p in line.split(",")]
-        if len(parts) < 3:
-            continue
-        sha256 = parts[1]
-        # Filter to Android APKs — file_type is typically column 7+ depending on format;
-        # conservatively include everything and let other filters narrow later.
-        if len(sha256) == 64 and all(c in "0123456789abcdef" for c in sha256.lower()):
-            out.add(("APK_HASH", normalize_value(sha256, "APK_HASH")))
-    return out
-
-
 def parse_mvt_stix(body: bytes) -> set[tuple[str, str]]:
     """MVT indicators.yaml: mixed indicator types. Best-effort extraction."""
     data = yaml.safe_load(body) or {}
@@ -146,7 +132,6 @@ def parse_mvt_stix(body: bytes) -> set[tuple[str, str]]:
 PARSERS = {
     "stalkerware-yaml": parse_stalkerware_yaml,
     "threatfox-json": parse_threatfox_json,
-    "malwarebazaar-csv": parse_malwarebazaar_csv,
     "mvt-stix": parse_mvt_stix,
 }
 
