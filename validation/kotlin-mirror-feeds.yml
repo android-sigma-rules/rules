@@ -15,6 +15,14 @@
 #   (query=get_file_type&file_type=apk) is Auth-Key-gated; the device
 #   cannot hold a key. APK hashes are ingested into
 #   ioc-data/malware-hashes.yml by the update-rules pipeline instead.
+#
+# `parser_limited: true` (AndroDR #127) — manual override meaning "do NOT
+# invoke this feed's Python parser." The validator skips the feed entirely
+# (no fetch, no parse) and emits a loud WARNING on stderr plus a GitHub
+# Actions `::warning::` annotation. Use this when the parser is known to
+# be out of sync with the current live upstream schema. Required for it
+# to take effect: a YAML `true` boolean (not the string "true"). The
+# validator hard-fails on a non-bool value to prevent silent fall-through.
 
 version: 1
 feeds:
@@ -27,8 +35,33 @@ feeds:
     url: https://raw.githubusercontent.com/mvt-project/mvt-indicators/main/indicators.yaml
     parser: mvt-stix
     types: [PACKAGE_NAME, C2_DOMAIN]
+    # AndroDR #127: live indicators.yaml is a two-level index of STIX2 bundles
+    # (one HTTPS fetch per campaign). The Python parser still does the
+    # single-pass shape and returns 0. Kotlin MvtIndicatorsFeed.kt implements
+    # the two-phase fetch correctly, so on-device coverage is unaffected — but
+    # the complementarity invariant against MVT is not enforced by this
+    # validator until the parser is rewritten. Treat as advisory only.
+    parser_limited: true
+    parser_limited_reason: >
+      Two-phase fetch (indicators.yaml → STIX2 bundles per campaign) not
+      implemented in Python parser. Validator skips this feed with a warning
+      instead of returning a misleading empty snapshot.
 
   - id: threatfox
     url: https://threatfox.abuse.ch/export/json/recent/
     parser: threatfox-json
     types: [C2_DOMAIN]
+    # AndroDR #127: live /export/json/recent/ now returns a flat numeric-id
+    # keyed dict (no `data` wrapper) with field name `ioc_value` (not `ioc`).
+    # The Python parser still expects the old `data: {date: [...]}` shape and
+    # `ioc` field, so it returns 0 against the live endpoint. The Kotlin
+    # ThreatFoxDomainFeed.kt parser uses the SAME stale assumption and is
+    # ALSO broken vs the live schema — needs a coordinated fix on the Kotlin
+    # side. Until then the complementarity invariant against ThreatFox is
+    # vacuously satisfied (Kotlin returns 0 too, so any threatfox-attributed
+    # ioc-data entry is genuinely additive). Treat as advisory only.
+    parser_limited: true
+    parser_limited_reason: >
+      Upstream schema drift (numeric-id-keyed top-level dict, ioc_value field
+      name). Kotlin parser has matching drift; coordinated fix tracked
+      separately. Validator skips this feed with a warning.

@@ -32,6 +32,17 @@ Parser parity:
   side should be brought in line in a coordinated PR with the Kotlin
   side. See follow-up issue TBD for parser-fidelity audit.
 
+  Feeds whose Python parser is known to be out of sync with the live
+  upstream schema can be tagged `parser_limited: true` in
+  kotlin-mirror-feeds.yml. The validator skips those feeds with a loud
+  WARNING (and a GitHub Actions `::warning::` annotation when running
+  under GITHUB_ACTIONS) instead of silently treating their snapshot as
+  empty (which would let any ioc-data duplicate slip through unchecked).
+  AndroDR #127 uses this for threatfox + mvt-indicators; both Python
+  parsers expect schemas that diverge from current upstream reality.
+  The flag is a manual override — semantically "do not invoke the
+  parser at all" — not a feature-flag for partial parsing.
+
   MalwareBazaar APK hashes were descoped from this contract (AndroDR
   issue #146): the only useful upstream query is Auth-Key-gated, so the
   device cannot bypass directly. APK hashes are ingested into
@@ -40,6 +51,7 @@ Parser parity:
 
 import argparse
 import json
+import os
 import pathlib
 import sys
 import urllib.request
@@ -149,6 +161,44 @@ def build_union_snapshot(feeds: list[dict], allow_unreachable: bool) -> tuple[se
                 file=sys.stderr,
             )
             sys.exit(2)
+        # AndroDR #127: feeds whose parser is known to be out of sync with the
+        # live upstream schema are tagged `parser_limited: true` so this
+        # validator skips them with a loud warning instead of silently
+        # contributing an empty snapshot (which would make the strict-mode
+        # invariant trivially pass against those feeds and let duplicates rot).
+        #
+        # Strict on the value type: a typo like `parser_limited: "true"` or
+        # `parser_limited: 1` is rejected loudly rather than silently falling
+        # through to a fetch — that fallback would re-introduce the exact
+        # silent-skip rot this PR exists to prevent.
+        if "parser_limited" in feed:
+            flag = feed["parser_limited"]
+            if not isinstance(flag, bool):
+                print(
+                    f"[complementarity] feed '{fid}' has parser_limited="
+                    f"{flag!r} ({type(flag).__name__}); must be a YAML "
+                    f"boolean (true|false). Refusing to guess.",
+                    file=sys.stderr,
+                )
+                sys.exit(2)
+            if flag:
+                reason = (feed.get("parser_limited_reason") or "").strip().replace("\n", " ")
+                msg = (
+                    f"[complementarity] SKIP parser-limited feed '{fid}': {reason} "
+                    f"-- complementarity against this feed is NOT enforced; ioc-data "
+                    f"entries may shadow on-device Kotlin bypass coverage."
+                )
+                warnings.append(msg)
+                print(msg, file=sys.stderr)
+                # GitHub Actions: also emit an inline annotation so the SKIP
+                # surfaces on the PR Files tab, not just buried in step logs.
+                if os.environ.get("GITHUB_ACTIONS") == "true":
+                    print(
+                        f"::warning title=parser-limited feed::"
+                        f"{fid} skipped — {reason}",
+                        file=sys.stderr,
+                    )
+                continue
         parser = PARSERS.get(parser_name)
         if parser is None:
             print(f"[complementarity] Unknown parser '{parser_name}' for feed '{fid}'", file=sys.stderr)
