@@ -96,3 +96,11 @@ entries:
     severity: "CRITICAL"
     description: "MobileTrackerFree stalkerware signing certificate"
     source: "stalkerware-indicators"
+
+  # Added by /update-rules discover run (2026-05-16): 7-threat harvest from discover
+  - indicator: "de90f6899eec315f4ed05c2aa052d4fe8b71125a"
+    family: "BITTER"
+    category: "NATION_STATE_SPYWARE"
+    severity: "CRITICAL"
+    description: "BITTER ToSpy developer signing certificate (SHA-1)"
+    source: "threat_research"
