@@ -1,0 +1,60 @@
+# Decisions accompanying the broker-SDK installed_app rule pack (issue #168).
+#
+# Two skip entries — Mobilewalla and Adsquare yielded no on-device anchors
+# per their SIRs (see docs/superpowers/research/2026-05-18-broker-sdks/ in
+# the AndroDR repo: sir-2026-05-18-mobilewalla, sir-2026-05-18-adsquare).
+# No SIGMA rules ship for these two; this manifest records why and what
+# evidence would justify revisiting.
+#
+# Note on classification: these are NOT telemetry_gap entries — the
+# taxonomy field (`embedded_component_class`) exists and is wired. The gap
+# is in the IOC content (no public class-name anchor for either SDK), not
+# in instrumentation. Per the rule-author skill's "Skip Decisions
+# (non-taxonomy reasons)" pattern: use a type-less skip when the reason is
+# missing actionable indicators rather than missing taxonomy.
+
+decisions:
+  - rule_id: null
+    field: "rule_creation"
+    chosen: "skip"
+    alternative: "create installed_app rule with embedded_component_class anchor for Mobilewalla"
+    reasoning: >
+        Per SIR sir-2026-05-18-mobilewalla (high confidence,
+        requires_verification: true), no public Android package prefix,
+        class name, native library, or telemetry hostname tied to a
+        deployed first-party Mobilewalla on-device SDK has been disclosed
+        by any reviewed source. Exodus Privacy has no Mobilewalla entry,
+        AppCensus has no published profile, the Reardon/Egelman corpus
+        does not name them. Per the FTC complaint (Dec 2024), ~95% of
+        Mobilewalla data is sourced second-hand via RTB bidstream and
+        DSP/DMP suppliers — not via a first-party SDK shipped at scale.
+        The only public first-party SDK references are a server-side
+        Python client (mw-feature-serving-sdk on PyPI) and an optional
+        Android add-on documented for the LendBetter Covariate
+        integration with no published class names. Recommend revisiting
+        if reverse engineering of a Covariate-integrated APK
+        (LendBetter is the obvious target) surfaces concrete class
+        anchors. Source domain mobilewalla.com is documented but is
+        DNS-rule-pack territory (deferred to a separate spec).
+
+  - rule_id: null
+    field: "rule_creation"
+    chosen: "skip"
+    alternative: "create installed_app rule with embedded_component_class anchor for Adsquare"
+    reasoning: >
+        Per SIR sir-2026-05-18-adsquare (high confidence,
+        requires_verification: true), Adsquare ships no first-party
+        Android SDK — confirmed by three independent structured sources:
+        Adsquare's own statement to The Markup ('Adsquare doesn't collect
+        location data. Adsquare sources and aggregates location data
+        from a variety of suppliers.'), Adsquare's own public GitHub
+        artifacts (data-delivery, data-stats-hll) being 100% server-side
+        Java/Avro ingestion libraries with no Android client SDK, and
+        the complete absence of an Adsquare tracker entry in the Exodus
+        Privacy database as of 2026-05-18. Adsquare is detectable only
+        INDIRECTLY via its confirmed upstream supplier SDKs (Tamoco,
+        Predicio, etc.). Recommend revisiting if reverse engineering of
+        a Databroker-Files-implicated German app (Netzpolitik/BR/Le Monde
+        joint investigation) surfaces an Adsquare-attributed package
+        name on disk. Corporate domain adsquare.com is documented but
+        is DNS-rule-pack territory (deferred to a separate spec).
