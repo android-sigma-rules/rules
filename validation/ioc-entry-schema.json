@@ -23,7 +23,8 @@
             "MALWARE",
             "NATION_STATE_SPYWARE",
             "FORENSIC_TOOL",
-            "MONITORING"
+            "MONITORING",
+            "DATA_BROKER_SDK"
           ]
         },
         "severity":    { "type": "string", "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"] },
