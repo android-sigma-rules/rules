@@ -129,6 +129,18 @@
         "type": "string"
       }
     },
+    "implies_flags": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "Orthogonal facts about the detection subject (the app or device the rule fires on) that the rule's selection structurally guarantees. Renderers aggregate the union of implies_flags across all findings for the same subject and surface them as Flag chips separately from per-finding Reasons. A rule MUST declare a flag only if its detection selection guarantees the property — e.g., a rule whose selection requires `from_trusted_store: false` or `is_sideloaded: true` guarantees sideloaded; a rule whose selection matches a curated malware IOC database guarantees known_malware. Annotate per-app (app_scanner) rules only; DNS- or network-event rules should not declare app-subject flags. Allowed values: 'sideloaded' (app installed from a non-trusted source), 'known_malware' (matched against a curated malware IOC database). New values require both a schema bump and a parent-app renderer update.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "sideloaded",
+          "known_malware"
+        ]
+      }
+    },
     "display": {
       "type": "object",
       "properties": {
