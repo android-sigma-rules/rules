@@ -137,6 +137,28 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str]) -> list[str]:
             if not (len(parts) in (1, 2) and parts[0][0] == "T" and parts[0][1:].isdigit()):
                 errors.append(f"Invalid ATT&CK tag format: {tag}")
 
+    # implies_flags — orthogonal facts about the detection subject the
+    # rule's selection structurally guarantees. Source of truth for the
+    # allowed values is the schema's enum, so adding a new value there
+    # is the single edit point.
+    if "implies_flags" in rule:
+        flags = rule["implies_flags"]
+        if not isinstance(flags, list):
+            errors.append("implies_flags must be an array")
+        else:
+            valid_implies = set(
+                schema.get("properties", {})
+                    .get("implies_flags", {})
+                    .get("items", {})
+                    .get("enum", [])
+            )
+            for flag in flags:
+                if flag not in valid_implies:
+                    errors.append(
+                        f"Invalid implies_flag value: {flag!r}. "
+                        f"Valid: {sorted(valid_implies)}"
+                    )
+
     return errors
 
 
