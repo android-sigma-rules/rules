@@ -5,6 +5,7 @@ sources:
   - amnesty-investigations
   - zimperium-ioc
   - threat_research
+  - threatfox
 entries:
   # TheTruthSpy
   - indicator: "thetruthspy.com"
@@ -958,3 +959,10 @@ entries:
     severity: "MEDIUM"
     description: "Venntel public-facing customer / marketing subdomain."
     source: "threat_research"
+  # Joker (added 2026-05-29 via AI rule pipeline)
+  - indicator: "api.gaority.ink"
+    family: "Joker"
+    category: "MALWARE"
+    severity: "HIGH"
+    description: "Joker (Bread) C2/exfil domain (tria.ge sandbox-observed). Caught by generic DNS IOC lookup (androdr-003)."
+    source: "threatfox"

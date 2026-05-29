@@ -1,50 +1,50 @@
 {
   "version": 2,
-  "last_full_sweep": "2026-04-17",
+  "last_full_sweep": "2026-05-29",
   "feeds": {
     "threatfox": {
-      "last_seen_timestamp": "2026-04-23T05:22:04Z"
+      "last_seen_timestamp": "2026-05-29T06:26:22Z"
     },
     "malwarebazaar": {
-      "last_seen_timestamp": "2026-04-23T18:21:02Z"
+      "last_seen_timestamp": "2026-05-26T23:32:19Z"
     },
     "asb": {
-      "last_seen_timestamp": "2026-04-17T00:00:00Z",
-      "last_bulletin": "2026-04-01"
+      "last_seen_timestamp": "2026-05-29T00:00:00Z",
+      "last_bulletin": "2026-05-01"
     },
     "nvd": {
-      "last_seen_timestamp": "2026-04-17T00:00:00Z",
-      "last_modified": "2026-04-17T23:59:59Z"
+      "last_seen_timestamp": "2026-05-29T07:17:25Z",
+      "last_modified": "2026-05-29T00:00:00Z"
     },
     "stalkerware_indicators": {
-      "last_seen_timestamp": "2026-04-17T00:00:00Z",
-      "last_commit_sha": "b8635c5"
+      "last_seen_timestamp": "2026-05-29T00:00:00Z",
+      "last_commit_sha": "b8635c5fb4040dea41d4ca5d5afe71d5c1572393"
     },
     "attack_mobile": {
-      "last_seen_timestamp": "2026-04-17T00:00:00Z",
-      "last_version": "18.1"
+      "last_seen_timestamp": "2026-05-29T00:00:00Z",
+      "last_version": "v19.1"
     },
     "amnesty": {
-      "last_seen_timestamp": "2026-04-17T00:00:00Z"
+      "last_seen_timestamp": "2026-05-29T00:00:00Z"
     }
   },
   "discover": {
     "sources": {
       "securelist": {
-        "last_seen_timestamp": "2026-05-14T11:00:58Z",
-        "last_post_url": "https://securelist.com/kimsuky-appleseed-pebbledash-campaigns/119785/"
+        "last_seen_timestamp": "2026-05-29T07:00:51Z",
+        "last_post_url": "https://securelist.com/container-security-typical-issues/119974/"
       },
       "welivesecurity": {
-        "last_seen_timestamp": "2026-05-15T08:50:00Z",
-        "last_post_url": "https://www.welivesecurity.com/en/scams/geopolitical-turmoil-gift-scammers-how-stay-safe/"
+        "last_seen_timestamp": "2026-05-28T08:45:00Z",
+        "last_post_url": "https://www.welivesecurity.com/en/eset-research/eset-apt-activity-report-q4-2025-q1-2026/"
       },
       "google-tag": {
-        "last_seen_timestamp": "2026-01-29T19:30:00Z",
-        "last_post_url": "https://blog.google/threat-analysis-group/tag-bulletin-q4-2025/"
+        "last_seen_timestamp": "2026-05-28T16:00:00Z",
+        "last_post_url": "https://blog.google/security/bringing-ai-agents-to-chrome-enterprise-security-management/"
       },
       "zimperium": {
-        "last_seen_timestamp": "2026-05-15T12:00:00Z",
-        "last_post_url": "https://zimperium.com/blog/mobile-threat-watch/byod-programs-increase-mobile-security-risks-for-organizations"
+        "last_seen_timestamp": "2026-05-28T00:00:00Z",
+        "last_post_url": "https://zimperium.com/blog/mobile-threat-watch/ai-accelerates-the-evolution-of-nfc-relay-malware"
       }
     }
   }
