@@ -370,3 +370,28 @@ entries:
   severity: "CRITICAL"
   description: "Massistant Chinese mobile forensics by Meiya Pico"
   source: "threat_research"
+# --- update-rules-e2e batch 2026-06-08 (BTMOB/TrickMo/Astrinox/Massiv/SaferRat/RecruitRat/PixRevolution/AndroRAT/Antidot/Asin) ---
+- indicator: com.app16330.core20461
+  family: TrickMo
+  category: MALWARE
+  severity: HIGH
+  description: TrickMo Android banking trojan package name
+  source: threat_research
+- indicator: com.app15318.core1173
+  family: TrickMo
+  category: MALWARE
+  severity: HIGH
+  description: TrickMo Android banking trojan package name
+  source: threat_research
+- indicator: uncle.collop416.wifekin78
+  family: TrickMo
+  category: MALWARE
+  severity: HIGH
+  description: TrickMo Android banking trojan package name
+  source: threat_research
+- indicator: nibong.lida531.butler836
+  family: TrickMo
+  category: MALWARE
+  severity: HIGH
+  description: TrickMo Android banking trojan package name
+  source: threat_research
