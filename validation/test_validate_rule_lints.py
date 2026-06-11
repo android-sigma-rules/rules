@@ -176,3 +176,34 @@ def test_all_existing_rules_pass_validator():
         if result.returncode != 0:
             failures.append(f"{p.relative_to(REPO)}:\n{result.stderr}")
     assert not failures, "\n".join(failures)
+
+
+# ---------- reviewer-found hardening (category enum, empty CVE list, display type) ----------
+
+def test_invalid_category_value_rejected(tmp_path):
+    # Case-sensitive bypass: Kotlin lowercases category, so 'Device_Posture'
+    # would be capped on-device while sailing past a naive == check.
+    result = run_validator_on(tmp_path, make_rule(level="high", category="Device_Posture"))
+    assert result.returncode == 1
+    assert "Invalid category" in result.stderr
+
+
+def test_bogus_category_value_rejected(tmp_path):
+    result = run_validator_on(tmp_path, make_rule(category="posture"))
+    assert result.returncode == 1
+    assert "Invalid category" in result.stderr
+
+
+def test_empty_cve_list_rejected(tmp_path):
+    result = run_validator_on(tmp_path, _cve_rule([]))
+    assert result.returncode == 1
+    assert "vacuous" in result.stderr
+
+
+def test_non_dict_display_clean_error(tmp_path):
+    rule = make_rule()
+    rule["display"] = "not-a-mapping"
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "display must be a mapping" in result.stderr
+    assert "Traceback" not in result.stderr
