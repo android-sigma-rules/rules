@@ -38,7 +38,20 @@ def load_permissions(perms_path: Path) -> set[str]:
         return {line.strip() for line in f if line.strip() and not line.startswith("#")}
 
 
-def validate_rule(rule: dict, schema: dict, permissions: set[str]) -> list[str]:
+def load_retired_ids(path: Path) -> set[str]:
+    """IDs listed in retired-rule-ids.txt may never be reused."""
+    if not path.exists():
+        return set()
+    with open(path) as f:
+        return {
+            line.split("#")[0].strip()
+            for line in f
+            if line.split("#")[0].strip()
+        }
+
+
+def validate_rule(rule: dict, schema: dict, permissions: set[str],
+                  retired_ids: frozenset[str] | set[str] = frozenset()) -> list[str]:
     """Return list of error strings. Empty list means valid."""
     errors = []
 
@@ -51,6 +64,11 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str]) -> list[str]:
         rule_id = rule["id"]
         if not isinstance(rule_id, str) or not rule_id.startswith("androdr-"):
             errors.append(f"Rule ID must match 'androdr-NNN', got: {rule_id}")
+        elif rule_id in retired_ids:
+            errors.append(
+                f"Rule ID {rule_id} was retired and must not be reused "
+                f"(see validation/retired-rule-ids.txt); allocate the next free ID"
+            )
 
     if "status" in rule and rule["status"] not in ("experimental", "test", "production"):
         errors.append(f"Invalid status: {rule['status']}")
@@ -177,6 +195,7 @@ def main():
 
     schema = load_schema(schema_path)
     permissions = load_permissions(perms_path) if perms_path.exists() else set()
+    retired_ids = load_retired_ids(SCRIPT_DIR / "retired-rule-ids.txt")
 
     with open(rule_path) as f:
         try:
@@ -185,7 +204,7 @@ def main():
             print(f"YAML parse error: {e}", file=sys.stderr)
             sys.exit(2)
 
-    errors = validate_rule(rule, schema, permissions)
+    errors = validate_rule(rule, schema, permissions, retired_ids)
 
     if errors:
         print(f"FAIL: {rule_path.name} — {len(errors)} error(s):", file=sys.stderr)

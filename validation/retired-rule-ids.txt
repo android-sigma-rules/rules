@@ -1,0 +1,8 @@
+# Retired AndroDR rule IDs — NEVER reuse these.
+# An ID lands here when its rule is removed from production/staging for any
+# reason (duplicate, superseded, bad design). IDs are append-only: once
+# listed, an ID stays here forever, even if the original removal is later
+# regretted — allocate a new ID instead.
+# Checked by validate-rule.py; a candidate using a retired ID fails Gate 1.
+
+androdr-084   # retired 2026-06-08: duplicate of androdr-047 once severity-capped (PRs rules#30/#31, AndroDR#212/#213)
