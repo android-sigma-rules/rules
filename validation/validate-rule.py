@@ -76,6 +76,16 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
     if "level" in rule and rule["level"] not in ("critical", "high", "medium", "low", "informational"):
         errors.append(f"Invalid level: {rule['level']}")
 
+    # Category enum check — exact, case-sensitive. The Kotlin parser
+    # lowercases category before mapping to RuleCategory, so a value like
+    # 'Device_Posture' would be silently capped on-device while bypassing a
+    # naive == comparison here. Rejecting non-canonical spellings closes
+    # that bypass for every category-keyed lint below.
+    if "category" in rule and rule["category"] not in ("incident", "device_posture"):
+        errors.append(
+            f"Invalid category: {rule['category']} (must be 'incident' or 'device_posture')"
+        )
+
     # Severity-cap policy: device_posture findings are clamped to 'medium' at
     # runtime via SeverityCapPolicy.applyCap(rule.category, rule.level) — the
     # TOP-LEVEL category field, NOT display.category (which only selects the
@@ -126,7 +136,12 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
             if field_key.split("|")[0] == "unpatched_cve_id" and posture:
                 cve_values = sel_value[field_key]
                 cve_count = len(cve_values) if isinstance(cve_values, list) else 1
-                if cve_count == 1:
+                if cve_count == 0:
+                    errors.append(
+                        f"empty value list for '{field_key}' is a vacuous "
+                        "selection that can never match"
+                    )
+                elif cve_count == 1:
                     errors.append(
                         "single actively-exploited-CVE rules duplicate "
                         "androdr-047 (CISA KEV catalog); only named-campaign "
@@ -167,6 +182,9 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
 
     # Display block
     display = rule.get("display", {})
+    if display is not None and not isinstance(display, dict):
+        errors.append(f"display must be a mapping, got: {type(display).__name__}")
+        display = {}
     if display:
         valid_categories = {"app_risk", "device_posture", "network"}
         if "category" in display and display["category"] not in valid_categories:
