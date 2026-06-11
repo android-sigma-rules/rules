@@ -120,6 +120,20 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
         if sel_name == "condition" or not isinstance(sel_value, dict):
             continue
         for field_key in sel_value:
+            # Lone actively-exploited-CVE rule = duplicate of androdr-047
+            # (CISA KEV catalog) once the severity cap lands. Only
+            # named-campaign CVE *sets* (cf. androdr-048..052) justify a
+            # dedicated rule. Checked before the modifier guard so the
+            # plain-equality form (no modifier) is covered too.
+            if field_key.split("|")[0] == "unpatched_cve_id" and posture:
+                cve_values = sel_value[field_key]
+                cve_count = len(cve_values) if isinstance(cve_values, list) else 1
+                if cve_count == 1:
+                    errors.append(
+                        "single actively-exploited-CVE rules duplicate "
+                        "androdr-047 (CISA KEV catalog); only named-campaign "
+                        "CVE sets (cf. androdr-048..052) justify a dedicated rule"
+                    )
             if "|" not in field_key:
                 continue
             tokens = field_key.split("|")

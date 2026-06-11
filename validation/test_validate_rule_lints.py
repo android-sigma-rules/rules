@@ -102,3 +102,49 @@ def test_non_posture_rule_at_high_accepted(tmp_path):
     rule["display"].pop("safe_title", None)
     result = run_validator_on(tmp_path, rule)
     assert result.returncode == 0, result.stderr
+
+
+# ---------- lone-exploited-CVE rejection ----------
+
+def _cve_rule(cves):
+    rule = make_rule()
+    rule["detection"] = {
+        "selection": {"unpatched_cve_id|contains": cves},
+        "condition": "selection",
+    }
+    return rule
+
+
+def test_single_cve_list_rejected(tmp_path):
+    result = run_validator_on(tmp_path, _cve_rule(["CVE-2026-12345"]))
+    assert result.returncode == 1
+    assert "androdr-047" in result.stderr
+
+
+def test_single_cve_string_rejected(tmp_path):
+    result = run_validator_on(tmp_path, _cve_rule("CVE-2026-12345"))
+    assert result.returncode == 1
+
+
+def test_cve_set_accepted(tmp_path):
+    result = run_validator_on(
+        tmp_path, _cve_rule(["CVE-2026-1", "CVE-2026-2", "CVE-2026-3"])
+    )
+    assert result.returncode == 0, result.stderr
+
+
+def test_non_cve_posture_rule_unaffected(tmp_path):
+    result = run_validator_on(tmp_path, make_rule())
+    assert result.returncode == 0, result.stderr
+
+
+def test_single_cve_plain_equality_rejected(tmp_path):
+    # no-modifier form must be caught too
+    rule = make_rule()
+    rule["detection"] = {
+        "selection": {"unpatched_cve_id": "CVE-2026-12345"},
+        "condition": "selection",
+    }
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "androdr-047" in result.stderr
