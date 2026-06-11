@@ -1,0 +1,25 @@
+# Curated judgment guidance for the AndroDR AI rule pipeline.
+# Injected verbatim into Rule Author AND Validator/Reviewer prompts.
+# HARD CAP: 20 lessons. Additions/removals go through the pipeline's
+# human-in-the-loop gate (proposed by the dispatcher from run-ledger
+# rejection reasons, approved by the human).
+# Each lesson: class (failure_class taxonomy from pipeline-runs/README.md)
+# + guidance (one short paragraph, imperative voice).
+
+lessons:
+  - class: severity_judgment
+    guidance: >
+      Rules with top-level category device_posture are clamped to medium at
+      runtime by SeverityCapPolicy. Never declare high/critical on a posture
+      rule; convey urgency through the title and remediation text instead
+      (cf. androdr-048..052).
+  - class: category_choice
+    guidance: >
+      The IOC category enum has no TROJAN. Label banking trojans and RATs
+      as MALWARE; surveillance-ware as SPYWARE or NATION_STATE_SPYWARE.
+      Never invent enum values — validate-ioc-data.py rejects them.
+  - class: duplicate_semantics
+    guidance: >
+      A posture rule keying on a single actively-exploited CVE duplicates
+      androdr-047 (CISA KEV-sourced). Only named-campaign CVE sets with a
+      threat-specific title justify a dedicated rule.

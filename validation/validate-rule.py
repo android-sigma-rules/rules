@@ -38,7 +38,20 @@ def load_permissions(perms_path: Path) -> set[str]:
         return {line.strip() for line in f if line.strip() and not line.startswith("#")}
 
 
-def validate_rule(rule: dict, schema: dict, permissions: set[str]) -> list[str]:
+def load_retired_ids(path: Path) -> set[str]:
+    """IDs listed in retired-rule-ids.txt may never be reused."""
+    if not path.exists():
+        return set()
+    with open(path) as f:
+        return {
+            line.split("#")[0].strip()
+            for line in f
+            if line.split("#")[0].strip()
+        }
+
+
+def validate_rule(rule: dict, schema: dict, permissions: set[str],
+                  retired_ids: frozenset[str] | set[str] = frozenset()) -> list[str]:
     """Return list of error strings. Empty list means valid."""
     errors = []
 
@@ -51,12 +64,31 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str]) -> list[str]:
         rule_id = rule["id"]
         if not isinstance(rule_id, str) or not rule_id.startswith("androdr-"):
             errors.append(f"Rule ID must match 'androdr-NNN', got: {rule_id}")
+        elif rule_id in retired_ids:
+            errors.append(
+                f"Rule ID {rule_id} was retired and must not be reused "
+                f"(see validation/retired-rule-ids.txt); allocate the next free ID"
+            )
 
     if "status" in rule and rule["status"] not in ("experimental", "test", "production"):
         errors.append(f"Invalid status: {rule['status']}")
 
     if "level" in rule and rule["level"] not in ("critical", "high", "medium", "low", "informational"):
         errors.append(f"Invalid level: {rule['level']}")
+
+    # Severity-cap policy: device_posture findings are clamped to 'medium' at
+    # runtime via SeverityCapPolicy.applyCap(rule.category, rule.level) — the
+    # TOP-LEVEL category field, NOT display.category (which only selects the
+    # UI grouping bucket; cf. androdr-020/030: category incident, displayed
+    # under device_posture, uncapped). Declaring above medium on a capped
+    # category is dead text — reject so the pipeline never proposes it.
+    posture = rule.get("category") == "device_posture"
+    if posture and rule.get("level") in ("high", "critical"):
+        errors.append(
+            "device_posture rules are clamped to 'medium' at runtime by "
+            "SeverityCapPolicy; declare level: medium or below (or reclassify "
+            "as category: incident if a genuine HIGH/CRITICAL signal is intended)"
+        )
 
     # Logsource
     logsource = rule.get("logsource", {})
@@ -86,6 +118,20 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str]) -> list[str]:
         if sel_name == "condition" or not isinstance(sel_value, dict):
             continue
         for field_key in sel_value:
+            # Lone actively-exploited-CVE rule = duplicate of androdr-047
+            # (CISA KEV catalog) once the severity cap lands. Only
+            # named-campaign CVE *sets* (cf. androdr-048..052) justify a
+            # dedicated rule. Checked before the modifier guard so the
+            # plain-equality form (no modifier) is covered too.
+            if field_key.split("|")[0] == "unpatched_cve_id" and posture:
+                cve_values = sel_value[field_key]
+                cve_count = len(cve_values) if isinstance(cve_values, list) else 1
+                if cve_count == 1:
+                    errors.append(
+                        "single actively-exploited-CVE rules duplicate "
+                        "androdr-047 (CISA KEV catalog); only named-campaign "
+                        "CVE sets (cf. androdr-048..052) justify a dedicated rule"
+                    )
             if "|" not in field_key:
                 continue
             tokens = field_key.split("|")
@@ -177,6 +223,7 @@ def main():
 
     schema = load_schema(schema_path)
     permissions = load_permissions(perms_path) if perms_path.exists() else set()
+    retired_ids = load_retired_ids(SCRIPT_DIR / "retired-rule-ids.txt")
 
     with open(rule_path) as f:
         try:
@@ -185,7 +232,7 @@ def main():
             print(f"YAML parse error: {e}", file=sys.stderr)
             sys.exit(2)
 
-    errors = validate_rule(rule, schema, permissions)
+    errors = validate_rule(rule, schema, permissions, retired_ids)
 
     if errors:
         print(f"FAIL: {rule_path.name} — {len(errors)} error(s):", file=sys.stderr)
