@@ -63,3 +63,42 @@ def test_registry_file_exists_and_seeded():
     # entries may carry trailing comments; strip them like the loader does
     ids = {entry.split("#")[0].strip() for entry in ids}
     assert "androdr-084" in ids
+
+
+# ---------- device-posture severity cap ----------
+
+def test_posture_rule_at_high_rejected(tmp_path):
+    result = run_validator_on(tmp_path, make_rule(level="high"))
+    assert result.returncode == 1
+    assert "SeverityCapPolicy" in result.stderr
+
+
+def test_posture_rule_at_critical_rejected(tmp_path):
+    result = run_validator_on(tmp_path, make_rule(level="critical"))
+    assert result.returncode == 1
+
+
+def test_posture_rule_at_medium_accepted(tmp_path):
+    result = run_validator_on(tmp_path, make_rule(level="medium"))
+    assert result.returncode == 0, result.stderr
+
+
+def test_posture_cap_keys_on_top_level_category_too(tmp_path):
+    # display.category app_risk but top-level category device_posture -> capped
+    rule = make_rule(level="high")
+    rule["display"] = copy.deepcopy(rule["display"])
+    rule["display"]["category"] = "app_risk"
+    rule["category"] = "device_posture"
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+
+
+def test_non_posture_rule_at_high_accepted(tmp_path):
+    # category: incident is the uncapped class (schema enum: incident | device_posture)
+    rule = make_rule(level="high", category="incident")
+    rule.pop("report_safe_state", None)
+    rule["display"] = copy.deepcopy(rule["display"])
+    rule["display"]["category"] = "app_risk"
+    rule["display"].pop("safe_title", None)
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 0, result.stderr
