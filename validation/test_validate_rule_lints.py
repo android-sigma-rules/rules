@@ -83,14 +83,24 @@ def test_posture_rule_at_medium_accepted(tmp_path):
     assert result.returncode == 0, result.stderr
 
 
-def test_posture_cap_keys_on_top_level_category_too(tmp_path):
+def test_posture_cap_keys_on_top_level_category(tmp_path):
     # display.category app_risk but top-level category device_posture -> capped
+    # (SeverityCapPolicy.applyCap takes rule.category, the top-level field)
     rule = make_rule(level="high")
     rule["display"] = copy.deepcopy(rule["display"])
     rule["display"]["category"] = "app_risk"
     rule["category"] = "device_posture"
     result = run_validator_on(tmp_path, rule)
     assert result.returncode == 1
+
+
+def test_incident_rule_displayed_as_posture_uncapped(tmp_path):
+    # The androdr-020/030 shape: top-level incident (uncapped at runtime),
+    # display.category device_posture (UI grouping only) -> must be ACCEPTED.
+    rule = make_rule(level="critical", category="incident")
+    rule.pop("report_safe_state", None)
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 0, result.stderr
 
 
 def test_non_posture_rule_at_high_accepted(tmp_path):
@@ -148,3 +158,21 @@ def test_single_cve_plain_equality_rejected(tmp_path):
     result = run_validator_on(tmp_path, rule)
     assert result.returncode == 1
     assert "androdr-047" in result.stderr
+
+
+# ---------- regression: all shipped rules still pass ----------
+
+def test_all_existing_rules_pass_validator():
+    rule_files = sorted(REPO.glob("*/androdr_*.yml")) + sorted(
+        REPO.glob("staging/*/androdr_*.yml")
+    )
+    assert len(rule_files) > 30, "rule discovery glob looks broken"
+    failures = []
+    for p in rule_files:
+        result = subprocess.run(
+            [sys.executable, str(SCRIPT), str(p)],
+            capture_output=True, text=True,
+        )
+        if result.returncode != 0:
+            failures.append(f"{p.relative_to(REPO)}:\n{result.stderr}")
+    assert not failures, "\n".join(failures)

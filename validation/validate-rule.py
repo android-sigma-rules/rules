@@ -77,14 +77,12 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
         errors.append(f"Invalid level: {rule['level']}")
 
     # Severity-cap policy: device_posture findings are clamped to 'medium' at
-    # runtime (AndroDR SeverityCapPolicy; the evaluator derives the cap
-    # category from display.category, see SigmaRuleEvaluator). Declaring above
-    # medium is dead text — reject so the pipeline never proposes it.
-    display_block = rule.get("display") if isinstance(rule.get("display"), dict) else {}
-    posture = (
-        rule.get("category") == "device_posture"
-        or display_block.get("category") == "device_posture"
-    )
+    # runtime via SeverityCapPolicy.applyCap(rule.category, rule.level) — the
+    # TOP-LEVEL category field, NOT display.category (which only selects the
+    # UI grouping bucket; cf. androdr-020/030: category incident, displayed
+    # under device_posture, uncapped). Declaring above medium on a capped
+    # category is dead text — reject so the pipeline never proposes it.
+    posture = rule.get("category") == "device_posture"
     if posture and rule.get("level") in ("high", "critical"):
         errors.append(
             "device_posture rules are clamped to 'medium' at runtime by "
