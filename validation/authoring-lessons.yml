@@ -23,3 +23,11 @@ lessons:
       A posture rule keying on a single actively-exploited CVE duplicates
       androdr-047 (CISA KEV-sourced). Only named-campaign CVE sets with a
       threat-specific title justify a dedicated rule.
+  - class: duplicate_semantics
+    guidance: >
+      Generic IOC-lookup alerts already carry family/category attribution
+      from the matched ioc-data entry (IndicatorResolver). A dedicated
+      named-threat rule duplicating ioc-data indicators is only justified
+      when it changes detection coverage (e.g. zone matching beyond listed
+      IOCs) or materially changes remediation guidance — attribution alone
+      is not a reason (cf. androdr-085/086 rejections, 2026-06-12 run).

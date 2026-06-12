@@ -40,7 +40,9 @@ def _check_feed_cursor(cursor, feed_name, required_extra, extra_check, errors):
     if not isinstance(cursor, dict):
         errors.append(f"feeds.{feed_name}: expected object, got {type(cursor).__name__}")
         return
-    allowed = {"last_seen_timestamp"} | set(required_extra)
+    allowed = {"last_seen_timestamp", "ioc_data_last_write"} | set(required_extra)
+    if "ioc_data_last_write" in cursor:
+        _check_iso_timestamp(cursor["ioc_data_last_write"], f"feeds.{feed_name}.ioc_data_last_write", errors)
     if "last_seen_timestamp" not in cursor:
         errors.append(f"feeds.{feed_name}: missing last_seen_timestamp")
     else:
