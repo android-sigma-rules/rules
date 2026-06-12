@@ -1,0 +1,193 @@
+run: 2026-06-12
+mode: full
+candidates:
+  - id: androdr-085
+    verdict: rejected
+    reason: "redundant with attributed IOC delivery: generic IOC-lookup alerts already carry family/category from the matched ioc-data entry (IndicatorResolver), so a named rule duplicating the same indicators adds no detection value"
+    failure_class: duplicate_semantics
+  - id: androdr-086
+    verdict: rejected
+    reason: "redundant with attributed IOC delivery: generic IOC-lookup alerts already carry family/category from the matched ioc-data entry (IndicatorResolver), so a named rule duplicating the same indicators adds no detection value"
+    failure_class: duplicate_semantics
+  - id: bulk.fun
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: apkv5.ppadaolnwod.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: apkv6.endurecif.top
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: getelements.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: fiddaz.club
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: lif0.top
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: fif0.top
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: chipp.pw
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: mimestyle.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: mangasiso.top
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: and.retardrattle.website
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: help.domainoutlet.site
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: whynotworkonit.top
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: spectronet.pw
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: full.naturalpercent.life
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: mimeversion.top
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: rythemsjoy.club
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: lowlight.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: inapturst.top
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: auth.forwardtoken.website
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: accounts.loginshare.info
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: seahome.top
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: imageview.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: flickry.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: apkv2.qwertykeypad.host
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: userauthen.pw
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: join.officeframe.work
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: zumba.tampotrust.agency
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: image.loadingmessage.info
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: flash.browserupdate.download
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: current.browserupdate.download
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: files.browserupdate.download
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: browserupdate.download
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 854774a198db490a1ae9f06d5da5fe6a1f683bf3d7186e56776516f982d41ad3
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 9f04439bc94f2eef76b72ac2e0aeece0d4f46b6c42ef179fc860f6b5876f5f50
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 928aefbcac9386c953b3491230a719ff65b21612eb6bd9b32501de149cacbc92
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 018f8548c055a31d98201874ebf21591e6d85cb9eee66e8c35716a9289d01f48
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 7365190230042fa2f8aba13d39cfecaa52b029750331760bcd114bafb01cb6db
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: c7944bdac5ce3255a56e77c6f2a83917f4b8a909646396669d408f207e751772
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 918eb87af81e92709d872621ea8ed0c086e38fbdf48a5e5ebdcab190f41bd07b
+    verdict: rejected
+    reason: "unattributed, low-confidence, single-source MalwareBazaar hash; no family attribution possible"
+    failure_class: weak_sourcing
+  - id: bca248d31bf87b605e8cca7587a9753d58a9ad9a8f7e6f7f882d03150d72869f
+    verdict: rejected
+    reason: "unattributed, low-confidence, single-source MalwareBazaar hash; no family attribution possible"
+    failure_class: weak_sourcing
+  - id: b2225250a1fcff06750f32d3abb999ffe26fbd21abc7b87ff0e91f8e0449652c
+    verdict: rejected
+    reason: "unattributed, low-confidence, single-source MalwareBazaar hash; no family attribution possible"
+    failure_class: weak_sourcing
+  - id: f03514da7d38e1a378429296a8d4405368aaad131dc069f513164eff569f7fca
+    verdict: rejected
+    reason: "unattributed, low-confidence, single-source MalwareBazaar hash; no family attribution possible"
+    failure_class: weak_sourcing
+  - id: 1370ba86f4c12ff1a8a0dd987b2be79a6ed13f7765e05b9711c544a7a2f288ea
+    verdict: rejected
+    reason: "Diia-lookalike APK (дiа.apk) suggests targeting but is unattributed and single-source; held out pending corroboration"
+    failure_class: weak_sourcing
+totals:
+  candidates: 46
+  approved: 39
+  approved_with_modification: 0
+  rejected: 7
+  approval_without_modification_rate: 0.85
