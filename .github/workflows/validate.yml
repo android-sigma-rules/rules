@@ -51,6 +51,25 @@ jobs:
           find app_scanner device_auditor dns_monitor process_monitor file_scanner accessibility_audit appops_audit receiver_audit staging -name '*.yml' -print0 \
             | xargs -0 -I{} python3 validation/validate-rule.py "{}"
 
+  validate-manifest:
+    name: Validate rules.sha256 manifest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: rules.txt and rules.sha256 must list the same files
+        run: |
+          diff <(awk '{print $2}' rules.sha256 | sort) \
+               <(grep '\.yml' rules.txt | sed 's/[[:space:]]*$//' | sort) \
+            || { echo "::error::rules.txt and rules.sha256 list different files"; exit 1; }
+      - name: rules.sha256 hashes must match rule content
+        # The app fetches rules.txt + rules.sha256 and SKIPS any rule whose
+        # content hash does not match the manifest. A rule edited without
+        # regenerating rules.sha256 is therefore silently dropped on-device.
+        # This gate fails the PR so the manifest can never drift again.
+        run: |
+          sha256sum -c rules.sha256 --strict --quiet \
+            || { echo "::error::rules.sha256 is out of sync with rule content. Regenerate: while read -r f; do printf '%s  %s\n' \"\$(sha256sum \"\$f\" | cut -d' ' -f1)\" \"\$f\"; done < rules.txt > rules.sha256"; exit 1; }
+
   validate-complementarity-changed:
     name: Complementarity (strict on changed files)
     runs-on: ubuntu-latest
