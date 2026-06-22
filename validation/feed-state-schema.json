@@ -35,7 +35,8 @@
         "nvd":                    { "$ref": "#/$defs/FeedCursorWithModified" },
         "stalkerware_indicators": { "$ref": "#/$defs/FeedCursorWithCommit" },
         "attack_mobile":          { "$ref": "#/$defs/FeedCursorWithVersion" },
-        "amnesty":                { "$ref": "#/$defs/FeedCursor" }
+        "amnesty":                { "$ref": "#/$defs/FeedCursor" },
+        "prodaft":                { "$ref": "#/$defs/FeedCursorWithCommit" }
       }
     },
     "discover": {
@@ -51,7 +52,10 @@
             "welivesecurity": { "$ref": "#/$defs/DiscoverSourceCursor" },
             "zimperium":      { "$ref": "#/$defs/DiscoverSourceCursor" },
             "lookout":        { "$ref": "#/$defs/DiscoverSourceCursor" },
-            "google-tag":     { "$ref": "#/$defs/DiscoverSourceCursor" }
+            "google-tag":     { "$ref": "#/$defs/DiscoverSourceCursor" },
+            "threatfabric":   { "$ref": "#/$defs/DiscoverSourceCursor" },
+            "cleafy":         { "$ref": "#/$defs/DiscoverSourceCursor" },
+            "group-ib":       { "$ref": "#/$defs/DiscoverSourceCursor" }
           }
         }
       }

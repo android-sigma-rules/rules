@@ -48,5 +48,10 @@
     "id": "threat_research",
     "name": "AI Pipeline Threat Research (cross-vendor)",
     "url": "https://github.com/yasirhamza/AndroDR"
+  },
+  {
+    "id": "prodaft-malware-ioc",
+    "name": "PRODAFT Malware IOC Repository",
+    "url": "https://github.com/prodaft/malware-ioc"
   }
 ]
