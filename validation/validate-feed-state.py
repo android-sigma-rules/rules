@@ -74,7 +74,17 @@ FEED_SPEC = {
           lambda v, p, e: e.append(f"{p}: expected N.N version, got {v!r}") if not (isinstance(v, str) and VERSION_RE.match(v)) else None)]
     ),
     "amnesty":                ([], []),
+    "prodaft":                (
+        ["last_commit_sha"],
+        [("last_commit_sha",
+          lambda v, p, e: e.append(f"{p}: expected git SHA, got {v!r}") if not (isinstance(v, str) and SHA_RE.match(v)) else None)]
+    ),
 }
+
+# Feeds that may be absent until their ingester first runs and writes a
+# cursor (newer than the original sweep set). Present-but-malformed still
+# errors; only absence is tolerated.
+OPTIONAL_FEEDS = {"prodaft"}
 
 
 def validate(state: dict) -> list[str]:
@@ -93,7 +103,8 @@ def validate(state: dict) -> list[str]:
 
     for feed_name, (required_extra, extra_check) in FEED_SPEC.items():
         if feed_name not in feeds:
-            errors.append(f"feeds.{feed_name}: missing")
+            if feed_name not in OPTIONAL_FEEDS:
+                errors.append(f"feeds.{feed_name}: missing")
             continue
         _check_feed_cursor(feeds[feed_name], feed_name, required_extra, extra_check, errors)
 
