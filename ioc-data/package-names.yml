@@ -395,3 +395,281 @@ entries:
   severity: HIGH
   description: TrickMo Android banking trojan package name
   source: threat_research
+# Android.MagicAd (added 2026-07-03 via AI rule pipeline sweep)
+- indicator: com.onetower.defense.idle
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd adware trojan package (Doctor Web Q2 2026); displays intrusive background ads via OEM-specific bypasses. Uninstall.
+  source: threat_research
+- indicator: com.funbees.pighub
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.ultimate.highway.racer
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.anime.wallpapers.aesthetic
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.simple.pdfviewer.reader.app
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.fruit.blender.maker
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.quickcommander.filehome.manager
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.gamesland.platform
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.rhythmball.music.runner
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.uptwo.cleanup.master
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.heartrate.healthtrack.rate.analyzer
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.power.cleanup.pro
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.track.app.base
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.bp.logandiary.life
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.line.protection.puppyrescue
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.playall.video4k
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.paperhub.festivals
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.bloodp.recorder.pressure
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.pekRacingTraffice.OffroadJeep
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.snakearena.survival
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.weathersense.livenow
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.bp.bloodpressure.healthtraker
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.jump.boy.funplay
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.water.sorting.funpuzzle
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.dogbee.linesaver
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.billhub.apps
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.utility.localweather
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.supermax.clenauppro
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.pekRacingTraffice.RacerATV
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.aerovia.mobile
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.blockstorm.puzzle.adventure
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.finaldefense.Undeadman
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.pekRacingTraffice.Offroad
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.shortdrama.watchhigh
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.zombieattack.defense
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.chatapp.twig
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: indianbhabhi.livechat.dating
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.mobiledeviceinfo.mobiledeviceinfoapp
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.corepulse.checkapps
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.chaithu.foodorder
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.peacecore.apps
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.brainularapp.brainular
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.ytapp.pythonlife
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.weather.reportandforcast
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+- indicator: com.mushawara.iq
+  family: Android.MagicAd
+  category: MALWARE
+  severity: MEDIUM
+  description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
+  source: threat_research
+# NFCShare (added 2026-07-03 via AI rule pipeline sweep)
+- indicator: com.modol.nap
+  family: NFCShare
+  category: MALWARE
+  severity: HIGH
+  description: NFCShare NFC card-data-theft trojan package (D3Lab). Uninstall immediately; contact bank to reissue exposed cards.
+  source: threat_research
