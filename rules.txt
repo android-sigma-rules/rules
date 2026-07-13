@@ -22,6 +22,7 @@ app_scanner/androdr_082_data_broker_cuebiq.yml
 app_scanner/androdr_083_broker_sdk_with_location_permission.yml
 app_scanner/androdr_087_nfc_relay.yml
 app_scanner/androdr_088_overlay_accessibility_combo.yml
+app_scanner/androdr_089_sms_notification_otp_theft.yml
 appops_audit/androdr_063_appops_microphone.yml
 appops_audit/androdr_064_appops_camera.yml
 appops_audit/androdr_065_appops_install_packages.yml
