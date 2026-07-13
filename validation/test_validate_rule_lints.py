@@ -207,3 +207,153 @@ def test_non_dict_display_clean_error(tmp_path):
     assert result.returncode == 1
     assert "display must be a mapping" in result.stderr
     assert "Traceback" not in result.stderr
+
+
+# ---------- correlation-rule shape (#175 mirror reconcile) ----------
+
+CORR_BASE = yaml.safe_load(
+    (REPO / "correlation" / "androdr_corr_001_install_then_admin.yml").read_text()
+)
+
+
+def make_corr_rule(**overrides) -> dict:
+    rule = copy.deepcopy(CORR_BASE)
+    rule.update(overrides)
+    return rule
+
+
+def test_valid_correlation_rule_accepted(tmp_path):
+    result = run_validator_on(tmp_path, make_corr_rule())
+    assert result.returncode == 0, result.stderr
+
+
+def test_all_repo_correlation_rules_pass():
+    for f in sorted((REPO / "correlation").glob("*.yml")):
+        result = subprocess.run(
+            [sys.executable, str(SCRIPT), str(f)],
+            capture_output=True, text=True,
+        )
+        assert result.returncode == 0, f"{f.name}: {result.stderr}"
+
+
+def test_correlation_hybrid_with_detection_rejected(tmp_path):
+    rule = make_corr_rule()
+    rule["detection"] = {"selection": {"x": 1}, "condition": "selection"}
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "must not declare 'detection'" in result.stderr
+
+
+def test_correlation_unknown_type_rejected(tmp_path):
+    rule = make_corr_rule()
+    rule["correlation"]["type"] = "sliding_window"
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "Invalid correlation.type" in result.stderr
+
+
+def test_correlation_empty_rules_list_rejected(tmp_path):
+    rule = make_corr_rule()
+    rule["correlation"]["rules"] = []
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "non-empty list" in result.stderr
+
+
+def test_correlation_dangling_reference_rejected(tmp_path):
+    rule = make_corr_rule()
+    rule["correlation"]["rules"] = ["androdr-atom-package-install", "androdr-atom-nonexistent"]
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "unknown rule ID" in result.stderr
+
+
+def test_correlation_bad_timespan_rejected(tmp_path):
+    rule = make_corr_rule()
+    rule["correlation"]["timespan"] = "90 minutes"
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "Invalid correlation.timespan" in result.stderr
+
+
+def test_correlation_timespan_over_cap_rejected(tmp_path):
+    rule = make_corr_rule()
+    rule["correlation"]["timespan"] = "91d"
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "90-day cap" in result.stderr
+
+
+def test_event_count_requires_condition_gte(tmp_path):
+    rule = make_corr_rule()
+    rule["correlation"]["type"] = "event_count"
+    rule["correlation"].pop("condition", None)
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "condition.gte" in result.stderr
+
+
+def test_correlation_retired_id_rejected(tmp_path):
+    result = run_validator_on(tmp_path, make_corr_rule(id="androdr-084"))
+    assert result.returncode == 1
+    assert "retired" in result.stderr
+
+
+# ---------- ceremony hardening: reference scope + explicit-null false-passes ----------
+
+def test_correlation_reference_to_staging_id_rejected(tmp_path):
+    # androdr-030 exists in staging/ only. On-device, correlation.rules
+    # resolve against loaded DETECTION rules; staging is never delivered, and
+    # one unresolved reference drops ALL correlation rules at bundle load.
+    rule = make_corr_rule()
+    rule["correlation"]["rules"] = ["androdr-atom-package-install", "androdr-030"]
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "unknown rule ID" in result.stderr
+
+
+def test_correlation_reference_to_corr_id_rejected(tmp_path):
+    # Corr ids are never detection rules; corr-of-corr cannot resolve on-device.
+    rule = make_corr_rule()
+    rule["correlation"]["rules"] = ["androdr-corr-002"]
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "unknown rule ID" in result.stderr
+
+
+def test_correlation_null_group_by_rejected(tmp_path):
+    # A dangling 'group-by:' line parses as None; Kotlin containsKey→throw
+    # drops the rule on-device, so treating it as absent is a false-pass.
+    rule = make_corr_rule()
+    rule["correlation"]["group-by"] = None
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "group-by" in result.stderr
+
+
+def test_correlation_null_display_rejected(tmp_path):
+    rule = make_corr_rule()
+    rule["display"] = None
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "display must be a mapping" in result.stderr
+    assert "Traceback" not in result.stderr
+
+
+def test_correlation_non_dict_correlation_clean_error(tmp_path):
+    rule = make_corr_rule()
+    rule["correlation"] = "not-a-mapping"
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "correlation must be a mapping" in result.stderr
+    assert "Traceback" not in result.stderr
+
+
+def test_correlation_unicode_digit_timespan_rejected(tmp_path):
+    # Python \d matches Unicode digits, Kotlin's does not — [0-9] keeps the
+    # validator no laxer than the on-device parser.
+    rule = make_corr_rule()
+    rule["correlation"]["timespan"] = "٥d"  # ARABIC-INDIC DIGIT FIVE
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "Invalid correlation.timespan" in result.stderr

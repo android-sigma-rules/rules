@@ -1,0 +1,58 @@
+# Decisions accompanying the full bundled↔repo reconcile (AndroDR issue #175).
+#
+# Context: this repo is the public catalog + OTA delivery channel for the
+# rules AndroDR bundles in app/src/main/res/raw/. Since ~rule 066 the
+# mirror-every-bundled-rule policy was not followed: 24 bundled rules were
+# absent here and 13 more had drifted. Because the app REPLACES a bundled
+# rule with the same-id remote copy, stale files in this repo were live
+# behavior regressions on-device (androdr-015 served its pre-#147 HIGH
+# "Firmware Implant" form; androdr-011 lacked the trusted-store FP filter).
+#
+# Direction of reconcile: bundled is canonical, with three deliberate
+# exceptions back-ported bundled-ward (androdr-078 production status from
+# rules PR #21, androdr-002 tripwire comment, androdr-016 guidance line).
+# After this change every bundled rule has a byte-equal counterpart here,
+# enforced from the AndroDR side by BundledMirrorParityTest.
+
+decisions:
+  - rule_id: null
+    field: "rule_creation"
+    chosen: "move androdr-030 to staging/process_monitor/ and drop it from rules.txt"
+    alternative: "keep androdr-030 in the production catalog and delivery manifest"
+    reasoning: >
+        androdr-030 (spyware process names) is the only production-catalog
+        rule with no bundled counterpart. AndroDR's ProcessScanner runs, but
+        on API 24+ process visibility is restricted to the app's own process,
+        so the rule loads on-device and in practice cannot fire on third-party
+        spyware — delivering it implies coverage the app does not have. The
+        production service directories are defined as "what AndroDR ships";
+        aspirational rules belong in staging/. Revisit if a process-telemetry
+        source with cross-app visibility lands (requires OS-level access
+        AndroDR does not request today).
+
+  - rule_id: null
+    field: "rule_creation"
+    chosen: "catalog the 4 correlation rules in correlation/ but exclude them from rules.txt"
+    alternative: "add correlation rules to rules.txt for OTA delivery"
+    reasoning: >
+        The correlation-rule shape now validates in this repo (validate-rule.py
+        correlation branch, mirroring the Kotlin CorrelationParseException
+        grammar), satisfying the byte-parity acceptance criterion of AndroDR
+        issue #175. OTA delivery is deliberately deferred: AndroDR's
+        BundledRulesSchemaCrossCheckTest still excludes correlation rules
+        ("Bundle 3" deferral) and the remote fetch path has never been
+        exercised with a correlation payload on-device. Enabling delivery is
+        a separate change with its own verification, not a side effect of a
+        catalog reconcile.
+
+  - rule_id: androdr-078
+    field: "status"
+    chosen: "production (bundled copy updated to match this repo)"
+    alternative: "experimental (this repo downgraded to match bundled)"
+    reasoning: >
+        Rules PR #21 (2026-05-17) deliberately promoted androdr-078 Massistant
+        to production after the selector was narrowed to an exact package
+        match (AndroDR PR #184). The bundled copy was simply never updated —
+        and because remote replaces bundled by id, devices have been running
+        status: production since that merge anyway. Bundled adopts production;
+        no on-device behavior change.

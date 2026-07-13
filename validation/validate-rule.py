@@ -10,6 +10,7 @@ Exit codes:
 """
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -26,6 +27,29 @@ VALID_MODIFIERS = {
     "gte", "lte", "gt", "lt", "ioc_lookup", "all",
 }
 MAX_REGEX_LENGTH = 500
+
+# Correlation-rule grammar — mirrors SigmaRuleParser.parseCorrelationRule in
+# AndroDR (types, timespan units, and the 90-day cap must stay in sync with
+# CORRELATION_TIMESPAN_CAP_DAYS there; the Kotlin side carries a reciprocal
+# pointer to this file). [0-9] not \d: Python \d matches Unicode digits,
+# Kotlin's does not — a Unicode-digit timespan would pass here and be
+# dropped on-device.
+VALID_CORRELATION_TYPES = {"temporal", "temporal_ordered", "event_count"}
+TIMESPAN_RE = re.compile(r"^([0-9]+)([smhd])$")
+TIMESPAN_UNIT_MS = {"s": 1_000, "m": 60_000, "h": 3_600_000, "d": 86_400_000}
+MAX_TIMESPAN_MS = 90 * 86_400_000
+
+# Top-level dirs that do NOT hold deliverable production rules. Everything
+# else at repo root is a logsource-service rule directory. correlation/ and
+# staging/ ARE rule dirs but are excluded from correlation-reference
+# resolution: on-device, correlation.rules resolve against loaded DETECTION
+# rules only — staging rules are never delivered and corr ids are never
+# detection rules, so a reference into either passes nowhere at runtime
+# (and one unresolved reference drops ALL correlation rules at bundle load).
+NON_DELIVERABLE_DIRS = {
+    "correlation", "staging", "validation", "ioc-data",
+    "decisions", "pipeline-runs", "docs",
+}
 
 
 def load_schema(schema_path: Path) -> dict:
@@ -50,16 +74,9 @@ def load_retired_ids(path: Path) -> set[str]:
         }
 
 
-def validate_rule(rule: dict, schema: dict, permissions: set[str],
-                  retired_ids: frozenset[str] | set[str] = frozenset()) -> list[str]:
-    """Return list of error strings. Empty list means valid."""
+def check_id_and_status(rule: dict, retired_ids: frozenset[str] | set[str]) -> list[str]:
+    """Shared id/status checks for both rule shapes."""
     errors = []
-
-    # Required fields
-    for field in schema.get("required", []):
-        if field not in rule:
-            errors.append(f"Missing required field: {field}")
-
     if "id" in rule:
         rule_id = rule["id"]
         if not isinstance(rule_id, str) or not rule_id.startswith("androdr-"):
@@ -69,9 +86,138 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
                 f"Rule ID {rule_id} was retired and must not be reused "
                 f"(see validation/retired-rule-ids.txt); allocate the next free ID"
             )
-
     if "status" in rule and rule["status"] not in ("experimental", "test", "production"):
         errors.append(f"Invalid status: {rule['status']}")
+    return errors
+
+
+def check_attack_tags(rule: dict) -> list[str]:
+    errors = []
+    for tag in rule.get("tags", []):
+        if tag.startswith("attack.t") or tag.startswith("attack.T"):
+            tid = tag.replace("attack.", "").upper()
+            parts = tid.split(".")
+            if not (len(parts) in (1, 2) and parts[0][0] == "T" and parts[0][1:].isdigit()):
+                errors.append(f"Invalid ATT&CK tag format: {tag}")
+    return errors
+
+
+def validate_correlation_rule(rule: dict,
+                              retired_ids: frozenset[str] | set[str] = frozenset(),
+                              known_rule_ids: set[str] | None = None) -> list[str]:
+    """Validate the correlation-rule shape (no logsource/detection/level/category;
+    a `correlation:` block instead). Mirrors the Kotlin CorrelationParseException
+    grammar so a rule that passes here cannot fail to parse on-device — plus
+    repo-policy checks deliberately STRICTER than the parser (required title/
+    status, androdr- reference prefix, display.category pinned to
+    'correlation'). Extra strictness here is intentional, not divergence."""
+    errors = []
+
+    for field in ("title", "id", "status", "correlation"):
+        if field not in rule:
+            errors.append(f"Missing required field: {field}")
+
+    errors += check_id_and_status(rule, retired_ids)
+    errors += check_attack_tags(rule)
+
+    # The Kotlin parser routes on the presence of the `correlation` key; a
+    # hybrid carrying standard-rule structure would silently lose it on-device.
+    for forbidden in ("logsource", "detection", "level", "category"):
+        if forbidden in rule:
+            errors.append(
+                f"correlation rules must not declare '{forbidden}' "
+                "(the on-device parser routes on the 'correlation' key and "
+                "ignores standard-rule fields)"
+            )
+
+    corr = rule.get("correlation")
+    if not isinstance(corr, dict):
+        if corr is not None:
+            errors.append(f"correlation must be a mapping, got: {type(corr).__name__}")
+        return errors
+
+    ctype = corr.get("type")
+    if ctype not in VALID_CORRELATION_TYPES:
+        errors.append(
+            f"Invalid correlation.type: {ctype} "
+            f"(must be one of {', '.join(sorted(VALID_CORRELATION_TYPES))})"
+        )
+
+    refs = corr.get("rules")
+    if not isinstance(refs, list) or not refs:
+        errors.append("correlation.rules must be a non-empty list of rule IDs")
+    else:
+        for ref in refs:
+            if not isinstance(ref, str) or not ref.startswith("androdr-"):
+                errors.append(f"correlation.rules entry is not an androdr- rule ID: {ref!r}")
+            elif known_rule_ids is not None and ref not in known_rule_ids:
+                errors.append(
+                    f"correlation.rules references unknown rule ID: {ref} "
+                    "(no rule file in this repo declares it)"
+                )
+
+    timespan = corr.get("timespan")
+    m = TIMESPAN_RE.match(timespan.strip()) if isinstance(timespan, str) else None
+    if m is None:
+        errors.append(
+            f"Invalid correlation.timespan: {timespan!r} (expected <int><s|m|h|d>, e.g. 30m)"
+        )
+    elif int(m.group(1)) * TIMESPAN_UNIT_MS[m.group(2)] > MAX_TIMESPAN_MS:
+        errors.append(
+            f"correlation.timespan {timespan} exceeds the on-device 90-day cap"
+        )
+
+    if ctype == "event_count":
+        cond = corr.get("condition")
+        gte = cond.get("gte") if isinstance(cond, dict) else None
+        if not isinstance(gte, int) or isinstance(gte, bool):
+            errors.append("event_count correlation requires condition.gte (Int)")
+
+    # Presence checks use `in`, not None-coalescing get(): the Kotlin parser
+    # keys on containsKey, so an explicit-null `group-by:` or `display:` line
+    # (an easy YAML slip) throws on-device. Treating it as absent here would
+    # be a false-pass that ships a silently-dropped rule.
+    if "group-by" in corr:
+        group_by = corr["group-by"]
+        if not isinstance(group_by, list) or not all(isinstance(g, str) for g in group_by):
+            errors.append(
+                "correlation.group-by must be a list of field names "
+                "(an empty/null 'group-by:' line also fails on-device)"
+            )
+
+    if "display" in rule:
+        display = rule["display"]
+        if not isinstance(display, dict):
+            errors.append(
+                f"display must be a mapping, got: {type(display).__name__} "
+                "(an empty/null 'display:' line also fails on-device)"
+            )
+        elif display.get("category") not in (None, "correlation"):
+            errors.append(
+                f"Invalid display.category for a correlation rule: {display['category']} "
+                "(must be 'correlation')"
+            )
+
+    return errors
+
+
+def validate_rule(rule: dict, schema: dict, permissions: set[str],
+                  retired_ids: frozenset[str] | set[str] = frozenset(),
+                  known_rule_ids: set[str] | None = None) -> list[str]:
+    """Return list of error strings. Empty list means valid."""
+    # Correlation rules are a distinct shape (no logsource/detection); the
+    # standard schema does not apply to them.
+    if "correlation" in rule:
+        return validate_correlation_rule(rule, retired_ids, known_rule_ids)
+
+    errors = []
+
+    # Required fields
+    for field in schema.get("required", []):
+        if field not in rule:
+            errors.append(f"Missing required field: {field}")
+
+    errors += check_id_and_status(rule, retired_ids)
 
     if "level" in rule and rule["level"] not in ("critical", "high", "medium", "low", "informational"):
         errors.append(f"Invalid level: {rule['level']}")
@@ -110,7 +256,7 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
         "receiver_audit", "accessibility_audit", "appops_audit",
         "network_monitor", "tombstone_parser", "wakelock_parser",
         "battery_daily", "package_install_history",
-        "platform_compat", "db_info",
+        "platform_compat", "db_info", "timeline",
     }
     if logsource.get("service") not in valid_services:
         errors.append(f"Invalid logsource.service: {logsource.get('service')}")
@@ -194,12 +340,7 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
             errors.append(f"Invalid display.evidence_type: {display['evidence_type']}")
 
     # Tags — check ATT&CK format
-    for tag in rule.get("tags", []):
-        if tag.startswith("attack.t") or tag.startswith("attack.T"):
-            tid = tag.replace("attack.", "").upper()
-            parts = tid.split(".")
-            if not (len(parts) in (1, 2) and parts[0][0] == "T" and parts[0][1:].isdigit()):
-                errors.append(f"Invalid ATT&CK tag format: {tag}")
+    errors += check_attack_tags(rule)
 
     # implies_flags — orthogonal facts about the detection subject the
     # rule's selection structurally guarantees. Source of truth for the
@@ -250,7 +391,27 @@ def main():
             print(f"YAML parse error: {e}", file=sys.stderr)
             sys.exit(2)
 
-    errors = validate_rule(rule, schema, permissions, retired_ids)
+    # Correlation rules reference other rules by ID; resolve against the
+    # DELIVERABLE detection rules only (production service dirs — not staging,
+    # not other correlation rules, not data/tooling dirs). On-device,
+    # SigmaRuleEngine resolves correlation.rules against loaded detection
+    # rules, and a single unresolved reference drops ALL correlation rules at
+    # bundle load — so an id that merely exists somewhere in the repo is not
+    # good enough.
+    known_rule_ids = None
+    if isinstance(rule, dict) and "correlation" in rule:
+        repo_root = SCRIPT_DIR.parent
+        id_re = re.compile(r"^id:\s*(androdr-\S+)", re.M)
+        known_rule_ids = set()
+        for d in repo_root.iterdir():
+            if not d.is_dir() or d.name.startswith(".") or d.name in NON_DELIVERABLE_DIRS:
+                continue
+            for f in d.glob("*.yml"):
+                m = id_re.search(f.read_text())
+                if m:
+                    known_rule_ids.add(m.group(1))
+
+    errors = validate_rule(rule, schema, permissions, retired_ids, known_rule_ids)
 
     if errors:
         print(f"FAIL: {rule_path.name} — {len(errors)} error(s):", file=sys.stderr)

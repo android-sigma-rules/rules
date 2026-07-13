@@ -1,0 +1,52 @@
+title: App embeds broker SDK and holds sensitive location permission
+id: androdr-083
+status: experimental
+category: incident
+description: >
+    This app combines a documented data-broker SDK (Outlogic, Venntel,
+    Predicio, or Cuebiq) with permission to access your precise location.
+    The two signals together indicate an active broker pipeline —
+    ordinary-looking apps (weather, classifieds, dating, games) embed
+    these SDKs to monetize precise-movement data, which has historically
+    been sold to law-enforcement and military buyers.
+author: AndroDR (AI-generated)
+date: 2026/05/18
+references:
+    - https://reports.exodus-privacy.eu.org/en/trackers/354/
+    - https://www.ftc.gov/news-events/news/press-releases/2024/04/ftc-finalizes-order-x-mode-successor-outlogic-prohibiting-it-sharing-or-selling-sensitive-location
+tags:
+    - attack.t1430
+    - attack.t1437.001
+logsource:
+    product: androdr
+    service: app_scanner
+detection:
+    broker_sdk:
+        embedded_component_class|contains:
+            - 'io.xmode.BcnConfig'
+            - 'io.xmode.locationsdk'
+            - 'com.timerazor.gravysdk'
+            - 'com.gravy.gravysdk'
+            - 'com.telescope.android'
+            - 'io.predic.tracker'
+            - 'com.cuebiq.cuebiqsdk.model.Collector'
+            - 'com.cuebiq.cuebiqsdk.receiver.CoverageReceiver'
+    sensitive_location:
+        permissions|contains: 'ACCESS_FINE_LOCATION'
+    filter_system_app:
+        is_system_app: true
+    condition: broker_sdk and sensitive_location and not filter_system_app
+level: high
+display:
+    category: app_risk
+    icon: warning
+    triggered_title: "Active broker pipeline: SDK + location permission"
+    evidence_type: ioc_match
+    summary_template: "Broker SDK + sensitive location permission on the same app: {matched_value}"
+    guidance: "This app embeds a documented location-broker SDK AND holds sensitive location permission — the broker pipeline is active. Either uninstall the app or revoke its location permission. The per-SDK rule for this app will also fire; this rule highlights the higher-signal combination."
+falsepositives:
+    - "App that legitimately embeds the SDK with disclosed user consent AND has location-essential functionality (rare given regulatory history)."
+    - "Pre-installed system app shipping the SDK (filtered out by filter_system_app)."
+remediation:
+    - "REVOKE location permissions for this app: Settings > Apps > [this app] > Permissions > Location > Don't allow."
+    - "Consider uninstalling — broker SDKs run in the background even when the app isn't open."
