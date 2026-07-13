@@ -1,36 +1,37 @@
 {
   "version": 2,
-  "last_full_sweep": "2026-07-03",
+  "last_full_sweep": "2026-07-13",
   "feeds": {
     "threatfox": {
-      "last_seen_timestamp": "2026-06-07T07:23:14Z"
+      "last_seen_timestamp": "2026-07-13T06:02:03Z",
+      "ioc_data_last_write": "2026-07-13T14:00:00Z"
     },
     "malwarebazaar": {
       "last_seen_timestamp": "2026-07-03T03:08:21Z",
       "ioc_data_last_write": "2026-07-03T12:00:00Z"
     },
     "asb": {
-      "last_seen_timestamp": "2026-07-03T11:47:18Z",
+      "last_seen_timestamp": "2026-07-13T12:06:24Z",
       "last_bulletin": "2026-06-01"
     },
     "nvd": {
-      "last_seen_timestamp": "2026-07-03T11:55:20Z",
-      "last_modified": "2026-07-03T00:00:00Z"
+      "last_seen_timestamp": "2026-07-13T12:04:23Z",
+      "last_modified": "2026-07-13T12:04:10Z"
     },
     "stalkerware_indicators": {
-      "last_seen_timestamp": "2026-07-03T00:00:00Z",
+      "last_seen_timestamp": "2026-07-13T00:00:00Z",
       "last_commit_sha": "a04c5c1958bff93fec3b1b56edbb412b209f2a38"
     },
     "attack_mobile": {
-      "last_seen_timestamp": "2026-07-03T00:00:00Z",
+      "last_seen_timestamp": "2026-07-13T00:00:00Z",
       "last_version": "v19.1"
     },
     "amnesty": {
-      "last_seen_timestamp": "2026-07-03T11:47:28Z",
-      "ioc_data_last_write": "2026-06-12T05:36:44Z"
+      "last_seen_timestamp": "2026-07-13T12:13:59Z",
+      "ioc_data_last_write": "2026-07-03T12:00:00Z"
     },
     "prodaft": {
-      "last_seen_timestamp": "2026-07-03T11:51:44Z",
+      "last_seen_timestamp": "2026-07-13T12:04:14Z",
       "last_commit_sha": "6ecbec2f66cf18ea869e596ef451a072539ae588",
       "ioc_data_last_write": "2026-07-03T12:00:00Z"
     }
@@ -38,28 +39,32 @@
   "discover": {
     "sources": {
       "securelist": {
-        "last_seen_timestamp": "2026-07-03T10:00:33Z",
-        "last_post_url": "https://securelist.com/tr/armored-likho-apt-with-busysnake-stealer/120292/"
+        "last_seen_timestamp": "2026-07-07T10:00:11Z",
+        "last_post_url": "https://securelist.com/industrial-threat-report-q1-2026/120643/"
       },
       "welivesecurity": {
-        "last_seen_timestamp": "2026-06-30T14:39:37Z",
-        "last_post_url": "https://www.welivesecurity.com/en/videos/month-security-tony-anscombe-june-2026/"
+        "last_seen_timestamp": "2026-07-08T08:45:00Z",
+        "last_post_url": "https://www.welivesecurity.com/en/eset-research/eset-threat-report-h1-2026/"
       },
       "google-tag": {
         "last_seen_timestamp": "2026-06-02T18:00:00Z",
         "last_post_url": "https://blog.google/security/android-fake-call-detection/"
       },
       "zimperium": {
-        "last_seen_timestamp": "2026-07-01T00:00:00Z",
-        "last_post_url": "https://zimperium.com/blog/mobile-threat-watch/fake-document-reader-apps-used-to-deliver-mobile-malware"
+        "last_seen_timestamp": "2026-07-09T00:00:00Z",
+        "last_post_url": "https://zimperium.com/blog/goldpickaxe-returns-when-your-biometric-information-is-as-important-as-your-money"
       },
       "threatfabric": {
         "last_seen_timestamp": "2026-06-25T00:00:00Z",
-        "last_post_url": "https://www.threatfabric.com/blogs/iptv-campaigns-target-football-fans-across-multiple-countries"
+        "last_post_url": "https://www.threatfabric.com/blogs/iptv-campaigns-target-football-fans"
       },
       "group-ib": {
-        "last_seen_timestamp": "2026-07-01T00:00:00Z",
-        "last_post_url": "https://www.group-ib.com/blog/balkans-fake-traffic-fines-phishing/"
+        "last_seen_timestamp": "2026-07-13T00:00:00Z",
+        "last_post_url": "https://www.group-ib.com/blog/compromised-card-tokenization/"
+      },
+      "cleafy": {
+        "last_seen_timestamp": "2026-05-18T00:00:00Z",
+        "last_post_url": "https://cleafy.com/cleafy-labs/nfc-relay-goes-local-how-ai-is-accelerating-a-new-wave-of-independent-malware-developers"
       }
     }
   }

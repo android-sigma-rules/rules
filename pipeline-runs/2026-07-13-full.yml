@@ -1,0 +1,977 @@
+run: 2026-07-13
+mode: full
+candidates:
+  - id: 84bddb4249fecd2ab39b957c6394c828d8cf52b30c93012d91d229300fe5b272
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dc25c20249bb00a996d25421f51518d4d731779a2b0351d80eb69cc7643f5dc9
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b12890de51d3879bfbef2605fa74cb577a331a9fe6542b5551a57878175242b7
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b71a5204be101bf70949cf9139734b2c24f221c90f13a937ff42579e8c16abab
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b732b3584d7ca6f0efa23e4f769d097f78a834f8ab27c82fbdb72bb9bbb889f9
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: c2e14ab636b91d09035f9f3cd539fb440803420e43d5ccd863a26cf76e62bb3a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: c426daade9bacef035bbb1313f7e671ca5fae400d756670a869465f90acdd0c6
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: d1faaba9ccaa1ab752619342809a71d33562c69292debeafdbefcd72e0482034
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: db49945ae3e345c98501a4a9ba114f8d0ee17c8e6d12accdd5b8fb11f37290fa
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: e33572e56b5e3c0f75e2b7f21a3bb4a26e8616bfcbbcaaf727154a24842e823b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: eb75d27b128dc1d52e7995a404e679972fe9c881551052acbc73830a88fc98f5
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: eba6b5445b17bb12c5906151ac462af92e183ab4e4166d2c7517a35e2dc0fc79
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ecb9ef2e567994ea1875226028331499d3ecf38e4426dc9ec76c26f855721c00
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ef3058513d8602821716b37128f30174022695e032dd459a6c892d268a46abfb
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: f32ae21132020fd3af9479f846d4c2cbcf37c245214d298d7e70d6a14d00591e
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: fbf1f069f8b9054ff20372363d41140bc12a39115245d73fac66eabc7131ac81
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: fe4195f80a950008daed587cb52b788616a54c9f09c73f42199c3f72b00fb365
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 12de27788ff089d827775fb562f89c1793122de3c7acc7bc0625c8a6496b1238
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 14438a46fae8d846e700db6d0233f2eb38ccb15ba31ec445532e2fb755edd0b6
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1c9feb726b51601660408b3ad008d6fccdd8244158ae4179801df14f3df41e37
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 13467dfc0be4aa390a3b7b4873835c3cbcaad56e14e47545d4b205fedd86e662
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 13ba45489313dcd40736bb2a0b17c8a22197836485617a39515f400137c5c3b8
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1b32baeb3ab66c02778e6a1de6b5840e57519cedf49f6448c9158b9c4cd34a0c
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 18bc19036d0195cd49f3de77c41df13982b0d2e9caddbdd8839039bd4a028cac
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 18a1b42350607e3b8fca55f9bb0def6e8ddb8816688bcad71c5dab0571849455
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 174fb1202023795b7b800a7a1df621f2265f29898d8084ec7d7c155fae66cc0a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 16ce238bae097e8c1c85e9c6f8b94eaf3a31431a84d82c25afaae874d4128d1a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 16919b7c70d1ac6bd35add83c94cef0ac5f7793372b7e8d70e2cd18d2e846f86
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1631d66da46472a743b221900bef6d07371d80ac170ec4d1a1e02af5e8f3fdba
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 15e88b6e8590b5405c94dd395b1f33ced96a82073bbb8c3bac311cba9d79b72d
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 0db4b9b06c2e05a60017bc0198d1627f55de41565c8ae30c823a99ef504a546b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 103583686cde76ef43b92fb9b7864f7242a0031afbc2f54fbbbefbc451251aad
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1389b1493f4112938ae22e6a3ae595bc7a2bca19cd308f1b8b84899c5b8dcf37
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 677c3054ca1a07cf6cdd0398f615f60ab69449d3b00dd9626e5caf71cda17829
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 9ce859a03c883759048cb702b5b187ac57ec14ab8fd12d1be5d70c39c0aa3deb
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 9e337f5c3dccbb55c0e087ab3ff624c40789206135b4aa66d8266b888f1a4136
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 6333a7c2c56d9cc23ecc360870d3f784bd8557b60fedf94c7241468085d383f4
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3098914bbad0149feda5f9ce9c14e1d4c0db37ed103e25384a6c9fbd5464733b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 18e2006ae25b12849a17cc8d94f009cfc43c5fb3a4d6b0b734732aa0f46066e9
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 72d0dbd8103521598061f22449ffa78107ccc60f1460fdf138de20d9623957ea
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 9b63f82a69ca19519cb188de471334479bf638af1d6cbc81aa58aab2d11f39ae
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 10f0b9fe9fb08fe804622dccfc33517e3db86b72453bdec6ab2482b5c06b7791
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: c219760a9a685e94da130a56703f9be06adff8021dea5837b710dc7c1fd0dfae
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b87a1bf2c48aadf3515b66a951b1e6fa6bd0e563f3529707f6201784cdfb8a3c
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3d34c01ca87b8dab5bbdb9ef542efa50e6d44b5a39c4fe632a23c997af474c05
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b481de1e109a8395487aefe78174662b4fb8a02e8a3d520c5a1288f5dd2b6ec8
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 7dfc057b129dc9156417334e8124e71343bc1aaeb60fffc370af58753748ebe0
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3f4bcaa0231d67040cf58eac16679c847795808e364139d4e944bc7338d41877
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 9974f44a315d71e74ce110d9dfcc7b58fcd8169718ffe13d0cb1975f071a45aa
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: cb0e709592ddb0e75862ab856af8cc887bdf47a2ee69495a8c062ae225e4a773
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: cd80de12a74341b9ab6a7218de49dd164d91c56ab31fa06722d964d8259a328f
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 9eef714e2b7da736de9a050018be7c2490424290874519341377304b2ed75ff6
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 77c0e543ef46ea1dc2182585c88f8d228f7d2c97fef4837687d06920735cf71a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a279dfe7c95888af314337ffb9dcb3c4c528efc72dcf33764f3ec163067eb96f
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 85757208f4b58cdcc94d8e85bb94a8edeeb5a6f74031195d3097b7fa237716ce
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 97b0093b1cc2809fa72be2d935210efecd2a7c4afab9532a832f7982f9b7d711
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 7632af21392892dc9a1a351667aa3cb425eb30026b39b82ae82268b300d4d8ee
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 784751e30d2f729ac455a9fc4336ee8ef53fa956fc6e16200328bba81f9c4e62
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 43bd9ddefa376c5b146d89cfa8b537bd3220945a809e0e7d6185ed3510749f6e
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: bc45bdd4f6623eeb898b28a483fa708b1af8078e477f18fbc7292db1240188c3
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 43858f85d02d85d19c84f4267293bf19a8efee6392e4c46e7213b4d82f0c9be2
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 8e19018514d35c160a0d1556574457ee609e23c0527f69642a14a3f18645b246
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dcc00ebae36b8464d44721629308bf51b9c751dcd4dbf1ca0225480fd2ad4e20
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 326579ddd29f9cb523ed2438157de328085a7a77276ce895a7ed9b35045fa10c
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: d92afc008e4e36487ac91bdeba83c2d3d2566debb94584197c666cd8ca051cb3
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 6e1fd3355aa57043be674431fc852e4545a3286bf3de2157a2acfa2a22aee5c0
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 140ffa631061375a6e653331d564c6d96381c8dc3f219d108ad482054dfd83e1
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a6e32bd51f133d3f7697f5100895cf4296d995107e9e0cf99cb94f307c602ed8
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3963820a8e4dab609eee66dde37f466d22889a5fea5c7282a8893a8ce348593f
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 82629bb83c998a012f546817fa9745d269a012d856836ec12e98945efc76eab0
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: e2a233929593848d5d52f64e1d2a482879cf513d6d685f59f3ef52361e9f018c
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 98adcc5533b101861b1783d73ff950a5574829fd1a9aeb440e14b89de7cbcfb6
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 28ada66863e7c08b4b7ae4033b53e01c8500fe71923ae4e1b4c0e395e2e4bd6d
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: c956d93d0feece67d00c476ccf23239af0b61f5fa746c9b0c712770dfc3b2d92
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 63e860567eabfd5b79f5bcc2c1b94cb8f9f4da51ee8567f2acdc1d6247e7057f
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 22beb8ce784571bc9bc1706004d8b2500309f1f33a19b9dd87cae518e1d9ddb7
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 185b732676cff7978e65835e4cbaa96feace25c1c00c0a0ba6e3ff9790a4388a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 8c6615392c643ff2c8e13a5211fa0e0533812149f4fe837d9e0df934990b3143
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 6ec8662268923c6ff04ae21a35d0283d65c6adafb89ed8878a524d1eb7552779
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 717705566ef94eaaa7d0daa2254ae7273a1f7376bb5bc2f4f8bbd7119cfb6df5
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dd840ffa33510e57f44f0b2373d067937054cb7ec934ef13a6a4b2264cc2fb28
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 4c7ca50e506e202c083a0c4502a13fd4394b7f925fa46193fad2a412b1d92e13
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 39138796b72606b51b20df0835209d0893c6d6a03f5d6f3ab2527327aacf620a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3fc2a7e874224dacdc2326790d798c7634a38374fbe872e6c05e6be6dca23a39
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 8155a6c39cbf6731cf3641c70c318d0616c593862b51df70c5e0c843c1b6a5c5
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2b7c1394d93c9f56348170d13e2892654991f0dfc6dcca4f9ed6c05d561a5258
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2052093678efe1af4c5a989855ac7a1f71c338b095a51cf2414feb3bf0f3dfc4
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 343332e6514054cdfbea932550b74935b077fbb42bba378bad9a4fa5ac77cbf1
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 25909f83379af111b2fef5f1324de6e0a282c94a148f296f0d7a9695536f2d5d
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 347eb640e4fbd88db11e827324fbec09b6864956171fa5a425f059152bc9e736
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 130d37c61d617d67613b4edf9051249a77214c371471ed969d47e9fff5fbe426
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 23dcc662006db1a7d4bfbd65b0dd9ccb39d4790839e5d3aa415693703c6c1b6d
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1825427fd4dc930f0d257bac348060332d6a4cde7329df89beba02ffb3ba8dc8
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a70e28df8386ea567a98c89bc880dee686b64392da5e1aa519945ca5cf1e0b60
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: add197631db1a40de6de6cfe152d0c416f2fca377a4e3ac165a8c9e75d92328e
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 91215033b273d050ae96042f77a7bc74f087fe535a7f5641ea9969a6a0383b29
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 5fcdf7c6117b9c9e5d6d1554995aaa1fafadac09a216d52892980dc32b954942
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: baff2c289cc5f5244952ad6a79f7285ef7abc683a19a1731077ca9bbdde170e9
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 64297489ece610516e42145ca0c6e907c37eafcbe8548634b532bb69a049ca05
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: aeed98f1197d723cb4255a09b55305ce35db777e080c292a0b3b56f1bad1d7d3
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 06bcd82d0334b7c420cad04bc543808b7e54ba32ca53d527a711bbc64c17403a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 157c77df20da56f0ce3ee8df3dcbea729dce930f3512d81fa3e01a00ca0da54a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 15f370b33c8dd3e9dbab5405bd522711fb1080fdd3e0890844976371bc131aed
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 161b3026d73295afbfe057ccace890616cd7a627cedf384fcde5c221852e3b92
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 314c16bfb987e6f3b6374e309584ed0ad0c5021e99770eb4edbe28214af193ce
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 43e3b4ed9b558aa8bb2773a1f4234e81ab2b93df6b9f7904c4fddcce5d6e0f1a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 5513348df877471f81188210d2e8f2ba1c11ae087692c4ff6f64639a928c6b3d
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 563e32918d7190d634334eabcc662a3909632bd780cefada650f3b13d98cb6e8
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 656f45ac15f0a703a2b9b6ad98886bab0bba1d6ba176a5836d6a247136eb6c52
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 6688e740e6ad1278815a07f45cf91c1b1ba3b73f8cd3f7a99ad560480860284f
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 773fb4438ebed9dafd9de7f62c5bf79deaeccc253858434bbe4a2e202bf37d5a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 78710ef01be7bf414faa7f45b2b2c03406ba5dcd661bd2978e3084cf2991415e
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 788961dfb74d4dac15c483f6b6b7bbf095968d748d160ae5e087492f72b6ca2a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 83127b29c53e289f1cb8eff935b7dc1cb00cd38cf1307a7103fcbbcbe6200b12
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b0f45091e7290797be2a85032d797891064a5cd611b194534b78cb024003468d
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b42aa8d9faeb31ed13cc65743001b61a93b57f1e556d86e1b1a92a72ab091c4d
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b62ce52d8893934f2afa17ff9021530c1a860f778ba03f54c828e8f467405f9b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: c175715b26a10dd441b513f380eeacb17cee23a0df990683643a0642c38da3b7
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: d44ff9c098d0ffe43f0a6088c9e0c5cda701a6c703fbaafc806ebd6a4cd4d41a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: e5e01ff5f83216fce35d7bdd87a07d36c447eed6e1b1efb090f8a92e95252d1b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: f16ee387a667512b6c26d68aa8a62ac3e48052beeaa2a358e6c0bb3cd955c15f
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2d5c6565a23de8182b1d0750682543f574df3ce8f66e2adbf801ccc3358aaf68
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 267f995c8c8c162e11fc5a0b5adcc251dd61ad400178da934fc4b2c0a334093d
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 42d1d3141ff48d01e4f2cc7763108b12d7d45d47f9740308fb697f49d4855344
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: aec9a05c34ab1c6682b7b4010f2c661a00800c496412a98fe0dbdc0225d61f04
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 46c65b6b3b104496486ea573620b23a2fb392c698190da3e6f406d862ae74f52
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b2ea0559ff0f8f385e56c7393b22fa8a3d216f510d7299483d992e316e46dabf
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 606e1d68f7e3d7f0d68f7f6c39772f5d29fc85c7779b449854c7315a22ac9c91
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 8c22af8787ca9c86dfa2c46714553abb815f6e6e5d63c5e8c417e6ac97bb8679
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ed6c028bb0331990883cc5a88df62fccf9f2bb6578c53c459fb1d34014558211
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dbf006333267f6a7a34758cec99527826f98eacb2775198de03fe89522246695
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ff56ad2a3fd1ace9cb3b62a32e95969beaaed66835e971886e4888e35514b7c9
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 025d3b9b2536394a3e2dfd950f4a4caa53cc05002e990199372ead2e709ae738
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1a2e5035501b66d902cc8ed42b726d22e054d1d156d01b4f9cb26fd12037c436
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 06a24c7424060b62215981dd7f396f4fc7c3645e1fae21f56542b2fb781ff3ce
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: cc8010a51fe69015e7cc8d0ad6bcfd0eb0413727adbf2c162a28925735cca2b1
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 47a292dd5e6ef67e65b71d3919fcbbdb933fe012576f42cb58b00ce306628d26
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b65ab071908e1ee63d0419b262ede6684fee98e13ae3e58ccfc31f7622dcab31
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 83ecc4e60eb90bbcee503a2caa479cebfe345722639720751b4fd179cec51552
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 67e444344d0d70f3e0dc16d0a75688321ed144f7de7f140c76fc87e2be2e5f4a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b45129aabfb53e1a04c5af57c1eeb24efce9266f1184210a7c149de36e281a43
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ed530456e57f01e4e263a0d91bbc398afedbc34059d9ad9f1014c21b05f0dbd2
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 5100f5c8fb1cfaf1a55acb91e1e46134ebdb7dfc43c6dc013c4511bf20d5a7ca
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 382cfb866a9fa041e20f05f92bc03c782a66146eb545029dc1f4e1b0257bed47
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2090aa89a64b28ee25a2454b1a09f84d87e4e1dfea95fa2d4e4626ae8b93be79
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 98b10b5d296cb2177a772d432ccffdf43046b034c39d8aa141a3ead2edcbf5a2
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 194b7765b0de4c86a01e9e92005bf8d0c27560872b7f0b739e3ff2c345970602
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: bcc64ea43ca16fead469d91a3ab2567df0696d33216ade0fef515c7d4f40401e
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 431628b5c2ed2ab2ac7008e0f9a2c2625c13fb1a0879069a437bfe718ee4cdfa
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: de8b6c59a28aa2d49611aec4c55d3c8a770e87e6dc2931224524034abc665d77
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 7bbd6364ab7c2c44001da3292f14f140450325ad2719b4f4a77042606a91b89c
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 396237f625f233ba3d4ee666ecfa5c2d430246c3b3e8c476e064226742728759
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 8dadfd1388e5a21043c13f150c09184d907012a57608d0bf42d37de354379607
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: be96f8603fd6411746d0ba2bf487aaba501c766b1441979ac21a17f8584b21a1
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: f57c56652e8b60525acb5308ffbc43084fcd2163fb80dc7fa1272c33d32ada2d
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 73e12a32c9918deaa7e3fa60ba6d4ca171f4687e2ed0e0a30ad146f721fb561f
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 9f6344635ec9a4e714bb2e18fd7eef6c963c2e6f4c602d167081e5366b8c1300
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a366d5baf33ed850b6ddb90d6d7f081d7c07e29b57b840c2ccd61ebb0e17c336
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 25dbda788037449c9050a0754d3dbb5c4d101a01e547bdef6d74da6d514ae3b2
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2ac3ca2195cd9275e4b6443385249c7b0bf3f1703307aecf032096ad47e8b04e
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3df43fae34fd379fede77a7a1165e8b951fc0bf694489982043d23869587564b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2000a4a93b0ba386eea578a609cda4bda75579599433d06f3a52d032c3bc3557
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2423d2f2f1589328de2cb0b8758abf106607f9bc1114247a4c64a01b66fa9e0c
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 7f44fc2c0d2dd7f41d6440f26c680f05eb50f20c86c178064141f30e5ba65435
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 7273b024c469de0cbd8f2440e0fe63f6d3499e36e5f3f8a82d6ef6e7251edc44
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2722c2eec27540d5773920f1b6d59bbde4c97f6df167c081d495fa81320439a9
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1e13da9071a2a217605c9c30dee8d851f165006276cfbb105d3baa0452571be5
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3249a339d607ca82521cb515ac5a4bfd2fa5a4ed272a76d5d27fb0b24f0be4c9
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 013642fa369e3f4686339f4de1f7e331bef2c5ece9f1682bc18c02c2f344e797
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 645ff8f37136570e8ae44d21cbf222f5b68cdffdb721456896b88fb8cffbc3b8
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 8421b9385772cd111e647058fcb84b2226da110ad9b3ea0a879d8bc586980def
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1c274031f8a092518ab0cc65b16906059b297784d778ef42175dfb6430a4cdec
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 4676709715fed50c222f12f9276504b734ffa1a57a6afd04d8863fefd8d40905
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: e85b7ccd7123ac3271434983b6ee1b933a9fab6489e29a6e72b897c6d2e7d270
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 8a960bd07d92a4063f34153f8a2ed09c2f5080c2fce1d42a27d1d5f24a7bd0c1
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ec9f58a56596a6d34c9aea55fa25932a5e30cc2d563b323f7b7fe58d132748f6
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a45ab4a898a2cc0f5bcd12d0130e6979236276fa463e4fe48ddf0f3d4f431df4
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 7630b77e8ae61ebe9050a166593dadb03dfb2784d653af4834cf285807da3da0
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: e568fe6db2adf8212043532032c7c1d7a16ea48c6142a5965c2aa2f59ce992fc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3a5caf73f63eb20958a5180737df73d052ba62bbc809d2131b9a58b7db086bbd
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3a58396f1b6cd05fc92d6c499ecedfff74a5d86b11bd4506575b0ae22de032e6
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 924ee3361f4fb3b4a19f91b56127ba54de7a56ceda0aaa5e6f55f8d7aa289b52
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 17463924a2b950f61ec6b1e309b1dde512a8b0a4430d4f5bdfa6306667c6aa1a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: da6a7e324170acf1eff6721e402ba5c1edb82496b41c71c0a104c6700dda1144
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 96edb1cf80d26d474237507f7f8254cef2203bff5e981df53102c1009665cd48
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: bca04a351adf2acf82054e0e18479aff5c40310b9c85655720e33ae2d818e04a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 47bb1cba0d873d2faf4d0289e792c9fb2f5cc83ee6427df33cfb3e96299f221e
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 9aea7d15c71024732ced1eba1251a072e5367a8292233ea0159aa3482e5f4491
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: e0b6798a4bee0209c1d8975db41958541c5a97e60daf2e100099c29bd039b48d
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 900a814138634c908d5854459d9228d6afa89ff30e8229be09ec7ba8f6f4eeb0
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 44bb27c86fd6e3a017f196507b7b3eff1ecb2df02def445d16f99c2f2ad56b38
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 0c94605e5ab73a6f03618b5961801b654d413ee90d47397dcb31eab1f9f45a9c
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 01acbba573f577f19d156111af07fdbd0c08b51e8403a6fdc103f286d32d00fb
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 777e9fdf95cff0b7768c9cd8c5f0a79dfd8ffcc40fa6d65be0a4d9d97715289d
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 0e9b3642ffefcbdf367b5b8d6cb055c6dba284fc9d492800ab2ad9369c7a8c14
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 4d8291287b93be77b57d1d519d0eed2954d242b1394a4a43af7efbd5c95235bb
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 466a198b001beb9731f375206cfc2f5d1237f4e0b4139e0be38460b648427c05
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 33f0435f9085a08e543a9f1d28c9bb0c68cbaf658e71d1e735d055b010b3011a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ad9e3a4531c6e28ba575962926cc10a1d6409663324713ba7d208df292a8e90c
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 86dbfe74a42aebbfa6e7d617e96f7f203fccb8838900b8c2cc8910e047c2fda0
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 71f4aaa10c1314887f9d2f8219d44fad947f6e0d1c388c65980968e31ae19077
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 500eac20206935a6542c4a0f1f0e45109106fefa3a18fa32108b968d04946e47
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 8fe016283e34bebc275b45ed272b8e288586bf8fac21f2bf96e7ce2475b166a6
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2f809cc09cb6581250997b436df2332badd71f48b663bf66d429e4b5a773a668
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 0e004a2f7cd1028782cb92cdab8fa81c0a86b0a2e668f6ffdf4fb15292a9206a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 716d37b26fa2fb2c9bca7e3acdc550b3ca40b842eb28ad1d461621a1ddd3ce24
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 6881261b6875cc8c0dcad93dbf96eccb0228305b5f218ac3a0c2e347eac61da0
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 83f968ccb3e1d385d0456d9b7a063c078421c3a9f14a845dac3e975e8ce12c70
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b6f39bce3b17c28741d036dc2f2c7aa7ab8b0696d4278d437cfb265f22551f19
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a056991f689bbfc4eda0a947ad1455d345dcb40b38ab859db50370fbcde6b2d5
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 72a52b1a9687ab627143df37b931dd79e5dcd25523bb70d766216dcb76236bc7
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 89c5a6600c3b7baadc95fb3a03fb1fb74a31ba5a5be4ba3bbd64c26f8c09053f
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 4b2c3735389b00a67b94f0ceacabc662603a32990df2e3cbc250e3bd8fa62e70
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 89a6a865d33f5e41ac0c3c110514825c5c354ef11a6233cc041e942353ce3275
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ba161c9075ca46441c0614499f706ddfb518caffa082fdeeacd309d768b933a1
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 0cde06237614cd9a42948be23c5f362cc619f1c91a0e8708b9efbba55ffdf050
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 0b10c55cf3df2ef0fb757a4feca1fc48bc1a48de7e22d9c0382d777365675373
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: c0b80b5307fc418f9756ff6da09f4f920ea091d610ea28fdd3b68de7900001cc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: e61fa9becd488d25f19a84110951abfed3592a06e59ad6ce95d2f299505a1831
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: c3da8374714a0d92ae42a84a9df22c93ae07b00c574aaa386fd91b5b3360d1f7
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 4c7f4498c1a0b8b03cefd54499f9b8c26632c612cf0eaf88ed1d5ed03c2c08e4
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2dc7565fc0dcddba8cd378a0582ed4f6f3042165feddf22269664b1645390e93
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 61b0c361848057b8f37790f92a896cfc5b1cec3bdabf453b40fab2baa634b0af
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: fgiojhfjkbk.cc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: id.btyrw.cc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: thituu.cc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: id.nercx.cc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dmnw.api4321.cc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: qecdf.api95642.cc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: fgr5yt.apihjr84231.cc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: radc.api23883.cc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dfffhekfv.cc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: sdsfdfg.dfffhekfv.cc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: krusty-crabs.sbs
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: redwing.top
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: api-sync-service.mdkd1184.workers.dev
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: redwingqq.top
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: manyrei.live
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: wmanyrei.icu
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: yandex-disk.net
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: offservers.ru
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: androdr-089
+    verdict: rejected
+    reason: "dead-rule literal — permissions|contains RECEIVE_SMS can never match (AppScanner does not expose RECEIVE_SMS in the permissions field); Gate-5 self-review caught it. Detection needs a scanner change (receiver_audit telemetry or exposing RECEIVE_SMS)."
+    failure_class: telemetry_gap
+totals:
+  candidates: 242
+  approved: 241
+  approved_with_modification: 0
+  rejected: 1
+  approval_without_modification_rate: 0.996
