@@ -54,12 +54,40 @@ jobs:
                receiver_audit staging timeline tombstone_parser wakelock_parser \
                -name '*.yml' -print0 \
             | xargs -0 -I{} python3 validation/validate-rule.py "{}"
+      - name: No rule directory escapes the sweep
+        # A new top-level dir holding rule YAML that is missing from the find
+        # list above would be silently unvalidated — the same drift class this
+        # repo's gates exist to kill. Non-rule dirs are the stable denylist.
+        run: |
+          swept="accessibility_audit app_scanner appops_audit battery_daily correlation db_info \
+                 device_auditor dns_monitor file_scanner package_install_history platform_compat \
+                 receiver_audit staging timeline tombstone_parser wakelock_parser"
+          nonrule="validation ioc-data decisions pipeline-runs docs"
+          bad=0
+          for d in */; do
+            d=${d%/}
+            ls "$d"/*.yml "$d"/*/*.yml >/dev/null 2>&1 || continue
+            case " $swept $nonrule " in
+              *" $d "*) ;;
+              *) echo "::error::directory '$d' contains .yml files but is neither swept by validate-rules nor a known non-rule dir — add it to one list"; bad=1 ;;
+            esac
+          done
+          exit $bad
 
   validate-manifest:
     name: Validate rules.sha256 manifest
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Delivery-set gate (containment, uniqueness, id↔filename)
+        # rules.txt is the security boundary devices actually fetch. This
+        # gate rejects correlation/ and staging/ paths (cataloged, never
+        # deliverable), basename/id collisions (on-device merge is last-wins
+        # by id), and id↔filename mismatches (the shadowing vector).
+        run: python3 validation/validate-delivery-set.py
       - name: rules.txt and rules.sha256 must list the same files
         run: |
           diff <(awk '{print $2}' rules.sha256 | sort) \
