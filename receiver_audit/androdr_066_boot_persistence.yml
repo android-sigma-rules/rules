@@ -1,0 +1,54 @@
+title: App registered for boot-completed broadcast
+id: androdr-066
+status: experimental
+category: incident
+description: >
+    A non-system app is registered to start automatically when the device
+    boots. While many legitimate apps use this (messaging apps, security
+    software), malware and stalkerware commonly register for BOOT_COMPLETED
+    to maintain persistence across reboots.
+author: AndroDR (AI-generated)
+date: 2026/04/02
+references:
+    - https://attack.mitre.org/techniques/T1624/
+tags:
+    - attack.t1624
+logsource:
+    product: androdr
+    service: receiver_audit
+detection:
+    selection:
+        intent_action:
+            - "android.intent.action.BOOT_COMPLETED"
+            - "android.intent.action.LOCKED_BOOT_COMPLETED"
+        is_system_app: false
+    filter_known_good:
+        package_name|ioc_lookup: known_good_app_db
+    # Jetpack/Play-services libraries register their own boot receivers in
+    # virtually every modern app (e.g. androidx.work's RescheduleReceiver for
+    # WorkManager, which is the receiver this rule was firing on for AndroDR
+    # itself). The receiving *component* being a well-known framework class
+    # carries no persistence signal on its own, so exclude those to avoid
+    # flagging essentially every app. Prefixes are scoped to the specific
+    # framework packages that ship boot receivers — not a blanket "androidx." —
+    # to keep the exclusion narrow.
+    #
+    # Tradeoff: component_name is attacker-controllable, so a determined threat
+    # could name its receiver e.g. "androidx.work.Evil" to evade this filter.
+    # That is acceptable for a level:low informational rule whose unfiltered
+    # signal is near-zero (almost every app has a boot receiver); do NOT promote
+    # this rule above low while this component-prefix filter stands.
+    filter_framework_component:
+        component_name|startswith:
+            - "androidx.work."
+            - "com.google.android.gms."
+            - "com.google.firebase."
+    condition: selection and not filter_known_good and not filter_framework_component
+level: low
+display:
+    category: app_risk
+    icon: restart_alt
+    triggered_title: "Boot Persistence"
+    evidence_type: none
+remediation:
+    - "This app starts automatically when your phone boots. If you did not install it intentionally, consider uninstalling it from Settings > Apps."

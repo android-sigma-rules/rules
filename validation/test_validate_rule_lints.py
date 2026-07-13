@@ -207,3 +207,93 @@ def test_non_dict_display_clean_error(tmp_path):
     assert result.returncode == 1
     assert "display must be a mapping" in result.stderr
     assert "Traceback" not in result.stderr
+
+
+# ---------- correlation-rule shape (#175 mirror reconcile) ----------
+
+CORR_BASE = yaml.safe_load(
+    (REPO / "correlation" / "androdr_corr_001_install_then_admin.yml").read_text()
+)
+
+
+def make_corr_rule(**overrides) -> dict:
+    rule = copy.deepcopy(CORR_BASE)
+    rule.update(overrides)
+    return rule
+
+
+def test_valid_correlation_rule_accepted(tmp_path):
+    result = run_validator_on(tmp_path, make_corr_rule())
+    assert result.returncode == 0, result.stderr
+
+
+def test_all_repo_correlation_rules_pass():
+    for f in sorted((REPO / "correlation").glob("*.yml")):
+        result = subprocess.run(
+            [sys.executable, str(SCRIPT), str(f)],
+            capture_output=True, text=True,
+        )
+        assert result.returncode == 0, f"{f.name}: {result.stderr}"
+
+
+def test_correlation_hybrid_with_detection_rejected(tmp_path):
+    rule = make_corr_rule()
+    rule["detection"] = {"selection": {"x": 1}, "condition": "selection"}
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "must not declare 'detection'" in result.stderr
+
+
+def test_correlation_unknown_type_rejected(tmp_path):
+    rule = make_corr_rule()
+    rule["correlation"]["type"] = "sliding_window"
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "Invalid correlation.type" in result.stderr
+
+
+def test_correlation_empty_rules_list_rejected(tmp_path):
+    rule = make_corr_rule()
+    rule["correlation"]["rules"] = []
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "non-empty list" in result.stderr
+
+
+def test_correlation_dangling_reference_rejected(tmp_path):
+    rule = make_corr_rule()
+    rule["correlation"]["rules"] = ["androdr-atom-package-install", "androdr-atom-nonexistent"]
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "unknown rule ID" in result.stderr
+
+
+def test_correlation_bad_timespan_rejected(tmp_path):
+    rule = make_corr_rule()
+    rule["correlation"]["timespan"] = "90 minutes"
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "Invalid correlation.timespan" in result.stderr
+
+
+def test_correlation_timespan_over_cap_rejected(tmp_path):
+    rule = make_corr_rule()
+    rule["correlation"]["timespan"] = "91d"
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "90-day cap" in result.stderr
+
+
+def test_event_count_requires_condition_gte(tmp_path):
+    rule = make_corr_rule()
+    rule["correlation"]["type"] = "event_count"
+    rule["correlation"].pop("condition", None)
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "condition.gte" in result.stderr
+
+
+def test_correlation_retired_id_rejected(tmp_path):
+    result = run_validator_on(tmp_path, make_corr_rule(id="androdr-084"))
+    assert result.returncode == 1
+    assert "retired" in result.stderr
