@@ -82,6 +82,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Install deps
+        # The gate imports validate-rule.py for the shared NON_DELIVERABLE_DIRS
+        # constant, and that module imports yaml at load time.
+        run: pip install pyyaml
       - name: Delivery-set gate (containment, uniqueness, id↔filename)
         # rules.txt is the security boundary devices actually fetch. This
         # gate rejects correlation/ and staging/ paths (cataloged, never
