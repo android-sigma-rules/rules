@@ -1,0 +1,57 @@
+run: 2026-08-05
+mode: discover
+candidates:
+  - id: androdr-091
+    verdict: approved_with_modification
+    reason: >
+      Approved as a genuinely-novel behavioral rule (no existing rule keys on
+      BIND_VPN_SERVICE). Post-approval review pass corrected the falsepositives
+      text, which falsely claimed filter_known_good "suppresses POPULAR apps
+      only" — because selection requires is_sideloaded (which implies not
+      from_trusted_store), the known-good exemption is never reached, so the
+      guard is an impersonation backstop, not a noise filter. Text was copied
+      from rules that lack the from_trusted_store gate (069/087) and inherited
+      via 089. Also trimmed an unverifiable "allow-list of apps outside the
+      tunnel" detail from the description. Detection logic, level (medium), and
+      the fail-closed filter were left unchanged.
+    failure_class: fp_risk
+  - id: com.kit.kitty
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.kisa.octagonpanel
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: bh-alert.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: playgoogle.bh-alert.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: download.alertbh.info
+    verdict: approved
+    reason: ""
+    failure_class: null
+totals:
+  candidates: 6
+  approved: 5
+  approved_with_modification: 1
+  rejected: 0
+  approval_without_modification_rate: 0.83
+notes: >
+  discover top-5 surfaced 1 Android-relevant threat (Octagon RAT, Zimperium +
+  K7 Security Labs); 4 desktop threats (OctLurk, SilkLurk, LurkProxy,
+  GenieLocker) dropped as out-of-scope for an Android EDR. IOC values are
+  single-vendor (K7); Zimperium corroborates behaviors only — severity hedged
+  to HIGH (vs peer RAT RedWing at CRITICAL) pending a second source; promote on
+  ThreatFox/MalwareBazaar corroboration next cycle. Dropped as non-actionable:
+  2 MD5 APK hashes (malware-hashes.yml is SHA-256-only), C2 209.99.184.50:4444
+  (DNS-only; IP filtering parked), on-device file artifacts (no arbitrary-file
+  scanning). Telemetry gaps recorded: DexClassLoader runtime code loading;
+  AccountManager/SyncAdapter persistence. Complementarity vs threatfox/mvt not
+  enforced (parser-limited, issue #127) — domains are brand-new so overlap
+  unlikely. Follow-up: androdr-089 carries the same stale filter_known_good
+  falsepositives wording (out of scope this run).

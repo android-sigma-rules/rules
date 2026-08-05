@@ -39,28 +39,28 @@
   "discover": {
     "sources": {
       "securelist": {
-        "last_seen_timestamp": "2026-07-07T10:00:11Z",
-        "last_post_url": "https://securelist.com/industrial-threat-report-q1-2026/120643/"
+        "last_seen_timestamp": "2026-08-04T12:00:12Z",
+        "last_post_url": "https://securelist.com/cloud-platforms-in-phishing/120832/"
       },
       "welivesecurity": {
-        "last_seen_timestamp": "2026-07-08T08:45:00Z",
-        "last_post_url": "https://www.welivesecurity.com/en/eset-research/eset-threat-report-h1-2026/"
+        "last_seen_timestamp": "2026-07-31T14:14:15Z",
+        "last_post_url": "https://www.welivesecurity.com/en/videos/month-security-tony-anscombe-july-2026/"
       },
       "google-tag": {
-        "last_seen_timestamp": "2026-06-02T18:00:00Z",
-        "last_post_url": "https://blog.google/security/android-fake-call-detection/"
+        "last_seen_timestamp": "2026-07-31T09:34:00Z",
+        "last_post_url": "https://blog.google/security/influence-operations-bulletin-q2-2026/"
       },
       "zimperium": {
-        "last_seen_timestamp": "2026-07-09T00:00:00Z",
-        "last_post_url": "https://zimperium.com/blog/goldpickaxe-returns-when-your-biometric-information-is-as-important-as-your-money"
+        "last_seen_timestamp": "2026-08-04T00:00:00Z",
+        "last_post_url": "https://zimperium.com/blog/rapid-response-zimperium-secures-mobile-endpoints-against-octagon-android-malware"
       },
       "threatfabric": {
         "last_seen_timestamp": "2026-06-25T00:00:00Z",
         "last_post_url": "https://www.threatfabric.com/blogs/iptv-campaigns-target-football-fans"
       },
       "group-ib": {
-        "last_seen_timestamp": "2026-07-13T00:00:00Z",
-        "last_post_url": "https://www.group-ib.com/blog/compromised-card-tokenization/"
+        "last_seen_timestamp": "2026-07-30T00:00:00Z",
+        "last_post_url": "https://www.group-ib.com/blog/xmrig-covert-linux-pam-abuse/"
       },
       "cleafy": {
         "last_seen_timestamp": "2026-05-18T00:00:00Z",

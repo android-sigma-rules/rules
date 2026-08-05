@@ -673,3 +673,16 @@ entries:
   severity: HIGH
   description: NFCShare NFC card-data-theft trojan package (D3Lab). Uninstall immediately; contact bank to reissue exposed cards.
   source: threat_research
+# Octagon (added 2026-08-05 via AI rule pipeline discover run)
+- indicator: com.kit.kitty
+  family: Octagon
+  category: MALWARE
+  severity: HIGH
+  description: Octagon Android RAT stage-1 loader (K7 Security Labs, 2026-08). Disguised as 'Kitty'; hides an RC4-encrypted DEX in a fake font and DexClassLoader-drops the child RAT.
+  source: threat_research
+- indicator: com.kisa.octagonpanel
+  family: Octagon
+  category: MALWARE
+  severity: HIGH
+  description: Octagon Android RAT child payload ('OctagonPanel'/'Ward') installed by the com.kit.kitty loader (K7 Security Labs, 2026-08).
+  source: threat_research

@@ -1,0 +1,54 @@
+title: Sideloaded app with VpnService (device-wide traffic hijacking)
+id: androdr-091
+status: experimental
+category: incident
+description: >
+    A sideloaded app declares a VpnService — an exported service guarded by the
+    BIND_VPN_SERVICE signature permission — which lets it capture and route ALL of
+    the device's network traffic through a tunnel it controls. On an unvetted,
+    sideloaded app this is the traffic-hijacking signature of the Octagon Android
+    RAT (child payload com.kisa.octagonpanel / "OctagonPanel"/"Ward", dropped by a
+    fake Bahrain "BH Alert" Civil Defense loader): Octagon stands up an
+    attacker-controlled VpnService and routes device traffic through it. Routing
+    every packet through an attacker endpoint enables interception, redirection, and
+    on-path modification of otherwise-trusted app traffic. A VpnService is a powerful
+    but legitimate capability (VPN clients, DNS/content filters, and AndroDR's own DNS
+    monitor), so this fires only on the sideloaded, non-known-good subset.
+author: AndroDR
+date: 2026/08/04
+references:
+    - https://zimperium.com/blog/rapid-response-zimperium-secures-mobile-endpoints-against-octagon-android-malware
+    - https://labs.k7computing.com/index.php/octagon-technical-analysis-of-a-fake-bahrain-civil-defense-application/
+tags:
+    - attack.t1437
+    - attack.t1638
+logsource:
+    product: androdr
+    service: app_scanner
+detection:
+    selection:
+        is_sideloaded: true
+        service_permissions|contains: "BIND_VPN_SERVICE"
+    filter_known_good:
+        # Mirror androdr-089: from_trusted_store gates the exemption so a
+        # sideloaded app cannot impersonate a known-good package name and be
+        # silently allow-listed (known_good_app_db is package-name-only, with no
+        # signature binding — ADR #51). A genuinely sideloaded app
+        # (from_trusted_store: false) can never reach the exemption.
+        package_name|ioc_lookup: known_good_app_db
+        from_trusted_store: true
+    condition: selection and not filter_known_good
+level: medium
+falsepositives:
+    - "Legitimate sideloaded apps whose core function is a VpnService: VPN clients and privacy tools sideloaded from F-Droid or a vendor site (Orbot/Tor, WireGuard, OpenVPN, RethinkDNS), on-device DNS/ad/content filters, corporate MDM or per-app-VPN clients delivered as APKs, and security/monitoring tooling. AndroDR excludes itself from scanning, so its own VpnService-based DNS monitor never trips this. Note: filter_known_good here is an impersonation backstop, not a noise filter — because selection already requires is_sideloaded (which implies not from_trusted_store), the known-good exemption is never reached for a matching app. Every sideloaded VpnService app, popular or niche, therefore fires this rule and needs user judgement."
+display:
+    category: app_risk
+    icon: vpn_lock
+    triggered_title: "VpnService Traffic Capture (Sideloaded)"
+    evidence_type: none
+remediation:
+    - "This sideloaded app can capture and reroute ALL of your device's internet traffic through a tunnel it controls — the technique the Octagon Android RAT uses to secretly intercept and redirect what your other apps send and receive."
+    - "If you did not install and set up this VPN yourself, or do not fully trust it, uninstall it: Settings > Apps > [this app] > Uninstall."
+    - "Check for an active tunnel and remove it: Settings > Network & internet > VPN, then disconnect and delete any VPN profile you did not create."
+implies_flags:
+    - sideloaded
