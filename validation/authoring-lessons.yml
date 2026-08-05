@@ -31,3 +31,13 @@ lessons:
       when it changes detection coverage (e.g. zone matching beyond listed
       IOCs) or materially changes remediation guidance — attribution alone
       is not a reason (cf. androdr-085/086 rejections, 2026-06-12 run).
+  - class: fp_risk
+    guidance: >
+      When a rule gates filter_known_good on from_trusted_store: true (the
+      impersonation-safe pattern from androdr-089/091), the known-good
+      exemption can never fire for a sideloaded selection — is_sideloaded is
+      defined as not from_trusted_store, so the guard is an impersonation
+      backstop, not a noise filter. Do NOT copy the "suppresses popular apps
+      only" falsepositives wording from rules that lack the gate (069/087);
+      state instead that every matching sideloaded app fires and needs user
+      judgement.
