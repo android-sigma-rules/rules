@@ -28,6 +28,15 @@ VALID_MODIFIERS = {
 }
 MAX_REGEX_LENGTH = 500
 
+# Device condition grammar (SigmaRuleEvaluator.evaluateConditionExpression):
+# whitespace-split tokens, keywords and/or/not (case-insensitive), NO
+# parentheses, NO quantifiers. Tokenization must match Java's \s exactly —
+# ASCII only (space \t \n \x0B \f \r). Python's bare str.split() and \s are
+# Unicode-aware: an NBSP-joined condition would tokenize valid here yet be a
+# single unresolvable token on-device (?: false -> dead rule). Same
+# divergence class as the [0-9]-vs-\d note below.
+ASCII_WS_RE = re.compile(r"[ \t\n\x0b\f\r]+")
+
 # Correlation-rule grammar — mirrors SigmaRuleParser.parseCorrelationRule in
 # AndroDR (types, timespan units, and the 90-day cap must stay in sync with
 # CORRELATION_TIMESPAN_CAP_DAYS there; the Kotlin side carries a reciprocal
@@ -60,6 +69,98 @@ def load_schema(schema_path: Path) -> dict:
 def load_permissions(perms_path: Path) -> set[str]:
     with open(perms_path) as f:
         return {line.strip() for line in f if line.strip() and not line.startswith("#")}
+
+
+def load_taxonomy(path: Path) -> dict:
+    """Load the logsource taxonomy — the single source of truth for services
+    and their detection field names (AndroDR #268). FAIL CLOSED: a missing or
+    unparseable taxonomy, or a service entry without a non-empty fields map,
+    aborts the run — a silent default here would wave dead rules through the
+    only gate the 12h remote-fetch path has."""
+    try:
+        with open(path) as f:
+            doc = yaml.safe_load(f)
+    except (OSError, yaml.YAMLError) as e:
+        sys.exit(f"FATAL: cannot load logsource taxonomy ({path.name}): {e}")
+    services = doc.get("services") if isinstance(doc, dict) else None
+    if not isinstance(services, dict) or not services:
+        sys.exit(f"FATAL: logsource taxonomy ({path.name}) has no services map")
+    for name, svc in services.items():
+        fields = svc.get("fields") if isinstance(svc, dict) else None
+        if not isinstance(fields, dict) or not fields:
+            sys.exit(f"FATAL: taxonomy service '{name}' lacks a non-empty fields map")
+    return services
+
+
+def check_condition_grammar(condition, selection_names: set[str]) -> list[str]:
+    """Validate detection.condition against the device evaluator's grammar:
+
+        ["not"] name (("and"|"or") ["not"] name)*
+
+    Whitespace-split on the ASCII class only (ASCII_WS_RE), keywords matched
+    case-insensitively, selection names case-sensitively, NO parentheses —
+    the evaluator has none, so the old paren-stripping here was a false-pass
+    divergence. Absent and explicit-null conditions both mirror the on-device
+    parser default of "selection" (SigmaRuleParser's null-coalesce).
+
+    Divergent shapes this rejects are silently dead or over-firing on-device:
+    keyword-as-operand ("not and" -> the evaluator consumes 'and' as an
+    operand, ?: false under not -> fires on everything), dangling "not"
+    (negation silently dropped -> over-fires), empty condition (dead)."""
+    if condition is None:
+        condition = "selection"
+    if not isinstance(condition, str):
+        return [f"detection.condition must be a string, got: {type(condition).__name__}"]
+    tokens = [t for t in ASCII_WS_RE.split(condition) if t]
+    if not tokens:
+        return ["empty detection.condition — the rule is dead on-device"]
+    errors = []
+    expect_operand = True
+    i = 0
+    n = len(tokens)
+    while i < n:
+        tok = tokens[i]
+        low = tok.lower()
+        if expect_operand:
+            if low == "not":
+                i += 1
+                if i >= n:
+                    errors.append(
+                        "dangling 'not' at end of condition — the negation is "
+                        "silently dropped on-device (over-fires)"
+                    )
+                    break
+                tok = tokens[i]
+                low = tok.lower()
+            if low in ("and", "or", "not"):
+                errors.append(
+                    f"keyword '{tok}' where a selection name was expected — "
+                    "the device evaluator consumes it as an operand "
+                    "(?: false), silently inverting the expression"
+                )
+                break
+            if tok not in selection_names:
+                errors.append(f"Condition references undefined selection: {tok}")
+            expect_operand = False
+            i += 1
+        else:
+            if low in ("and", "or"):
+                expect_operand = True
+                i += 1
+            else:
+                errors.append(
+                    f"expected 'and'/'or' before '{tok}' in condition — the "
+                    "device grammar is [\"not\"] name ((\"and\"|\"or\") "
+                    "[\"not\"] name)* with no parentheses"
+                )
+                break
+    if not errors and expect_operand:
+        errors.append(
+            "condition ends with a dangling operator (the device evaluator "
+            "silently ignores it — rejecting to keep the gates no laxer than "
+            "the device)"
+        )
+    return errors
 
 
 def load_retired_ids(path: Path) -> set[str]:
@@ -203,7 +304,9 @@ def validate_correlation_rule(rule: dict,
 
 def validate_rule(rule: dict, schema: dict, permissions: set[str],
                   retired_ids: frozenset[str] | set[str] = frozenset(),
-                  known_rule_ids: set[str] | None = None) -> list[str]:
+                  known_rule_ids: set[str] | None = None,
+                  taxonomy: dict | None = None,
+                  in_staging: bool = False) -> list[str]:
     """Return list of error strings. Empty list means valid."""
     # Correlation rules are a distinct shape (no logsource/detection); the
     # standard schema does not apply to them.
@@ -246,56 +349,113 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
             "as category: incident if a genuine HIGH/CRITICAL signal is intended)"
         )
 
-    # Logsource
+    # Logsource — the taxonomy is the single source of truth for services
+    # (the old hardcoded set here had already drifted from it, #268).
+    # Non-active services are rejected outside staging/: staging exists to
+    # hold rules ahead of Kotlin wiring (rules.txt can never list staging
+    # paths, so a staged rule is provably not live); everywhere else a
+    # non-active service means the engine cannot evaluate the rule and it
+    # would ship dead.
+    if taxonomy is None:
+        taxonomy = load_taxonomy(SCRIPT_DIR / "logsource-taxonomy.yml")
     logsource = rule.get("logsource", {})
     if logsource.get("product") != "androdr":
         errors.append(f"logsource.product must be 'androdr', got: {logsource.get('product')}")
-    valid_services = {
-        "app_scanner", "device_auditor", "dns_monitor",
-        "process_monitor", "file_scanner",
-        "receiver_audit", "accessibility_audit", "appops_audit",
-        "network_monitor", "tombstone_parser", "wakelock_parser",
-        "battery_daily", "package_install_history",
-        "platform_compat", "db_info", "timeline",
-    }
-    if logsource.get("service") not in valid_services:
-        errors.append(f"Invalid logsource.service: {logsource.get('service')}")
+    service = logsource.get("service")
+    service_fields = None
+    if service not in taxonomy:
+        errors.append(
+            f"Invalid logsource.service: {service} — not in "
+            f"validation/logsource-taxonomy.yml (the taxonomy is the single "
+            f"source of truth; valid: {', '.join(sorted(taxonomy))})"
+        )
+    else:
+        status = taxonomy[service].get("status")
+        if status != "active" and not in_staging:
+            errors.append(
+                f"logsource.service '{service}' has taxonomy status "
+                f"'{status}' — the engine cannot evaluate it and the rule "
+                "would ship dead (allowed under staging/ only)"
+            )
+        service_fields = set(taxonomy[service]["fields"])
 
-    # Detection — check condition references and modifiers
+    # Detection — condition grammar, selection shape, field membership,
+    # value lists, modifiers (#268: every miss here is a silently dead or
+    # over-firing rule on-device; see the failure-polarity notes per check).
     detection = rule.get("detection", {})
-    condition = detection.get("condition", "")
+    if not isinstance(detection, dict):
+        errors.append(f"detection must be a mapping, got: {type(detection).__name__}")
+        detection = {}
     selection_names = {k for k in detection if k != "condition"}
 
-    for token in condition.replace("(", " ").replace(")", " ").split():
-        if token.lower() not in ("and", "or", "not") and token not in selection_names:
-            errors.append(f"Condition references undefined selection: {token}")
+    errors += check_condition_grammar(detection.get("condition"), selection_names)
 
     for sel_name, sel_value in detection.items():
-        if sel_name == "condition" or not isinstance(sel_value, dict):
+        if sel_name == "condition":
+            continue
+        # A selection body must be a NON-EMPTY mapping. The device parser
+        # silently DROPS non-mapping selections (standard SIGMA list-of-maps
+        # syntax included) — under `not`, the dropped name evaluates
+        # ?: false -> not false -> the filter never subtracts and the rule
+        # fires on everything. An empty {} parses to a zero-matcher
+        # selection, which is vacuously TRUE.
+        if not isinstance(sel_value, dict):
+            errors.append(
+                f"selection '{sel_name}' must be a mapping of field matchers, "
+                f"got: {type(sel_value).__name__} — the device parser "
+                "silently drops non-mapping selections; under 'not' the rule "
+                "then fires on everything"
+            )
+            continue
+        if not sel_value:
+            errors.append(
+                f"selection '{sel_name}' is an empty mapping — it parses to "
+                "a zero-matcher selection on-device, which is vacuously TRUE"
+            )
             continue
         for field_key in sel_value:
+            # str(): the device parser does key.toString(); a non-string YAML
+            # key must not crash this gate with a Traceback.
+            key_str = str(field_key)
+            base_field = key_str.split("|")[0]
+            # Field membership: a typo'd field passes parsing but the
+            # evaluator returns false for missing record fields — the rule
+            # ships, loads, evaluates, and can never fire (or, in a negated
+            # filter, fires on everything).
+            if service_fields is not None and base_field not in service_fields:
+                errors.append(
+                    f"Unknown detection field '{base_field}' for service "
+                    f"'{service}' — dead on-device (the evaluator returns "
+                    f"false for missing fields). Valid fields: "
+                    f"{', '.join(sorted(service_fields))}"
+                )
+            # Empty/null value lists are constant-false matchers on-device
+            # (dead positive selection / over-firing negated filter; for
+            # standalone |all, vacuously TRUE instead).
+            value = sel_value[field_key]
+            if value is None or (isinstance(value, list) and len(value) == 0):
+                errors.append(
+                    f"empty value list for '{field_key}' is a vacuous "
+                    "selection that can never match (or, for standalone "
+                    "|all, matches everything)"
+                )
             # Lone actively-exploited-CVE rule = duplicate of androdr-047
             # (CISA KEV catalog) once the severity cap lands. Only
             # named-campaign CVE *sets* (cf. androdr-048..052) justify a
             # dedicated rule. Checked before the modifier guard so the
             # plain-equality form (no modifier) is covered too.
-            if field_key.split("|")[0] == "unpatched_cve_id" and posture:
+            if base_field == "unpatched_cve_id" and posture:
                 cve_values = sel_value[field_key]
                 cve_count = len(cve_values) if isinstance(cve_values, list) else 1
-                if cve_count == 0:
-                    errors.append(
-                        f"empty value list for '{field_key}' is a vacuous "
-                        "selection that can never match"
-                    )
-                elif cve_count == 1:
+                if cve_count == 1:
                     errors.append(
                         "single actively-exploited-CVE rules duplicate "
                         "androdr-047 (CISA KEV catalog); only named-campaign "
                         "CVE sets (cf. androdr-048..052) justify a dedicated rule"
                     )
-            if "|" not in field_key:
+            if "|" not in key_str:
                 continue
-            tokens = field_key.split("|")
+            tokens = key_str.split("|")
             modifiers = tokens[1:]
             # Grammar: chain must be [base] or [base, "all"]. Mirrors Kotlin
             # SigmaRuleParser's single-base-modifier-plus-optional-|all rule.
@@ -315,16 +475,33 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
                         f"Invalid modifier '{modifier}' in field '{field_key}'. "
                         f"Supported: {', '.join(sorted(VALID_MODIFIERS))}"
                     )
-            # Regex length check fires whenever 're' appears anywhere in the modifier
-            # chain (e.g. 'url|re|all' must still enforce the max pattern length).
+            # Regex checks fire whenever 're' appears anywhere in the modifier
+            # chain (e.g. 'url|re|all' must still enforce them). Length: the
+            # device parser drops >500-char patterns. Compilability: on-device
+            # safeRegexMatch permanently caches uncompilable patterns as
+            # constant-false (dead matcher / over-firing negated filter).
+            # Python and Kotlin regex dialects differ (cf. the [0-9]-vs-\d
+            # note above) — a pattern passing re.compile here can in rare
+            # cases still fail to compile on-device; this check closes the
+            # common class, not the dialect gap.
             if "re" in tokens[1:]:
                 values = sel_value[field_key]
-                if isinstance(values, list):
-                    for v in values:
-                        if isinstance(v, str) and len(v) > MAX_REGEX_LENGTH:
-                            errors.append(f"Regex pattern exceeds {MAX_REGEX_LENGTH} chars in '{field_key}'")
-                elif isinstance(values, str) and len(values) > MAX_REGEX_LENGTH:
-                    errors.append(f"Regex pattern exceeds {MAX_REGEX_LENGTH} chars in '{field_key}'")
+                if not isinstance(values, list):
+                    values = [values]
+                for v in values:
+                    if not isinstance(v, str):
+                        continue
+                    if len(v) > MAX_REGEX_LENGTH:
+                        errors.append(f"Regex pattern exceeds {MAX_REGEX_LENGTH} chars in '{field_key}'")
+                        continue
+                    try:
+                        re.compile(v)
+                    except re.error as e:
+                        errors.append(
+                            f"uncompilable regex in '{field_key}': {e} — "
+                            "on-device this is cached as constant-false "
+                            "(dead matcher / over-firing negated filter)"
+                        )
 
     # Display block
     display = rule.get("display", {})
@@ -383,6 +560,23 @@ def main():
     schema = load_schema(schema_path)
     permissions = load_permissions(perms_path) if perms_path.exists() else set()
     retired_ids = load_retired_ids(SCRIPT_DIR / "retired-rule-ids.txt")
+    taxonomy = load_taxonomy(SCRIPT_DIR / "logsource-taxonomy.yml")
+
+    # Staging-ness by FIRST path component only (mirrors
+    # validate-delivery-set.py's split("/", 1)[0] convention), so a file like
+    # app_scanner/staging_foo.yml — which IS deliverable — never gets the
+    # non-active-service exemption. CI passes repo-root-relative paths
+    # (find staging ... -name '*.yml'); absolute paths are resolved against
+    # the repo root, and paths outside the repo are never staging.
+    repo_root = SCRIPT_DIR.parent
+    if rule_path.is_absolute():
+        try:
+            rel_parts = rule_path.resolve().relative_to(repo_root.resolve()).parts
+        except ValueError:
+            rel_parts = ()
+    else:
+        rel_parts = rule_path.parts
+    in_staging = bool(rel_parts) and rel_parts[0] == "staging"
 
     with open(rule_path) as f:
         try:
@@ -411,7 +605,8 @@ def main():
                 if m:
                     known_rule_ids.add(m.group(1))
 
-    errors = validate_rule(rule, schema, permissions, retired_ids, known_rule_ids)
+    errors = validate_rule(rule, schema, permissions, retired_ids,
+                           known_rule_ids, taxonomy, in_staging)
 
     if errors:
         print(f"FAIL: {rule_path.name} — {len(errors)} error(s):", file=sys.stderr)

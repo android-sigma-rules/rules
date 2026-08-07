@@ -1,9 +1,21 @@
 # Logsource Field Taxonomy — AndroDR SIGMA Rule Engine
 #
 # Authoritative reference for which fields each logsource service provides.
-# Field names are the map keys from toFieldMap(), NOT Kotlin property names.
-# The Rule Author skill uses this to constrain detection block fields.
+# Field names are the map keys from toFieldMap() — or, for field_map: none
+# services, the literal field names the engine matches — NOT Kotlin property
+# names. The Rule Author skill uses this to constrain detection block fields.
 # LogsourceTaxonomyCrossCheckTest.kt validates this matches the Kotlin runtime.
+#
+# SAFE ORDERING (AndroDR #268): this file is the TRUST ROOT of the
+# validate-rule.py field lint — an edit merged straight to main is live for
+# remote-fetched rule validation within 12h with NO AndroDR gate having seen
+# it. Taxonomy edits therefore follow the same submodule-bump-first ordering
+# as rule edits (see AndroDR CLAUDE.md, "Safe ordering"): branch here, bump
+# the AndroDR submodule to the branch commit, get AndroDR CI green
+# (LogsourceTaxonomyCrossCheckTest + DetectionFieldCrossCheckTest), and only
+# then merge to main. This includes flipping a service's status
+# (e.g. unwired -> active). rules.sha256 regen does NOT apply to this file
+# (it is not listed in rules.txt).
 
 product: androdr
 
@@ -205,3 +217,12 @@ services:
       observation_timestamp: { type: long, description: "When the database was observed (epoch ms)" }
       source: { type: string, description: "TelemetrySource enum name" }
       captured_at: { type: long, description: "When this telemetry was captured (epoch ms)" }
+
+  # ── No toFieldMap() (engine-matched literal fields) ────────────────
+
+  timeline:
+    model_class: ForensicTimelineEvent
+    field_map: none  # no toFieldMap(); SigmaRuleEngine.computeAtomBindings matches the literal field below
+    status: active
+    fields:
+      category: { type: string, description: "Timeline event category an atom rule binds to (e.g. app_foreground, package_install, dns_match). BINDING PRECONDITIONS (SigmaRuleEngine.computeAtomBindings / extractAtomCategory): matched by EXACT EQUALITY only; the atom must be enabled and level: informational; the detection selection must be literally named 'selection'; only the FIRST value of the matcher binds. An atom violating name/level/enabled NEVER binds; a |modifier on this field is silently IGNORED — the atom still binds by exact equality on the first value (dead only if that value is not an exact category literal, silently wrong-semantics otherwise)." }
