@@ -1,13 +1,16 @@
 """Tests for the candidate-accuracy lints in validate-rule.py (AndroDR pipeline
 candidate-accuracy spec, 2026-06-10): retired-ID registry, device-posture
 severity cap, lone-exploited-CVE rejection, plus a regression sweep over all
-existing rules.
+existing rules. Since AndroDR #268, also the dead-rule gates: the
+field-vs-taxonomy lint, selection-shape and value-list checks, the device
+condition grammar, and the fail-closed taxonomy load.
 
 Run:
     python3 -m pytest validation/test_validate_rule_lints.py -v
 """
 import copy
 import pathlib
+import shutil
 import subprocess
 import sys
 
@@ -357,3 +360,316 @@ def test_correlation_unicode_digit_timespan_rejected(tmp_path):
     result = run_validator_on(tmp_path, rule)
     assert result.returncode == 1
     assert "Invalid correlation.timespan" in result.stderr
+
+
+# ---------- dead-rule gates (#268): field-vs-taxonomy ----------
+
+def test_unknown_detection_field_rejected(tmp_path):
+    rule = make_rule()
+    rule["detection"] = {"selection": {"adb_enbaled": True}, "condition": "selection"}
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "Unknown detection field 'adb_enbaled'" in result.stderr
+    assert "Valid fields" in result.stderr
+
+
+def test_unknown_field_with_modifier_rejected(tmp_path):
+    rule = make_rule()
+    rule["detection"] = {"selection": {"patch_age_dayz|gte": 180}, "condition": "selection"}
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "Unknown detection field 'patch_age_dayz'" in result.stderr
+
+
+def test_typo_in_negated_filter_rejected(tmp_path):
+    # The over-fire direction: a typo'd field inside a not-referenced filter
+    # makes the filter never subtract on-device — the rule fires on
+    # everything. Pinned as its own case so a future "skip filter
+    # selections" optimization of the lint fails loudly.
+    rule = make_rule()
+    rule["detection"] = {
+        "selection": {"adb_enabled": True},
+        "filter_known_good": {"is_system_ap": True},
+        "condition": "selection and not filter_known_good",
+    }
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "Unknown detection field 'is_system_ap'" in result.stderr
+
+
+def _incident_app_rule(detection):
+    # app_scanner-shaped incident rule (BASE is a device_auditor posture
+    # rule; same conversion as test_non_posture_rule_at_high_accepted).
+    rule = make_rule(category="incident")
+    rule.pop("report_safe_state", None)
+    rule["display"] = copy.deepcopy(rule["display"])
+    rule["display"]["category"] = "app_risk"
+    rule["display"].pop("safe_title", None)
+    rule["logsource"] = {"product": "androdr", "service": "app_scanner"}
+    rule["detection"] = detection
+    return rule
+
+
+def test_valid_fields_with_modifiers_pass(tmp_path):
+    rule = _incident_app_rule({
+        "selection": {
+            "package_name|ioc_lookup": "stalkerware_packages",
+            "is_sideloaded": True,
+        },
+        "filter_known_good": {"package_name|contains": ["com.google."]},
+        "condition": "selection and not filter_known_good",
+    })
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 0, result.stderr
+
+
+def test_unknown_service_rejected(tmp_path):
+    rule = make_rule()
+    rule["logsource"] = {"product": "androdr", "service": "nonexistent_service"}
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "Invalid logsource.service" in result.stderr
+    assert "taxonomy" in result.stderr
+
+
+def test_timeline_atom_rules_pass():
+    # timeline/ atoms (no sigma_ prefix in this repo) must pass with the
+    # taxonomy's timeline entry — they'd have been the only day-one failures.
+    atoms = sorted((REPO / "timeline").glob("androdr_atom_*.yml"))
+    assert len(atoms) >= 5, "timeline atom discovery glob looks broken"
+    for f in atoms:
+        result = subprocess.run(
+            [sys.executable, str(SCRIPT), str(f)],
+            capture_output=True, text=True,
+        )
+        assert result.returncode == 0, f"{f.name}: {result.stderr}"
+
+
+def _network_monitor_rule():
+    # network_monitor is the sole non-active (unwired) taxonomy service;
+    # destination_port is one of its valid fields.
+    rule = make_rule()
+    rule["logsource"] = {"product": "androdr", "service": "network_monitor"}
+    rule["detection"] = {
+        "selection": {"destination_port|gte": 1},
+        "condition": "selection",
+    }
+    return rule
+
+
+def test_non_active_service_rejected_outside_staging(tmp_path):
+    result = run_validator_on(tmp_path, _network_monitor_rule())
+    assert result.returncode == 1
+    assert "unwired" in result.stderr
+    assert "staging" in result.stderr
+
+
+def run_validator_rel(cwd, rel_path, rule):
+    # Invoke with a RELATIVE path from cwd — how CI's find|xargs sweep does.
+    p = cwd / rel_path
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(yaml.safe_dump(rule, sort_keys=False))
+    return subprocess.run(
+        [sys.executable, str(SCRIPT), rel_path],
+        capture_output=True, text=True, cwd=cwd,
+    )
+
+
+def test_non_active_service_allowed_under_staging(tmp_path):
+    result = run_validator_rel(tmp_path, "staging/rule.yml", _network_monitor_rule())
+    assert result.returncode == 0, result.stderr
+
+
+def test_staging_exemption_is_first_path_component_only(tmp_path):
+    # app_scanner/staging_foo.yml IS deliverable — a substring match must
+    # not grant the exemption (validate-delivery-set.py convention).
+    result = run_validator_rel(
+        tmp_path, "app_scanner/staging_rule.yml", _network_monitor_rule()
+    )
+    assert result.returncode == 1
+    assert "unwired" in result.stderr
+
+
+# ---------- dead-rule gates (#268): selection shape + value lists ----------
+
+def test_non_mapping_selection_rejected(tmp_path):
+    # Standard SIGMA list-of-maps syntax: silently dropped by the device
+    # parser; under `not`, the rule then fires on everything.
+    rule = make_rule()
+    rule["detection"] = {
+        "selection": [{"adb_enabled": True}],
+        "condition": "selection",
+    }
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "must be a mapping" in result.stderr
+    assert "Traceback" not in result.stderr
+
+
+def test_empty_mapping_selection_rejected(tmp_path):
+    rule = make_rule()
+    rule["detection"] = {"selection": {}, "condition": "selection"}
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "empty mapping" in result.stderr
+
+
+def test_empty_value_list_any_field_rejected(tmp_path):
+    # The CVE-only vacuous-value error, generalized to every field.
+    rule = make_rule()
+    rule["detection"] = {"selection": {"adb_enabled": []}, "condition": "selection"}
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "vacuous" in result.stderr
+
+
+def test_null_value_rejected(tmp_path):
+    rule = make_rule()
+    rule["detection"] = {"selection": {"adb_enabled": None}, "condition": "selection"}
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "vacuous" in result.stderr
+
+
+def test_uncompilable_regex_rejected(tmp_path):
+    rule = make_rule()
+    rule["detection"] = {
+        "selection": {"patch_level|re": ["[unclosed"]},
+        "condition": "selection",
+    }
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "uncompilable regex" in result.stderr
+
+
+# ---------- dead-rule gates (#268): condition grammar ----------
+# Device grammar: ["not"] name (("and"|"or") ["not"] name)* — whitespace
+# split (ASCII class only), case-insensitive keywords, NO parentheses.
+
+def _cond_rule(condition, extra_selections=None):
+    rule = make_rule()
+    detection = {"selection": {"adb_enabled": True}}
+    if extra_selections:
+        detection.update(extra_selections)
+    if condition is not ...:
+        detection["condition"] = condition
+    rule["detection"] = detection
+    return rule
+
+
+def test_paren_condition_rejected(tmp_path):
+    # The evaluator has no paren handling; the validator's old
+    # paren-STRIPPING was a false-pass divergence.
+    rule = _cond_rule(
+        "(selection or filter_x) and not filter_x",
+        {"filter_x": {"dev_options_enabled": False}},
+    )
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "condition" in result.stderr.lower()
+
+
+def test_keyword_as_operand_rejected(tmp_path):
+    # "not and": the evaluator consumes 'and' as an operand (?: false),
+    # not false -> true -> fires on every record.
+    result = run_validator_on(tmp_path, _cond_rule("not and"))
+    assert result.returncode == 1
+    assert "keyword" in result.stderr
+
+
+def test_dangling_not_rejected(tmp_path):
+    result = run_validator_on(tmp_path, _cond_rule("selection and not"))
+    assert result.returncode == 1
+    assert "dangling 'not'" in result.stderr
+
+
+def test_trailing_operator_rejected(tmp_path):
+    result = run_validator_on(tmp_path, _cond_rule("selection and"))
+    assert result.returncode == 1
+    assert "dangling operator" in result.stderr
+
+
+def test_empty_condition_rejected(tmp_path):
+    result = run_validator_on(tmp_path, _cond_rule(""))
+    assert result.returncode == 1
+    assert "empty detection.condition" in result.stderr
+
+
+def test_missing_condition_defaults_to_selection(tmp_path):
+    # Device parser null-coalesces an absent condition to "selection".
+    # With a selection of that name: pass. Without: undefined reference.
+    result = run_validator_on(tmp_path, _cond_rule(...))
+    assert result.returncode == 0, result.stderr
+
+    rule = make_rule()
+    rule["detection"] = {"sel_a": {"adb_enabled": True}}
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "undefined selection: selection" in result.stderr
+
+
+def test_explicit_null_condition_defaults_to_selection(tmp_path):
+    result = run_validator_on(tmp_path, _cond_rule(None))
+    assert result.returncode == 0, result.stderr
+
+
+def test_nbsp_condition_rejected(tmp_path):
+    # Java \s is ASCII-only; Python's default split is Unicode-aware. An
+    # NBSP-joined condition is grammar-valid under a Unicode split but a
+    # single unresolvable token on-device -> dead rule.
+    rule = _cond_rule(
+        "selection\u00a0and\u00a0not\u00a0filter_x",
+        {"filter_x": {"dev_options_enabled": False}},
+    )
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "undefined selection" in result.stderr
+
+
+def test_case_insensitive_keywords_accepted(tmp_path):
+    # The evaluator lowercases keywords; AND/Not must parse as keywords.
+    rule = _cond_rule(
+        "selection AND Not filter_x",
+        {"filter_x": {"dev_options_enabled": False}},
+    )
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 0, result.stderr
+
+
+# ---------- dead-rule gates (#268): taxonomy fail-closed ----------
+
+def _run_from_copied_script(tmp_path, taxonomy_content=None):
+    shutil.copy(SCRIPT, tmp_path / "validate-rule.py")
+    shutil.copy(THIS_DIR / "rule-schema.json", tmp_path / "rule-schema.json")
+    if taxonomy_content is not None:
+        (tmp_path / "logsource-taxonomy.yml").write_text(taxonomy_content)
+    p = tmp_path / "rule.yml"
+    p.write_text(yaml.safe_dump(make_rule(), sort_keys=False))
+    return subprocess.run(
+        [sys.executable, str(tmp_path / "validate-rule.py"), str(p)],
+        capture_output=True, text=True,
+    )
+
+
+def test_missing_taxonomy_fatal(tmp_path):
+    result = _run_from_copied_script(tmp_path)
+    assert result.returncode != 0
+    assert "taxonomy" in result.stderr
+    assert "Traceback" not in result.stderr
+
+
+def test_corrupt_taxonomy_fatal(tmp_path):
+    result = _run_from_copied_script(tmp_path, "services: []\n")
+    assert result.returncode != 0
+    assert "taxonomy" in result.stderr
+    assert "Traceback" not in result.stderr
+
+
+def test_fieldless_taxonomy_service_fatal(tmp_path):
+    result = _run_from_copied_script(
+        tmp_path,
+        "services:\n  device_auditor:\n    status: active\n    fields: {}\n",
+    )
+    assert result.returncode != 0
+    assert "fields" in result.stderr
+    assert "Traceback" not in result.stderr
