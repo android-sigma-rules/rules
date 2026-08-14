@@ -5,6 +5,12 @@
 # The names in this file MUST match the map in AndroDR's
 # ScanOrchestrator.initRuleEngine(). Drift is caught by the Kotlin-side
 # IocLookupDefinitionsCrossCheckTest.
+#
+# CAPABILITY CONSTRAINT (#136 R1): a DELIVERED rule may only reference a
+# lookup name after every fielded binary either registers it or fail-closed
+# skips (app >= R1). Pre-R1 binaries resolve unknown names to matcher-false
+# and OVER-FIRE under negation. Until R1 rollout is confirmed fleet-uniform,
+# adding a new ioc_lookup reference to any delivered rule is forbidden.
 
 version: 1
 lookups:
