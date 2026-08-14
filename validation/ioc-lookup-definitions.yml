@@ -34,3 +34,8 @@ lookups:
       - ioc-data/popular-apps.yml
       - ioc-data/known-oem-prefixes.yml
     description: "Allowlist of popular legitimate apps and OEM package prefixes"
+
+  trusted_installer_db:
+    type: INSTALLER
+    pure_emitter: true
+    description: "Trusted app-store installer package names, device-conditional. Computed by OemPrefixResolver.isTrustedInstaller (not ioc-data-backed); resolved over the emitted `installer` field. #136 Phase 2."
