@@ -92,6 +92,67 @@ def load_taxonomy(path: Path) -> dict:
     return services
 
 
+# Mirrors SeverityCapPolicy.kt severityOrder — the two must stay in lockstep.
+SEVERITY_ORDER = ["critical", "high", "medium", "low", "informational"]
+
+
+def cap_violated(declared: str, cap: str) -> bool:
+    if declared not in SEVERITY_ORDER or cap not in SEVERITY_ORDER:
+        return True  # unknown severities fail closed
+    return SEVERITY_ORDER.index(declared) < SEVERITY_ORDER.index(cap)
+
+
+def load_severity_caps(path: Path) -> dict:
+    """Load the per-category severity caps — the single source of truth for
+    the device-posture-style clamp (#136 R1, spec B3). FAIL CLOSED: a missing
+    or unparseable caps file, or a caps map that isn't a mapping, aborts the
+    run — the alternative (skip the cap) would silently let an above-cap
+    rule through the only PR-time gate that catches it."""
+    try:
+        with open(path) as f:
+            doc = yaml.safe_load(f)
+    except (OSError, yaml.YAMLError) as e:
+        sys.exit(f"FATAL: cannot load severity caps ({path.name}): {e}")
+    caps = doc.get("caps") if isinstance(doc, dict) else None
+    if not isinstance(caps, dict):
+        sys.exit(f"FATAL: severity caps ({path.name}) has no 'caps' map")
+    return caps
+
+
+def load_judgment_allowlist(path: Path) -> dict:
+    """Load the judgment-field allowlist (#136 R1, spec B5). FAIL CLOSED: a
+    missing or unparseable allowlist, or an 'allowed' map that isn't a
+    mapping, aborts the run — the alternative (skip the lint) would silently
+    let a new judgment-field reference through during the strangler-fig
+    parallel run."""
+    try:
+        with open(path) as f:
+            doc = yaml.safe_load(f)
+    except (OSError, yaml.YAMLError) as e:
+        sys.exit(f"FATAL: cannot load judgment-field allowlist ({path.name}): {e}")
+    allowed = doc.get("allowed") if isinstance(doc, dict) else None
+    if not isinstance(allowed, dict):
+        sys.exit(f"FATAL: judgment-field allowlist ({path.name}) has no 'allowed' map")
+    return allowed
+
+
+def load_ioc_lookup_names(path: Path) -> set[str]:
+    """Load the registered ioc_lookup database names (#275). FAIL CLOSED: a
+    missing or unparseable definitions file, or a 'lookups' map that isn't a
+    mapping, aborts the run — the alternative (skip the check) would let an
+    unregistered lookup name through, which an R1+ binary skips the whole
+    rule for and a pre-R1 binary over-fires under negation for."""
+    try:
+        with open(path) as f:
+            doc = yaml.safe_load(f)
+    except (OSError, yaml.YAMLError) as e:
+        sys.exit(f"FATAL: cannot load ioc-lookup definitions ({path.name}): {e}")
+    lookups = doc.get("lookups") if isinstance(doc, dict) else None
+    if not isinstance(lookups, dict) or not lookups:
+        sys.exit(f"FATAL: ioc-lookup definitions ({path.name}) has no non-empty 'lookups' map")
+    return set(lookups)
+
+
 def check_condition_grammar(condition, selection_names: set[str]) -> list[str]:
     """Validate detection.condition against the device evaluator's grammar:
 
@@ -306,7 +367,10 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
                   retired_ids: frozenset[str] | set[str] = frozenset(),
                   known_rule_ids: set[str] | None = None,
                   taxonomy: dict | None = None,
-                  in_staging: bool = False) -> list[str]:
+                  in_staging: bool = False,
+                  severity_caps: dict | None = None,
+                  judgment_allowlist: dict | None = None,
+                  ioc_lookup_names: set[str] | None = None) -> list[str]:
     """Return list of error strings. Empty list means valid."""
     # Correlation rules are a distinct shape (no logsource/detection); the
     # standard schema does not apply to them.
@@ -335,19 +399,25 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
             f"Invalid category: {rule['category']} (must be 'incident' or 'device_posture')"
         )
 
-    # Severity-cap policy: device_posture findings are clamped to 'medium' at
+    # Severity-cap policy: findings in a capped category are clamped at
     # runtime via SeverityCapPolicy.applyCap(rule.category, rule.level) — the
     # TOP-LEVEL category field, NOT display.category (which only selects the
     # UI grouping bucket; cf. androdr-020/030: category incident, displayed
-    # under device_posture, uncapped). Declaring above medium on a capped
-    # category is dead text — reject so the pipeline never proposes it.
+    # under device_posture, uncapped). Declaring above the cap is dead text —
+    # reject so the pipeline never proposes it. Caps are data
+    # (validation/severity-caps.yml, #136 R1 spec B3), not this hardcoded
+    # comparison, so a future cap entry works with zero code here.
     posture = rule.get("category") == "device_posture"
-    if posture and rule.get("level") in ("high", "critical"):
-        errors.append(
-            "device_posture rules are clamped to 'medium' at runtime by "
-            "SeverityCapPolicy; declare level: medium or below (or reclassify "
-            "as category: incident if a genuine HIGH/CRITICAL signal is intended)"
-        )
+    if severity_caps is None:
+        severity_caps = load_severity_caps(SCRIPT_DIR / "severity-caps.yml")
+    for cap_category, cap in severity_caps.items():
+        if rule.get("category") == cap_category and cap_violated(rule.get("level"), cap):
+            errors.append(
+                f"{cap_category} rules are clamped to '{cap}' at runtime by "
+                f"SeverityCapPolicy; declare level: {cap} or below (or "
+                "reclassify as category: incident if a genuine HIGH/CRITICAL "
+                "signal is intended)"
+            )
 
     # Logsource — the taxonomy is the single source of truth for services
     # (the old hardcoded set here had already drifted from it, #268).
@@ -378,6 +448,12 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
                 "would ship dead (allowed under staging/ only)"
             )
         service_fields = set(taxonomy[service]["fields"])
+
+    if judgment_allowlist is None:
+        judgment_allowlist = load_judgment_allowlist(SCRIPT_DIR / "judgment-field-allowlist.yml")
+    if ioc_lookup_names is None:
+        ioc_lookup_names = load_ioc_lookup_names(SCRIPT_DIR / "ioc-lookup-definitions.yml")
+    rule_id = rule.get("id")
 
     # Detection — condition grammar, selection shape, field membership,
     # value lists, modifiers (#268: every miss here is a silently dead or
@@ -429,6 +505,49 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
                     f"false for missing fields). Valid fields: "
                     f"{', '.join(sorted(service_fields))}"
                 )
+            # #275: ioc_lookup names must be registered in
+            # ioc-lookup-definitions.yml — an R1+ binary fail-closed skips
+            # the whole rule for an unresolvable name, while a pre-R1 binary
+            # resolves it to matcher-false and OVER-FIRES under negation. A
+            # blank/non-string name is always a bug (checked regardless of
+            # staging). The registration requirement itself is DELIVERED-only
+            # (cf. the CAPABILITY CONSTRAINT note in
+            # ioc-lookup-definitions.yml): staging is the documented holding
+            # pen for rules ahead of the backing capability existing at all
+            # (cf. androdr-030 / decisions/2026-07-13-mirror-reconcile.yml —
+            # process_name_ioc_db is intentionally unregistered pending a
+            # process-telemetry source with cross-app visibility), the same
+            # exemption already granted to non-active taxonomy services.
+            if "ioc_lookup" in key_str.split("|")[1:]:
+                lookup_name = sel_value[field_key]
+                if not isinstance(lookup_name, str) or not lookup_name.strip():
+                    errors.append(
+                        f"ioc_lookup value for '{field_key}' must be a "
+                        "non-blank string naming a database registered in "
+                        "validation/ioc-lookup-definitions.yml"
+                    )
+                elif lookup_name not in ioc_lookup_names and not in_staging:
+                    errors.append(
+                        f"ioc_lookup '{lookup_name}' is not registered in "
+                        f"validation/ioc-lookup-definitions.yml (registered: "
+                        f"{', '.join(sorted(ioc_lookup_names))}) — an R1+ binary skips "
+                        f"the whole rule; a pre-R1 binary OVER-FIRES under negation"
+                    )
+
+            # B5: judgment-kind fields are deprecated for new use during the
+            # strangler-fig parallel run (#136 R1) — only allowlisted rules
+            # (grandfathered before the emitter contract) may still reference
+            # them. delivered/staging are separate lists: a staging twin
+            # never authorizes its delivered id.
+            field_def = taxonomy.get(service, {}).get("fields", {}).get(base_field)
+            if isinstance(field_def, dict) and field_def.get("kind") == "judgment":
+                scope = "staging" if in_staging else "delivered"
+                if rule_id not in judgment_allowlist.get(base_field, {}).get(scope, set()):
+                    errors.append(
+                        f"detection references judgment-kind field '{base_field}' — the "
+                        f"emitter contract (#136) forbids new uses ({scope} allowlist); "
+                        f"compute the judgment in the rule (e.g. installer|ioc_lookup) instead"
+                    )
             # Empty/null value lists are constant-false matchers on-device
             # (dead positive selection / over-firing negated filter; for
             # standalone |all, vacuously TRUE instead).
@@ -561,6 +680,41 @@ def main():
     permissions = load_permissions(perms_path) if perms_path.exists() else set()
     retired_ids = load_retired_ids(SCRIPT_DIR / "retired-rule-ids.txt")
     taxonomy = load_taxonomy(SCRIPT_DIR / "logsource-taxonomy.yml")
+    severity_caps = load_severity_caps(SCRIPT_DIR / "severity-caps.yml")
+    judgment_allowlist = load_judgment_allowlist(SCRIPT_DIR / "judgment-field-allowlist.yml")
+    ioc_lookup_names = load_ioc_lookup_names(SCRIPT_DIR / "ioc-lookup-definitions.yml")
+
+    # B4: completeness IS the contract — an unlabeled taxonomy field must
+    # fail CI, so "absent = raw_fact" defaults are forbidden here.
+    missing_kind = [
+        f"{svc}/{fname}"
+        for svc, sdef in taxonomy.items()
+        for fname, fdef in sdef["fields"].items()
+        if not isinstance(fdef, dict) or fdef.get("kind") not in ("raw_fact", "judgment")
+    ]
+    if missing_kind:
+        sys.exit(
+            "FATAL: logsource-taxonomy.yml field(s) missing kind: "
+            f"raw_fact|judgment: {', '.join(missing_kind)}"
+        )
+
+    # B5: the judgment-marked set in the taxonomy IS the frozen judgment-field
+    # set — the allowlist's top-level keys must match exactly (data, not
+    # code); a drift here means either the taxonomy dropped a kind:judgment
+    # marker unnoticed or the allowlist carries a stale/typo'd key.
+    judgment_marked = {
+        fname
+        for sdef in taxonomy.values()
+        for fname, fdef in sdef["fields"].items()
+        if isinstance(fdef, dict) and fdef.get("kind") == "judgment"
+    }
+    if judgment_marked != set(judgment_allowlist):
+        sys.exit(
+            "FATAL: taxonomy kind:judgment fields "
+            f"({', '.join(sorted(judgment_marked))}) do not match "
+            "judgment-field-allowlist.yml's top-level keys "
+            f"({', '.join(sorted(judgment_allowlist))})"
+        )
 
     # Staging-ness by FIRST path component only (mirrors
     # validate-delivery-set.py's split("/", 1)[0] convention), so a file like
@@ -606,7 +760,8 @@ def main():
                     known_rule_ids.add(m.group(1))
 
     errors = validate_rule(rule, schema, permissions, retired_ids,
-                           known_rule_ids, taxonomy, in_staging)
+                           known_rule_ids, taxonomy, in_staging,
+                           severity_caps, judgment_allowlist, ioc_lookup_names)
 
     if errors:
         print(f"FAIL: {rule_path.name} — {len(errors)} error(s):", file=sys.stderr)

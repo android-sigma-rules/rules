@@ -1,0 +1,8 @@
+# Per-category maximum finding severity — SINGLE SOURCE (#136 R1, spec B3).
+# Keys are RULE categories (incident|device_posture — the vocabulary of
+# rule `category:`, NOT display categories like app_risk). Consumers:
+# validate-rule.py (PR gate, severityOrder index-clamp) + AndroDR
+# SeverityCapsCrossCheckTest (build gate vs SeverityCapPolicy).
+# Categories absent here are uncapped.
+caps:
+  device_posture: medium
