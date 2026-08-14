@@ -1,4 +1,8 @@
-# Per-category maximum finding severity — SINGLE SOURCE (#136 R1, spec B3).
+# Per-category maximum finding severity — the DECLARED SOURCE OF TRUTH for the
+# rules-repo gate (#136 R1, spec B3). AndroDR mirrors it: the app cannot read
+# this file at runtime, so SeverityCapPolicy's Kotlin map is a compiled mirror
+# by necessity, kept honest by SeverityCapsCrossCheckTest (build gate). Change
+# this file first, then the mirror — never the other way round.
 # Keys are RULE categories (incident|device_posture — the vocabulary of
 # rule `category:`, NOT display categories like app_risk). Consumers:
 # validate-rule.py (PR gate, severityOrder index-clamp) + AndroDR

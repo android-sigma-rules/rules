@@ -729,9 +729,17 @@ def test_allowlisted_delivered_rule_accepted(tmp_path):
 
 
 def test_modifier_spelled_judgment_field_rejected(tmp_path):
+    # A modifier suffix must not smuggle a judgment field past the B5 lint: the
+    # lint keys on the BASE field name, not on the literal detection key.
+    # The modifier here must be a VALID one (`contains`) — with an invalid
+    # spelling the rejection would be double-caused and this test would keep
+    # passing even if the judgment lint stopped looking through modifiers.
     rule = make_app_rule(id="androdr-305")
-    rule["detection"] = {"selection": {"is_sideloaded|equals": True}, "condition": "selection"}
-    assert run_validator_on(tmp_path, rule).returncode == 1
+    rule["detection"] = {"selection": {"is_sideloaded|contains": "true"}, "condition": "selection"}
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "judgment" in result.stderr and "is_sideloaded" in result.stderr
+    assert "Invalid modifier" not in result.stderr
 
 
 # ---------- B4: complete kinds + data-driven freeze ----------
