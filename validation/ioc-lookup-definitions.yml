@@ -11,6 +11,12 @@
 # skips (app >= R1). Pre-R1 binaries resolve unknown names to matcher-false
 # and OVER-FIRE under negation. Until R1 rollout is confirmed fleet-uniform,
 # adding a new ioc_lookup reference to any delivered rule is forbidden.
+#
+# R1 FLEET FLOOR (pinned at release, 2026-08-14): the fail-closed evaluator
+# first ships in versionCode 610 (v0.9.0.610, AndroDR main 572af3e — the
+# first PUBLIC-testing release). "R1 rollout fleet-uniform" therefore means:
+# no fielded install below versionCode 610 (check Play's per-version active
+# install stats). Installs >= 610 skip unknown lookups safely.
 
 version: 1
 lookups:
