@@ -47,6 +47,16 @@ lookups:
       - ioc-data/known-oem-prefixes.yml
     description: "Allowlist of popular legitimate apps and OEM package prefixes"
 
+  brand_name_db:
+    type: BRAND_NAME
+    files: [ioc-data/brand-names.yml]
+    description: "Display-name variants of impersonation-protected brands (financial/payment). Word-boundary, case-insensitive match against the emitted app_name via BrandImpersonationResolver. AndroDR #299."
+
+  brand_domain_db:
+    type: BRAND_DOMAIN
+    files: [ioc-data/brand-domains.yml]
+    description: "Official web domains of impersonation-protected brands. Host-suffix match against the emitted webapk_scope URL's host via BrandImpersonationResolver. AndroDR #299."
+
   trusted_installer_db:
     type: INSTALLER
     pure_emitter: true
