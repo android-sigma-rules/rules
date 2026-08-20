@@ -179,6 +179,74 @@ def validate_ioc_file(data: dict, allowed_sources: set[str], filename: str) -> l
     return errors
 
 
+# Bare public suffixes that must never appear as a brand domain: via the
+# on-device label-boundary suffix walk, any one of them would exempt an
+# unbounded set of scopes from androdr-092. Not a full PSL — the suffixes our
+# own eTLD+1 entries end in, plus the obvious global TLDs. Kept in lockstep
+# with BrandImpersonationResolver.PUBLIC_SUFFIX_DENYLIST.
+BRAND_PUBLIC_SUFFIX_DENYLIST = {
+    "com", "org", "net", "io", "app", "co", "info", "biz",
+    "uk", "pl", "pt", "es", "mx", "nl", "br", "de", "be", "fr", "it",
+    "co.uk", "com.br", "com.mx", "com.au", "co.jp", "co.in", "com.pl",
+}
+
+MIN_BRAND_NAME_VARIANT_LEN = 2
+MAX_BRAND_NAME_VARIANTS = 500
+MAX_BRAND_DOMAINS = 500
+
+
+def validate_brand_file(data, filename):
+    """Structural validator for brand-names.yml / brand-domains.yml (#299).
+
+    Enforces the same bounds AndroDR's BrandImpersonationResolver enforces
+    on-device, so a suppression-capable entry (a bare TLD, an over-broad or
+    junk domain, a 1-char name variant) is rejected at the CI gate rather than
+    silently shipped on the un-hashed ioc-data channel.
+    """
+    errors = []
+    is_domains = filename == "brand-domains.yml"
+    list_key = "domains" if is_domains else "display_names"
+
+    brands = data.get("brands")
+    if not isinstance(brands, dict) or not brands:
+        errors.append("missing or empty top-level `brands:` map")
+        return errors
+
+    total = 0
+    for brand_key, brand in brands.items():
+        if not isinstance(brand, dict):
+            errors.append(f"brand '{brand_key}': value must be a map")
+            continue
+        values = brand.get(list_key)
+        if not isinstance(values, list) or not values:
+            errors.append(f"brand '{brand_key}': `{list_key}` must be a non-empty list")
+            continue
+        for v in values:
+            total += 1
+            if not isinstance(v, str) or not v.strip():
+                errors.append(f"brand '{brand_key}': `{list_key}` entry must be a non-empty string")
+                continue
+            val = v.strip()
+            if is_domains:
+                d = val.lower()
+                if d != val:
+                    errors.append(f"brand '{brand_key}': domain '{val}' must be lowercase")
+                if "/" in d or ":" in d or " " in d:
+                    errors.append(f"brand '{brand_key}': domain '{val}' must be a bare host (no scheme/path/port)")
+                if "." not in d:
+                    errors.append(f"brand '{brand_key}': domain '{val}' has no dot — a bare TLD would over-match")
+                if d in BRAND_PUBLIC_SUFFIX_DENYLIST:
+                    errors.append(f"brand '{brand_key}': domain '{val}' is a public suffix — would exempt everything under it")
+            else:
+                if len(val) < MIN_BRAND_NAME_VARIANT_LEN:
+                    errors.append(f"brand '{brand_key}': name variant '{val}' shorter than {MIN_BRAND_NAME_VARIANT_LEN} chars — over-matches")
+
+    cap = MAX_BRAND_DOMAINS if is_domains else MAX_BRAND_NAME_VARIANTS
+    if total > cap:
+        errors.append(f"{total} {list_key} exceeds cap {cap}")
+    return errors
+
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: python3 validate-ioc-data.py <ioc-data-file.yml>", file=sys.stderr)
@@ -205,6 +273,22 @@ def main():
 
     if not data:
         print(f"PASS: {ioc_path.name} (empty file)")
+        sys.exit(0)
+
+    # Brand impersonation registry files (#299) use a structural `brands:` map,
+    # not `entries:`. They are the fleet's only detection-SUPPRESSING remote
+    # input (androdr-092's `not scope_legit`) and are NOT covered by
+    # rules.sha256, so they get a dedicated structural validator here rather
+    # than the entries-less pass-through below. Mirrors the on-device guards in
+    # AndroDR's BrandImpersonationResolver.buildMatcher.
+    if ioc_path.name in ("brand-names.yml", "brand-domains.yml"):
+        errors = validate_brand_file(data, ioc_path.name)
+        if errors:
+            print(f"FAIL: {ioc_path.name} — {len(errors)} error(s):", file=sys.stderr)
+            for err in errors:
+                print(f"  - {err}", file=sys.stderr)
+            sys.exit(1)
+        print(f"PASS: {ioc_path.name}")
         sys.exit(0)
 
     entries = data.get("entries")

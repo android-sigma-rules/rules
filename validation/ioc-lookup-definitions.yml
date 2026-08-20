@@ -12,6 +12,18 @@
 # and OVER-FIRE under negation. Until R1 rollout is confirmed fleet-uniform,
 # adding a new ioc_lookup reference to any delivered rule is forbidden.
 #
+# NARROW EXCEPTION (#299): a new lookup name MAY be referenced before
+# fleet-uniformity iff EVERY or-group of the rule's condition contains a
+# POSITIVELY-REQUIRED conjunct on that same new lookup. On a pre-R1 binary the
+# new lookup resolves to matcher-false, so that conjunct forces its whole
+# and-group false, and — because every or-group has one — the entire condition
+# is false: the rule cannot fire, so negated uses of the new lookup elsewhere
+# in the same rule cannot over-fire. androdr-092/093 satisfy this: both put
+# `app_name|ioc_lookup: brand_name_db` in their positive `selection`, and
+# neither condition contains an `or`. This exception is UNSAFE for any rule
+# whose condition has an or-group lacking such a conjunct — do not generalise
+# it past the "new lookup gates every or-group" shape.
+#
 # R1 FLEET FLOOR (pinned at release, 2026-08-14): the fail-closed evaluator
 # first ships in versionCode 610 (v0.9.0.610, AndroDR main 572af3e — the
 # first PUBLIC-testing release). "R1 rollout fleet-uniform" therefore means:

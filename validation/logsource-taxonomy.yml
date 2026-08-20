@@ -49,8 +49,7 @@ services:
       last_update_time: { kind: raw_fact, type: long, description: "Epoch ms of last update (0 = unknown)" }
       embedded_component_class: { kind: raw_fact, type: list, description: "Class names from manifest services/receivers/activities/providers; deduplicated; capped per app. Used by embedded-SDK fingerprinting rules (AndroDR #168)." }
       embedded_native_lib: { kind: raw_fact, type: list, description: "Filenames of lib/*/*.so entries inside the APK, ABI prefix stripped; deduplicated; capped per app. Used by embedded-SDK fingerprinting rules (AndroDR #168)." }
-      webapk_scope: { kind: raw_fact, type: string, nullable: true, description: "WebAPK web scope URL read from shell-manifest meta-data org.chromium.webapk.shell_apk.scope; null for non-WebAPK packages or when unreadable (AndroDR #299)" }
-      webapk_start_url: { kind: raw_fact, type: string, nullable: true, description: "WebAPK start URL read from shell-manifest meta-data org.chromium.webapk.shell_apk.startUrl; null for non-WebAPK packages or when unreadable (AndroDR #299)" }
+      webapk_scope: { kind: raw_fact, type: string, nullable: true, description: "WebAPK web scope URL from shell-manifest meta-data org.chromium.webapk.shell_apk.scope. Null for packages WITHOUT the org.chromium.webapk prefix. ATTACKER-CONTROLLED: any app may adopt that prefix and self-declare this value, so it is NOT proof of a genuine mint — treat like app_name, never as trust (AndroDR #299)" }
 
   device_auditor:
     model_class: DeviceTelemetry
