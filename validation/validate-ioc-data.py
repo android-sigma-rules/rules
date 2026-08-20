@@ -12,6 +12,7 @@ Exit codes:
 import json
 import re
 import sys
+import unicodedata
 from pathlib import Path
 
 try:
@@ -179,20 +180,42 @@ def validate_ioc_file(data: dict, allowed_sources: set[str], filename: str) -> l
     return errors
 
 
-# Bare public suffixes that must never appear as a brand domain: via the
-# on-device label-boundary suffix walk, any one of them would exempt an
-# unbounded set of scopes from androdr-092. Not a full PSL — the suffixes our
-# own eTLD+1 entries end in, plus the obvious global TLDs. Kept in lockstep
-# with BrandImpersonationResolver.PUBLIC_SUFFIX_DENYLIST.
+# Bare TLDs / public suffixes that must never appear as a brand domain: via
+# the on-device label-boundary suffix walk, any one would exempt an unbounded
+# set of scopes from androdr-092. Best-effort backstop, NOT a full PSL. MUST
+# stay byte-for-byte in lockstep with
+# BrandImpersonationResolver.PUBLIC_SUFFIX_DENYLIST (a drift means a domain
+# that passes here but is rejected on-device, or vice versa).
 BRAND_PUBLIC_SUFFIX_DENYLIST = {
-    "com", "org", "net", "io", "app", "co", "info", "biz",
+    # Single-label TLDs (redundant with the no-dot check).
+    "com", "org", "net", "io", "app", "co", "info", "biz", "dev", "me",
     "uk", "pl", "pt", "es", "mx", "nl", "br", "de", "be", "fr", "it",
-    "co.uk", "com.br", "com.mx", "com.au", "co.jp", "co.in", "com.pl",
+    "ar", "hk", "cz", "pe", "cn", "tw", "sg", "my", "ph", "vn", "id",
+    "th", "kr", "za", "in", "tr", "au", "nz", "jp", "ca", "us",
+    # Multi-label public suffixes (second-level registries).
+    "co.uk", "org.uk", "me.uk", "net.uk", "ltd.uk", "plc.uk",
+    "com.au", "net.au", "org.au", "co.jp", "ne.jp", "or.jp",
+    "com.br", "net.br", "org.br", "com.mx", "com.ar", "com.co",
+    "com.pe", "com.ve", "com.cl", "com.hk", "com.cn", "net.cn",
+    "org.cn", "com.tw", "com.sg", "com.my", "com.ph", "com.vn",
+    "co.id", "co.th", "co.kr", "co.za", "co.nz", "co.in", "co.il",
+    "com.tr", "com.sa", "com.eg", "com.ng", "com.pk", "com.bd",
+    "com.pl", "com.ua", "com.ru",
 }
 
 MIN_BRAND_NAME_VARIANT_LEN = 2
+MAX_BRAND_NAME_VARIANT_LEN = 128
 MAX_BRAND_NAME_VARIANTS = 500
 MAX_BRAND_DOMAINS = 500
+
+
+def _normalize_brand_label(s):
+    """Mirror BrandImpersonationResolver.normalizeLabel: strip Cf format
+    characters then NFKC-fold, so the length bound below binds on the same
+    form the on-device matcher compiles (a raw '\\u200b\\u200bA' would else pass
+    at raw length 3 while matching as a 1-char pattern)."""
+    stripped = "".join(c for c in s if unicodedata.category(c) != "Cf")
+    return unicodedata.normalize("NFKC", stripped)
 
 
 def validate_brand_file(data, filename):
@@ -238,8 +261,11 @@ def validate_brand_file(data, filename):
                 if d in BRAND_PUBLIC_SUFFIX_DENYLIST:
                     errors.append(f"brand '{brand_key}': domain '{val}' is a public suffix — would exempt everything under it")
             else:
-                if len(val) < MIN_BRAND_NAME_VARIANT_LEN:
-                    errors.append(f"brand '{brand_key}': name variant '{val}' shorter than {MIN_BRAND_NAME_VARIANT_LEN} chars — over-matches")
+                norm_len = len(_normalize_brand_label(val))
+                if norm_len < MIN_BRAND_NAME_VARIANT_LEN:
+                    errors.append(f"brand '{brand_key}': name variant '{val}' normalises to fewer than {MIN_BRAND_NAME_VARIANT_LEN} chars — over-matches")
+                if norm_len > MAX_BRAND_NAME_VARIANT_LEN:
+                    errors.append(f"brand '{brand_key}': name variant '{val}' exceeds {MAX_BRAND_NAME_VARIANT_LEN} chars")
 
     cap = MAX_BRAND_DOMAINS if is_domains else MAX_BRAND_NAME_VARIANTS
     if total > cap:
