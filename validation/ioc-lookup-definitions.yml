@@ -12,6 +12,19 @@
 # and OVER-FIRE under negation. Until R1 rollout is confirmed fleet-uniform,
 # adding a new ioc_lookup reference to any delivered rule is forbidden.
 #
+# NARROW EXCEPTION (#299): a new lookup name MAY be referenced before
+# fleet-uniformity iff EVERY or-group of the rule's condition contains a
+# positively-required conjunct on SOME new (pre-uniformity) lookup — not
+# necessarily the one being referenced. On a pre-R1 binary that conjunct
+# resolves to matcher-false, forcing its whole and-group false; because every
+# or-group has one, the entire condition is false, so the rule cannot fire and
+# negated uses of ANY new lookup elsewhere in it cannot over-fire. androdr-092/
+# 093 satisfy this: both put `app_name|ioc_lookup: brand_name_db` (a new
+# lookup) in their positive `selection`, and neither condition contains an
+# `or`; their negated `brand_domain_db`/`brand_name_db` uses are thereby safe.
+# UNSAFE for any rule whose condition has an or-group lacking such a conjunct —
+# do not generalise past the "a new lookup gates every or-group" shape.
+#
 # R1 FLEET FLOOR (pinned at release, 2026-08-14): the fail-closed evaluator
 # first ships in versionCode 610 (v0.9.0.610, AndroDR main 572af3e — the
 # first PUBLIC-testing release). "R1 rollout fleet-uniform" therefore means:
@@ -46,6 +59,16 @@ lookups:
       - ioc-data/popular-apps.yml
       - ioc-data/known-oem-prefixes.yml
     description: "Allowlist of popular legitimate apps and OEM package prefixes"
+
+  brand_name_db:
+    type: BRAND_NAME
+    files: [ioc-data/brand-names.yml]
+    description: "Display-name variants of impersonation-protected brands (financial/payment). Word-boundary, case-insensitive match against the emitted app_name via BrandImpersonationResolver. AndroDR #299."
+
+  brand_domain_db:
+    type: BRAND_DOMAIN
+    files: [ioc-data/brand-domains.yml]
+    description: "Official web domains of impersonation-protected brands. Host-suffix match against the emitted webapk_scope URL's host via BrandImpersonationResolver. AndroDR #299."
 
   trusted_installer_db:
     type: INSTALLER
