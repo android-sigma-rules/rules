@@ -1,0 +1,1854 @@
+run: 2026-08-21
+mode: e2e
+candidates:
+  - id: 8703ee8685a47d4085b737b29aaa0f6f7898985b41963bd15d7027c75a609a3e
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3063914cc10de86a689070151a61172fc17619e71d1bd643a3d0cf94b84e10a8
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 61d4518fac40db1cef72d8b6f9a14080d93ef53a6f6e55605ee12da87978a14f
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b459673b77209ff89a2833977b4de341a529722f1e4662451b514df220e13afc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: fea09cb621507334ff92f30e0455db20e0de38a86e8b3e38c434340cc4ca2112
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 5baaef4c3aad7d78959554a977f358fb37eae685034df70fa43c4b4618cba3a9
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: d8b3327efe0c98be433a7a73591facb031fadcad747ad99e4ac3ccd0e6751290
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 4b8a2fdaad0f3e6e6325d3deef163526e470c9a88a23f73e491bd228f3548641
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 25e6a6bac0859c785063eed88c04cfbb1c30613c9b549d846d43d1920db172e9
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 36ef3a11514f39f0143155711a4ca40ec546031a675a94c3b65dbae2c6d86e52
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 424d16cdbae8c830a8ad03a5eb1e95aaa3f4d6aba56748fcc2c7c79da83f79c1
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 464fee5a6d85370e8764f0e682ef01cf2d9cef3efb7e4bbdf0146a94cc83ff4a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 54f14272fc6bad75f0b83984f701fce73fa73f0d9de209c161094f27836cea9b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 7cf365d61e59d5c3dd50295b1d5a0c360da9eba1b4dc00cdc0f1ceee4a5cc412
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: cba19f8eedf90c332224bcd8f0df9be0e1dbd4324c67c79eef19d547c33ef331
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: db2c9949fae4e779f1d988d38b67ed9b3612dbf11c1159c791093aeef9cdab2c
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 5f94e59c132a7ed0e35b60146d973a728ab9f390c8291f9547cee26c56427738
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1ba4bb9f0990697fa0c3b12ddf2d1f31ef385e14556c081f3f5e30dcbbf50f1a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2cc755a2c9dae64ea5914bd32aa6824a3bc1f0e3be1f2d03c116ffc68f7772d0
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 399f5bddd1e30bb612522c9c770e073f5e304165df170c4668550de34f34f7c1
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 68b9c7ae6b51f211ecd0cfdd656bc3b14840627adc7073faf9504acdb0e52dae
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: e084a327fde5523b1803040fc1ea40be84bc8434913d37d01083890c351dec96
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: d300e348a236c6fc23bceae84fdbd6deecf8f41565c032c0d062733fcb066a6e
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2a46a2565d4f50facb1f9bbceb6ea5941324e9316c61e8a125f6f012d0de7e57
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 7b44413023a95b795cf0541d775293023039c3378582d6e158cc628d21f03f82
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b75594885b4382ff7fdce4cfa890bb3c47b576bdf47a3ebe5f08352fc1df5790
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1a9a54eb8b3ed707852eace623b935bc687c46d5e0cfa793751e778dacd8b62b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 23282313ee3edb3443ae8c0296b9b6ddf52501983093fd289f46d99e7d180402
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a15e50a753028ff9db51885705d6348113dac5b653cd2bd00dcfd8b97da7566a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: e95a624d496acffdaf87ec8fba2d5e5fc662b5870ce69bc45505434109092bf3
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 94e0dd4f976cb66058f7aae7b69d308444bec8450065be0e4b7e0351cee5692c
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 35d220d4bfeec29b788e018405b60f42f63d8003ba673a09465b2be8a0456667
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 9df642b7dfda8641fa3ea66ee98e7179865f3a080d64a2b72eaf5188570a5b46
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dadf878d71926beebc94c50a6a93f1af7ec1650da318381234d308b2f76f68c1
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 945d7a6eb3ef9631612b4728312d65e7dae4fdb73dcab2e7d0c6313dbf38e350
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: d1f855f3cd4f89c16b42e83700e94391b0d105fa9ddcc5e8b222471ae5a89fb1
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3c0edd3c80f917d0045ac51d177e9a4768df5a66517005b0f7944423aa54b089
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 902c5f46ac101b6f30032d4c5c86ecec115add3605fb0d66057130b6e11c57e6
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 906734ebb9a274c5c83a22a4475e27354857d7b5b62a4ab6bb5d8d365692e963
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 84d1675640c21bb497bfd230ad31d403d1093a1c75acb2002f84718533b52d08
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 8226f44581a8bd9f1e9119a56929b9df66d725265076b7d9cdd96e8b132d8427
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 21cccd01d10127c3c91442747c351d91ba60de004665986b420a092214bca837
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 96a48ef53a1ed4f9ffada09b82cab9d965a61a2d3b70490a46821d8102d811fd
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 5638154727931471ae557cd89953e9686af10fa35c21ee30cee4208ecc76d662
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 80be0942d0e20b5006e240434f42512c8b3cd0d54eee858a25663c1a4224a576
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: feea425cde1223fe7afdd7a1ea631678ec6282f6cc20c3d3c0fb97cdbcf65b9b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: e7abc375f24d0dd2419e0bce4686c7301b3ee82ae38906c67d3481580f6c648e
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 7c12f1237090e32c18583f66f1a9e44b029ad7c1e61179e1d524fb3093abd59a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2884108b35eba7b8099087405653c1b23c3839f0d5058c4d61341fc31cfc6040
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2fb5b01ea5a483d60b659e85327a53c6661bdd630d4afd93dc5fe0941d3ccbbe
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: d0b44b17f97097480fabd89c86a4dd3ed2e6e60c61a498f17bb722e3fb9cc0d7
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 82156990c18aa0b85970b9fa3c11e16545c4fc435ecebb92ed80c325dc83e953
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ef48459e8c814944eb4d5b56339421084facfb6d36aef015da016b996a0d8e54
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: d82e6ff06aa1077ad2492aa1a9bd6e787d8a094521589039f1d3773e163ca59a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 90e105bb10cabaef70e62680aae061ab731de649ff0503f42d52c78640a51215
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1199c3cb7707938f48c2611ae29699ad80a16132654f287c957edb36ccd74553
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: e0f3bda1d5236c7881fe4447b1531d3c8c5456ecfef942640b9b0c1c3e470c1e
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 290b4f9a3297f52af2e9344bac0a3f2e13efdaa7d01c24b5bb6d47420ce9f73f
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1aae4a54a4c1b136cd78342a2c0265eb926f066760219bfbf3ce5e4b6a2657bd
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: e59d1f0a0c708fd678a55e431fb9dd8f068887a459a7caf92ff310687821ffd1
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 37ee9d0f4945c969cf40b47d83b154eeae52097d1881bef74ef4a49eb18112d8
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: cca23611b6937113bdaa3114818b9c07ba12096afa42a4648a06a0e7781cdc1c
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: d9b0374aad45b47f22c4ca33636e5a45e91b514b16cb8c72c25ac6f18072081e
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3c32b4359e53cdbf4d4d6f4bf12245ab606dd32f1a7931dc09808c6ac431f6e6
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1f42182cd6bdd162c47372f6ef7e8822fb873f1f4b03d5128832108a4eaa66ee
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: c0628b8c7a42753ee0986a49682b9406ad37bb8b650d6ac90142a485acaa9cce
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: be3d9c427dceb3fa231135ae615a7341f8797de4b7a6ceae6afe825c03e09e5e
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 371831552de11cbe7ec628b9a82c8ea5e8f01e3f17aac461d8fab2c164afdf00
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 39a802f03a84f710c9ba0703d3cd39123831b15a92e79bd9c5ffb9ca598cc4ac
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b3348d8437cca66fb66742be7252be52f459516ad1f505984fbb664ab192b170
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 055fb3b21b7f1d321e9f2cc8cd1f5763cdd02f5fa2676cca349cdd996fe8d50d
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 9d913b26304e1b1838c60b845e8a8dbdb81fa10d3943e3adee978d28df56947d
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 93cac6575d273139c5eb736da159882fcf32ec1d6938114a6ba8b0b5cea3fb81
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 83c1a9e276ab40a1b5226e3ffa8c17b97e41486070efedd14384aa69fa892190
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 25eacd1f4c88582a56166c6ff6be096067c1962d4ba9f8280bb1a57643f03ade
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 04a37e55db2e73a4af1f60bc25c4377237c73042bf01227f4c4ca05e1342cab5
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: c000425257c30a4e26bd0fbd983929d8162d7836d7a639083e9ba6ec6963c267
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: f159c568d16795ce14558a13454b66686948c0c6e760330ce2c22cfd7b970c13
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3767f0528c634d6b413ea969050f2ba968ac58e08ae3703e44253385def94e6f
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 88148fc124226e0f40c821d8fd4f221efc1eabc10177e3b0f490edea5adf2911
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 10589f22646095144883422c680a2c140ce368938973b7ef3b463d07bddd71ed
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: d816c03f5b93101b84f7a017105b8fbbf770410812d09c469d9bd6534831f559
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3942695e93a82e540f0a4ddbe0d4c1e6a8e0a76777ea77de16ad6b15f249d91f
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a9d431ba0e772ef50f9a8ef40037d75d29ce0bddba95d612d64bf9dc7f0dd732
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b4167cc0ffd4bd1889aaea17db410bc641e02537ac6ebbccb25e40d2be04431b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 4c748b453a22a82adf09159872473a1aae3853e46afbfb4df211991efc4900e2
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 51068804e899ca98ec83729efffc09261f57be7ab17b01167bf9e37bc3712c82
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 31553e7088def7c155bf0d3b9cb85754f09dbec4d231aa3b157ff208b76edb54
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: af0405a18a76788c5da2711d22fa1576723ad9d9881202de61bd8f4116412fd6
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 7d74115fae54798b5139c4ed7c785181b88d28fecfc7fab81549e174a14ab63d
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ae5f66b98563ab9ae022bdb97b15e1acea8ee0ddd70c8f943029812e886fc8c0
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2add3ad8532a7b59cbd26ffd0ecd25b2706c8feaabc0dcb42a91b578a6990af2
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: f93424975511ad7bf8461f8552b350ac98000dd147c9214f480f4fec21cde198
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: fd38e4dc987a7ab3d35d892d7d478305472ef1bcdb6a3862dcd7f429fb9e9262
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1376bc2d933e562dac29aa79017ccf63878c9d292d3a3d155fde7c0c7a07e44b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3262d86c76b913d13b6785c1b2a4e8d4dde35e92732460766ba8b0e9b7952aa1
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 90201cffce6680fa45a25459042564501c560f142b3a8cc9b9fdec2677643409
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b55798ac775028ff2751e8cc30957c561df3cddb4f3f4ec86e501cbde154df8c
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 0facdd40f16c4b79880bdfbb5da9bb6cc98f8649172215e2280e7c79dacd1044
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: fa66027336615104bbac6b697456c26807573ce9b7be9a191cda6efe7d46644d
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 4a288f491013e58fa7a790338ecd528f943e86ce03d40488c4d9faf553efbce8
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 9652794e23ea40241d92dc5b2388798e793850082a6ddf63f61a4d194d1031dd
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: bea00c8595bad5df3dfb0a5051eba4295f4f81886744893227dcc9f8384dc657
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 218eee9dd45e78b99f20baede972bf84e6f6c9ef3af34e5e9601abd493af029c
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 54dd20e9eca32c1f921afae4ba76f800ba973c6a35b17598edcbf2b1ff025f3f
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 14bea15fff76a68ca101d97ae6494a65d93c9e62cae92583db610e2e10acb24a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 523991e78efc0de73bad86cdac182f6bba10b67c7c9ab0803e268efd65444769
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: db13754d34a282fa6abb3db1650dafb4e6595e6419f76389dc67154a1033f00e
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3c76887d942a2a1c02455070887e14015ea9fe63fc9e4777bfbc633ba29601d5
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 6174d8867e02177913dd28e17e67aac03a0be80f6cf2640a53a2ec8dd68c8f03
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 6ca69f5ecdfefb9e267745407b4400534dcacf25b500ac88a40ad267ab86b336
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 5890f6378baf86d74d0cfdc9ed6a46f9e769da12512d645eb6f1d8a868b349ea
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: e8a4d5ad6fdf97ebd647f6e4ab218c18bb624114d445785b9579a80427ae6d67
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: da240b9352248448e3875c9a47679070c42801a0c426d2daba3854470d99bd43
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 6a622b79aa2634b0ce77b6d2126ab575a8225f79b4c4c3b05cf520738a2b874b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a6a9babbd8c3ffd0801ccdaded12b55b7a3195289337a22145f0e4ece7984cbf
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 35e7357982afa73e75e23b5be7e0cf550059f0a2b30cc499f60e24a8185abf6d
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ce65703cd7cca1f110494588b697dbd1d682be4f162437b1ee03c1aad4b24692
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: f5557345f710d937cb1f61bdb11f6409b24416bb7d32bf4465f98439b079a291
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 9b33c1f05f1c3cfce73b08ce7f480623611096492d427b5e71221622b5cd95ef
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 95ccc098982c6b48abe0038cdd1f15c4bc1ed5cd95b569d58c59072fe4d0bb57
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 051942c62e42763b18f55397e8019286c0feaff024a627d06acdf3dd1789b9bf
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b0b6f720d82a6f63376611334fc3c2db88e7ad89594473513de5d9601291cb07
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dd80e4a86448d7b85387fdae9e932c7803477bcc0846650e6748b87a1787d8da
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: f5ebbe98bab20e11569b01e632d9abacf6536887ec115d2d44e163c612d8923b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 19dd5def1b19c18f1fc7db6c4fccdd60631f1dca5490da0cd68e8010ca244a54
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 74f0b7605af6d9393d59d094293111c29fedfbe9bb736cc7539a053442d078eb
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3ead5e2eec9b77066d661f5acdf82f5d82d18cedd3a3158a894dd29458533ec6
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 6b85e5cea712e490eee0786a2ac67edc92c6ad8493b60f79a95cf06768b272ec
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a6a67403d40d0d048dff30b34a013abba422ba1726a4d58cf1e4e8b0b50d5119
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 6cfcd5da210950dfa6da21fa806cca98df11430c55934da6286dd0faf661e624
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2d5b155f88f765e895e45eef8c83ca414e60bf531ec553c86a2c92e750126c82
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 71e7c402b1e489b5f5c187d792abc0e140bcda925d7e0036b228dc964b94bc20
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3fe32791759cde8da964bc632da41e2143673ddded77c6794d778ec519219fab
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 8b1c0b18569c97239c64957ff99a81f9a03e90347637627fe64d311f3bc6d6ef
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 6e227880b6513c27d7866134c26ecdfc27ef388598544975ef4bf163206fb19a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: d645f3c14f8f4d08d3f3da83d00b0099ef9dfd57fa841d0107f038437eafbc9b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 0760d14622d3aea696a99ed3391a5882979c813910badf9f1e47694fb40d7f4b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 6825990f0725b149fd3c1d3176c1820cd02dd3159f3835cabe4af70a98a448d5
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 03d7554964f5da90a15f48039a32e816a6158d41a4f5898c80ad1563809026f1
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 22a0acff09b7c5e251c49ab12a161779d2e929dc39c3e163b5f6472e620a2b2c
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: f456bbd8de30f58c2b986ad1b0bcbd48e1c21a5452c530ad5935af09c51313e0
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 5ceb97514d87528f88a13616c2c4b2b13ccd239c583836df0460261360c849f4
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 305c2d9c1104a6ed9b7766a57fc1489427b640b875eaaa869e182fdc1b019422
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: bc1938a2483363df363cb6a049b98ccc21165b29083e7dd8a9d6dc521afa5218
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 22e9bf11a1e5281bc2c28eac9a60af3c3b09366572fe36f538bc3be2bed50cc0
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 904739fde08fa62e1f77d4c7e787fe706cd2372bda7b7c67ae58677062b795ee
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 34f1e4299db414f0beb89c12641f8df9fd1f1e00bf4b2aa11f8c9f072c4d4787
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 5be67145a12581c043b5370f3b909da9a0d2329f937ad2ac5dde18c8f59acefb
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 89cae5e457705e16540f53f438c0ea578b6371015d9684e63c3b2869cd0b8c34
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: f01eaadb6e243add1f70363588eab0eada6d596b9284f718996b38adf4a4f768
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b1779e74b5d0d12c76332747b79f359fcdac861e3d85aa76247ce8fabbf0c26a
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 82217603ce6a14a5e06bd5eaf20b87455f52063981b89e817acd0f4f63092359
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: e8fb955be939d50a3e306a8485f9dd3f0a0cde43b268e547d2bcea30f96584c2
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 52c5906eca4a45a4cd8b3eefb412d405f8ecd48c8c79c1da54fab835bd928c55
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ee0f00e189ebba27936288e76400b260d2ec92847bb41ec3a0c8b369e613513b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2df378e8b9c9e49c6e16d821beed8ab6f79fbefcfe1b4cb955935ff3bd781df9
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 689b22100067db05bbe59cecf7e0b51bbdc95ab84c64cd3046b3375977c9bf74
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: f35bc416ce4bf0a357a3f1462398ebaadcfb1f64af9915aff380109f1e4e735f
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 86ca38618e8cd83fb1d18a24dc9db6fc48a1cb9cde2a199548597e7ddf5ee616
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 8f4cc0777d90276f044834f862b3c73da8e00823aac2a6f5f142569dc858c9ef
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3309af0253c44e5e9a95de70777a3f3b37a68e7055051df8fa5ae99c3e610c15
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: e3871303098c9cdb77f55e3d536464bcec3e8284baaffb61b28d615dc3fe395e
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: c1e2a7765318cc5a038a2febe9061c5367ba9c657fcebc4d08b49d077590fe25
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: d1aaf431b8c4c2f6130713ae7d1593658fb4ab2dda69bda142ed64f9981c70ba
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2ccf633ebfe55e5b44e2602b617e7be2b180aa85be74b0ecdc65b845ece3b0fa
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: fdbb580294f97ccdbb8f9370f0b8c1d8f81988f73dbd9f7753f9aa69e849117f
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1baea004e704d86d065d964322c0c34e6f5926079d8205b01c99024b1a78b6e3
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1d0398b27bf978c99a59b5a97f893fc9832509d576fefa9d1bd303aa794ab053
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 15944138f8518c940f4a9e58396e491fd457da76aa43c5ea232d72f91c01dcd2
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: c4240a4124f22c344ca67a6f585aa9877d7b57c949fcc84160aaba23ae36baf1
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a8a0fb66997cb80a1c8881436186b6f9c8b0480ec02949b2f90b61aa12d81bd4
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 66500b3b4d582a418f608b8fe14c2c8bb6defcdefd30837dd3368bc3954474c6
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dfb1ac406a25852ae53dce0d23adc7dc053aab274965b4c4e4df8e6696304ed2
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: c0aabe3d346c1b84c0067604563d65368b01e4df3b790032c03976f7fe09d3bf
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: fde5ec475637f9723989b3bed4a9b4140824622e01291c266d87a34928845a46
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 2449948914ebf6d38b8a882bec963dbcc7f375c2a47367bc9be23d118bc71a39
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 3186b4cc4a6ef9ed9e357f974b296537851f8b396306a43f901dd1496173eb3e
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 824b8b94f852f5f070c227294f2bd2ab1d5ef6cd7a099db87230cba947af7026
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: f0b0a67f88d188ba7989d6ea174a37b78f9fced3b4027397e5488ea32f900f09
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: c0c53e9f4ab7a93c20a7af0e49d4b6fde9ed76c605849e6c13c61b07abbd0ca2
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: b04ad3e65fa732ad315b259e9daa68089f53807af01919b9df70f2dd3026000b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: edc3f15898f366180a584a44d2ce55bbca866925dad43645b91424d826aa7258
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1ebd7606d01f53c5e7bf0870b4c87d7a20a576ac0631464e307720e30e86e52b
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 0db8d3577c9328155483c333b5efe27f1550d5274f370566a17a4d6a699fc7e0
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dd5b8389270fee48be837e55244c2e251cdf959ef579c4067b772c2f7a4dda15
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 475c1ae3a0cb4b2a7a58ae3dc1b3e6fbdd87d7f5378dca106c13e2251d8a3b30
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: apk.obwhatsappdownload.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: apk.whatsplus.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: apk.whatsplusdownload.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: app.gbwhat.pro
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: app.whatsplus.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: c.gbwhat.pro
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: gb-dwnplus.org
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: gbappze.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: gbw.cmpc.fun
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: gbwaapps.org
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: h5.gbwhatsapp.download
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: lb-ndrq4ayq-1h7mf9psqdkb65lv.clb.sg-tencentclb.net
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: lb-rnypyjwi-rzm2gb9ys7wtc4u0.clb.sg-tencentclb.net
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: node-vml.vidfree.net
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: origin-apk.gbwhat.pro
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: origin-apk.obwhatsappdownload.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: origin-ug.whatsplus.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: origin-www.whatsplus.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: prod-weblink.videmateshare.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: static.cdns.space
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ug.gbwhat.pro
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ug.obwhatsappdownload.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ug.whatsplus.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: vid-cdn.vidfree.net
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: videmateshare.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: www.vidfree.net
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: exovision.cc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: garant-help.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.tw.jar1
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.abc.nexus
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: xmsae.sbs
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ishano456.sbs
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: xshaon123.sbs
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: kshahnd.sbs
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: mdsjhd.sbs
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: nmnsny.sbs
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: kookjar.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ty54fgd435.my
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ue886578433.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ty4523.space
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: admin.uipoxy.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.android.tigertv
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.android.tigersport
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.android.mioplus
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.android.miosport
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.android.vo_vivo
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.android.vo_fixture
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: newsvxc.shopstoreboutique.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: appdload.mpfcms.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: mpfcms.mio-tvplus.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: miotvtop.hdwcam.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: testcf114.bookabcgames.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: mtvp.hdwcam.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: xc.mpfcms.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: mcm5566.bookabcgames.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: tigertvdli1.jopstop.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: edisajalsjfdfh.shop
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: terrtest.oss-cn-hangzhou.aliyuncs.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.hs.app
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.hs.cld
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.hs.q
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.mz.sdk
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.debby.devour
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.google.android.gms.stable
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.google.android.services
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.goog1e.apps
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.app.mz.popan
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.app.mz.jaguarn
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.app.mz.lxhwdgn
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: com.app.mz.spiritn
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a1.ishano456.sbs
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: t1.ishano456.sbs
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a1.xmsae.sbs
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: t1.xmsae.sbs
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a1.xshaon123.sbs
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: t1.xshaon123.sbs
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a1.ty54fgd435.my
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a1.ue886578433.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a1.ty4523.space
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: a1.vrr8345.site
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: task.mymoyu.shop
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 100ulife.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 1ztop.work
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 99soya.shop
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ad3g.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: admoyu.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ads-goal.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ai-goal.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: apotube.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: app-goal.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: appclicking.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: astrolink.cn
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: bitemores.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: bltproxy.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: bluefish.work
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: bullet-proxy.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: catmore88.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: catmos99.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: cbphe.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: cbpheback.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: clickby.net
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: clocksyn.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: coslogdydy.in
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: cxlcyy.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: cxzyr.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dazzl.vip
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dc16888888.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dcylog.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dqmop.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: duoduodev.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: easyjoy.me
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: echojoy.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: finemob.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: firehub.link
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: firehub.work
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: flyermobi.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: fuhidd.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: g1ee.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: giddy.cc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: goologer.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: heygames.club
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: huulog.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: huuww.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ipforyou.top
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ipmoyu.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: jasmine.land
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: jolted.vip
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: joyfulxx.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: jutux.work
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: logcer.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: long.tv
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: meiboot.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: meisvip.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: moonhub.work
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: motiyu.net
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: moyix.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: moyu88.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: msohu.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: msohu.shop
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: mtcpmpm.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: mtcprogram.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: mtcpuouo.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: mymoyu.shop
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: navnow.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: net-goal.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: pccyy.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: pcxrl.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: pcxrlback.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: petrel-ip.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: pixelscast.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: pixlo.cc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: pm2za.cc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: qazwsxedc.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: qocoll.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: qulogger.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: randomhow.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: retrofitxer.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: rzless.work
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: shanhulan.cn
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: simplekds.me
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: soyatea.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: sparkjoy.cc
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: supportdatainput.top
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: sustat.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: swiftcode.work
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: syloger.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: sysbinder.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: sysbinder.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ttyunos.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: tuding.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: tvsnapp.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: veezy.site
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: vividweb.work
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: vmud.net
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: wildpettykiwi.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: wildpettykiwi.info
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: wildpettykiwi.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: wotads.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ycxad.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ycxrl.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ycxrldow.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: yeyeyeye.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: yxcrl.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: yydsma.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: yydsmb.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: yydsmd.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: yydsmr.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ziyemy.shop
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ztword.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: zxcvbnmasdfghjkl.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: gecsge4e1e5427f8.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ssl8rrs2.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ttekf42.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ttss442.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: works883.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: csskkjw.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: catmore23.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: synntre.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: csok997.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: conannt.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: haveits.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: remoredo.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ssl87362.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: wowokeys.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: works883.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: tumune3.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: pxleo5fbca7141b5.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: 6f33933ce4a5c0e1b32fea736a61351a.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dcsdk.100ulife.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dcsdkos.dc16888888.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: gmslb.net
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: phonemesh.org
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: linkmob.org
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: peercon.org
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: phonegrid.org
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: safernetwork.io
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: lbk-sol.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: sklstech.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: kyc-holdings.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: jaguar-distributor.syslogcollector.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: g.sxim.me
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: reg.sxim.me
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ref.sxim.me
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: task.moyu88.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: task1.ziyemy.shop
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: task2.ziyemy.shop
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: adstat.moyu88.xyz
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: adstat.ziyemy.shop
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: adstat2.ziyemy.shop
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: adstat.ad3g.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: update.ad3g.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: spiritlib.cyou
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: pxyedge.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: proxyforu.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: tech.intel.dialer.updater
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: org.honor.secure.helper
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: tech.apple.dialer.scheduler
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: org.lenovo.storage.processor
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: dev.huawei.media.helper
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: io.motorola.secure.executor
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: cctvv2.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: v17001.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: w17907.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: g8688808.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: googleplaydown.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: xcmtxc1oam1.s3.ap-south-1.amazonaws.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ui920fht4m1.s3.mx-central-1.amazonaws.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: osy4u8pmu.s3.ap-southeast-1.amazonaws.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: ejjsi5fbl.s3.ap-southeast-1.amazonaws.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: svhc5arco.s3.ap-southeast-1.amazonaws.com
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: pis2ray.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: www.pis2ray.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: c.pis2ray.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: vpn.pis2ray.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: prx.pis2ray.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: min.pis2ray.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: svpn.pis2ray.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: starvpn.pis2ray.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: microsoft.pis2ray.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: yeplayer.store
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: www.yeplayer.store
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: download.yeplayer.store
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: vip.yeplayer.store
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: yemplayer.site
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: www.yemplayer.site
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: sahar2ray.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: tools.sahar2ray.online
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: migavpn.store
+    verdict: approved
+    reason: ""
+    failure_class: null
+  - id: orbitx.site
+    verdict: approved
+    reason: ""
+    failure_class: null
+totals:
+  candidates: 456
+  approved: 456
+  approved_with_modification: 0
+  rejected: 0
+  approval_without_modification_rate: 1.00
+notes: >
+  First e2e-workflow run (seeded with the Manic campaign, ThreatFabric
+  2026-08). 456 IOC indicators across 31 families approved as a batch:
+  Manic (6 APK hashes + 6 OEM-disguise package names), BADBOX/BADBOX 2.0,
+  MoYu Group/zhima/tigertv, Vo1d, Mzmess, Triada, MarkiRAT, ToxicPanda and
+  more. 25 validator-stage intra-batch duplicates dropped pre-HitL (not
+  counted here). Complementarity strict mode PASS (mvt/threatfox
+  parser-limited skips covered by the workflow's manual MVT STIX traversal:
+  0 redundant vs 6525 domains + 568 packages on-device). Two rule
+  candidates from this run remain in HitL and will be ledgered when
+  decided: androdr-244 (BADBOX AdmoyuService component fingerprint;
+  severity call pending) and androdr-294 (Manic mesh-relay behavioral
+  rule; BLOCKED on an AndroDR emitter change — it keys on
+  NEARBY_WIFI_DEVICES/BLUETOOTH_CONNECT/BLUETOOTH_ADVERTISE which the
+  scanner's curated permissions field does not emit, and would fail
+  PermissionLiteralCrossCheckTest). Recurring-class candidates for
+  authoring-lessons curation: BOTH rule candidates ignored the allocated
+  next_id (androdr-094) and invented out-of-sequence IDs (244, 294) —
+  id_allocation gate needed in the validator; and the author consulted
+  validation/android-permissions.txt rather than the app's emitted-field
+  reality — emitter-surface cross-check needed (tracked in AndroDR).

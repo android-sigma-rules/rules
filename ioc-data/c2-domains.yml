@@ -1580,3 +1580,1546 @@ entries:
     severity: "HIGH"
     description: "Octagon payload-download/distribution domain serving BH-Alert.apk (K7 Security Labs, 2026-08)."
     source: "threat_research"
+  - indicator: apk.obwhatsappdownload.com
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada distribution host for OBWhatsApp modded-WhatsApp APKs (payload delivery). Remediation:
+      uninstall any WhatsApp mod (GBWhatsApp/OBWhatsApp/WhatsPlus) and reinstall official WhatsApp from
+      Google Play.'
+    source: threatfox
+  - indicator: apk.whatsplus.online
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada distribution host for WhatsPlus modded-WhatsApp APKs (payload delivery). Remediation:
+      uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: apk.whatsplusdownload.com
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada distribution host for WhatsPlus modded-WhatsApp APKs (payload delivery). Remediation:
+      uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: app.gbwhat.pro
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada infrastructure for GBWhatsApp modded-WhatsApp distribution/C2. Remediation: uninstall
+      any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: app.whatsplus.online
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada infrastructure for WhatsPlus modded-WhatsApp distribution/C2. Remediation: uninstall
+      any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: c.gbwhat.pro
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada infrastructure for GBWhatsApp modded-WhatsApp distribution/C2. Remediation: uninstall
+      any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: gb-dwnplus.org
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada distribution host for GBWhatsApp-style modded-WhatsApp APKs (payload delivery).
+      Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: gbappze.com
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada distribution host for GBWhatsApp-style modded-WhatsApp APKs (payload delivery).
+      Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: gbw.cmpc.fun
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada infrastructure for GBWhatsApp modded-WhatsApp distribution/C2. Remediation: uninstall
+      any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: gbwaapps.org
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada distribution host for GBWhatsApp-style modded-WhatsApp APKs (payload delivery).
+      Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: h5.gbwhatsapp.download
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada distribution host for GBWhatsApp modded-WhatsApp APKs (payload delivery). Remediation:
+      uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: lb-ndrq4ayq-1h7mf9psqdkb65lv.clb.sg-tencentclb.net
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada backend load-balancer hostname (Tencent Cloud CLB instance) serving GBWhatsApp/WhatsPlus
+      mod distribution infrastructure. Instance-specific subdomain, not the shared clb.sg-tencentclb.net
+      parent. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: lb-rnypyjwi-rzm2gb9ys7wtc4u0.clb.sg-tencentclb.net
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada backend load-balancer hostname (Tencent Cloud CLB instance) serving GBWhatsApp/WhatsPlus
+      mod distribution infrastructure. Instance-specific subdomain, not the shared clb.sg-tencentclb.net
+      parent. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: node-vml.vidfree.net
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada infrastructure for VidMate/AlexMods modded-app distribution (payload delivery/C2).
+      Remediation: uninstall VidMate or AlexMods-sourced apps; install apps only from Google Play.'
+    source: threatfox
+  - indicator: origin-apk.gbwhat.pro
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada origin server for GBWhatsApp modded-WhatsApp APK distribution (payload delivery).
+      Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: origin-apk.obwhatsappdownload.com
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada origin server for OBWhatsApp modded-WhatsApp APK distribution (payload delivery).
+      Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: origin-ug.whatsplus.online
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada origin server for WhatsPlus modded-WhatsApp distribution (payload delivery/C2).
+      Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: origin-www.whatsplus.online
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada origin server for WhatsPlus modded-WhatsApp distribution (payload delivery/C2).
+      Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: prod-weblink.videmateshare.com
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada infrastructure for VidMate modded-app distribution (payload delivery/C2). Remediation:
+      uninstall VidMate-sourced apps; install apps only from Google Play.'
+    source: threatfox
+  - indicator: static.cdns.space
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Static-content host used by Triada-bundled mod-app distribution infrastructure (payload
+      delivery). Remediation: uninstall modded WhatsApp/VidMate apps; install apps only from Google Play.'
+    source: threatfox
+  - indicator: ug.gbwhat.pro
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada infrastructure for GBWhatsApp modded-WhatsApp distribution/C2. Remediation: uninstall
+      any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: ug.obwhatsappdownload.com
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada infrastructure for OBWhatsApp modded-WhatsApp distribution/C2. Remediation: uninstall
+      any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: ug.whatsplus.online
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada infrastructure for WhatsPlus modded-WhatsApp distribution/C2. Remediation: uninstall
+      any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    source: threatfox
+  - indicator: vid-cdn.vidfree.net
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada infrastructure for VidMate/AlexMods modded-app distribution (payload delivery/C2).
+      Remediation: uninstall VidMate or AlexMods-sourced apps; install apps only from Google Play.'
+    source: threatfox
+  - indicator: videmateshare.com
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada infrastructure for VidMate modded-app distribution (payload delivery/C2). Remediation:
+      uninstall VidMate-sourced apps; install apps only from Google Play.'
+    source: threatfox
+  - indicator: www.vidfree.net
+    family: Triada
+    category: MALWARE
+    severity: HIGH
+    description: 'Triada infrastructure for VidMate/AlexMods modded-app distribution (payload delivery/C2).
+      Remediation: uninstall VidMate or AlexMods-sourced apps; install apps only from Google Play.'
+    source: threatfox
+  - indicator: exovision.cc
+    family: unknown_rat
+    category: MALWARE
+    severity: HIGH
+    description: 'C2 panel host for an unnamed Android RAT/stealer (ThreatFox tags: Android, c2-panel, RAT,
+      stealer; confidence 75). Domain derived from the reported panel URL https://exovision.cc/. Remediation:
+      a DNS query to this domain from an app indicates a RAT infection; identify and uninstall the querying
+      app and change credentials entered on the device.'
+    source: threatfox
+  - indicator: garant-help.com
+    family: Droid-Watcher
+    category: SPYWARE
+    severity: CRITICAL
+    description: 'C2 domain of the improved Droid-Watcher variant spyware used against Uzbekistan human
+      rights defenders (Amnesty Tech, 2020-03-12). 2020-era infrastructure — may have been re-registered
+      since. Remediation: if contacted, treat the device as potentially compromised and seek expert forensic
+      assistance.'
+    source: amnesty-investigations
+  - indicator: xmsae.sbs
+    family: MoYu
+    category: MALWARE
+    severity: HIGH
+    description: 'MoYu Group C2 apex (JarService/clicker chain on automotive head units and TV boxes). Cross-referenced:
+      Kaspersky 2026-08-21 + Nokia Deepfield ipmoyu IOC set. A DNS match on any device indicates MoYu botnet
+      C2 contact.'
+    source: threat_research
+  - indicator: ishano456.sbs
+    family: MoYu
+    category: MALWARE
+    severity: HIGH
+    description: 'MoYu Group C2 apex (JarService/clicker chain). Cross-referenced: Kaspersky + Nokia Deepfield
+      ipmoyu IOC set.'
+    source: threat_research
+  - indicator: xshaon123.sbs
+    family: MoYu
+    category: MALWARE
+    severity: HIGH
+    description: 'MoYu Group C2 apex (JarService/clicker chain). Cross-referenced: Kaspersky + Nokia Deepfield
+      ipmoyu IOC set.'
+    source: threat_research
+  - indicator: kshahnd.sbs
+    family: MoYu
+    category: MALWARE
+    severity: HIGH
+    description: MoYu Group C2 domain (Kaspersky 2026-08-21, head-unit/TV-box botnet campaign).
+    source: threat_research
+  - indicator: mdsjhd.sbs
+    family: MoYu
+    category: MALWARE
+    severity: HIGH
+    description: MoYu Group C2 domain (Kaspersky 2026-08-21, head-unit/TV-box botnet campaign).
+    source: threat_research
+  - indicator: nmnsny.sbs
+    family: MoYu
+    category: MALWARE
+    severity: HIGH
+    description: MoYu Group C2 domain (Kaspersky 2026-08-21, head-unit/TV-box botnet campaign).
+    source: threat_research
+  - indicator: kookjar.com
+    family: MoYu
+    category: MALWARE
+    severity: HIGH
+    description: MoYu Group C2 domain (Kaspersky 2026-08-21, head-unit/TV-box botnet campaign).
+    source: threat_research
+  - indicator: ty54fgd435.my
+    family: MoYu
+    category: MALWARE
+    severity: HIGH
+    description: 'MoYu Group loader-domain apex (Deepfield lists a1.ty54fgd435.my serving host.dex; dead
+      as of 2026-07-09 but retained as historical IOC). Cross-referenced: Kaspersky + Nokia Deepfield.'
+    source: threat_research
+  - indicator: ue886578433.online
+    family: MoYu
+    category: MALWARE
+    severity: HIGH
+    description: 'MoYu Group loader-domain apex (Deepfield: a1.ue886578433.online, dead). Cross-referenced:
+      Kaspersky + Nokia Deepfield.'
+    source: threat_research
+  - indicator: ty4523.space
+    family: MoYu
+    category: MALWARE
+    severity: HIGH
+    description: 'MoYu Group loader-domain apex (Deepfield: a1.ty4523.space, dead). Cross-referenced: Kaspersky
+      + Nokia Deepfield.'
+    source: threat_research
+  - indicator: admin.uipoxy.com
+    family: MoYu
+    category: MALWARE
+    severity: MEDIUM
+    description: zhima residential-proxy admin panel domain (MoYu Group); resolved to 128.14.210.58, which
+      Nokia Deepfield passive DNS ties to BADBOX/MoYu C2. Panel infrastructure rather than a device beacon
+      endpoint — MEDIUM severity.
+    source: threat_research
+  - indicator: newsvxc.shopstoreboutique.com
+    family: MoYu tigertv
+    category: MALWARE
+    severity: MEDIUM
+    description: MoYu tigertv getDomainList bootstrap seed (:2052, Cloudflare front). Contact proves the
+      tigertv IPTV vehicle app is installed, not necessarily payload-path entry (Deepfield).
+    source: threat_research
+  - indicator: appdload.mpfcms.com
+    family: MoYu tigertv
+    category: MALWARE
+    severity: MEDIUM
+    description: MoYu tigertv getDomainList bootstrap seed (:2052). Contact proves vehicle-app install,
+      not payload-path entry (Deepfield).
+    source: threat_research
+  - indicator: mpfcms.mio-tvplus.com
+    family: MoYu tigertv
+    category: MALWARE
+    severity: MEDIUM
+    description: MoYu tigertv getDomainList bootstrap seed (:2052). Contact proves vehicle-app install,
+      not payload-path entry (Deepfield).
+    source: threat_research
+  - indicator: miotvtop.hdwcam.com
+    family: MoYu tigertv
+    category: MALWARE
+    severity: MEDIUM
+    description: MoYu tigertv XC portal seed (:8080). Contact proves vehicle-app install, not payload-path
+      entry (Deepfield).
+    source: threat_research
+  - indicator: testcf114.bookabcgames.com
+    family: MoYu tigertv
+    category: MALWARE
+    severity: MEDIUM
+    description: MoYu tigertv XC portal seed (:8080, Cloudflare front; genuine upstream hostname from Deepfield).
+      Contact proves vehicle-app install, not payload-path entry.
+    source: threat_research
+  - indicator: mtvp.hdwcam.com
+    family: MoYu tigertv
+    category: MALWARE
+    severity: MEDIUM
+    description: MoYu tigertv XC portal seed (:8080), no live accessor observed. Contact proves vehicle-app
+      install, not payload-path entry (Deepfield).
+    source: threat_research
+  - indicator: xc.mpfcms.com
+    family: MoYu tigertv
+    category: MALWARE
+    severity: MEDIUM
+    description: Live MoYu tigertv getDomainList XC result 2026-07-09. Contact proves vehicle-app install,
+      not payload-path entry (Deepfield).
+    source: threat_research
+  - indicator: mcm5566.bookabcgames.com
+    family: MoYu tigertv
+    category: MALWARE
+    severity: MEDIUM
+    description: Live MoYu tigertv getDomainList XC result 2026-07-09 (Cloudflare front). Contact proves
+      vehicle-app install, not payload-path entry (Deepfield).
+    source: threat_research
+  - indicator: tigertvdli1.jopstop.com
+    family: MoYu tigertv
+    category: MALWARE
+    severity: MEDIUM
+    description: Live MoYu tigertv getDomainList result 2026-07-09 on cover apex jopstop.com. Contact proves
+      vehicle-app install only (Deepfield exposure model).
+    source: threat_research
+  - indicator: edisajalsjfdfh.shop
+    family: MoYu tigertv
+    category: MALWARE
+    severity: MEDIUM
+    description: Historical rotated-out MoYu tigertv getDomainList pool member; NXDOMAIN 2026-07-09 (Deepfield).
+    source: threat_research
+  - indicator: terrtest.oss-cn-hangzhou.aliyuncs.com
+    family: MoYu tigertv
+    category: MALWARE
+    severity: MEDIUM
+    description: Attacker bucket host on shared Alibaba OSS used as host.dex fallback descriptor source
+      (dex_api.txt). Match this exact hostname only — NEVER the aliyuncs.com apex, which is shared legitimate
+      infrastructure (Deepfield).
+    source: threat_research
+  - indicator: a1.ishano456.sbs
+    family: BADBOX
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX a1 client-config C2 of the MoYu zhima chain; DNS contact indicates the device entered
+      the payload path (Deepfield + Kaspersky apex corroboration; ThreatFox family BADBOX).
+    source: threat_research
+  - indicator: t1.ishano456.sbs
+    family: BADBOX
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX t1 cpc/proxy C2 of the MoYu zhima chain; DNS contact indicates payload-path entry
+      (Deepfield + Kaspersky; ThreatFox family BADBOX).
+    source: threat_research
+  - indicator: a1.xmsae.sbs
+    family: BADBOX
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX a1 client-config C2 of the MoYu zhima chain (Deepfield + Kaspersky; ThreatFox family
+      BADBOX).
+    source: threat_research
+  - indicator: t1.xmsae.sbs
+    family: BADBOX
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX t1 cpc/proxy C2 of the MoYu zhima chain (Deepfield + Kaspersky; ThreatFox family
+      BADBOX).
+    source: threat_research
+  - indicator: a1.xshaon123.sbs
+    family: BADBOX
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX a1 client-config C2 of the MoYu zhima chain (Deepfield + Kaspersky; ThreatFox family
+      BADBOX).
+    source: threat_research
+  - indicator: t1.xshaon123.sbs
+    family: BADBOX
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX t1 cpc/proxy C2 of the MoYu zhima chain; served the live zhima module descriptor
+      (Deepfield + Kaspersky; ThreatFox family BADBOX).
+    source: threat_research
+  - indicator: a1.ty54fgd435.my
+    family: BADBOX
+    category: MALWARE
+    severity: HIGH
+    description: MoYu host.dex loader FQDN (a1 config endpoint); NXDOMAIN 2026-07-09 (Deepfield + Kaspersky
+      apex).
+    source: threat_research
+  - indicator: a1.ue886578433.online
+    family: BADBOX
+    category: MALWARE
+    severity: HIGH
+    description: MoYu host.dex loader FQDN (a1 config endpoint); dead (Deepfield + Kaspersky apex).
+    source: threat_research
+  - indicator: a1.ty4523.space
+    family: BADBOX
+    category: MALWARE
+    severity: HIGH
+    description: MoYu host.dex loader FQDN (a1 config endpoint); dead (Deepfield + Kaspersky apex).
+    source: threat_research
+  - indicator: a1.vrr8345.site
+    family: BADBOX
+    category: MALWARE
+    severity: HIGH
+    description: MoYu host.dex loader FQDN, dead (Deepfield only — single source).
+    source: threat_research
+  - indicator: task.mymoyu.shop
+    family: BADBOX
+    category: MALWARE
+    severity: HIGH
+    description: MoYu host.dex client-activation C2 (/cpc/api/client/active); also listed by Xlab as Mzmess
+      'spirit' ad-fraud C2; ThreatFox botnet_cc entry tagged 'spirit' (Deepfield + Xlab).
+    source: threat_research
+  - indicator: 100ulife.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 C2 apex (HUMAN Satori appendix); dcsdk. subdomain serves Mzmess SDK downloads
+      per Xlab — two independent vendors.
+    source: threat_research
+  - indicator: 1ztop.work
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: 99soya.shop
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: ad3g.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 C2 apex (HUMAN Satori appendix); adstat./update. subdomains serve Mzmess 'spirit'
+      ad-fraud C2 per Xlab — two independent vendors.
+    source: threat_research
+  - indicator: admoyu.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 / MoYu ad-fraud C2 (HUMAN Satori appendix; single source). Namesake of the AdmoyuService
+      component fingerprinted by androdr-244.
+    source: threat_research
+  - indicator: ads-goal.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: ai-goal.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: apotube.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: app-goal.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 C2; com.mz.sdk hidden-WebView module contacts it via XHR for fraud keywords/playlists
+      (HUMAN Satori; single source).
+    source: threat_research
+  - indicator: appclicking.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: astrolink.cn
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: bitemores.com
+    family: BADBOX/Vo1d
+    category: MALWARE
+    severity: HIGH
+    description: Shared BADBOX 2.0 / Vo1d C2 (HUMAN Satori appendix + Dr.Web Android.Vo1d network indicator
+      — two independent vendors).
+    source: threat_research
+  - indicator: bltproxy.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 residential-proxy infrastructure C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: bluefish.work
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: bullet-proxy.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 residential-proxy infrastructure C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: catmore88.com
+    family: BADBOX/Vo1d
+    category: MALWARE
+    severity: HIGH
+    description: Shared BADBOX 2.0 / Vo1d C2 — BB2DOOR module download host per HUMAN, Vo1d reporter per
+      Xlab; also corroborated by Point Wild.
+    source: threat_research
+  - indicator: catmos99.com
+    family: BADBOX/Vo1d
+    category: MALWARE
+    severity: HIGH
+    description: Shared BADBOX 2.0 / Vo1d C2 (HUMAN Satori appendix + Xlab IOC list + Dr.Web hxxp://catmos99.com:81/).
+    source: threat_research
+  - indicator: cbphe.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: cbpheback.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: clickby.net
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: clocksyn.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: coslogdydy.in
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: cxlcyy.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: cxzyr.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: dazzl.vip
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: dc16888888.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 C2 apex (HUMAN Satori appendix); dcsdkos. subdomain serves Mzmess SDK/reporting
+      C2 per Xlab — two independent vendors.
+    source: threat_research
+  - indicator: dcylog.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: dqmop.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: duoduodev.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: easyjoy.me
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: echojoy.xyz
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: finemob.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: firehub.link
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: firehub.work
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: flyermobi.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: fuhidd.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: g1ee.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: giddy.cc
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: goologer.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: heygames.club
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: huulog.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: huuww.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: ipforyou.top
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 residential-proxy infrastructure C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: ipmoyu.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: IpMoYu residential-proxy service domain — MoYu Group's monetization storefront for BADBOX
+      2.0 proxy exits (HUMAN Satori; corroborated by Point Wild and Nokia Deepfield's ipmoyu research).
+    source: threat_research
+  - indicator: jasmine.land
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: jolted.vip
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: joyfulxx.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: jutux.work
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: logcer.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: long.tv
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: 'LongTV group C2 apex (HUMAN Satori appendix); file.long.tv served the com.debby.devour
+      ad-fraud module. CAUTION: very short apex — treat as an exact-match indicator only, never a substring/suffix
+      pattern.'
+    source: threat_research
+  - indicator: meiboot.com
+    family: BADBOX/Vo1d
+    category: MALWARE
+    severity: HIGH
+    description: Shared BADBOX 2.0 / Vo1d C2 (HUMAN Satori appendix + Dr.Web Android.Vo1d network indicator
+      — two independent vendors).
+    source: threat_research
+  - indicator: meisvip.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: moonhub.work
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: motiyu.net
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: moyix.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: moyu88.xyz
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 / MoYu C2 apex (HUMAN Satori appendix); task./adstat. subdomains serve Mzmess
+      'spirit' ad-fraud C2 per Xlab — two independent vendors.
+    source: threat_research
+  - indicator: msohu.online
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: msohu.shop
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: mtcpmpm.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: mtcprogram.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: mtcpuouo.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: mymoyu.shop
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 / MoYu C2 apex (HUMAN Satori appendix); task. subdomain is the host.dex activation
+      C2 per Deepfield and a 'spirit' C2 per Xlab — multiple independent vendors.
+    source: threat_research
+  - indicator: navnow.xyz
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: net-goal.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: pccyy.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: pcxrl.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: pcxrlback.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: petrel-ip.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 residential-proxy infrastructure C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: pixelscast.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: pixlo.cc
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: pm2za.cc
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: qazwsxedc.xyz
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: qocoll.com
+    family: BADBOX/Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Shared BADBOX 2.0 / legacy Vo1d C2 (HUMAN Satori appendix + Xlab legacy Vo1d C2 list).
+    source: threat_research
+  - indicator: qulogger.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: randomhow.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: retrofitxer.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: rzless.work
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: shanhulan.cn
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: simplekds.me
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: soyatea.online
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: sparkjoy.cc
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: supportdatainput.top
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: sustat.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: swiftcode.work
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: syloger.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: sysbinder.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: sysbinder.xyz
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: ttyunos.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: tuding.xyz
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: tvsnapp.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: veezy.site
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: vividweb.work
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: vmud.net
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: wildpettykiwi.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: wildpettykiwi.info
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: wildpettykiwi.xyz
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: wotads.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: ycxad.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: ycxrl.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: ycxrldow.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: yeyeyeye.xyz
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: yxcrl.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: yydsma.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: yydsmb.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: yydsmd.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: yydsmr.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: ziyemy.shop
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 C2 apex (HUMAN Satori appendix); task1./task2./adstat./adstat2. subdomains serve
+      Mzmess 'spirit' ad-fraud C2 per Xlab — two independent vendors.
+    source: threat_research
+  - indicator: ztword.com
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: HIGH
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
+    source: threat_research
+  - indicator: zxcvbnmasdfghjkl.xyz
+    family: BADBOX 2.0
+    category: MALWARE
+    severity: MEDIUM
+    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    source: threat_research
+  - indicator: gecsge4e1e5427f8.com
+    family: Vo1d
+    category: MALWARE
+    severity: HIGH
+    description: Vo1d redirector C2 with DGA-style 16-character name (ThreatFox structured feed, Bitsight-reported,
+      last seen 2026-08-21).
+    source: threat_research
+  - indicator: ssl8rrs2.com
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Vo1d C2 for the s63 downloader, port 55600 (Xlab; single source).
+    source: threat_research
+  - indicator: ttekf42.com
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Vo1d C2 (Xlab; single source).
+    source: threat_research
+  - indicator: ttss442.com
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Vo1d DGA C2 (Xlab; single source).
+    source: threat_research
+  - indicator: works883.com
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Vo1d DGA C2 (Xlab; single source).
+    source: threat_research
+  - indicator: csskkjw.com
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Legacy Vo1d C2 (Xlab; single source).
+    source: threat_research
+  - indicator: catmore23.com
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Legacy Vo1d C2 (Xlab; single source).
+    source: threat_research
+  - indicator: synntre.com
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Legacy Vo1d C2 (Xlab; single source).
+    source: threat_research
+  - indicator: csok997.com
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Legacy Vo1d C2 (Xlab; single source).
+    source: threat_research
+  - indicator: conannt.com
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Legacy Vo1d C2 (Xlab; single source).
+    source: threat_research
+  - indicator: haveits.com
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Legacy Vo1d C2 (Xlab; single source).
+    source: threat_research
+  - indicator: remoredo.com
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Legacy Vo1d C2 (Xlab; single source).
+    source: threat_research
+  - indicator: ssl87362.com
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Vo1d downloader domain (Xlab; single source).
+    source: threat_research
+  - indicator: wowokeys.com
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Vo1d downloader domain (Xlab; single source).
+    source: threat_research
+  - indicator: works883.xyz
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Vo1d reporter domain (Xlab; single source).
+    source: threat_research
+  - indicator: tumune3.com
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Vo1d liblogs payload C2, port 55501 (Xlab article body; single source).
+    source: threat_research
+  - indicator: pxleo5fbca7141b5.com
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Vo1d redirector C2, DGA-style 16-character name (Xlab article body; single source).
+    source: threat_research
+  - indicator: 6f33933ce4a5c0e1b32fea736a61351a.com
+    family: Vo1d
+    category: MALWARE
+    severity: MEDIUM
+    description: Vo1d network indicator — 32-hex-character DGA-style apex (Dr.Web; single source).
+    source: threat_research
+  - indicator: dcsdk.100ulife.com
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess SDK download C2 on the BADBOX 2.0 apex 100ulife.com (Xlab; single source).
+    source: threat_research
+  - indicator: dcsdkos.dc16888888.com
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess SDK and reporting C2 on the BADBOX 2.0 apex dc16888888.com (Xlab; single source).
+    source: threat_research
+  - indicator: gmslb.net
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'popa' proxy plugin C2 (device registration at lb.<C2>:5002/devicereg) (Xlab; single
+      source).
+    source: threat_research
+  - indicator: phonemesh.org
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'popa' proxy plugin C2 (Xlab; single source).
+    source: threat_research
+  - indicator: linkmob.org
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'popa' proxy plugin C2 (Xlab; single source).
+    source: threat_research
+  - indicator: peercon.org
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'popa' proxy plugin C2 (Xlab; single source).
+    source: threat_research
+  - indicator: phonegrid.org
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'popa' proxy plugin C2 (Xlab; single source).
+    source: threat_research
+  - indicator: safernetwork.io
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'popa' proxy plugin C2 (Xlab; single source).
+    source: threat_research
+  - indicator: lbk-sol.com
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'popa' proxy plugin C2 (Xlab; single source).
+    source: threat_research
+  - indicator: sklstech.com
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'popa' proxy plugin C2 (Xlab; single source).
+    source: threat_research
+  - indicator: kyc-holdings.com
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'popa' proxy plugin C2 (Xlab; single source).
+    source: threat_research
+  - indicator: jaguar-distributor.syslogcollector.com
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'jaguar' proxy distributor endpoint, :12000 /v1/agent/ctrl (Xlab; single source).
+    source: threat_research
+  - indicator: g.sxim.me
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'lxhwdg' plugin RPC C2 (WSS port 2345) (Xlab; single source).
+    source: threat_research
+  - indicator: reg.sxim.me
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'lxhwdg' plugin RPC C2 (Xlab; single source).
+    source: threat_research
+  - indicator: ref.sxim.me
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'lxhwdg' plugin RPC C2 (Xlab; single source).
+    source: threat_research
+  - indicator: task.moyu88.xyz
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'spirit' ad-fraud C2 on the BADBOX 2.0 apex moyu88.xyz (Xlab; single source).
+    source: threat_research
+  - indicator: task1.ziyemy.shop
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'spirit' ad-fraud C2 on the BADBOX 2.0 apex ziyemy.shop (Xlab; single source).
+    source: threat_research
+  - indicator: task2.ziyemy.shop
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'spirit' ad-fraud C2 on the BADBOX 2.0 apex ziyemy.shop (Xlab; single source).
+    source: threat_research
+  - indicator: adstat.moyu88.xyz
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'spirit' ad-fraud C2 on the BADBOX 2.0 apex moyu88.xyz (Xlab; single source).
+    source: threat_research
+  - indicator: adstat.ziyemy.shop
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'spirit' ad-fraud C2 (published as adstat.ziyemy.shop:3389) (Xlab; single source).
+    source: threat_research
+  - indicator: adstat2.ziyemy.shop
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'spirit' ad-fraud C2 on the BADBOX 2.0 apex ziyemy.shop (Xlab; single source).
+    source: threat_research
+  - indicator: adstat.ad3g.com
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'spirit' ad-fraud C2 on the BADBOX 2.0 apex ad3g.com (Xlab; single source).
+    source: threat_research
+  - indicator: update.ad3g.com
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'spirit' ad-fraud C2 on the BADBOX 2.0 apex ad3g.com (Xlab; single source).
+    source: threat_research
+  - indicator: spiritlib.cyou
+    family: Mzmess
+    category: MALWARE
+    severity: MEDIUM
+    description: Mzmess 'spirit' ad-fraud C2 (Xlab; single source).
+    source: threat_research
+  - indicator: pxyedge.com
+    family: Zhima
+    category: MALWARE
+    severity: HIGH
+    description: Zhima reverse-proxy module infrastructure (Vo1d family)
+    source: threat_research
+  - indicator: proxyforu.com
+    family: Zhima
+    category: MALWARE
+    severity: HIGH
+    description: Zhima reverse-proxy module infrastructure (Vo1d family)
+    source: threat_research
+  - indicator: cctvv2.com
+    family: ToxicPanda
+    category: MALWARE
+    severity: CRITICAL
+    description: ToxicPanda 2.0 banking-trojan C2 (/panel endpoint, Zimperium zLabs 2026-08)
+    source: zimperium-ioc
+  - indicator: v17001.com
+    family: ToxicPanda
+    category: MALWARE
+    severity: CRITICAL
+    description: ToxicPanda 2.0 C2 (/panel endpoint)
+    source: zimperium-ioc
+  - indicator: w17907.com
+    family: ToxicPanda
+    category: MALWARE
+    severity: CRITICAL
+    description: ToxicPanda 2.0 C2 (/panel endpoint)
+    source: zimperium-ioc
+  - indicator: g8688808.com
+    family: ToxicPanda
+    category: MALWARE
+    severity: CRITICAL
+    description: ToxicPanda 2.0 C2
+    source: zimperium-ioc
+  - indicator: googleplaydown.com
+    family: ToxicPanda
+    category: MALWARE
+    severity: HIGH
+    description: Fake Google Play distribution page serving ToxicPanda 2.0 droppers
+    source: zimperium-ioc
+  - indicator: xcmtxc1oam1.s3.ap-south-1.amazonaws.com
+    family: ToxicPanda
+    category: MALWARE
+    severity: HIGH
+    description: Attacker-controlled S3 bucket hosting ToxicPanda 2.0 droppers (exact hostname only — do
+      NOT block parent amazonaws.com, legit platform)
+    source: zimperium-ioc
+  - indicator: ui920fht4m1.s3.mx-central-1.amazonaws.com
+    family: ToxicPanda
+    category: MALWARE
+    severity: HIGH
+    description: Attacker-controlled S3 bucket hosting ToxicPanda 2.0 droppers (exact hostname only — do
+      NOT block parent amazonaws.com)
+    source: zimperium-ioc
+  - indicator: osy4u8pmu.s3.ap-southeast-1.amazonaws.com
+    family: ToxicPanda
+    category: MALWARE
+    severity: HIGH
+    description: Attacker-controlled S3 bucket hosting ToxicPanda 2.0 droppers (exact hostname only — do
+      NOT block parent amazonaws.com)
+    source: zimperium-ioc
+  - indicator: ejjsi5fbl.s3.ap-southeast-1.amazonaws.com
+    family: ToxicPanda
+    category: MALWARE
+    severity: HIGH
+    description: Attacker-controlled S3 bucket hosting ToxicPanda 2.0 droppers (exact hostname only — do
+      NOT block parent amazonaws.com)
+    source: zimperium-ioc
+  - indicator: svhc5arco.s3.ap-southeast-1.amazonaws.com
+    family: ToxicPanda
+    category: MALWARE
+    severity: HIGH
+    description: Attacker-controlled S3 bucket hosting ToxicPanda 2.0 droppers (exact hostname only — do
+      NOT block parent amazonaws.com)
+    source: zimperium-ioc
+  - indicator: pis2ray.online
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 fake 'Pis2ray VPN' distribution/C2 domain serving MarkiRAT surveillance tool to
+      Iranian users (Recorded Future)
+    source: threat_research
+  - indicator: www.pis2ray.online
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 fake 'Pis2ray VPN' distribution/C2 domain (MarkiRAT campaign)
+    source: threat_research
+  - indicator: c.pis2ray.online
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 Pis2ray infrastructure subdomain (MarkiRAT campaign)
+    source: threat_research
+  - indicator: vpn.pis2ray.online
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 Pis2ray infrastructure subdomain (MarkiRAT campaign)
+    source: threat_research
+  - indicator: prx.pis2ray.online
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 Pis2ray infrastructure subdomain (MarkiRAT campaign)
+    source: threat_research
+  - indicator: min.pis2ray.online
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 Pis2ray infrastructure subdomain (MarkiRAT campaign)
+    source: threat_research
+  - indicator: svpn.pis2ray.online
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 Pis2ray infrastructure subdomain (MarkiRAT campaign)
+    source: threat_research
+  - indicator: starvpn.pis2ray.online
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 'starvpn' fake-VPN subdomain (MarkiRAT campaign)
+    source: threat_research
+  - indicator: microsoft.pis2ray.online
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 typosquat subdomain impersonating Microsoft (MarkiRAT campaign)
+    source: threat_research
+  - indicator: yeplayer.store
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 fake 'YESHICA/YEPlayer' media-player distribution domain (MarkiRAT campaign)
+    source: threat_research
+  - indicator: www.yeplayer.store
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 fake 'YEPlayer' media-player distribution domain (MarkiRAT campaign)
+    source: threat_research
+  - indicator: download.yeplayer.store
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 fake 'YEPlayer' download subdomain (MarkiRAT campaign)
+    source: threat_research
+  - indicator: vip.yeplayer.store
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 fake 'YEPlayer' infrastructure subdomain (MarkiRAT campaign)
+    source: threat_research
+  - indicator: yemplayer.site
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 fake 'YEMPlayer' media-player distribution domain (MarkiRAT campaign)
+    source: threat_research
+  - indicator: www.yemplayer.site
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 fake 'YEMPlayer' media-player distribution domain (MarkiRAT campaign)
+    source: threat_research
+  - indicator: sahar2ray.online
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 campaign infrastructure domain (MarkiRAT campaign)
+    source: threat_research
+  - indicator: tools.sahar2ray.online
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 campaign infrastructure subdomain (MarkiRAT campaign)
+    source: threat_research
+  - indicator: migavpn.store
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 fake 'migavpn' VPN distribution domain (MarkiRAT campaign)
+    source: threat_research
+  - indicator: orbitx.site
+    family: MarkiRAT
+    category: SPYWARE
+    severity: HIGH
+    description: TAG-182 campaign infrastructure domain (MarkiRAT campaign)
+    source: threat_research

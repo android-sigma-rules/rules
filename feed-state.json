@@ -1,37 +1,37 @@
 {
   "version": 2,
-  "last_full_sweep": "2026-07-13",
+  "last_full_sweep": "2026-08-21",
   "feeds": {
     "threatfox": {
-      "last_seen_timestamp": "2026-07-13T06:02:03Z",
-      "ioc_data_last_write": "2026-07-13T14:00:00Z"
+      "last_seen_timestamp": "2026-08-02T19:53:45Z",
+      "ioc_data_last_write": "2026-08-21T18:50:00Z"
     },
     "malwarebazaar": {
-      "last_seen_timestamp": "2026-07-03T03:08:21Z",
-      "ioc_data_last_write": "2026-07-03T12:00:00Z"
+      "last_seen_timestamp": "2026-08-21T07:18:27Z",
+      "ioc_data_last_write": "2026-08-21T18:50:00Z"
     },
     "asb": {
-      "last_seen_timestamp": "2026-07-13T12:06:24Z",
-      "last_bulletin": "2026-06-01"
+      "last_seen_timestamp": "2026-08-21T12:51:38Z",
+      "last_bulletin": "2026-08-01"
     },
     "nvd": {
-      "last_seen_timestamp": "2026-07-13T12:04:23Z",
-      "last_modified": "2026-07-13T12:04:10Z"
+      "last_seen_timestamp": "2026-08-21T12:50:20Z",
+      "last_modified": "2026-08-21T12:50:20Z"
     },
     "stalkerware_indicators": {
-      "last_seen_timestamp": "2026-07-13T00:00:00Z",
+      "last_seen_timestamp": "2026-08-21T12:50:32Z",
       "last_commit_sha": "a04c5c1958bff93fec3b1b56edbb412b209f2a38"
     },
     "attack_mobile": {
-      "last_seen_timestamp": "2026-07-13T00:00:00Z",
-      "last_version": "v19.1"
+      "last_seen_timestamp": "2026-08-21T12:50:59Z",
+      "last_version": "v19.2"
     },
     "amnesty": {
-      "last_seen_timestamp": "2026-07-13T12:13:59Z",
-      "ioc_data_last_write": "2026-07-03T12:00:00Z"
+      "last_seen_timestamp": "2026-08-21T12:57:50Z",
+      "ioc_data_last_write": "2026-08-21T18:50:00Z"
     },
     "prodaft": {
-      "last_seen_timestamp": "2026-07-13T12:04:14Z",
+      "last_seen_timestamp": "2026-08-21T12:50:23Z",
       "last_commit_sha": "6ecbec2f66cf18ea869e596ef451a072539ae588",
       "ioc_data_last_write": "2026-07-03T12:00:00Z"
     }
@@ -39,28 +39,28 @@
   "discover": {
     "sources": {
       "securelist": {
-        "last_seen_timestamp": "2026-08-04T12:00:12Z",
-        "last_post_url": "https://securelist.com/cloud-platforms-in-phishing/120832/"
+        "last_seen_timestamp": "2026-08-21T08:00:29Z",
+        "last_post_url": "https://securelist.com/android-head-unit-malware/121106/"
       },
       "welivesecurity": {
-        "last_seen_timestamp": "2026-07-31T14:14:15Z",
-        "last_post_url": "https://www.welivesecurity.com/en/videos/month-security-tony-anscombe-july-2026/"
+        "last_seen_timestamp": "2026-08-17T09:00:00Z",
+        "last_post_url": "https://www.welivesecurity.com/en/business-security/qr-code-phishing-slip-past-corporate-security-measures/"
       },
       "google-tag": {
-        "last_seen_timestamp": "2026-07-31T09:34:00Z",
-        "last_post_url": "https://blog.google/security/influence-operations-bulletin-q2-2026/"
+        "last_seen_timestamp": "2026-08-14T14:00:00Z",
+        "last_post_url": "https://blog.google/security/how-google-is-making-private-ai-practical-with-homomorphic-encryption/"
       },
       "zimperium": {
-        "last_seen_timestamp": "2026-08-04T00:00:00Z",
-        "last_post_url": "https://zimperium.com/blog/rapid-response-zimperium-secures-mobile-endpoints-against-octagon-android-malware"
+        "last_seen_timestamp": "2026-08-20T00:00:00Z",
+        "last_post_url": "https://zimperium.com/blog/mobile-threat-watch/device-code-phishing-up-1500"
       },
       "threatfabric": {
-        "last_seen_timestamp": "2026-06-25T00:00:00Z",
-        "last_post_url": "https://www.threatfabric.com/blogs/iptv-campaigns-target-football-fans"
+        "last_seen_timestamp": "2026-08-20T00:00:00Z",
+        "last_post_url": "https://www.threatfabric.com/blogs/manic-blend-between-banking-malware-and-spyware"
       },
       "group-ib": {
-        "last_seen_timestamp": "2026-07-30T00:00:00Z",
-        "last_post_url": "https://www.group-ib.com/blog/xmrig-covert-linux-pam-abuse/"
+        "last_seen_timestamp": "2026-08-20T00:00:00Z",
+        "last_post_url": "https://www.group-ib.com/blog/one-adversary-fraud-network/"
       },
       "cleafy": {
         "last_seen_timestamp": "2026-05-18T00:00:00Z",
