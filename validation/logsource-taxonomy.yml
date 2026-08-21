@@ -38,6 +38,7 @@ services:
       is_sideloaded: { kind: judgment, type: boolean, description: "True if installed outside trusted stores" }
       is_known_oem_app: { kind: judgment, type: boolean, description: "True if package matches known OEM prefix list" }
       permissions: { kind: raw_fact, type: list, description: "List of declared Android permissions" }
+      requested_permissions: { kind: raw_fact, type: list, description: "EVERY permission the app requests, verbatim fully-qualified names, zero curation (emitter-emits-all-facts). Prefer this over the frozen curated short-name subset in `permissions` for new rules. MATCHING DISCIPLINE: exact element-wise equals ONLY — never |contains/|startswith (android.permission.NFC is a substring of android.permission.NFC_TRANSACTION_EVENT; substring matching WILL false-positive). Emitted by app builds after AndroDR #317; on older builds a rule keying on this field silently no-ops via the fail-closed unknown-field floor (vc610+), so shipping such rules to main is fleet-safe." }
       surveillance_permission_count: { kind: raw_fact, type: int, description: "Count of surveillance-related permissions (camera, mic, location, SMS, etc.)" }
       has_accessibility_service: { kind: raw_fact, type: boolean, description: "True if app declares an accessibility service" }
       has_device_admin: { kind: raw_fact, type: boolean, description: "True if app declares a device admin receiver" }
