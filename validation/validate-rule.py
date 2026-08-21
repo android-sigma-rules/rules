@@ -466,6 +466,33 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
 
     errors += check_condition_grammar(detection.get("condition"), selection_names)
 
+    # requested_permissions negation guard (#317): pre-emitter binaries do not
+    # emit the field, a matcher on it evaluates false there, and `not` inverts
+    # that to always-true — the negated filter stops subtracting and the rule
+    # OVER-FIRES on the old fleet via the 12h feed (the #136 Phase-2 inversion
+    # class; there is NO unknown-field skip floor). Positive references merely
+    # no-op, so only negation context is rejected.
+    _cond = detection.get("condition")
+    _cond_tokens = [t for t in ASCII_WS_RE.split(_cond) if t] if isinstance(_cond, str) else []
+    _negated = {
+        _cond_tokens[i + 1]
+        for i, t in enumerate(_cond_tokens[:-1])
+        if t.lower() == "not"
+    }
+    for _neg_name in _negated:
+        _neg_body = detection.get(_neg_name)
+        if isinstance(_neg_body, dict) and any(
+            str(k).split("|")[0].lower() == "requested_permissions" for k in _neg_body
+        ):
+            errors.append(
+                f"selection '{_neg_name}' matches requested_permissions and is "
+                "referenced under 'not' — on builds that predate the emitter the "
+                "matcher is always false and negation inverts it to always-true, "
+                "defeating the exemption and over-firing on the old fleet; gate "
+                "the exemption on a field old builds emit, or wait for the fleet "
+                "floor to cover the emitter"
+            )
+
     for sel_name, sel_value in detection.items():
         if sel_name == "condition":
             continue
@@ -548,6 +575,45 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
                         f"emitter contract (#136) forbids new uses ({scope} allowlist); "
                         f"compute the judgment in the rule (e.g. installer|ioc_lookup) instead"
                     )
+            # requested_permissions matching discipline (#317): the field is an
+            # open-ended all-facts list of verbatim FQN permission strings, so
+            # the dead-rule hazard inverts vs the curated `permissions` field —
+            # any literal is "real", but SUBSTRING matching false-positives
+            # (android.permission.NFC is a substring of
+            # android.permission.NFC_TRANSACTION_EVENT). Exact element-wise
+            # equals only; this is the ONLY gate on the 12h remote-fetch path.
+            if base_field.lower() == "requested_permissions":
+                if key_str not in ("requested_permissions", "requested_permissions|all"):
+                    errors.append(
+                        f"'{key_str}': requested_permissions allows only the bare "
+                        "key (element-wise equals) or the '|all' combiner — "
+                        "substring modifiers false-positive "
+                        "(android.permission.NFC ⊂ android.permission.NFC_TRANSACTION_EVENT), "
+                        "and the runtime field lookup is case-sensitive, so the "
+                        "key must be exactly lowercase"
+                    )
+                _rp_value = sel_value[field_key]
+                _rp_literals = _rp_value if isinstance(_rp_value, list) else [_rp_value]
+                for _lit in _rp_literals:
+                    if not isinstance(_lit, str) or "." not in _lit:
+                        errors.append(
+                            f"requested_permissions literal '{_lit}' must be a "
+                            "fully-qualified permission name — the emitter emits "
+                            "verbatim manifest strings like "
+                            "'android.permission.NEARBY_WIFI_DEVICES', so a short "
+                            "name can never match"
+                        )
+                    elif (
+                        _lit.lower().startswith("android.permission.")
+                        and permissions
+                        and _lit.rsplit(".", 1)[1].upper() not in permissions
+                    ):
+                        errors.append(
+                            f"requested_permissions literal '{_lit}' is not in "
+                            "validation/android-permissions.txt — likely a typo; "
+                            "add the permission there if it is real"
+                        )
+
             # Empty/null value lists are constant-false matchers on-device
             # (dead positive selection / over-firing negated filter; for
             # standalone |all, vacuously TRUE instead).
