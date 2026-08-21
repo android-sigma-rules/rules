@@ -769,3 +769,97 @@ def test_severity_cap_sourced_from_yaml(tmp_path):
     assert caps == {"device_posture": "medium"}
     assert run_validator_on(tmp_path, make_rule(id="androdr-303", level="critical")).returncode == 1
     assert run_validator_on(tmp_path, make_rule(id="androdr-306", level="medium")).returncode == 0
+
+
+# ---------- #317: requested_permissions matching discipline ----------
+
+def test_requested_permissions_exact_equals_accepted(tmp_path):
+    rule = make_app_rule(id="androdr-305")
+    rule["detection"] = {
+        "selection": {"requested_permissions": "android.permission.NEARBY_WIFI_DEVICES"},
+        "condition": "selection",
+    }
+    assert run_validator_on(tmp_path, rule).returncode == 0
+
+
+def test_requested_permissions_all_combiner_accepted(tmp_path):
+    rule = make_app_rule(id="androdr-306")
+    rule["detection"] = {
+        "selection": {"requested_permissions|all": [
+            "android.permission.BLUETOOTH_CONNECT",
+            "android.permission.BLUETOOTH_ADVERTISE",
+        ]},
+        "condition": "selection",
+    }
+    assert run_validator_on(tmp_path, rule).returncode == 0
+
+
+def test_requested_permissions_contains_rejected(tmp_path):
+    # Substring modifiers false-positive: android.permission.NFC is a substring
+    # of android.permission.NFC_TRANSACTION_EVENT.
+    rule = make_app_rule(id="androdr-307")
+    rule["detection"] = {
+        "selection": {"requested_permissions|contains": "android.permission.NFC"},
+        "condition": "selection",
+    }
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "requested_permissions" in result.stderr and "equals" in result.stderr
+
+
+def test_requested_permissions_short_name_literal_rejected(tmp_path):
+    # The emitter emits verbatim FQN manifest strings; a short name never matches.
+    rule = make_app_rule(id="androdr-308")
+    rule["detection"] = {
+        "selection": {"requested_permissions": "NEARBY_WIFI_DEVICES"},
+        "condition": "selection",
+    }
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "fully-qualified" in result.stderr
+
+
+def test_requested_permissions_unknown_aosp_literal_rejected(tmp_path):
+    rule = make_app_rule(id="androdr-309")
+    rule["detection"] = {
+        "selection": {"requested_permissions": "android.permission.NO_SUCH_PERMISSION_XYZ"},
+        "condition": "selection",
+    }
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "android-permissions.txt" in result.stderr
+
+
+def test_requested_permissions_vendor_fqn_accepted(tmp_path):
+    # Non-AOSP FQNs are legitimate facts (vendor permissions) — allowed verbatim.
+    rule = make_app_rule(id="androdr-310")
+    rule["detection"] = {
+        "selection": {"requested_permissions": "com.samsung.android.permission.EXAMPLE_VENDOR"},
+        "condition": "selection",
+    }
+    assert run_validator_on(tmp_path, rule).returncode == 0
+
+
+def test_requested_permissions_negated_filter_rejected(tmp_path):
+    # Pre-emitter binaries evaluate the matcher false; `not` inverts it to
+    # always-true, defeating the exemption — the #136 Phase-2 inversion class.
+    rule = make_app_rule(id="androdr-311")
+    rule["detection"] = {
+        "selection": {"has_accessibility_service": True},
+        "filter_relay": {"requested_permissions": "android.permission.NEARBY_WIFI_DEVICES"},
+        "condition": "selection and not filter_relay",
+    }
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "not" in result.stderr and "over-firing" in result.stderr
+
+
+def test_requested_permissions_positive_reference_accepted_alongside_negation(tmp_path):
+    # Negating an UNRELATED filter must not trip the guard.
+    rule = make_app_rule(id="androdr-312")
+    rule["detection"] = {
+        "selection": {"requested_permissions": "android.permission.NEARBY_WIFI_DEVICES"},
+        "filter_known": {"package_name|ioc_lookup": "known_good_app_db"},
+        "condition": "selection and not filter_known",
+    }
+    assert run_validator_on(tmp_path, rule).returncode == 0
