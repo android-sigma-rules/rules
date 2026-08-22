@@ -64,3 +64,4 @@ app_scanner/androdr_095_manic_mesh_relay.yml
 cellular_monitor/androdr_101_cell_narrow_bandwidth.yml
 cellular_monitor/androdr_103_cell_rat_downgrade.yml
 cellular_monitor/androdr_104_cell_tac_churn.yml
+cellular_monitor/androdr_105_cell_operator_mismatch_vfqa.yml
