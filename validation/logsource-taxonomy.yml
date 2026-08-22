@@ -137,14 +137,16 @@ services:
   network_monitor:
     model_class: NetworkTelemetry
     field_map: member
-    status: unwired  # toFieldMap() exists but NO evaluate method in SigmaRuleEngine — rules cannot fire
+    status: active
     fields:
       destination_ip: { kind: raw_fact, type: string, description: "Destination IP address" }
       destination_port: { kind: raw_fact, type: int, description: "Destination port number" }
-      protocol: { kind: raw_fact, type: string, description: "Protocol (TCP/UDP)" }
-      app_uid: { kind: raw_fact, type: int, description: "UID of the app making the connection" }
-      app_name: { kind: raw_fact, type: string, nullable: true, description: "Package name of the connecting app" }
+      protocol: { kind: raw_fact, type: string, nullable: true, description: "Protocol (TCP/UDP); null for Intrusion Logging imports, where the source genuinely does not record it" }
+      app_uid: { kind: raw_fact, type: int, description: "UID of the app making the connection (-1 if unresolvable)" }
+      app_name: { kind: raw_fact, type: string, nullable: true, description: "Package name of the connecting app (hint, not identity — shared-UID components smear)" }
       timestamp: { kind: raw_fact, type: long, description: "Connection timestamp (epoch ms)" }
+      source: { kind: raw_fact, type: string, description: "TelemetrySource enum name (INTRUSION_LOG_IMPORT for imported logs)" }
+      captured_at: { kind: raw_fact, type: long, description: "When this telemetry was captured/imported (epoch ms)" }
 
   # ── Extension-function toFieldMap() (TelemetryFieldMaps.kt) ────────
 
@@ -219,6 +221,18 @@ services:
       observation_timestamp: { kind: raw_fact, type: long, description: "When the database was observed (epoch ms)" }
       source: { kind: raw_fact, type: string, description: "TelemetrySource enum name" }
       captured_at: { kind: raw_fact, type: long, description: "When this telemetry was captured (epoch ms)" }
+
+  security_log:
+    model_class: SecurityLogEvent
+    field_map: extension  # internal fun SecurityLogEvent.toFieldMap() in com.androdr.sigma
+    status: active
+    fields:
+      timestamp: { kind: raw_fact, type: long, description: "Event time (epoch ms)" }
+      tag: { kind: raw_fact, type: int, description: "Numeric android.app.admin.SecurityLog tag" }
+      tag_name: { kind: raw_fact, type: string, description: "Registry-resolved tag name (e.g. adb_shell_cmd); unknown_<tag> for unmapped tags" }
+      security_data: { kind: raw_fact, type: list, description: "Tag-specific value array, emitted verbatim as strings (emitter-emits-all-facts; typed per-tag extraction deferred until real fixtures validate layouts — spec §11.1)" }
+      source: { kind: raw_fact, type: string, description: "TelemetrySource enum name" }
+      captured_at: { kind: raw_fact, type: long, description: "When this telemetry was captured/imported (epoch ms)" }
 
   # ── No toFieldMap() (engine-matched literal fields) ────────────────
 
