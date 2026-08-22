@@ -62,3 +62,5 @@ wakelock_parser/androdr_072_persistent_wakelock.yml
 app_scanner/androdr_094_badbox_admoyu_component.yml
 app_scanner/androdr_095_manic_mesh_relay.yml
 cellular_monitor/androdr_101_cell_narrow_bandwidth.yml
+cellular_monitor/androdr_103_cell_rat_downgrade.yml
+cellular_monitor/androdr_104_cell_tac_churn.yml
