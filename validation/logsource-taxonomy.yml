@@ -161,6 +161,36 @@ services:
       source: { kind: raw_fact, type: string, description: "TelemetrySource enum name (LIVE_SCAN or BUGREPORT_IMPORT)" }
       captured_at: { kind: raw_fact, type: long, description: "When this telemetry was captured (epoch ms)" }
 
+  cellular_monitor:
+    model_class: CellularSnapshot
+    field_map: member
+    status: active
+    fields:
+      mcc: { kind: raw_fact, type: string, nullable: true, description: "Mobile country code of the serving cell" }
+      mnc: { kind: raw_fact, type: string, nullable: true, description: "Mobile network code of the serving cell" }
+      tac: { kind: raw_fact, type: int, nullable: true, description: "Tracking area code; null when the platform reports Integer.MAX_VALUE (unavailable)" }
+      ci: { kind: raw_fact, type: long, nullable: true, description: "Cell identity" }
+      pci: { kind: raw_fact, type: int, nullable: true, description: "Physical cell ID" }
+      earfcn: { kind: raw_fact, type: int, nullable: true, description: "Frequency channel number. Emitted verbatim for future band-plan rules; no v1 rule consumes it" }
+      bands: { kind: raw_fact, type: list, description: "Band numbers reported by the serving cell; empty below API 30" }
+      bandwidth_khz: { kind: raw_fact, type: int, nullable: true, description: "Channel bandwidth in kHz (1400 and 3000 are the narrow cases)" }
+      rat: { kind: raw_fact, type: string, description: "Radio access technology of the serving cell: NR, LTE, UMTS, GSM or UNKNOWN" }
+      operator_alpha_long: { kind: raw_fact, type: string, nullable: true, description: "Network-reported long operator name. ATTACKER-CONTROLLED: a fake base station chooses this freely, so it is never proof of operator identity — treat like app_name, never as trust" }
+      operator_alpha_short: { kind: raw_fact, type: string, nullable: true, description: "Network-reported short operator name. ATTACKER-CONTROLLED, same caveat as operator_alpha_long" }
+      additional_plmns: { kind: raw_fact, type: list, description: "Additional PLMN identifiers advertised by the cell; empty below API 30" }
+      neighbor_count: { kind: raw_fact, type: int, description: "Number of non-registered neighbour cells in the same report" }
+      serving_rsrp: { kind: raw_fact, type: int, nullable: true, description: "Serving cell RSRP in dBm; null when unavailable or the serving cell is not LTE" }
+      is_registered: { kind: raw_fact, type: boolean, description: "Device is registered on this cell" }
+      captured_at: { kind: raw_fact, type: long, description: "When this snapshot was captured (epoch ms)" }
+      source: { kind: raw_fact, type: string, description: "TelemetrySource enum name (LIVE_SCAN or BUGREPORT_IMPORT)" }
+      previous_tac: { kind: raw_fact, type: int, nullable: true, description: "TAC of the prior observation; null on the first observation" }
+      previous_rat: { kind: raw_fact, type: string, nullable: true, description: "RAT of the prior observation; null on the first observation. Used by the downgrade rule" }
+      tac_changed: { kind: raw_fact, type: boolean, description: "TAC differs from the prior observation. Objective measurement, not a judgment" }
+      rat_changed: { kind: raw_fact, type: boolean, description: "RAT differs from the prior observation. Objective measurement, not a judgment" }
+      tac_changes_last_5m: { kind: raw_fact, type: int, description: "Count of TAC changes within the rolling 5-minute window. Objective count; the churn THRESHOLD lives in the rule" }
+      serving_minus_max_neighbor_rsrp_db: { kind: raw_fact, type: int, nullable: true, description: "Serving RSRP minus the strongest neighbour RSRP, in dB; null when no neighbour signal is available" }
+      location_moved_m_last_5m: { kind: raw_fact, type: int, nullable: true, description: "Coarse network-provider displacement in metres over 5 minutes. ALWAYS NULL in v1 — no rule may reference it in a negated filter until it carries real data" }
+
   wakelock_parser:
     model_class: WakelockAcquisition
     field_map: extension
