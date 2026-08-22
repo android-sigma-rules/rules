@@ -73,6 +73,7 @@
             "app_scanner",
             "appops_audit",
             "battery_daily",
+            "cellular_monitor",
             "db_info",
             "device_auditor",
             "dns_monitor",
