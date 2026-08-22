@@ -1,0 +1,16 @@
+# Rules permitted to reference judgment-kind fields during the strangler-fig
+# parallel run (#136 R1, spec B5). The TOP-LEVEL KEYS are the authoritative
+# frozen judgment-field set (taxonomy kind:judgment must equal them — both
+# validators assert it). Entries may only be REMOVED (Phase 2 empties
+# from_trusted_store.delivered; Phase 3 deletes whole keys). delivered vs
+# staging are separate lists: a staging twin never authorizes its delivered id.
+allowed:
+  from_trusted_store:
+    delivered: [androdr-010, androdr-011, androdr-012, androdr-013, androdr-014, androdr-016, androdr-017, androdr-068, androdr-069, androdr-089]
+    staging: [androdr-069, androdr-091]
+  is_sideloaded:
+    delivered: [androdr-067, androdr-077, androdr-087, androdr-088, androdr-089]
+    staging: [androdr-077, androdr-087, androdr-088, androdr-091]
+  is_known_oem_app:
+    delivered: [androdr-010, androdr-011, androdr-012, androdr-013, androdr-014, androdr-015, androdr-016, androdr-017, androdr-068, androdr-069]
+    staging: []

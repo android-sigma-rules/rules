@@ -686,3 +686,189 @@ entries:
   severity: HIGH
   description: Octagon Android RAT child payload ('OctagonPanel'/'Ward') installed by the com.kit.kitty loader (K7 Security Labs, 2026-08).
   source: threat_research
+- indicator: com.tw.jar1
+  family: JarService
+  category: MALWARE
+  severity: HIGH
+  description: 'JarService stage-1 dropper, silently pushed to DoFun automotive head units via the abused
+    TWCore updater''s MQTT channel (MoYu Group / BADBOX-linked campaign; Kaspersky 2026-08-21). UI-less;
+    XOR-decrypts and reflection-loads later stages, ultimately the zhima residential-proxy module. Remediation:
+    reflash/factory-reset affected head-unit firmware and isolate it from untrusted networks.'
+  source: threat_research
+- indicator: com.abc.nexus
+  family: MoYu
+  category: MALWARE
+  severity: HIGH
+  description: 'MoYu Group malicious app observed on Android TV set-top boxes (contains AdmoyuService;
+    Kaspersky 2026-08-21, same actor as the head-unit JarService chain). Remediation: remove the app or
+    reflash the device firmware.'
+  source: threat_research
+- indicator: com.android.tigertv
+  family: MoYu tigertv
+  category: MALWARE
+  severity: MEDIUM
+  description: 'Grey-market VLC-based IPTV app (TIGER_TV brand) used by MoYu Group (BADBOX 2.0) as a delivery
+    vehicle: clean at install, at runtime calls a rotating getDomainList pool and fetches the zhima proxy/ad-fraud
+    chain from BADBOX a1./t1. C2. Presence indicates the device is in the MoYu delivery path. Single source
+    (Nokia Deepfield ipmoyu). Uninstall the IPTV app and check DNS logs for a1./t1. C2 contact.'
+  source: threat_research
+- indicator: com.android.tigersport
+  family: MoYu tigertv
+  category: MALWARE
+  severity: MEDIUM
+  description: MoYu Group (BADBOX 2.0) IPTV delivery-vehicle app (tigertv family); clean at install, fetches
+    the zhima proxy/ad-fraud chain at runtime. Single source (Deepfield ipmoyu).
+  source: threat_research
+- indicator: com.android.mioplus
+  family: MoYu tigertv
+  category: MALWARE
+  severity: MEDIUM
+  description: MoYu Group (BADBOX 2.0) IPTV delivery-vehicle app (MIO_Plus brand, tigertv family); clean
+    at install, fetches the zhima proxy/ad-fraud chain at runtime. Single source (Deepfield ipmoyu).
+  source: threat_research
+- indicator: com.android.miosport
+  family: MoYu tigertv
+  category: MALWARE
+  severity: MEDIUM
+  description: MoYu Group (BADBOX 2.0) IPTV delivery-vehicle app (tigertv family); clean at install, fetches
+    the zhima proxy/ad-fraud chain at runtime. Single source (Deepfield ipmoyu).
+  source: threat_research
+- indicator: com.android.vo_vivo
+  family: MoYu tigertv
+  category: MALWARE
+  severity: MEDIUM
+  description: MoYu Group (BADBOX 2.0) IPTV delivery-vehicle app (Vo_Vivo brand, tigertv family); clean
+    at install, fetches the zhima proxy/ad-fraud chain at runtime. Single source (Deepfield ipmoyu).
+  source: threat_research
+- indicator: com.android.vo_fixture
+  family: MoYu tigertv
+  category: MALWARE
+  severity: MEDIUM
+  description: MoYu Group (BADBOX 2.0) IPTV delivery-vehicle app (tigertv family; genuine upstream package
+    name from Deepfield, 'fixture' refers to sports fixtures); clean at install, fetches the zhima proxy/ad-fraud
+    chain at runtime. Single source (Deepfield ipmoyu).
+  source: threat_research
+- indicator: com.hs.app
+  family: BADBOX 2.0
+  category: MALWARE
+  severity: HIGH
+  description: BB2DOOR (BADBOX 2.0) backdoor loader package (HUMAN Satori; corroborated by Point Wild).
+    BADBOX 2.0 ships preinstalled in firmware or inside rebundled apps from unofficial marketplaces.
+  source: threat_research
+- indicator: com.hs.cld
+  family: BADBOX 2.0
+  category: MALWARE
+  severity: HIGH
+  description: BB2DOOR module — com.hs.cld.Main in p.jar downloads fraud modules from C2 (HUMAN Satori).
+    Listed by HUMAN as a package indicator; may also appear only as a DEX namespace rather than an installed
+    package.
+  source: threat_research
+- indicator: com.hs.q
+  family: BADBOX 2.0
+  category: MALWARE
+  severity: HIGH
+  description: BB2DOOR removal-resistance module — com.hs.q.Main in q.jar blocks backdoor removal (HUMAN
+    Satori). May also appear only as a DEX namespace rather than an installed package.
+  source: threat_research
+- indicator: com.mz.sdk
+  family: BADBOX 2.0
+  category: MALWARE
+  severity: MEDIUM
+  description: Hidden-WebView ad-fraud SDK namespace embedded inside BADBOX 2.0-infected apps; renders
+    invisible WebViews that fetch fraud playlists from app-goal.com (HUMAN Satori). Namespace indicator
+    — may not occur as a standalone installed package.
+  source: threat_research
+- indicator: com.debby.devour
+  family: BADBOX 2.0
+  category: MALWARE
+  severity: HIGH
+  description: BADBOX 2.0 ad-fraud module app observed auto-installed from file.long.tv (HUMAN Satori).
+  source: threat_research
+- indicator: com.google.android.gms.stable
+  family: Vo1d
+  category: MALWARE
+  severity: HIGH
+  description: Vo1d botnet main payload (x.apk) masquerading as Google Play Services; persists via BOOT_COMPLETED
+    with a one-pixel invisible activity (Xlab; corroborated by The Hacker News). Not a Google package.
+    Presence usually indicates firmware-level compromise of an AOSP TV box — factory reset may not remove
+    system-partition implants.
+  source: threat_research
+- indicator: com.google.android.services
+  family: Vo1d
+  category: MALWARE
+  severity: HIGH
+  description: Legacy Vo1d APK component (Android.Vo1d.1.origin) masquerading as a Google package (Dr.Web;
+    corroborated by Xlab).
+  source: threat_research
+- indicator: com.goog1e.apps
+  family: Vo1d
+  category: MALWARE
+  severity: MEDIUM
+  description: Typosquatted Google package used by Vo1d; its data directory is deleted by the new variant's
+    cleanup routine (Xlab; medium confidence, single source).
+  source: threat_research
+- indicator: com.app.mz.popan
+  family: Mzmess
+  category: MALWARE
+  severity: HIGH
+  description: Mzmess 'Popa' proxy plugin delivered onto Vo1d-infected TV boxes; turns the device into
+    a proxy exit node (Xlab; package name corroborated by The Hacker News).
+  source: threat_research
+- indicator: com.app.mz.jaguarn
+  family: Mzmess
+  category: MALWARE
+  severity: HIGH
+  description: Mzmess 'Jaguar' proxy plugin delivered onto Vo1d-infected TV boxes (Xlab; package name
+    corroborated by The Hacker News).
+  source: threat_research
+- indicator: com.app.mz.lxhwdgn
+  family: Mzmess
+  category: MALWARE
+  severity: HIGH
+  description: Mzmess 'Lxhwdg' plugin (purpose unknown; WSS RPC C2 on port 2345) delivered onto Vo1d-infected
+    TV boxes (Xlab; package name corroborated by The Hacker News).
+  source: threat_research
+- indicator: com.app.mz.spiritn
+  family: Mzmess
+  category: MALWARE
+  severity: HIGH
+  description: Mzmess 'Spirit' ad-promotion / traffic-inflation plugin delivered onto Vo1d-infected TV
+    boxes (Xlab; package name corroborated by The Hacker News).
+  source: threat_research
+- indicator: tech.intel.dialer.updater
+  family: Manic
+  category: MALWARE
+  severity: CRITICAL
+  description: Manic banker/spyware hybrid wrapper-dropper impersonating a vendor system utility (ThreatFabric
+    2026-08; targets Ukraine and Europe)
+  source: threat_research
+- indicator: org.honor.secure.helper
+  family: Manic
+  category: MALWARE
+  severity: CRITICAL
+  description: Manic wrapper-dropper impersonating a vendor system utility
+  source: threat_research
+- indicator: tech.apple.dialer.scheduler
+  family: Manic
+  category: MALWARE
+  severity: CRITICAL
+  description: Manic wrapper-dropper impersonating a vendor system utility
+  source: threat_research
+- indicator: org.lenovo.storage.processor
+  family: Manic
+  category: MALWARE
+  severity: CRITICAL
+  description: Manic implant impersonating a vendor system utility
+  source: threat_research
+- indicator: dev.huawei.media.helper
+  family: Manic
+  category: MALWARE
+  severity: CRITICAL
+  description: Manic implant impersonating a vendor system utility
+  source: threat_research
+- indicator: io.motorola.secure.executor
+  family: Manic
+  category: MALWARE
+  severity: CRITICAL
+  description: Manic implant impersonating a vendor system utility
+  source: threat_research

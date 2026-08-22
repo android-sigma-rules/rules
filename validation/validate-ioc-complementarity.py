@@ -239,6 +239,8 @@ IOC_TYPE_BY_FILENAME = {
     "apk-hashes.yml":       "APK_HASH",
     "popular-apps.yml":     "PACKAGE_NAME",
     "known-oem-prefixes.yml": "PACKAGE_NAME",
+    "brand-names.yml":      "BRAND_NAME",
+    "brand-domains.yml":    "BRAND_DOMAIN",
 }
 
 

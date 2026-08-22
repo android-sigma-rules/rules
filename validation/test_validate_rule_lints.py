@@ -42,6 +42,20 @@ def make_rule(**overrides) -> dict:
     return rule
 
 
+# A known-good production app_scanner incident rule (delivered, allowlisted
+# for from_trusted_store + is_known_oem_app) — mutation baseline for the
+# #275 ioc_lookup-registration and B5 judgment-field-deprecation lints.
+APP_BASE = yaml.safe_load(
+    (REPO / "app_scanner" / "androdr_010_sideloaded_app.yml").read_text()
+)
+
+
+def make_app_rule(**overrides) -> dict:
+    rule = copy.deepcopy(APP_BASE)
+    rule.update(overrides)
+    return rule
+
+
 # ---------- retired-ID registry ----------
 
 def test_retired_id_rejected(tmp_path):
@@ -411,10 +425,13 @@ def _incident_app_rule(detection):
 
 
 def test_valid_fields_with_modifiers_pass(tmp_path):
+    # package_ioc_db is a real registered lookup (#275); is_system_app is a
+    # raw_fact field — neither collides with the judgment-field (B5) or
+    # ioc_lookup-registration lints, keeping this a pure fields/modifiers check.
     rule = _incident_app_rule({
         "selection": {
-            "package_name|ioc_lookup": "stalkerware_packages",
-            "is_sideloaded": True,
+            "package_name|ioc_lookup": "package_ioc_db",
+            "is_system_app": False,
         },
         "filter_known_good": {"package_name|contains": ["com.google."]},
         "condition": "selection and not filter_known_good",
@@ -673,3 +690,176 @@ def test_fieldless_taxonomy_service_fatal(tmp_path):
     assert result.returncode != 0
     assert "fields" in result.stderr
     assert "Traceback" not in result.stderr
+
+
+# ---------- #275: ioc_lookup registration ----------
+
+def test_unregistered_ioc_lookup_rejected(tmp_path):
+    rule = make_app_rule(id="androdr-300")
+    rule["detection"] = {"selection": {"package_name|ioc_lookup": "no_such_db"}, "condition": "selection"}
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "no_such_db" in result.stderr and "ioc-lookup-definitions" in result.stderr
+
+
+def test_registered_ioc_lookup_accepted(tmp_path):
+    rule = make_app_rule(id="androdr-301")
+    rule["detection"] = {"selection": {"package_name|ioc_lookup": "known_good_app_db"}, "condition": "selection"}
+    assert run_validator_on(tmp_path, rule).returncode == 0
+
+
+def test_nameless_ioc_lookup_rejected(tmp_path):
+    rule = make_app_rule(id="androdr-304")
+    rule["detection"] = {"selection": {"installer|ioc_lookup": None}, "condition": "selection"}
+    assert run_validator_on(tmp_path, rule).returncode == 1
+
+
+# ---------- B5: judgment-field deprecation (delivered vs staging) ----------
+
+def test_new_rule_using_judgment_field_rejected(tmp_path):
+    rule = make_app_rule(id="androdr-302")
+    rule["detection"] = {"selection": {"from_trusted_store": False}, "condition": "selection"}
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "judgment" in result.stderr and "from_trusted_store" in result.stderr
+
+
+def test_allowlisted_delivered_rule_accepted(tmp_path):
+    assert run_validator_on(tmp_path, copy.deepcopy(APP_BASE)).returncode == 0
+
+
+def test_modifier_spelled_judgment_field_rejected(tmp_path):
+    # A modifier suffix must not smuggle a judgment field past the B5 lint: the
+    # lint keys on the BASE field name, not on the literal detection key.
+    # The modifier here must be a VALID one (`contains`) — with an invalid
+    # spelling the rejection would be double-caused and this test would keep
+    # passing even if the judgment lint stopped looking through modifiers.
+    rule = make_app_rule(id="androdr-305")
+    rule["detection"] = {"selection": {"is_sideloaded|contains": "true"}, "condition": "selection"}
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "judgment" in result.stderr and "is_sideloaded" in result.stderr
+    assert "Invalid modifier" not in result.stderr
+
+
+# ---------- B4: complete kinds + data-driven freeze ----------
+
+def test_every_taxonomy_field_declares_kind():
+    tax = yaml.safe_load((THIS_DIR / "logsource-taxonomy.yml").read_text())
+    missing = [f"{svc}/{fname}"
+               for svc, sdef in tax["services"].items()
+               for fname, fdef in sdef["fields"].items()
+               if not isinstance(fdef, dict) or fdef.get("kind") not in ("raw_fact", "judgment")]
+    assert missing == []
+
+
+def test_judgment_set_equals_allowlist_keys():
+    tax = yaml.safe_load((THIS_DIR / "logsource-taxonomy.yml").read_text())
+    marked = {fname for sdef in tax["services"].values()
+              for fname, fdef in sdef["fields"].items()
+              if isinstance(fdef, dict) and fdef.get("kind") == "judgment"}
+    allowed = set(yaml.safe_load((THIS_DIR / "judgment-field-allowlist.yml").read_text())["allowed"])
+    assert marked == allowed  # the allowlist keys ARE the frozen set (data, not code)
+
+
+# ---------- B3: caps single-source with rank comparison ----------
+
+def test_severity_cap_sourced_from_yaml(tmp_path):
+    caps = yaml.safe_load((THIS_DIR / "severity-caps.yml").read_text())["caps"]
+    assert caps == {"device_posture": "medium"}
+    assert run_validator_on(tmp_path, make_rule(id="androdr-303", level="critical")).returncode == 1
+    assert run_validator_on(tmp_path, make_rule(id="androdr-306", level="medium")).returncode == 0
+
+
+# ---------- #317: requested_permissions matching discipline ----------
+
+def test_requested_permissions_exact_equals_accepted(tmp_path):
+    rule = make_app_rule(id="androdr-305")
+    rule["detection"] = {
+        "selection": {"requested_permissions": "android.permission.NEARBY_WIFI_DEVICES"},
+        "condition": "selection",
+    }
+    assert run_validator_on(tmp_path, rule).returncode == 0
+
+
+def test_requested_permissions_all_combiner_accepted(tmp_path):
+    rule = make_app_rule(id="androdr-306")
+    rule["detection"] = {
+        "selection": {"requested_permissions|all": [
+            "android.permission.BLUETOOTH_CONNECT",
+            "android.permission.BLUETOOTH_ADVERTISE",
+        ]},
+        "condition": "selection",
+    }
+    assert run_validator_on(tmp_path, rule).returncode == 0
+
+
+def test_requested_permissions_contains_rejected(tmp_path):
+    # Substring modifiers false-positive: android.permission.NFC is a substring
+    # of android.permission.NFC_TRANSACTION_EVENT.
+    rule = make_app_rule(id="androdr-307")
+    rule["detection"] = {
+        "selection": {"requested_permissions|contains": "android.permission.NFC"},
+        "condition": "selection",
+    }
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "requested_permissions" in result.stderr and "equals" in result.stderr
+
+
+def test_requested_permissions_short_name_literal_rejected(tmp_path):
+    # The emitter emits verbatim FQN manifest strings; a short name never matches.
+    rule = make_app_rule(id="androdr-308")
+    rule["detection"] = {
+        "selection": {"requested_permissions": "NEARBY_WIFI_DEVICES"},
+        "condition": "selection",
+    }
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "fully-qualified" in result.stderr
+
+
+def test_requested_permissions_unknown_aosp_literal_rejected(tmp_path):
+    rule = make_app_rule(id="androdr-309")
+    rule["detection"] = {
+        "selection": {"requested_permissions": "android.permission.NO_SUCH_PERMISSION_XYZ"},
+        "condition": "selection",
+    }
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "android-permissions.txt" in result.stderr
+
+
+def test_requested_permissions_vendor_fqn_accepted(tmp_path):
+    # Non-AOSP FQNs are legitimate facts (vendor permissions) — allowed verbatim.
+    rule = make_app_rule(id="androdr-310")
+    rule["detection"] = {
+        "selection": {"requested_permissions": "com.samsung.android.permission.EXAMPLE_VENDOR"},
+        "condition": "selection",
+    }
+    assert run_validator_on(tmp_path, rule).returncode == 0
+
+
+def test_requested_permissions_negated_filter_rejected(tmp_path):
+    # Pre-emitter binaries evaluate the matcher false; `not` inverts it to
+    # always-true, defeating the exemption — the #136 Phase-2 inversion class.
+    rule = make_app_rule(id="androdr-311")
+    rule["detection"] = {
+        "selection": {"has_accessibility_service": True},
+        "filter_relay": {"requested_permissions": "android.permission.NEARBY_WIFI_DEVICES"},
+        "condition": "selection and not filter_relay",
+    }
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "not" in result.stderr and "over-firing" in result.stderr
+
+
+def test_requested_permissions_positive_reference_accepted_alongside_negation(tmp_path):
+    # Negating an UNRELATED filter must not trip the guard.
+    rule = make_app_rule(id="androdr-312")
+    rule["detection"] = {
+        "selection": {"requested_permissions": "android.permission.NEARBY_WIFI_DEVICES"},
+        "filter_known": {"package_name|ioc_lookup": "known_good_app_db"},
+        "condition": "selection and not filter_known",
+    }
+    assert run_validator_on(tmp_path, rule).returncode == 0
