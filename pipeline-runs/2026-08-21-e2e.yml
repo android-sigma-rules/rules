@@ -1825,12 +1825,22 @@ candidates:
     verdict: approved
     reason: ""
     failure_class: null
+  - id: androdr-094
+    verdict: approved_with_modification
+    reason: >
+      Authored as androdr-244 (workflow shard-stride ID leak, fixed in
+      AndroDR #316) and renumbered to the allocated block at HitL.
+      Severity raised medium -> critical by owner decision: a
+      component-class literal is a malware-family fingerprint equivalent
+      to androdr-078's package literal; single-vendor (Kaspersky)
+      sourcing noted for revisit. See decisions/2026-08-22-badbox-admoyu.yml.
+    failure_class: severity_judgment
 totals:
-  candidates: 456
+  candidates: 457
   approved: 456
-  approved_with_modification: 0
+  approved_with_modification: 1
   rejected: 0
-  approval_without_modification_rate: 1.00
+  approval_without_modification_rate: 1.00  # 456/457
 notes: >
   First e2e-workflow run (seeded with the Manic campaign, ThreatFabric
   2026-08). 456 IOC indicators across 31 families approved as a batch:
@@ -1841,8 +1851,8 @@ notes: >
   parser-limited skips covered by the workflow's manual MVT STIX traversal:
   0 redundant vs 6525 domains + 568 packages on-device). Two rule
   candidates from this run remain in HitL and will be ledgered when
-  decided: androdr-244 (BADBOX AdmoyuService component fingerprint;
-  severity call pending) and androdr-294 (Manic mesh-relay behavioral
+  decided: androdr-244 — SHIPPED as androdr-094 at critical (see its entry above) —
+  and androdr-294 (Manic mesh-relay behavioral
   rule; BLOCKED on an AndroDR emitter change — it keys on
   NEARBY_WIFI_DEVICES/BLUETOOTH_CONNECT/BLUETOOTH_ADVERTISE which the
   scanner's curated permissions field does not emit, and would fail

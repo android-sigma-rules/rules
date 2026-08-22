@@ -1,0 +1,33 @@
+# Decisions accompanying androdr-094 (BADBOX/MoYu AdmoyuService component
+# fingerprint), authored by the 2026-08-21 e2e run as candidate androdr-244
+# and renumbered at HitL (the shard-stride ID leak is fixed in AndroDR #316).
+
+decisions:
+  - rule_id: androdr-094
+    field: "level"
+    chosen: "critical"
+    alternative: "medium (single independent behavioral signal, single-vendor sourcing)"
+    reasoning: >
+        Authored at medium because a component-class literal is not
+        enumerated in the curated-data severity exception (which lists
+        ioc_lookup matches, exact package/cert/APK-hash literals, and
+        curated artifact paths) and the AdmoyuService string rests on one
+        vendor (Kaspersky). Overridden to critical at HitL by owner
+        decision: the string is a malware-family fingerprint functionally
+        equivalent to androdr-078's exact package-name literal (both are
+        attacker-chosen strings from vendor reporting), and peer
+        literal-fingerprint rules sit at critical. Single-vendor sourcing
+        stands noted — revisit if the string is corroborated by a second
+        vendor (no change needed) or contested (demote/retire).
+  - rule_id: androdr-094
+    field: "implies_flags"
+    chosen: "omit implies_flags entirely"
+    alternative: "declare implies_flags: [known_malware]"
+    reasoning: >
+        The known_malware flag is justified only by lookups against
+        package_ioc_db/cert_hash_ioc_db/apk_hash_ioc_db or exact literal
+        package-name/cert-hash/APK-hash values (androdr-078 shape). An
+        embedded component-class literal is none of these; the three
+        databases are documented as exhaustive for known_malware. No
+        sideloaded guarantee either — BADBOX variants ship preinstalled
+        as system apps.
