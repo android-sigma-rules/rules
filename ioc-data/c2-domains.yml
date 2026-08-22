@@ -2040,7 +2040,7 @@ entries:
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 / MoYu ad-fraud C2 (HUMAN Satori appendix; single source). Namesake of the AdmoyuService
-      component fingerprinted by androdr-244.
+      component fingerprinted by androdr-094.
     source: threat_research
   - indicator: ads-goal.com
     family: BADBOX 2.0

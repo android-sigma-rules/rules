@@ -1835,12 +1835,26 @@ candidates:
       to androdr-078's package literal; single-vendor (Kaspersky)
       sourcing noted for revisit. See decisions/2026-08-22-badbox-admoyu.yml.
     failure_class: severity_judgment
+  - id: androdr-095
+    verdict: approved_with_modification
+    reason: >
+      Authored as androdr-294 (shard-stride ID leak; workflow fix AndroDR
+      #316) keying on permissions literals the scanner never emitted — a
+      dead rule caught at HitL. Re-authored after the emitter-emits-all-facts
+      change (AndroDR #317): matchers moved to requested_permissions with
+      verbatim FQN exact-equals values; is_sideloaded (judgment field,
+      frozen allowlist) replaced by the Phase-2-native negated
+      trusted_installer_db exemption (sideload-establishing per the
+      implies_flags gate); vestigial known-good filter dropped (unreachable
+      behind not store_installed). Ships with #136 Phase 2; coverage bound
+      (API 33+ NEARBY_WIFI_DEVICES term) recorded in the rule.
+    failure_class: other
 totals:
-  candidates: 457
+  candidates: 458
   approved: 456
-  approved_with_modification: 1
+  approved_with_modification: 2
   rejected: 0
-  approval_without_modification_rate: 1.00  # 456/457
+  approval_without_modification_rate: 1.00  # 456/458
 notes: >
   First e2e-workflow run (seeded with the Manic campaign, ThreatFabric
   2026-08). 456 IOC indicators across 31 families approved as a batch:
@@ -1852,11 +1866,7 @@ notes: >
   0 redundant vs 6525 domains + 568 packages on-device). Two rule
   candidates from this run remain in HitL and will be ledgered when
   decided: androdr-244 — SHIPPED as androdr-094 at critical (see its entry above) —
-  and androdr-294 (Manic mesh-relay behavioral
-  rule; BLOCKED on an AndroDR emitter change — it keys on
-  NEARBY_WIFI_DEVICES/BLUETOOTH_CONNECT/BLUETOOTH_ADVERTISE which the
-  scanner's curated permissions field does not emit, and would fail
-  PermissionLiteralCrossCheckTest). Recurring-class candidates for
+  and androdr-294 — re-authored and SHIPPED as androdr-095 on the #136 Phase 2 rules branch (see its entry above). Recurring-class candidates for
   authoring-lessons curation: BOTH rule candidates ignored the allocated
   next_id (androdr-094) and invented out-of-sequence IDs (244, 294) —
   id_allocation gate needed in the validator; and the author consulted

@@ -6,7 +6,12 @@
 # staging are separate lists: a staging twin never authorizes its delivered id.
 allowed:
   from_trusted_store:
-    delivered: [androdr-010, androdr-011, androdr-012, androdr-013, androdr-014, androdr-016, androdr-017, androdr-068, androdr-069, androdr-089]
+    # Phase 2 complete: every DELIVERED rule migrated to
+    # installer|ioc_lookup: trusted_installer_db, so no delivered rule may
+    # reference from_trusted_store any more (closes the door on a new one
+    # silently reusing it). Staging twins 069/091 still carry it and migrate
+    # before Phase 3 deletes the emitted boolean.
+    delivered: []
     staging: [androdr-069, androdr-091]
   is_sideloaded:
     delivered: [androdr-067, androdr-077, androdr-087, androdr-088, androdr-089]
