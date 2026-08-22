@@ -82,6 +82,7 @@
             "platform_compat",
             "process_monitor",
             "receiver_audit",
+            "security_log",
             "timeline",
             "tombstone_parser",
             "wakelock_parser"
