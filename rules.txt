@@ -59,3 +59,4 @@ timeline/androdr_atom_package_install.yml
 timeline/androdr_atom_permission_use.yml
 tombstone_parser/androdr_071_crash_loop_anti_forensics.yml
 wakelock_parser/androdr_072_persistent_wakelock.yml
+app_scanner/androdr_094_badbox_admoyu_component.yml
