@@ -42,6 +42,7 @@ services:
       surveillance_permission_count: { kind: raw_fact, type: int, description: "Count of surveillance-related permissions (camera, mic, location, SMS, etc.)" }
       has_accessibility_service: { kind: raw_fact, type: boolean, description: "True if app declares an accessibility service" }
       has_device_admin: { kind: raw_fact, type: boolean, description: "True if app declares a device admin receiver" }
+      has_boot_receiver: { kind: raw_fact, type: boolean, description: "True if the app has a receiver registered for BOOT_COMPLETED or LOCKED_BOOT_COMPLETED (via queryBroadcastReceivers). FLEET SAFETY — POSITIVE REFERENCES ONLY: emitted by app builds after AndroDR #331; on older builds a matcher on this field evaluates false, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference this field in a negated filter until the fleet floor covers the emitter (AndroDR #331)" }
       known_app_category: { kind: raw_fact, type: string, nullable: true, description: "Category from known-good apps DB (e.g., SOCIAL, PRODUCTIVITY)" }
       service_permissions: { kind: raw_fact, type: list, description: "Permissions declared on exported services" }
       receiver_permissions: { kind: raw_fact, type: list, description: "Permissions declared on broadcast receivers" }

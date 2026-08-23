@@ -51,7 +51,7 @@ package_install_history/androdr_074_package_install_history_pattern.yml
 platform_compat/androdr_075_platform_compat_override.yml
 receiver_audit/androdr_061_sms_receiver.yml
 receiver_audit/androdr_062_call_receiver.yml
-receiver_audit/androdr_066_boot_persistence.yml
+app_scanner/androdr_066_boot_persistence.yml
 timeline/androdr_atom_app_launch.yml
 timeline/androdr_atom_device_admin_grant.yml
 timeline/androdr_atom_dns_lookup.yml
