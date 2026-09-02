@@ -168,18 +168,18 @@ services:
     fields:
       mcc: { kind: raw_fact, type: string, nullable: true, description: "Mobile country code of the serving cell" }
       mnc: { kind: raw_fact, type: string, nullable: true, description: "Mobile network code of the serving cell" }
-      tac: { kind: raw_fact, type: int, nullable: true, description: "Tracking area code; null when the platform reports Integer.MAX_VALUE (unavailable)" }
-      ci: { kind: raw_fact, type: long, nullable: true, description: "Cell identity" }
-      pci: { kind: raw_fact, type: int, nullable: true, description: "Physical cell ID" }
-      earfcn: { kind: raw_fact, type: int, nullable: true, description: "Frequency channel number. Emitted verbatim for future band-plan rules; no v1 rule consumes it" }
-      bands: { kind: raw_fact, type: list, description: "Band numbers reported by the serving cell; empty below API 30" }
+      tac: { kind: raw_fact, type: int, nullable: true, description: "Area code of the serving cell: TAC on LTE/NR, LAC on UMTS/GSM (see rat); null when the platform reports Integer.MAX_VALUE (unavailable)" }
+      ci: { kind: raw_fact, type: long, nullable: true, description: "Cell identity: CI on LTE, NCI on NR, CID on UMTS/GSM" }
+      pci: { kind: raw_fact, type: int, nullable: true, description: "Physical-layer cell id: PCI on LTE/NR, PSC on UMTS; null on GSM" }
+      earfcn: { kind: raw_fact, type: int, nullable: true, description: "Channel number: EARFCN on LTE, NRARFCN on NR, UARFCN on UMTS, ARFCN on GSM. Emitted verbatim for future band-plan rules; no v1 rule consumes it" }
+      bands: { kind: raw_fact, type: list, description: "Band numbers reported by the serving cell (LTE/NR); empty on other technologies" }
       bandwidth_khz: { kind: raw_fact, type: int, nullable: true, description: "Channel bandwidth in kHz (1400 and 3000 are the narrow cases)" }
       rat: { kind: raw_fact, type: string, description: "Radio access technology of the serving cell: NR, LTE, UMTS, GSM or UNKNOWN" }
       operator_alpha_long: { kind: raw_fact, type: string, nullable: true, description: "Network-reported long operator name. ATTACKER-CONTROLLED: a fake base station chooses this freely, so it is never proof of operator identity — treat like app_name, never as trust" }
       operator_alpha_short: { kind: raw_fact, type: string, nullable: true, description: "Network-reported short operator name. ATTACKER-CONTROLLED, same caveat as operator_alpha_long" }
-      additional_plmns: { kind: raw_fact, type: list, description: "Additional PLMN identifiers advertised by the cell; empty below API 30" }
+      additional_plmns: { kind: raw_fact, type: list, description: "Additional PLMN identifiers advertised by the cell" }
       neighbor_count: { kind: raw_fact, type: int, description: "Number of non-registered neighbour cells in the same report" }
-      serving_rsrp: { kind: raw_fact, type: int, nullable: true, description: "Serving cell RSRP in dBm; null when unavailable or the serving cell is not LTE" }
+      serving_rsrp: { kind: raw_fact, type: int, nullable: true, description: "Serving cell RSRP (LTE) or SS-RSRP (NR) in dBm; null when unavailable or on UMTS/GSM, which have no RSRP" }
       is_registered: { kind: raw_fact, type: boolean, description: "Device is registered on this cell" }
       captured_at: { kind: raw_fact, type: long, description: "When this snapshot was captured (epoch ms)" }
       source: { kind: raw_fact, type: string, description: "TelemetrySource enum name (LIVE_SCAN or BUGREPORT_IMPORT)" }
@@ -189,7 +189,34 @@ services:
       rat_changed: { kind: raw_fact, type: boolean, description: "RAT differs from the prior observation. Objective measurement, not a judgment" }
       tac_changes_last_5m: { kind: raw_fact, type: int, description: "Count of TAC changes within the rolling 5-minute window. Objective count; the churn THRESHOLD lives in the rule" }
       serving_minus_max_neighbor_rsrp_db: { kind: raw_fact, type: int, nullable: true, description: "Serving RSRP minus the strongest neighbour RSRP, in dB; null when no neighbour signal is available" }
-      location_moved_m_last_5m: { kind: raw_fact, type: int, nullable: true, description: "Coarse network-provider displacement in metres over 5 minutes. ALWAYS NULL in v1 — no rule may reference it in a negated filter until it carries real data" }
+      location_moved_m_last_5m: { kind: raw_fact, type: int, nullable: true, description: "Largest displacement in metres between the newest passive location fix and any fix in the last 5 minutes; null with fewer than two fixes in the window. Passive provider only — the app never requests location itself, so this is null on a device where nothing else asked" }
+      location_fix_age_s: { kind: raw_fact, type: int, nullable: true, description: "Age in seconds of the newest passive location fix at capture; null when there is no fix. Lets a rule demand a fresh fix before trusting location_moved_m_last_5m" }
+      serving_rsrq: { kind: raw_fact, type: int, nullable: true, description: "Serving RSRQ (LTE) or SS-RSRQ (NR) in dB; null when unavailable or on UMTS/GSM" }
+      serving_sinr: { kind: raw_fact, type: int, nullable: true, description: "Serving RSSNR (LTE) or SS-SINR (NR) in dB; null when unavailable or on UMTS/GSM" }
+      serving_cqi: { kind: raw_fact, type: int, nullable: true, description: "Serving channel quality indicator, LTE only; null elsewhere" }
+      serving_timing_advance: { kind: raw_fact, type: int, nullable: true, description: "LTE timing advance in TA units (0..1282, about 78 m each); null when unavailable or not LTE" }
+      serving_timing_advance_us: { kind: raw_fact, type: int, nullable: true, description: "NR timing advance in microseconds (API 34+); null when unavailable or not NR" }
+      serving_signal_dbm: { kind: raw_fact, type: int, nullable: true, description: "Technology-generic serving signal level from getDbm(), populated on every technology; null when unavailable" }
+      neighbor_pcis: { kind: raw_fact, type: list, description: "Physical-layer ids of the neighbour cells that reported one, in report order" }
+      neighbor_earfcns: { kind: raw_fact, type: list, description: "Channel numbers of the neighbour cells that reported one, in report order" }
+      neighbor_rsrps: { kind: raw_fact, type: list, description: "RSRP / SS-RSRP in dBm of the LTE/NR neighbour cells that reported one, in report order" }
+      neighbor_rats: { kind: raw_fact, type: list, description: "Technology of every neighbour cell (NR, LTE, UMTS, GSM, UNKNOWN), in report order" }
+      neighbor_max_rsrp: { kind: raw_fact, type: int, nullable: true, description: "Strongest neighbour RSRP in dBm; null when no neighbour reported one" }
+      serving_pci_in_neighbors: { kind: raw_fact, type: boolean, nullable: true, description: "A neighbour reports the same physical-layer id as the serving cell; null when the serving id is unknown or there are no neighbours" }
+      neighbor_distinct_earfcn_count: { kind: raw_fact, type: int, description: "Number of distinct channel numbers among the neighbours; 0 with no neighbours" }
+      capture_origin: { kind: raw_fact, type: string, description: "How the observation reached the emitter: PRIME (one-shot read when the monitor armed) or CALLBACK (platform delivery on change)" }
+      app_foreground: { kind: raw_fact, type: boolean, nullable: true, description: "The app had a visible activity at capture; null when not determinable" }
+      screen_interactive: { kind: raw_fact, type: boolean, nullable: true, description: "The screen was interactive at capture. A UE in RRC_IDLE with a strong serving cell measures no neighbours (3GPP 36.304), so an empty neighbour list on a dark screen is expected rather than isolation; null when not determinable" }
+      data_activity: { kind: raw_fact, type: string, nullable: true, description: "TelephonyManager data activity at capture: NONE, IN, OUT, INOUT or DORMANT; null when not determinable" }
+      raw_record_count: { kind: raw_fact, type: int, description: "Number of records in the platform's cell list, serving included" }
+      sim_mcc: { kind: raw_fact, type: string, nullable: true, description: "Mobile country code of the SIM's home network; null with no SIM or unreadable" }
+      sim_mnc: { kind: raw_fact, type: string, nullable: true, description: "Mobile network code of the SIM's home network; null with no SIM or unreadable" }
+      sim_operator_name: { kind: raw_fact, type: string, nullable: true, description: "Service provider name from the SIM. Not attacker-controlled, unlike operator_alpha_long; null when blank" }
+      plmn_matches_sim: { kind: raw_fact, type: boolean, nullable: true, description: "Serving mcc/mnc equal the SIM's; null when either side is unknown. Objective comparison — whether a mismatch matters is the rule's call" }
+      operator_name_matches_sim: { kind: raw_fact, type: boolean, nullable: true, description: "Serving operator name (long or short) and the SIM's service provider name contain each other, case-insensitively; null when either side is blank" }
+      service_state: { kind: raw_fact, type: string, nullable: true, description: "ServiceState at capture: IN_SERVICE, OUT_OF_SERVICE, EMERGENCY_ONLY, POWER_OFF or UNKNOWN; null when unreadable" }
+      is_roaming: { kind: raw_fact, type: boolean, nullable: true, description: "ServiceState reports roaming; null when unreadable" }
+      data_network_type: { kind: raw_fact, type: string, nullable: true, description: "TelephonyManager data network type name at capture, e.g. LTE, NR, UMTS, GSM, UNKNOWN; null when unreadable" }
 
   wakelock_parser:
     model_class: WakelockAcquisition
