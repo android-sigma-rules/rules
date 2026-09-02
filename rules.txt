@@ -66,3 +66,4 @@ cellular_monitor/androdr_104_cell_tac_churn.yml
 cellular_monitor/androdr_105_cell_operator_mismatch_vfqa.yml
 cellular_monitor/androdr_102_cell_isolated.yml
 cellular_monitor/androdr_106_cell_operator_mismatch_ooredoo.yml
+cellular_monitor/androdr_107_cell_name_sim_mismatch.yml
