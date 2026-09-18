@@ -863,3 +863,116 @@ def test_requested_permissions_positive_reference_accepted_alongside_negation(tm
         "condition": "selection and not filter_known",
     }
     assert run_validator_on(tmp_path, rule).returncode == 0
+
+
+# ---------- guidance / level coherence (AndroDR #332) ----------
+#
+# `display.guidance` is advice text, but its first word reads as an imperative
+# severity claim ("UNINSTALL IMMEDIATELY", "REVIEW"). AndroDR's report exporter
+# scored that first word as the overall risk while every UI surface used `level`,
+# and the two drifted: a medium "REVIEW --" rule printed HIGH, and critical rules
+# whose guidance is ordinary prose printed LOW. The report now reads `level`
+# only -- but a rule whose advice contradicts its severity is still incoherent to
+# the person reading it. This lint keeps the two channels from disagreeing again.
+#
+# Baseline is a plain IOC rule: it carries no judgment-kind fields and no
+# severity cap, so it validates cleanly at every level with a fresh ID.
+GUIDANCE_BASE = yaml.safe_load(
+    (REPO / "app_scanner" / "androdr_001_package_ioc.yml").read_text()
+)
+
+
+def make_guidance_rule(rule_id: str, level: str, guidance: str | None) -> dict:
+    rule = copy.deepcopy(GUIDANCE_BASE)
+    rule["id"] = rule_id
+    rule["level"] = level
+    display = rule.setdefault("display", {})
+    if guidance is None:
+        display.pop("guidance", None)
+    else:
+        display["guidance"] = guidance
+    return rule
+
+
+def test_uninstall_immediately_on_a_low_rule_rejected(tmp_path):
+    rule = make_guidance_rule("androdr-320", "low", "UNINSTALL IMMEDIATELY -- malware.")
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "guidance" in result.stderr.lower()
+
+
+def test_review_on_a_critical_rule_rejected(tmp_path):
+    rule = make_guidance_rule("androdr-321", "critical", "REVIEW -- check if expected.")
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "guidance" in result.stderr.lower()
+
+
+def test_uninstall_on_a_medium_rule_rejected(tmp_path):
+    rule = make_guidance_rule("androdr-322", "medium", "UNINSTALL -- impersonates an app.")
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "guidance" in result.stderr.lower()
+
+
+def test_investigate_on_a_low_rule_rejected(tmp_path):
+    rule = make_guidance_rule("androdr-323", "low", "INVESTIGATE -- contacted a C2 server.")
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "guidance" in result.stderr.lower()
+
+
+def test_review_on_a_medium_rule_accepted(tmp_path):
+    # androdr-010's own shape -- the most common legitimate pairing.
+    rule = make_guidance_rule("androdr-324", "medium", "REVIEW -- sideloaded app.")
+    assert run_validator_on(tmp_path, rule).returncode == 0
+
+
+def test_uninstall_immediately_on_a_critical_rule_accepted(tmp_path):
+    rule = make_guidance_rule("androdr-325", "critical", "UNINSTALL IMMEDIATELY -- malware.")
+    assert run_validator_on(tmp_path, rule).returncode == 0
+
+
+def test_investigate_on_a_critical_rule_accepted(tmp_path):
+    # androdr-003's shape: critical C2 contact whose advice is to investigate.
+    rule = make_guidance_rule("androdr-326", "critical", "INVESTIGATE -- contacted a C2 server.")
+    assert run_validator_on(tmp_path, rule).returncode == 0
+
+
+def test_prose_guidance_is_not_scored(tmp_path):
+    # Three quarters of the corpus writes guidance as plain prose. That is
+    # allowed -- the lint fires only when the text opens with a severity word.
+    rule = make_guidance_rule(
+        "androdr-327", "critical",
+        "This app declares a service component matching MoYu Group's naming.",
+    )
+    assert run_validator_on(tmp_path, rule).returncode == 0
+
+
+def test_absent_guidance_is_accepted(tmp_path):
+    rule = make_guidance_rule("androdr-328", "high", None)
+    assert run_validator_on(tmp_path, rule).returncode == 0
+
+
+def test_guidance_keyword_match_is_case_insensitive(tmp_path):
+    rule = make_guidance_rule("androdr-329", "low", "Uninstall immediately -- malware.")
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "guidance" in result.stderr.lower()
+
+
+def test_every_shipped_rule_satisfies_guidance_level_coherence():
+    """Regression sweep: the lint must not fire on anything already delivered."""
+    offenders = []
+    for path in sorted(REPO.rglob("androdr_*.yml")):
+        if "staging" in path.parts or "test-fixtures" in path.parts:
+            continue
+        rule = yaml.safe_load(path.read_text())
+        if not isinstance(rule, dict):
+            continue
+        result = subprocess.run(
+            [sys.executable, str(SCRIPT), str(path)], capture_output=True, text=True
+        )
+        if result.returncode != 0 and "guidance" in result.stderr.lower():
+            offenders.append(f"{path.name}: {result.stderr.strip()}")
+    assert not offenders, "\n".join(offenders)

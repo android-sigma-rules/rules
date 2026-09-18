@@ -363,6 +363,52 @@ def validate_correlation_rule(rule: dict,
     return errors
 
 
+# `display.guidance` is prose advice, but rule authors open it with an
+# imperative that reads as a severity claim. AndroDR's report exporter once
+# scored that first word as the overall risk while every other surface used
+# `level`, so the two channels drifted apart and the report was wrong in both
+# directions (AndroDR #332). The exporter now reads `level` only; this lint
+# keeps the advice from contradicting the severity it sits next to.
+#
+# Longest keyword first: "UNINSTALL IMMEDIATELY" must win over "UNINSTALL".
+GUIDANCE_LEVEL_COHERENCE = (
+    ("UNINSTALL IMMEDIATELY", {"critical"}),
+    ("CRITICAL", {"critical"}),
+    ("UNINSTALL", {"high", "critical"}),
+    ("INVESTIGATE", {"medium", "high", "critical"}),
+    ("REVIEW", {"informational", "low", "medium", "high"}),
+)
+
+
+def check_guidance_level_coherence(rule: dict) -> list[str]:
+    """Reject a rule whose guidance keyword contradicts its declared level.
+
+    Guidance that does not open with one of the keywords is prose and is not
+    scored -- most of the corpus is written that way and stays valid.
+    """
+    display = rule.get("display")
+    if not isinstance(display, dict):
+        return []
+    guidance = display.get("guidance")
+    if not isinstance(guidance, str) or not guidance.strip():
+        return []
+
+    upper = guidance.strip().upper()
+    level = str(rule.get("level", "")).strip().lower()
+    for keyword, allowed in GUIDANCE_LEVEL_COHERENCE:
+        if not upper.startswith(keyword):
+            continue
+        if level and level not in allowed:
+            return [
+                f"display.guidance opens with '{keyword}' but level is "
+                f"'{level}' — guidance and level must agree "
+                f"(allowed for '{keyword}': {', '.join(sorted(allowed))}). "
+                f"Either restate the advice as prose or correct the level."
+            ]
+        return []
+    return []
+
+
 def validate_rule(rule: dict, schema: dict, permissions: set[str],
                   retired_ids: frozenset[str] | set[str] = frozenset(),
                   known_rule_ids: set[str] | None = None,
@@ -388,6 +434,8 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
 
     if "level" in rule and rule["level"] not in ("critical", "high", "medium", "low", "informational"):
         errors.append(f"Invalid level: {rule['level']}")
+
+    errors += check_guidance_level_coherence(rule)
 
     # Category enum check — exact, case-sensitive. The Kotlin parser
     # lowercases category before mapping to RuleCategory, so a value like
