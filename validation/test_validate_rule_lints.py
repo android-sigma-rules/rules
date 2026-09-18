@@ -462,11 +462,31 @@ def test_timeline_atom_rules_pass():
         assert result.returncode == 0, f"{f.name}: {result.stderr}"
 
 
-def _network_monitor_rule():
-    # network_monitor is the sole non-active (unwired) taxonomy service;
-    # destination_port is one of its valid fields.
+SYNTHETIC_SERVICE = "probe_monitor"
+
+
+def _synthetic_taxonomy(status: str) -> str:
+    """Real taxonomy plus one service pinned to `status`.
+
+    These tests used to point at `network_monitor` because it was "the sole
+    non-active (unwired) taxonomy service". It was later flipped to `active`
+    and every service is now active, so the rule under test became valid and
+    the lint stopped being exercised: two of these tests failed outright and
+    `test_non_active_service_allowed_under_staging` passed vacuously. A test
+    whose subject is a live data row stops testing when that row changes, so
+    the service is synthesised here instead.
+    """
+    taxonomy = yaml.safe_load((THIS_DIR / "logsource-taxonomy.yml").read_text())
+    services = taxonomy["services"] if "services" in taxonomy else taxonomy
+    template = copy.deepcopy(services["network_monitor"])
+    template["status"] = status
+    services[SYNTHETIC_SERVICE] = template
+    return yaml.safe_dump(taxonomy, sort_keys=False)
+
+
+def _synthetic_service_rule():
     rule = make_rule()
-    rule["logsource"] = {"product": "androdr", "service": "network_monitor"}
+    rule["logsource"] = {"product": "androdr", "service": SYNTHETIC_SERVICE}
     rule["detection"] = {
         "selection": {"destination_port|gte": 1},
         "condition": "selection",
@@ -474,41 +494,51 @@ def _network_monitor_rule():
     return rule
 
 
+def _run_with_synthetic_taxonomy(tmp_path, rel_path, status="unwired", rule=None):
+    """Run the validator against a sandboxed validation/ whose taxonomy carries
+    a service at `status`. rel_path is relative to tmp_path so the staging
+    exemption sees the same first path component CI's sweep would."""
+    sandbox = tmp_path / "validation"
+    shutil.copytree(THIS_DIR, sandbox, ignore=shutil.ignore_patterns(
+        "__pycache__", "test-fixtures", "test_*.py"
+    ))
+    (sandbox / "logsource-taxonomy.yml").write_text(_synthetic_taxonomy(status))
+
+    target = tmp_path / rel_path
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(yaml.safe_dump(rule or _synthetic_service_rule(), sort_keys=False))
+    return subprocess.run(
+        [sys.executable, str(sandbox / "validate-rule.py"), rel_path],
+        capture_output=True, text=True, cwd=tmp_path,
+    )
+
+
 def test_non_active_service_rejected_outside_staging(tmp_path):
-    result = run_validator_on(tmp_path, _network_monitor_rule())
-    assert result.returncode == 1
+    result = _run_with_synthetic_taxonomy(tmp_path, "app_scanner/rule.yml")
+    assert result.returncode == 1, result.stderr
     assert "unwired" in result.stderr
     assert "staging" in result.stderr
 
 
-def run_validator_rel(cwd, rel_path, rule):
-    # Invoke with a RELATIVE path from cwd — how CI's find|xargs sweep does.
-    p = cwd / rel_path
-    p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(yaml.safe_dump(rule, sort_keys=False))
-    return subprocess.run(
-        [sys.executable, str(SCRIPT), rel_path],
-        capture_output=True, text=True, cwd=cwd,
-    )
-
-
 def test_non_active_service_allowed_under_staging(tmp_path):
-    result = run_validator_rel(tmp_path, "staging/rule.yml", _network_monitor_rule())
+    result = _run_with_synthetic_taxonomy(tmp_path, "staging/rule.yml")
     assert result.returncode == 0, result.stderr
 
 
 def test_staging_exemption_is_first_path_component_only(tmp_path):
     # app_scanner/staging_foo.yml IS deliverable — a substring match must
     # not grant the exemption (validate-delivery-set.py convention).
-    result = run_validator_rel(
-        tmp_path, "app_scanner/staging_rule.yml", _network_monitor_rule()
-    )
-    assert result.returncode == 1
+    result = _run_with_synthetic_taxonomy(tmp_path, "app_scanner/staging_rule.yml")
+    assert result.returncode == 1, result.stderr
     assert "unwired" in result.stderr
 
 
-# ---------- dead-rule gates (#268): selection shape + value lists ----------
-
+def test_active_service_is_accepted_outside_staging(tmp_path):
+    # The control: identical rule, identical sandbox, status flipped to active.
+    # Without this the three tests above would also pass if the validator
+    # rejected everything.
+    result = _run_with_synthetic_taxonomy(tmp_path, "app_scanner/rule.yml", status="active")
+    assert result.returncode == 0, result.stderr
 def test_non_mapping_selection_rejected(tmp_path):
     # Standard SIGMA list-of-maps syntax: silently dropped by the device
     # parser; under `not`, the rule then fires on everything.
