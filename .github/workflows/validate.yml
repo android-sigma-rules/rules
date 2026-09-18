@@ -144,3 +144,23 @@ jobs:
       - name: Advisory check on every file
         run: |
           python3 validation/validate-ioc-complementarity.py --all --mode advisory
+
+  validate-lint-tests:
+    name: Validator unit tests
+    runs-on: ubuntu-latest
+    steps:
+      # Actions here are SHA-pinned (same digests AndroDR's ci.yml already
+      # vetted). The pre-existing @v4/@v5 tags in this file are left alone --
+      # pinning them is AndroDR #336's job, and doing it piecemeal here would
+      # obscure this change.
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: pip install pyyaml jsonschema pytest
+      - name: Run validator unit tests
+        # The lints are gated per-rule by the sweep above, but nothing ran the
+        # tests that prove the lints still behave. Two had been failing on main
+        # and a third passing vacuously, unnoticed (#68).
+        run: python3 -m pytest validation/ -q
