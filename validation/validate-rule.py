@@ -741,10 +741,32 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
     if display is not None and not isinstance(display, dict):
         errors.append(f"display must be a mapping, got: {type(display).__name__}")
         display = {}
+    # display.category is the report/UI SECTION a finding lands in (presentation;
+    # severity semantics come from the top-level category via the cap policy).
+    # The allowed set is read from rule-schema.json so this lint and AndroDR's
+    # DisplayCategoryCrossCheckTest hold the same list from the same source.
+    # Required unless display.suppress_finding is true -- atoms bind timeline
+    # events for correlation and produce no findings, so they need no bucket.
+    # AndroDR's parser rejects an absent/unknown value (fail-closed, AndroDR
+    # #367); a rule that slipped through here would ship dead to the fleet.
+    valid_categories = set(
+        schema.get("properties", {}).get("display", {})
+        .get("properties", {}).get("category", {}).get("enum", [])
+    )
+    suppressed = isinstance(display, dict) and display.get("suppress_finding") is True
+    if not suppressed:
+        if not display or "category" not in display:
+            errors.append(
+                "display.category is required (which report/UI section the finding "
+                f"belongs in: {', '.join(sorted(valid_categories))}) unless "
+                "display.suppress_finding is true"
+            )
+        elif display["category"] not in valid_categories:
+            errors.append(
+                f"Invalid display.category: {display['category']} "
+                f"(allowed: {', '.join(sorted(valid_categories))})"
+            )
     if display:
-        valid_categories = {"app_risk", "device_posture", "network"}
-        if "category" in display and display["category"] not in valid_categories:
-            errors.append(f"Invalid display.category: {display['category']}")
         valid_evidence = {"none", "cve_list", "ioc_match", "permission_cluster"}
         if "evidence_type" in display and display["evidence_type"] not in valid_evidence:
             errors.append(f"Invalid display.evidence_type: {display['evidence_type']}")
