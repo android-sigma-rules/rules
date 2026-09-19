@@ -1069,6 +1069,6 @@ def test_display_lint_allowed_set_comes_from_the_schema():
     # two cannot drift (AndroDR's DisplayCategoryCrossCheckTest holds the other end).
     schema = __import__("json").loads((THIS_DIR / "rule-schema.json").read_text())
     enum = schema["properties"]["display"]["properties"]["category"]["enum"]
-    assert set(enum) == {"app_risk", "device_posture"}, enum
+    assert set(enum) == {"app_risk", "device_posture", "correlation"}, enum
     src = (THIS_DIR / "validate-rule.py").read_text()
     assert '"network"' not in src, "the lint must not carry its own copy of the bucket list"
