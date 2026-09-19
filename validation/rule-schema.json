@@ -149,9 +149,10 @@
           "type": "string",
           "enum": [
             "app_risk",
-            "device_posture"
+            "device_posture",
+            "correlation"
           ],
-          "description": "Which SECTION of the report/UI a finding is shown in. Presentation only -- severity semantics come from the top-level `category:` via the cap policy. Required unless suppress_finding is true. Every value here must have a renderer in AndroDR (DisplayCategoryCrossCheckTest + ReportRendersEveryFindingCategoryTest); `network` was removed for having none."
+          "description": "Which SECTION of the report/UI a finding is shown in. Presentation only -- severity semantics come from the top-level `category:` via the cap policy. Required unless suppress_finding is true. Every value here must have a renderer in AndroDR (DisplayCategoryCrossCheckTest + ReportRendersEveryFindingCategoryTest); `correlation` is the bucket for findings produced by the correlation engine (multi-event chains); its user-facing label lives in AndroDR, not here. `network` was removed for having no rule and no renderer."
         },
         "icon": {
           "type": "string"
