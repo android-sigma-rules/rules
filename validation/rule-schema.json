@@ -149,9 +149,9 @@
           "type": "string",
           "enum": [
             "app_risk",
-            "device_posture",
-            "network"
-          ]
+            "device_posture"
+          ],
+          "description": "Which SECTION of the report/UI a finding is shown in. Presentation only -- severity semantics come from the top-level `category:` via the cap policy. Required unless suppress_finding is true. Every value here must have a renderer in AndroDR (DisplayCategoryCrossCheckTest + ReportRendersEveryFindingCategoryTest); `network` was removed for having none."
         },
         "icon": {
           "type": "string"
@@ -176,7 +176,26 @@
         },
         "guidance": {
           "type": "string"
+        },
+        "suppress_finding": {
+          "type": "boolean",
+          "description": "Atom rules only: the rule binds timeline events for correlation and produces no findings, so it declares no display bucket."
         }
+      },
+      "if": {
+        "properties": {
+          "suppress_finding": {
+            "const": true
+          }
+        },
+        "required": [
+          "suppress_finding"
+        ]
+      },
+      "else": {
+        "required": [
+          "category"
+        ]
       }
     }
   }

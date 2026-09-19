@@ -1006,3 +1006,69 @@ def test_every_shipped_rule_satisfies_guidance_level_coherence():
         if result.returncode != 0 and "guidance" in result.stderr.lower():
             offenders.append(f"{path.name}: {result.stderr.strip()}")
     assert not offenders, "\n".join(offenders)
+
+
+# ---------- display.category required unless suppress_finding (AndroDR #367) ----------
+#
+# `display.category` says which SECTION of the report/UI a finding lands in. The
+# AndroDR parser used to default an absent value to `device_posture`, so a rule
+# that forgot the field filed its findings under "device settings" -- and
+# `network` sat in the enum with no renderer anywhere. The parser now rejects
+# both; this lint keeps rules-main from shipping what the fleet would drop.
+# Atoms declare `display.suppress_finding: true` and produce no findings, so
+# they alone may omit the bucket. validate-rule.py hand-rolls its checks (it
+# does not run jsonschema), so this must be a lint, not a schema `if/else`.
+
+def make_display_rule(rule_id: str, display):
+    rule = copy.deepcopy(GUIDANCE_BASE)
+    rule["id"] = rule_id
+    if display is None:
+        rule.pop("display", None)
+    else:
+        rule["display"] = display
+    return rule
+
+
+def test_display_category_absent_rejected(tmp_path):
+    result = run_validator_on(tmp_path, make_display_rule("androdr-340", {"icon": "warning"}))
+    assert result.returncode == 1
+    assert "display.category" in result.stderr
+
+
+def test_display_block_absent_rejected(tmp_path):
+    result = run_validator_on(tmp_path, make_display_rule("androdr-341", None))
+    assert result.returncode == 1
+    assert "display.category" in result.stderr
+
+
+def test_display_category_unknown_rejected(tmp_path):
+    result = run_validator_on(tmp_path, make_display_rule("androdr-342", {"category": "bogus_bucket"}))
+    assert result.returncode == 1
+    assert "display.category" in result.stderr
+
+
+def test_display_category_network_rejected(tmp_path):
+    # Removed from the enum: no rule ever used it and nothing rendered it.
+    result = run_validator_on(tmp_path, make_display_rule("androdr-343", {"category": "network"}))
+    assert result.returncode == 1
+    assert "display.category" in result.stderr
+
+
+def test_display_category_app_risk_accepted(tmp_path):
+    result = run_validator_on(tmp_path, make_display_rule("androdr-344", {"category": "app_risk"}))
+    assert result.returncode == 0, result.stderr
+
+
+def test_suppressed_rule_may_omit_display_category(tmp_path):
+    result = run_validator_on(tmp_path, make_display_rule("androdr-345", {"suppress_finding": True}))
+    assert result.returncode == 0, result.stderr
+
+
+def test_display_lint_allowed_set_comes_from_the_schema():
+    # The lint must read the enum from rule-schema.json, not hard-code it, so the
+    # two cannot drift (AndroDR's DisplayCategoryCrossCheckTest holds the other end).
+    schema = __import__("json").loads((THIS_DIR / "rule-schema.json").read_text())
+    enum = schema["properties"]["display"]["properties"]["category"]["enum"]
+    assert set(enum) == {"app_risk", "device_posture"}, enum
+    src = (THIS_DIR / "validate-rule.py").read_text()
+    assert '"network"' not in src, "the lint must not carry its own copy of the bucket list"
