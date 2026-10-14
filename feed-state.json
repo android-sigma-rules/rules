@@ -42,17 +42,9 @@
         "last_seen_timestamp": "2026-08-21T08:00:29Z",
         "last_post_url": "https://securelist.com/android-head-unit-malware/121106/"
       },
-      "welivesecurity": {
-        "last_seen_timestamp": "2026-08-17T09:00:00Z",
-        "last_post_url": "https://www.welivesecurity.com/en/business-security/qr-code-phishing-slip-past-corporate-security-measures/"
-      },
       "google-tag": {
         "last_seen_timestamp": "2026-08-14T14:00:00Z",
         "last_post_url": "https://blog.google/security/how-google-is-making-private-ai-practical-with-homomorphic-encryption/"
-      },
-      "zimperium": {
-        "last_seen_timestamp": "2026-08-20T00:00:00Z",
-        "last_post_url": "https://zimperium.com/blog/mobile-threat-watch/device-code-phishing-up-1500"
       },
       "threatfabric": {
         "last_seen_timestamp": "2026-08-20T00:00:00Z",
@@ -61,10 +53,6 @@
       "group-ib": {
         "last_seen_timestamp": "2026-08-20T00:00:00Z",
         "last_post_url": "https://www.group-ib.com/blog/one-adversary-fraud-network/"
-      },
-      "cleafy": {
-        "last_seen_timestamp": "2026-05-18T00:00:00Z",
-        "last_post_url": "https://cleafy.com/cleafy-labs/nfc-relay-goes-local-how-ai-is-accelerating-a-new-wave-of-independent-malware-developers"
       }
     }
   }
