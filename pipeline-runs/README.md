@@ -5,7 +5,9 @@ human-in-the-loop review (Step 8 of the dispatcher). Rules are the product;
 this ledger is telemetry — a ledger write failure never blocks a rule commit.
 
 File name: `YYYY-MM-DD-<mode>.yml` (mode: `full`, `source-<id>`, `threat`,
-`discover`, or `e2e`; append `-2`, `-3`… for multiple same-day runs).
+`discover`, `sweep`, or `e2e`; append `-2`, `-3`… for multiple same-day
+runs). `sweep` = the combined research-led run (discovery pass + landscape
+researcher + all feeds), the pipeline's no-arg default since 2026-10.
 
 ## Schema
 
