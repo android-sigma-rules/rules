@@ -1,0 +1,1057 @@
+run: '2026-10-14'
+mode: sweep
+candidates:
+- id: androdr-108
+  verdict: rejected
+  reason: Owner rejected at HitL (data/local/tmp believed unreadable); on-device probe later showed exact-path
+    stat works on one stock device. Re-evaluation deferred to an AndroDR issue pending representative-device
+    testing.
+  failure_class: other
+- id: androdr-109
+  verdict: approved_with_modification
+  reason: Trimmed to the four annotated enabler names; four unannotated family members held back pending
+    a second source.
+  failure_class: weak_sourcing
+- id: 27bb0b17f8317881a86b3a2655eb72019364f3b24773de8e843bc9a6f46e8df8
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 2152b98a832ce3e442b486ceeaa8e41a8a99657168986757913e2d916c7b1c21
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: a5ada65dd4534fe181f45f227ef28f9a86229ea3de5e2a693db652bb350f7a9c
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 251f6bb6a4273c411d0c23599fc5cc226e6483209045361dd005cc2cd0f91f9b
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: af56cbeba5bb0e5b10af555f7380214d89f8f1bfcca229f2e713c7eb4a371630
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 1f333d910158316c6211f7b24d118aadca778abb3964f3a4b7d3914e49278b7d
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 173192ec576111adbc0c228f75244cf627513c95ca1709036e9850f0cdb7c90b
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 5d5c21fbab62ec156c8e3897caf31a0dfb1a2bf2e1198a9e9b8ecdea87089a19
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 1c73f85c3c908188d5209dc50a1469bf729f3dba38461229940d6f901633dddc
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: dcffde8b3d234efa921383d140efddb468d862eb894a62524d11d21389d3ee1b
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: fd4e0923ac2d4efdb7a2070f0c9687c0fc0d4bb831fb0470e20c81764909392c
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: channelzones.co
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: carelessfielding.xyz
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: datewithmealways.site
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: datewithmealways.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: digitaladstracking.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: com.me4dymbu.ysbf4ghb
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 009027bda168bb10e7c17276ee95b6978a4835c93cdea953601a5b59966bf1e0
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 00dc95ba96e0df375ff15106f2dc2ed2f2dadc081dd6b94281edbee38a405545
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 019fd9143e6c51222b0dee1b3c3d8bf479052f6d7b8333f48cdfada4ba7dbd35
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 76392303f28a7e6f1463a5fa04a19faf40d51d7be6619943a914482b0f3c7f0b
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: fa373aaa95ca512ba9595c3ab41bac892c8c79d4a31f5d74c2f3225b629de52e
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 45e16e56c81059f6758dced28a58256287785a8b0815577c1140293589aa2ae1
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: dd6d05ff31f64b9ca8ca9334a804dbee5917d6448acb026de4ca818017a04730
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 3b0c49ed1590bceffbefed150bb64545e69e792c5ad63578cc3bca5c5b96f2cb
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 19fef425c3a774e493526126a441a31971db8ac5af84a1c9eef15a272ba02ec1
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 54efee2665d3779f1be0d885409e29e6cd07fe944fa82e5d6eeb832264c7409d
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cb29b6348ae4458b6b506f8de9336d0980bbfaf88b1d68be2771b57090d29889
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 1a992e2b36b2a9a77300b0b0fe7e9c20e127c8257fd203bb4b3eaf1e35e63ce7
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: af2decf5c5cbff0c0460ab09ad3cff497c765e3cf61e6c45f4e3b5c6a103312c
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 28a09cd68b1f4212cc61bd2d44d03d55b8bcd7df284bab56cdae8507abc90e3c
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: c6e1235d5cd01a205a191ce48c3d68e9fea620671c0c069593027a0218fad5b0
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 95ec481745c64c385c60f6c812585e5060a50e38da44bc1a9f67da3921b1a50f
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 77ead085bae72b6cb1c33c55fbd7763c4d8050798c55af3132c3b904084eeb8a
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: ad2b019cf346b8b4e6b2174a95b1d897ce736087bd06066f31a9d7fd72283e9f
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: b714f590380e5be8233cd60a4f212d949aff27b3e980e6d644c84b0120dd25b3
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 648b34fa952a2806d9f4c272f8bfbadc45c0c370c3d7c2ff0c7ffbb015237ce1
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 5fff21af95bd38b8c11dd73342a55acb75e91ff1936ed0ccb06af28400ef87d4
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: f796eb9ecf516e4f1fafcf89200d9f7d8ddd234f705e63f1bc8fc3ef583f0248
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 0097a0406be20544e98e981075427f40789db40fe4a53b1b4523383a945328b7
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 2e45277acfde3fb704179476b08f428f66a03670bbdbf2e8ec79c0b0333c009b
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: d51f2bd7ffb49c224d8eaec2c8ca1c8ab9fce2fd5fdceea01eb54296c2f47b4d
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 425cd7072b5e9386ac94e97fe272980b6ef36240df6b5d77b371ab7378004c83
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: b2270c29b3d0a49a716730d6ef108cffec0b1a4b159dd02e93333fb85e492b99
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: com.android.system.lite
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: com.android.sys.prot
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: com.android.sys.gmsprot
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: com.android.sys.dts
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: com.mobile.applock.wt
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: com.mobile.applock.en
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: com.mobile.applock.tg
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: com.mobile.applock.wg
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: com.mobile.applock.xk1
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: com.mb.applock.a02
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: com.mb.applock.ea
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: com.fe2bu1.wh
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: com.yun.wth.er
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: com.awht.zfip.zfyg
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 0aa0cf0637d66c0d.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: aa86a52a98162b7d.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 442fe7151fb1e9b5.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: v46wd6uramzkmeeo.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: oss.showtimetool.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: spystealth.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: stage.spystealth.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: tt.spystealth.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cp.spystealth.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: my.msafely.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: msafely.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: feishu.msafely.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: msafely-nuxt-web.pages.dev
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: my.spyx.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: spyx.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: my.spyphone.cc
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: spyphone.cc
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: strapi.spyphone.cc
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: strapi.spyx.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: strapi.msafely.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: images.msafely.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: images.spyx.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: images.spyphone.cc
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 0780b268543e774f7b7c6d03892b8e675795b744d5d4f4487a018c51df7c9fb6
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 4a30a14572a04fc46e7623176aff981cc1d4349e11ec092bee6d1b19340a6cd1
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 6044b2da11979e55dbb73af4310e037a6a2c121458ebdd064fb7e3e2eee557ba
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 00ba0d5aea129f098b5a609633ac77cd642fddba8b64f6332e49e6d33294992e
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: f179f0a98187678897112bdd507c7eaef56cf25a420707989e29dd88e428789e
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: cf6fab86b34eea3eabfdbe8a8072f712cedbacf9b1faa123eef2c92b1d280afa
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 7261b1f4f4b904405136fb4a1a0267ade1952e397b57a49b05efa6a92d32cd30
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 35b19577c09d231a2bbfc82263a9a01958af53febc6fcc4eaf8462a1ad4eef82
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 1a150613b154207f022da50e73bcd6e0256407e91381f06fcf939bb89c29df6b
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 9e7fefec277860ee17f5b8620c594a6da5e4df7427f847b74e64a6cb4b5fa181
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: aa0dd1d81b068a0c29dc245217127141ff2dc73dd444d91aaae0656186902f6f
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 441f3e1c64841a18414258df36326c4a048c32fe4543e42d0177d46e853afb6b
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 83a59d8d9229bd86740896325020bd5770d93af68ba783dd74b2803c6c4ccfd0
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 17fb212a8aaae93b87a29d753ec96eb1659c8cb420e889f4e6f78b10f794c9fa
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 8717de4c2f85d1b1969e297af6b70a5eaa32cca5fd430667acd67b5c9a4b1d80
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 56d696a1a8cf42948967660e756ae22248443ade931e93022e0befaa39acc7a4
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: e95ccd4bad9fe2e7992f7b2e174c32154ac6c72a0730fb4a5d230d5c4e543649
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: a7c0f62e6fe1eeb264797ca8f0b5a532c0a69acbb2ac820f887a7a3edd356cad
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 24df810c2ad182b21c82c22cbfa4cb8f8330cb84f4cb29885fca0b5b97427c4c
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: b3b59d9ac71744f4f622ccd6652ff5a26ae1372d1f991a0207314f7159dbb73a
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 3c53b424e3360636b76e587e594a0fe50f379df4c5d451d619c3c8588242980a
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: f6a2a23979851cabf9f815eb88e1e08d027efb2b2383366605e30531c68982cb
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 0dc6fa96d4ccd761d916d119d842fe191c9dd24bb0d97936f5fb168e898431f0
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: df1a7b868293d9bfbad876349f87bc59520286ac7468c3ddfee421ff75572a26
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 093f0a27b92199fcb1fbbda0d94130593cbc5767ba92cfb02afd30768d2441a2
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 6cd4ad54a4973ef8084e5b0d098d49c659cd3f4cdc952377f481f63db1cc16fc
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 1a62d89f6c7f5c71fec174654f269f82fa6b0126d5e80cfd4be1e2292221cf51
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: b9afd4c60ce2ce3f4cdd8b5ceca4662a9191ca7a986d1e2769e3f837bfbe8bc7
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: ab0ca703cede3064f3e441002cf8298c7fd2ad6d7040c1023568b58db0bf1a07
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: ed780b1afe60dcd2c329aaceacccb099c3b799b6c6a8d0c835a7f67be92b746a
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 480616f69e7ca6d70edb6eb7639121b4548d5b9856c23e117be5344d39c8a7dd
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: cf869324cbadaa2bc186f2d1d1bda3718329c1000e60e22a29a3a1f207c465ae
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 1ac2ccb3043f3c8e4519b4130b72048b971419d73b825ccba5ab51d9adf2d2db
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 30f10a84684c66706bf4039adbb3093afdf34a504f6df2712d899338f81f5372
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 745bcfeebdb96a601a4d51786d8b7ae61df4463d9379d51dd8553de859a43b06
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 15079ae358fd633993329251d5b80c4c712fe90013eec49ba2fb6945d6066e02
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: cffb511aa1df5fd1f1018696d67fd796ecf8071c43b455c16091e249bcfad47e
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 3e71a601fa3b477e9409dbfcb8cfffe93a2fef40db8167e9caf5e0504da2a7a3
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 11fb0ad7321dd92aa8752792fdc71aa3cb295fd86b27293978205bd6b3699894
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: e9a7048bfe4becd55939f15887c595a368dbc85e1da6e0915d47431b0c471b05
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: f1bc12e3ba3d2e7f0eaf02c4858fb44d5e34b861718cdf0ddc929e4eef3e2222
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: f5126fee44d140a9abd44713e4c898526ef4426191b206f2c4243125bda9eb13
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 272fa949cf2356728372729a9299654f9f10aed31bb5c3705da17360249f5629
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: fe8a3da2d38a3f4ac3a4072e07a291afae913ab3e59fe77e1ce7afcc5ad01ecf
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 62b42fd5f5bcc0c05cd59274e26ece4111baaeada121878e1f619261ef471af1
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 50977a226fc839b203f8329a65f8d3ae217bb415a2d94b619263535a0bf9685b
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 8c1e08f588f708aea97ec4c0778387329aed46a3cf2943ef94236517ba018794
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 01b255c5670602b1597024878c0f32cc7cb845e1fb82804f4cf409a24adb8412
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 7e0fb6308d37e4cf00bccb31de0bb3ec7a589e75c787c6e0cfcfa4a4b2bc520d
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: c05dfd625baad1459e3bf5f7d08574d35ef63507ed5bbdd5f0077144acc84ff4
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: f316a9d6705077d4b0ef17ea2c9bc1a540d6b05b2bd1351e4bd7bfa200e81487
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: d7eb3126bcd96dba6f4ea3b8c0b2946418eb9b984b88ca9edde0cae983974a76
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: bcb2e3ce358bc9dc01bd20215f2db4d830bb9b53ab5dd85b24b18bd79553aca6
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 45db5310a177214d3a38ce54e6a3abd9da05ba456f925886cdab810b396dc528
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 2a6f2f273af0d9b0675c466f01bc6d81245df7105bdae8d25b9bbfabfa3f19c4
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 5fef2449ce26f0820e72a42ee45f578ce14cef908c52063cd595b000d4665a81
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: e336fdc9fb561d17dc9b7864b4c7ac2af7995e86906118e4934f32b922140ce4
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 4820b3beb705e44ffd80847e400161559159908dd286462db5f210079a0f4506
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 0b5486f7855b0cb378067ca0c09555cf91e31e490248926dc3ee821c7193cc53
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 043ebed69763576c9e01c71afe80e1d60184ccd1c92e33d30da5e067f22d2bee
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 457ff62cb3e95fad075c1310859ef7d7c960ec35308c7e9b8b76dc3e1bc84c91
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 6d84d8aeaa1c980a4bfefb0cfcd3efaeddcf4e98c28817054d292778e22664f2
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: c0d19417dc09d49d7a9ebf5bceb3706ac930fcd0f4a6890210d0c64d1a19c7e2
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 372a17ab8c80c4d0789d09eb6d3c1995d56cf15cb820889de827ffb70b5f18e4
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: de9d9663fa7293fca6e75ffd75f69b2119269020dc0985b3d11b2c7f0af9af2e
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: a3da040aab40b054014f57bd68987c03b451344d5d00d8dc68dbc7af8af0e98e
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: fa3de3e1240382744814a75f9f4d1f638a98d3afca41d646eb860f3020b675b1
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: c0b2074818d089cd18bc1b00b62d8999f889eb39b2f03f0923496c9fbc3ca929
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 38052e14d4d68bb0ded3547165c6173e4b42ff4e691c4d9b51cbd3dfd84602a6
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 0b194dab7e4600fb9e04d3c9828025ae650ed463f49f58e24f44db94a8cc3108
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: de294c3e2d681e8acbe1f5e673e709a781dbe53bf213d9ac64b06648c6e63cc1
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: cdaf0bf256269eec249787299b5ebb7058f3944c86b14debfa41f9c263ad17da
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: ab4bc237f26eae67f6a2d4e0c5955890b0cca0c941a31c3696a6211eae72d039
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: dbe187ec53e3d8302bd92e56c20789bcf4bf633246ac62383abf228fb1c71a12
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 57000b918da7ac8147d1b5cb3af4ce0e8646a7416e7add56f90049be28d3ef73
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: f5c8298c37963b6db62a60c2ff7cbd51d24fe2560c8d0db1386c53e8fe92db93
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 1bd7047740a40e48aff1df37b06ad2c1612e6c50aaaf395a16aed180cf4c296d
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: b7ebb627e3531f074fb85553046dd93d522fd1b3c8d996ee91b71084cc79d051
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: bb9c6a6c84f26f5d98332089f90a4bfa735cbcc984a3f49e2ca8124db9d1600f
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 48073427089d9377d50fc3ba69da9ef467d34c27fa8674291129a880fa64b9dc
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 118219364649af5463b56abe19b313b810440cf2969b0e7cac64105eb5303037
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: d75a88a95c7b6b8921348d5f7189ede666afa326af7a48c49b17a4e7586ac324
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: c27403be262aec312ce680d4e89871f00d114bee6c7872374226dc315c9db74e
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 2cabd1aa17478e3abf4b371584f39ae249b6adb5d2b8f5d29350c12b9760fdb4
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 639dd1de39bccb7984585c453b482145a6ad7353007a8ea3cdbf01a65076e151
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: d5590d963ee65f4708971bf75a07d31a11b2a8b92a546dd70d9974d71fa9fd06
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 9210aa62276b4d2fb3ec41d5fb296c8555f5f9d42c16166cae76400e156fc451
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 1d2788e48a5f27ac18a57fe4cff158c5439a530ce9468d654248c90ff94e944a
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 0120a502e1790ffa4c363e00b5d31eb1887c09a22181056c7630cfefea901e71
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 34a9ed3109dc96d97db78d92c821222f40576119662f6205c06685322cd5a4f0
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: d47d299d9785eca59b879692e6dc54cb810610570df2701ecc3107e28df9423f
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: 5d84311b2645c40ee23d490f8b2672f6e8ed4667d96d2a651e9bb61c1985e50a
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: unknown-family hash (#383); filed for later re-review.'
+  failure_class: weak_sourcing
+- id: apimantax.otax.fun
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: apixnxx.otax.fun
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: nodemyayun.otax.store
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: otax-ceada-default-rtdb.asia-southeast1.firebasedatabase.app
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: mantax-e0919-default-rtdb.asia-southeast1.firebasedatabase.app
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: cromwell.danzzichosting.my.id
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: fegrs.adidasabc.com
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: admin.xiongmaocs.help
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: oop.uuokxx.com
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: andxxxo.com
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: www.blackcat880.shop
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: www.cheng770.cyou
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: admin.xiongmaocs.mom
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: admin.xiongmaocs.pics
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: admin.fjbjwgyuyftg.qpon
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: admin.niaotong2.top
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: www.heilongyk.top
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: cz.gpgmk.com
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: cunzhang.krgdef.cn
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: bc.etlva.cn
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: jiaozhu.etlva.cn
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: mao.terh5.cn
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: bnbnhura.top
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: definatelynoone.com
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: tvtap-hd.app
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: tvtap-liveapp.com
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: vpn.doneplay.site
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: ff-de.shutgpt.ir
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: vpn.askarzadeh.com
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: cdn.dlmafi.top
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: jiekou.baojingtextile.cn
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: www.helloharmonyos.com
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: d3s06yhcwfnwcx.cloudfront.net
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: d21gcldn8gp80l.cloudfront.net
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: dydjjnnjg7jeb.cloudfront.net
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: d3q4tlm7pw29zr.cloudfront.net
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: com.agbbh.kjdrttt
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: com.onev.vip
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: com.koishort.app
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: com.zoyatv.app
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: com.zk7qpx.mv9wlt
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: com.r9nkvx.qw2mpl
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: research IOC, no per-IOC confidence decision; filed
+    for later re-review.'
+  failure_class: weak_sourcing
+- id: com.android.sys.bcprot
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.android.non.szcz
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.android.weiapps
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.android.weapps
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.dmstudio.weather
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.dl.guard.lock
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: appicon.diy.tools.prop
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: picturetranslate.extractor.text.lite
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.audify.editor.pro
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.solide.filemanager.lte
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.notemaster.record.mark
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.cool.weather.yl
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.go.weather.mot
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.fb.w.weather
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.energy.appstore
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.message.recovery.prorestore
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.prorestore.qr
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.arabmusic.tap.aghani_tamerhosny
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: org.life.goal.tools
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.tst.blank
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: com.audify.editor.wavrge
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: api.weatherlive.world
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: cgb.jingongbuxiao.com
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: author flagged for the human gate; filed for later
+    re-review.'
+  failure_class: weak_sourcing
+- id: 5.ahd187.com
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: operator-lineage host (weaker than live-C2 attribution);
+    filed for later re-review.'
+  failure_class: weak_sourcing
+- id: zhuifengzhe.top
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: operator-lineage host (weaker than live-C2 attribution);
+    filed for later re-review.'
+  failure_class: weak_sourcing
+- id: newsadapi.zhuifengzhe.top
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: operator-lineage host (weaker than live-C2 attribution);
+    filed for later re-review.'
+  failure_class: weak_sourcing
+- id: fyapi.freeflightbird.com
+  verdict: rejected
+  reason: 'Held back under the ship-only-certain bar: operator-lineage host (weaker than live-C2 attribution);
+    filed for later re-review.'
+  failure_class: weak_sourcing
+totals:
+  candidates: 244
+  approved: 81
+  approved_with_modification: 1
+  rejected: 162
+  approval_without_modification_rate: 0.33

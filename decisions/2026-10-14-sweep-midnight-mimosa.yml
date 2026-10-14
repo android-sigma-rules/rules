@@ -1,0 +1,34 @@
+# Decisions accompanying androdr-109 (Midnight Mimosa preinstalled enabler)
+# and the 81-entry IOC delta shipped from the 2026-10-14 combined sweep.
+# Owner instruction at HitL: ship only what is certain to work; file the
+# rest. The bar applied, per indicator, is recorded below; the 161 held-back
+# indicators and androdr-108 are tracked in AndroDR issues.
+
+decisions:
+  - rule_id: androdr-109
+    field: "detection.selection.package_name"
+    chosen: "four annotated enabler names (system.lite, sys.prot, sys.gmsprot, sys.dts)"
+    alternative: "all eight names in the Bitdefender IOC table"
+    reasoning: >
+        The author flagged sys.bcprot, non.szcz, weiapps and weapps for the
+        human gate as unannotated family members with single-source
+        attribution. Under the ship-only-certain bar they are held back
+        until a second source annotates them; the is_system_app gate and
+        exact matching are unchanged. Rule logic verified on a physical
+        SM-F916B (Android 13): the rule loads, stays silent on a clean
+        device, fires on a FLAG_SYSTEM app when its package is listed
+        (probe copy keyed on com.sec.android.app.launcher), and stays
+        silent on a sideloaded com.android.sys.prot, which androdr-001
+        catches once the package IOC is present.
+  - rule_id: null
+    field: "ioc_data"
+    chosen: "ship 81 of 242: named-family APK hashes (38), curated stalkerware-indicators domains (18), research IOCs with an explicit unflagged include decision (25)"
+    alternative: "ship all 242 surviving the cross-dedup filter"
+    reasoning: >
+        Held back: 92 unattributed MalwareBazaar hashes (AndroDR #383
+        precedent), research IOCs the author flagged for the human gate
+        (incl. the 13 Play apps linked to Midnight Mimosa only by shared-C2
+        traffic), research IOCs with no per-indicator confidence decision
+        (RatHat, RemControl, Hirudo, MantaxOtax), and four operator-lineage
+        hosts. Exact SHA-256 matches carry no false-positive surface; the
+        MalwareBazaar set was fetched with file_type=apk.
