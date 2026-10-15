@@ -1,0 +1,21 @@
+# Re-evaluation of androdr-108 (Cytrox Predator drop paths), rejected at the
+# 2026-10-14 sweep gate on the premise that /data/local/tmp is unreadable to
+# an unprivileged app (see pipeline-runs/2026-10-14-sweep.yml). That premise
+# was wrong for exact paths, and AndroDR #387 / #390 fixed the scanner. The
+# owner approved shipping 108 if it tested reliably; it did.
+
+decisions:
+  - rule_id: androdr-108
+    field: "rule_creation"
+    chosen: "ship androdr-108 (critical) with the three Amnesty Predator paths, exact match"
+    alternative: "keep the 2026-10-14 rejection"
+    reasoning: >
+        /data/local/tmp is rwxrwx--x: apps cannot list it but can look up an
+        exact name in it. With the AndroDR #387 scanner, planted
+        /data/local/tmp/wd, wd/fs.db and dropbox fired androdr-108 on stock
+        Play user images API 26, 30, 36.1 and 37 (debug and minified release
+        builds) and on a physical SM-F916B (Android 13); clean scans produced
+        no finding on any target. With wd locked to its owner, wd/fs.db was
+        reported as not checked, never as clean. The rule is inert on app
+        builds whose bundled artifact list lacks these paths, so shipping it to
+        rules main before the app update cannot misfire on older installs.
