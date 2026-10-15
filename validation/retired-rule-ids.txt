@@ -6,3 +6,4 @@
 # Checked by validate-rule.py; a candidate using a retired ID fails Gate 1.
 
 androdr-084   # retired 2026-06-08: duplicate of androdr-047 once severity-capped (PRs rules#30/#31, AndroDR#212/#213)
+androdr-005   # retired 2026-10-15: attribution-only duplicate of androdr-003; its two domains were invented placeholders. Real Graphite domains moved to ioc-data/c2-domains.yml

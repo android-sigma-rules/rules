@@ -44,7 +44,6 @@ device_auditor/androdr_050_graphite_cves.yml
 device_auditor/androdr_051_cellebrite_cves.yml
 device_auditor/androdr_052_landfall_cves.yml
 dns_monitor/androdr_003_domain_ioc.yml
-dns_monitor/androdr_005_graphite_paragon.yml
 dns_monitor/androdr_070_ddns_c2.yml
 file_scanner/androdr_020_spyware_artifact.yml
 file_scanner/androdr_108_predator_artifacts.yml
