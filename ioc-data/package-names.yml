@@ -6,12 +6,6 @@ sources:
   - amnesty-investigations
   - threat_research
 entries:
-- indicator: com.thetruthspy
-  family: TheTruthSpy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: TheTruthSpy stalkerware — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
 - indicator: com.ttsapp
   family: TheTruthSpy
   category: STALKERWARE
@@ -27,12 +21,6 @@ entries:
     hotline
   source: stalkerware-indicators
 - indicator: com.vvt.android
-  family: FlexiSpy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: FlexiSpy stalkerware — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: com.flexispy.android
   family: FlexiSpy
   category: STALKERWARE
   severity: CRITICAL

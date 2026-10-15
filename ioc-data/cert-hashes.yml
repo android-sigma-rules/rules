@@ -99,10 +99,10 @@ entries:
 
   # Added by /update-rules discover run (2026-05-16): 7-threat harvest from discover
   - indicator: "de90f6899eec315f4ed05c2aa052d4fe8b71125a"
-    family: "BITTER"
-    category: "NATION_STATE_SPYWARE"
+    family: "ToSpy"
+    category: "SPYWARE"
     severity: "CRITICAL"
-    description: "BITTER ToSpy developer signing certificate (SHA-1)"
+    description: "ToSpy developer signing certificate (SHA-1), ESET 2025 UAE campaign; attribution inconclusive per ESET"
     source: "threat_research"
   # Msafely (added 2026-07-03 via AI rule pipeline sweep)
   - indicator: "1be914194d14b3deda93ea06e0c58ecd420bb89f"
