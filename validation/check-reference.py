@@ -694,6 +694,14 @@ def _batch(entries_path, sources_path, feed_dir, skip_prefixes=False):
     import yaml
     with open(sources_path) as f:
         prefixes = {s["id"]: (None if skip_prefixes else s.get("reference_prefixes", [])) for s in json.load(f)}
+    # A source whose allowed prefixes are unsafe (no trailing '/', multi-tenant host, ...) gets no URL check:
+    # every https entry of that source is refused (round: prefix validation shares prefix_problem with CI).
+    bad_prefix = {}
+    for src_id, plist in prefixes.items():
+        for p_ in plist or []:
+            problem = prefix_problem(p_)
+            if problem:
+                bad_prefix.setdefault(src_id, f"bad allowed prefix for source {src_id}: {problem}")
     with open(entries_path) as f:
         entries = (yaml.safe_load(f) or {}).get("entries", [])
     worst = 0
@@ -701,6 +709,8 @@ def _batch(entries_path, sources_path, feed_dir, skip_prefixes=False):
         ind, ref, src = e.get("indicator"), e.get("reference"), e.get("source")
         if src not in prefixes:
             status, detail = "BAD_INPUT", f"unknown source {src!r}"
+        elif str(ref or "").startswith("https://") and src in bad_prefix:
+            status, detail = "BAD_INPUT", bad_prefix[src]
         elif e.get("not_campaign") is not None or e.get("cold_start_seed") is not None:
             # Pipeline candidates may never carry these owner-only markers (Plan C Gate 2b, round 14 S14-2).
             # Owner steps that re-check cold_start_seed entries strip that marker first (the reference
@@ -739,7 +749,13 @@ def main():
         ap.error("--indicator and --reference are required without --entries")
     allowed = None
     if a.allowed_prefixes:
-        allowed = [l.strip() for l in open(a.allowed_prefixes) if l.strip() and not l.startswith("#")]
+        with open(a.allowed_prefixes) as prefix_file:
+            allowed = [line.strip() for line in prefix_file if line.strip() and not line.startswith("#")]
+        for prefix in allowed:
+            problem = prefix_problem(prefix)
+            if problem:
+                print(f"BAD_INPUT: bad allowed prefix {prefix}: {problem}")
+                sys.exit(2)
     status, detail = check(a.indicator, a.reference, a.feed_dir, allowed, a.family, not_campaign=a.not_campaign)
     print(f"{status}: {detail}")
     sys.exit(EXIT.get(status, 2))

@@ -625,3 +625,21 @@ def test_deadline_covers_fetch_and_parse(monkeypatch):
     start = time.monotonic()
     assert cr.check("evil.com", "https://slow.example/x", None)[0] == "FETCH_FAILED"
     assert time.monotonic() - start < 4
+
+
+def test_single_mode_refuses_multi_tenant_prefix(tmp_path):
+    prefixes = tmp_path / "prefixes.txt"
+    prefixes.write_text("https://github.com/\n")
+    r = run("--indicator", "evil.com", "--reference", "https://citizenlab.ca/x",
+            "--allowed-prefixes", str(prefixes), "--feed-dir", str(tmp_path))
+    assert r.returncode == 2 and r.stdout.startswith("BAD_INPUT"), r.stdout + r.stderr
+
+
+def test_batch_refuses_prefix_without_trailing_slash(tmp_path):
+    (tmp_path / "sources.json").write_text(json.dumps([{"id": "threat_research",
+                                                        "reference_prefixes": ["https://citizenlab.ca"]}]))
+    (tmp_path / "cand.yml").write_text("entries:\n- indicator: evil.com\n"
+                                       "  reference: 'https://citizenlab.ca/x'\n  source: threat_research\n")
+    r = run("--entries", str(tmp_path / "cand.yml"), "--allowed-sources", str(tmp_path / "sources.json"),
+            "--feed-dir", str(tmp_path))
+    assert json.loads(r.stdout.splitlines()[0])["status"] == "BAD_INPUT"
