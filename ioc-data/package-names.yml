@@ -967,12 +967,12 @@ entries:
   source: "threat_research"
 # Cold-start seeds: bundle-only packages ported 2026-10-16 (also in stalkerware-indicators, a mirror feed)
 - indicator: "com.eyezy.android"
-  family: "Eyezy"
+  family: "mSpy"
   category: "STALKERWARE"
   severity: "HIGH"
   description: "Commercial stalkerware marketed as parental monitoring. Captures keystrokes, reads encrypted messages, and tracks location."
   source: "stalkerware-indicators"
-  reference: feed:stalkerware-indicators#Eyezy
+  reference: feed:stalkerware-indicators#mSpy
   cold_start_seed: true
 - indicator: "com.ispyoo"
   family: "TheTruthSpy"
