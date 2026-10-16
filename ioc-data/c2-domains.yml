@@ -15,18 +15,21 @@ entries:
     severity: "CRITICAL"
     description: "TheTruthSpy C2 domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#TheTruthSpy
   - indicator: "copy9.com"
     family: "TheTruthSpy"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "Copy9/TheTruthSpy C2 domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#TheTruthSpy
   - indicator: "ispyoo.com"
     family: "TheTruthSpy"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "iSpyoo/TheTruthSpy C2 domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#TheTruthSpy
   # FlexiSpy
   - indicator: "flexispy.com"
     family: "FlexiSpy"
@@ -34,24 +37,28 @@ entries:
     severity: "CRITICAL"
     description: "FlexiSpy C2 domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#FlexiSpy
   - indicator: "djp.bz"
     family: "FlexiSpy"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "FlexiSpy C2 shortener domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#FlexiSpy
   - indicator: "dmw.bz"
     family: "FlexiSpy"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "FlexiSpy C2 shortener domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#FlexiSpy
   - indicator: "mflx.biz"
     family: "FlexiSpy"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "FlexiSpy C2 domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#FlexiSpy
   # Cerberus
   - indicator: "cerberusapp.com"
     family: "Cerberus"
@@ -59,6 +66,7 @@ entries:
     severity: "CRITICAL"
     description: "Cerberus C2 domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Cerberus
   - indicator: "thd.cc"
     family: "Cerberus"
     category: "STALKERWARE"
@@ -72,30 +80,35 @@ entries:
     severity: "CRITICAL"
     description: "Cocospy cluster packer/C2 domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Cocospy
   - indicator: "cocospy.com"
     family: "Cocospy"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "Cocospy C2 domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Cocospy
   - indicator: "spyic.com"
     family: "Cocospy"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "Spyic C2 domain (Cocospy cluster)"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Cocospy
   - indicator: "spyzie.io"
     family: "Cocospy"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "Spyzie C2 domain (Cocospy cluster)"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Cocospy
   - indicator: "phonedata.me"
     family: "Cocospy"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "Cocospy cluster data exfiltration domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Cocospy
 
   # mSpyitaly
   - indicator: "mspyitaly.com"
@@ -104,12 +117,14 @@ entries:
     severity: "CRITICAL"
     description: "mSpyitaly C2 domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#mSpyitaly
   - indicator: "dc-407883c18502.mspyitaly.com"
     family: "mSpyitaly"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "mSpyitaly C2 subdomain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#mSpyitaly
   # SpyTek
   - indicator: "spytekonline.co.za"
     family: "SpyTek"
@@ -117,18 +132,21 @@ entries:
     severity: "CRITICAL"
     description: "SpyTek C2 domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#SpyTek
   - indicator: "spytek.co.za"
     family: "SpyTek"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "SpyTek C2 domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#SpyTek
   - indicator: "portal.spytek.co.za"
     family: "SpyTek"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "SpyTek C2 portal domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#SpyTek
   # Android007 / SpyBunker
   - indicator: "android007.com"
     family: "Android007"
@@ -136,18 +154,21 @@ entries:
     severity: "CRITICAL"
     description: "Android007/SpyBunker C2 domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Android007
   - indicator: "portal.android007.com"
     family: "Android007"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "Android007 C2 portal domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Android007
   - indicator: "spybunker.com"
     family: "Android007"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "SpyBunker C2 domain (Android007 alias)"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Android007
   # RioSPY
   - indicator: "riospy.net"
     family: "RioSPY"
@@ -155,6 +176,7 @@ entries:
     severity: "CRITICAL"
     description: "RioSPY C2 domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#RioSPY
 
   # Wintego Helios (Israeli spyware, May 2024) — Amnesty International
   - indicator: "africatech.eu"
@@ -162,111 +184,133 @@ entries:
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "afrinews.eu"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "androidcheckupdate.com"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "androidsensorfirmware.net"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "galaxyupdate.network"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "galaxyupdatecheck.com"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "galaxy-update-check.com"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "lidarfirmwareupdate.network"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "senedroid.net"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "syndicationcdn.com"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "bbc.bio"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "bbc.tf"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "cnn.gallery"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "tiktok.do"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "ups.so"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "dakaractu.news"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "jeuneafrique.eu"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "jeuneafrique.news"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "senego.fr"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "senego.info"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "seneweb.eu"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   - indicator: "tribunnews.org"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#Wintego Helios
   # ClayRat (Russia campaign, Oct-Dec 2025; infrastructure reportedly offline Dec 2025 post-operator-arrest, retained for forensic + copycat detection)
   - indicator: "clayrat.top"
     family: "ClayRat"
@@ -274,236 +318,283 @@ entries:
     severity: "CRITICAL"
     description: "ClayRat C2/phishing root domain"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "allan.clayrat.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "buka.clayrat.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "holojo.clayrat.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "test.clayrat.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "red.clayrat.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "chmo2.clayrat.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "error.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "capone.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "imper1.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "rizza.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "pasha.dig.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "oslik.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "players1.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "trent.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "pacy.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "pasha.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "gelya.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "magic.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "ataev.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "bimb.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "patrik.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "evgen.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "swaga.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "allan.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "capone.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "yard.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "packwa.claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "np.claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "califor.claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "pasha.claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "capone.claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "ataev2.claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "holik.claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "zam.claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "clay.rest"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "clayfenrirhuy.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "clayratnik.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "claysrat.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "trustnik.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "macmafia.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "youtubeplusandroid.ru"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "actedsda.cfd"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
   - indicator: "antiradar.life"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#ClayRat
 
   # PixRevolution (Brazilian PIX banking trojan, agent-in-the-loop, 2026-03)
   - indicator: "aplicativo-br.com"
@@ -967,6 +1058,7 @@ entries:
     severity: "HIGH"
     description: "Joker (Bread) C2/exfil domain (tria.ge sandbox-observed). Caught by generic DNS IOC lookup (androdr-003)."
     source: "threatfox"
+    reference: feed:threatfox#Joker
 # --- update-rules-e2e batch 2026-06-08 (BTMOB/TrickMo/Astrinox/Massiv/SaferRat/RecruitRat/PixRevolution/AndroRAT/Antidot/Asin) ---
   - indicator: "govlens.net"
     family: "Asin"
@@ -992,6 +1084,7 @@ entries:
     severity: "HIGH"
     description: "RecruitRat Android RAT C2/distribution domain"
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#RecruitRat
   - indicator: "xhire.cc"
     family: "Astrinox"
     category: "MALWARE"
@@ -1004,12 +1097,14 @@ entries:
     severity: "HIGH"
     description: "AndroRAT Android RAT C2/distribution domain"
     source: "threatfox"
+    reference: feed:threatfox#AndroRAT
   - indicator: "catfoodeuro.shop"
     family: "Antidot"
     category: "MALWARE"
     severity: "HIGH"
     description: "Antidot Android banking trojan C2/distribution domain"
     source: "threatfox"
+    reference: feed:threatfox#Antidot
   - indicator: "server.yaarsa.com"
     family: "BTMOB"
     category: "MALWARE"
@@ -1249,144 +1344,168 @@ entries:
     severity: "CRITICAL"
     description: "AntiDot botnet (LARVA-398 MaaS) gate/C2 domain (PRODAFT)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "dhuieowdwj89hd1jd1.club"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "openkitchen22.site"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "kitchencoocing.shop"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "foodlooc.online"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "trustcdncloud.space"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "zizzytantonedai.store"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "ellongerritassa.cfd"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "tynaderouindeah.store"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "imonitussyberon.store"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "vertonasaeledal.store"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "goalshet.store"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "passionfruitsz.info"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "cloudmemoturowp.org"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "kangarooeaglerabbit.info"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "trustcdncloud.buzz"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "trustcdncloud.click"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "trustcdncloud.shop"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "southkelib.best"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "taosaomao.online"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "shopdoorjshr.me"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "portalmeowhjukolip.info"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "portalmeowhjukolip.cloud"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   - indicator: "progods.site"
     family: "AntiDot"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
+    reference: feed:prodaft-malware-ioc#AntiDot
   # Rokarolla (added 2026-07-03 via AI rule pipeline sweep)
   - indicator: "infocontablidades.it.com"
     family: "Rokarolla"
@@ -1458,60 +1577,70 @@ entries:
     severity: "CRITICAL"
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#GoldPickaxe
   - indicator: "id.btyrw.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#GoldPickaxe
   - indicator: "thituu.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#GoldPickaxe
   - indicator: "id.nercx.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#GoldPickaxe
   - indicator: "dmnw.api4321.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#GoldPickaxe
   - indicator: "qecdf.api95642.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#GoldPickaxe
   - indicator: "fgr5yt.apihjr84231.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#GoldPickaxe
   - indicator: "radc.api23883.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#GoldPickaxe
   - indicator: "dfffhekfv.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#GoldPickaxe
   - indicator: "sdsfdfg.dfffhekfv.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#GoldPickaxe
   # RedWing (added 2026-07-13 via AI rule pipeline sweep)
   - indicator: "krusty-crabs.sbs"
     family: "RedWing"
@@ -1519,48 +1648,56 @@ entries:
     severity: "CRITICAL"
     description: "RedWing C2 / distribution host (Zimperium zLabs, 2026-07)."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#RedWing
   - indicator: "redwing.top"
     family: "RedWing"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "RedWing C2 / distribution host (Zimperium zLabs, 2026-07)."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#RedWing
   - indicator: "api-sync-service.mdkd1184.workers.dev"
     family: "RedWing"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "RedWing C2 / distribution host (Zimperium zLabs, 2026-07). Full FQDN only (Cloudflare Worker relay); does not match the shared workers.dev parent."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#RedWing
   - indicator: "redwingqq.top"
     family: "RedWing"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "RedWing C2 / distribution host (Zimperium zLabs, 2026-07)."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#RedWing
   - indicator: "manyrei.live"
     family: "RedWing"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "RedWing C2 / distribution host (Zimperium zLabs, 2026-07)."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#RedWing
   - indicator: "wmanyrei.icu"
     family: "RedWing"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "RedWing C2 / distribution host (Zimperium zLabs, 2026-07)."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#RedWing
   - indicator: "yandex-disk.net"
     family: "RedWing"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "RedWing C2 / distribution host (Zimperium zLabs, 2026-07). Typosquat impersonating Yandex Disk; distinct apex from legitimate yandex.ru/disk.yandex.ru."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#RedWing
   - indicator: "offservers.ru"
     family: "RedWing"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "RedWing C2 / distribution host (Zimperium zLabs, 2026-07)."
     source: "zimperium-ioc"
+    reference: feed:zimperium-ioc#RedWing
   # Octagon (added 2026-08-05 via AI rule pipeline discover run)
   - indicator: "bh-alert.com"
     family: "Octagon"
@@ -1609,6 +1746,7 @@ entries:
     description: 'Triada infrastructure for GBWhatsApp modded-WhatsApp distribution/C2. Remediation: uninstall
       any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Triada
   - indicator: app.whatsplus.online
     family: Triada
     category: MALWARE
@@ -1616,6 +1754,7 @@ entries:
     description: 'Triada infrastructure for WhatsPlus modded-WhatsApp distribution/C2. Remediation: uninstall
       any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Triada
   - indicator: c.gbwhat.pro
     family: Triada
     category: MALWARE
@@ -1644,6 +1783,7 @@ entries:
     description: 'Triada infrastructure for GBWhatsApp modded-WhatsApp distribution/C2. Remediation: uninstall
       any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Triada
   - indicator: gbwaapps.org
     family: Triada
     category: MALWARE
@@ -2949,30 +3089,35 @@ entries:
     severity: CRITICAL
     description: ToxicPanda 2.0 banking-trojan C2 (/panel endpoint, Zimperium zLabs 2026-08)
     source: zimperium-ioc
+    reference: feed:zimperium-ioc#ToxicPanda
   - indicator: v17001.com
     family: ToxicPanda
     category: MALWARE
     severity: CRITICAL
     description: ToxicPanda 2.0 C2 (/panel endpoint)
     source: zimperium-ioc
+    reference: feed:zimperium-ioc#ToxicPanda
   - indicator: w17907.com
     family: ToxicPanda
     category: MALWARE
     severity: CRITICAL
     description: ToxicPanda 2.0 C2 (/panel endpoint)
     source: zimperium-ioc
+    reference: feed:zimperium-ioc#ToxicPanda
   - indicator: g8688808.com
     family: ToxicPanda
     category: MALWARE
     severity: CRITICAL
     description: ToxicPanda 2.0 C2
     source: zimperium-ioc
+    reference: feed:zimperium-ioc#ToxicPanda
   - indicator: googleplaydown.com
     family: ToxicPanda
     category: MALWARE
     severity: HIGH
     description: Fake Google Play distribution page serving ToxicPanda 2.0 droppers
     source: zimperium-ioc
+    reference: feed:zimperium-ioc#ToxicPanda
   - indicator: xcmtxc1oam1.s3.ap-south-1.amazonaws.com
     family: ToxicPanda
     category: MALWARE
@@ -2980,6 +3125,7 @@ entries:
     description: Attacker-controlled S3 bucket hosting ToxicPanda 2.0 droppers (exact hostname only — do
       NOT block parent amazonaws.com, legit platform)
     source: zimperium-ioc
+    reference: feed:zimperium-ioc#ToxicPanda
   - indicator: ui920fht4m1.s3.mx-central-1.amazonaws.com
     family: ToxicPanda
     category: MALWARE
@@ -2987,6 +3133,7 @@ entries:
     description: Attacker-controlled S3 bucket hosting ToxicPanda 2.0 droppers (exact hostname only — do
       NOT block parent amazonaws.com)
     source: zimperium-ioc
+    reference: feed:zimperium-ioc#ToxicPanda
   - indicator: osy4u8pmu.s3.ap-southeast-1.amazonaws.com
     family: ToxicPanda
     category: MALWARE
@@ -2994,6 +3141,7 @@ entries:
     description: Attacker-controlled S3 bucket hosting ToxicPanda 2.0 droppers (exact hostname only — do
       NOT block parent amazonaws.com)
     source: zimperium-ioc
+    reference: feed:zimperium-ioc#ToxicPanda
   - indicator: ejjsi5fbl.s3.ap-southeast-1.amazonaws.com
     family: ToxicPanda
     category: MALWARE
@@ -3001,6 +3149,7 @@ entries:
     description: Attacker-controlled S3 bucket hosting ToxicPanda 2.0 droppers (exact hostname only — do
       NOT block parent amazonaws.com)
     source: zimperium-ioc
+    reference: feed:zimperium-ioc#ToxicPanda
   - indicator: svhc5arco.s3.ap-southeast-1.amazonaws.com
     family: ToxicPanda
     category: MALWARE
@@ -3008,6 +3157,7 @@ entries:
     description: Attacker-controlled S3 bucket hosting ToxicPanda 2.0 droppers (exact hostname only — do
       NOT block parent amazonaws.com)
     source: zimperium-ioc
+    reference: feed:zimperium-ioc#ToxicPanda
   - indicator: pis2ray.online
     family: MarkiRAT
     category: SPYWARE
@@ -3192,24 +3342,28 @@ entries:
     severity: "CRITICAL"
     description: "SpyStealth stalkerware vendor/portal website - if not self-installed, contact a DV hotline"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#SpyStealth
   - indicator: "stage.spystealth.com"
     family: "SpyStealth"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "SpyStealth stalkerware C2 host (AssoEchap generated network blocklists)"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#SpyStealth
   - indicator: "tt.spystealth.com"
     family: "SpyStealth"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "SpyStealth stalkerware C2 host (AssoEchap generated network blocklists)"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#SpyStealth
   - indicator: "cp.spystealth.com"
     family: "SpyStealth"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "SpyStealth stalkerware C2 host (AssoEchap generated network blocklists)"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#SpyStealth
   # Msafely (2026-10-14 sweep)
   - indicator: "my.msafely.com"
     family: "Msafely"
@@ -3217,84 +3371,98 @@ entries:
     severity: "CRITICAL"
     description: "Msafely victim-monitoring portal - if not self-installed, contact a DV hotline"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Msafely
   - indicator: "msafely.com"
     family: "Msafely"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "Msafely stalkerware vendor website"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Msafely
   - indicator: "feishu.msafely.com"
     family: "Msafely"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "Msafely portal domain, new in the 2026-10 upstream update"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Msafely
   - indicator: "msafely-nuxt-web.pages.dev"
     family: "Msafely"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "Msafely web frontend on Cloudflare Pages, new in the 2026-10 upstream update"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Msafely
   - indicator: "my.spyx.com"
     family: "Msafely"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "SpyX (Msafely rebrand) victim-monitoring portal - if not self-installed, contact a DV hotline"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Msafely
   - indicator: "spyx.com"
     family: "Msafely"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "SpyX (Msafely rebrand) stalkerware vendor website"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Msafely
   - indicator: "my.spyphone.cc"
     family: "Msafely"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "SpyPhone (Msafely rebrand) victim-monitoring portal - if not self-installed, contact a DV hotline"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Msafely
   - indicator: "spyphone.cc"
     family: "Msafely"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "SpyPhone (Msafely rebrand) stalkerware vendor website"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Msafely
   - indicator: "strapi.spyphone.cc"
     family: "Msafely"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "Msafely/SpyX/SpyPhone stalkerware C2/API host (AssoEchap generated network blocklists)"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Msafely
   - indicator: "strapi.spyx.com"
     family: "Msafely"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "Msafely/SpyX/SpyPhone stalkerware C2/API host (AssoEchap generated network blocklists)"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Msafely
   - indicator: "strapi.msafely.com"
     family: "Msafely"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "Msafely/SpyX/SpyPhone stalkerware C2/API host (AssoEchap generated network blocklists)"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Msafely
   - indicator: "images.msafely.com"
     family: "Msafely"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "Msafely stalkerware APK distribution host (AssoEchap generated network blocklists)"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Msafely
   - indicator: "images.spyx.com"
     family: "Msafely"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "SpyX stalkerware APK distribution host (AssoEchap generated network blocklists)"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Msafely
   - indicator: "images.spyphone.cc"
     family: "Msafely"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "SpyPhone stalkerware APK distribution host (AssoEchap generated network blocklists)"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Msafely
   # Paragon Graphite — certificate common names from Citizen Lab, "A First Look at
   # Paragon's Proliferating Spyware Operations" (2025-03-19). Published as TLS
   # certificate CNs, not observed DNS lookups; most no longer resolve.

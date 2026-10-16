@@ -81,24 +81,28 @@ entries:
   severity: CRITICAL
   description: NoviSpy spyware — deployed by Serbian intelligence against journalists
   source: amnesty-investigations
+  reference: feed:amnesty-investigations#NoviSpy
 - indicator: com.accesibilityservice
   family: NoviSpy
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: NoviSpy spyware — disguised as accessibility service
   source: amnesty-investigations
+  reference: feed:amnesty-investigations#NoviSpy
 - indicator: com.li.activity
   family: NoviSpy
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: NoviSpy spyware variant
   source: amnesty-investigations
+  reference: feed:amnesty-investigations#NoviSpy
 - indicator: com.gu.activity
   family: NoviSpy
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: NoviSpy spyware variant
   source: amnesty-investigations
+  reference: feed:amnesty-investigations#NoviSpy
 - indicator: com.google.android.service
   family: ResidentBat
   category: NATION_STATE_SPYWARE
@@ -106,48 +110,56 @@ entries:
   description: ResidentBat spyware — targets Belarusian journalists, disguised as
     Google service
   source: mvt-indicators
+  reference: feed:mvt-indicators#ResidentBat
 - indicator: com.google.bat
   family: ResidentBat
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: ResidentBat spyware
   source: mvt-indicators
+  reference: feed:mvt-indicators#ResidentBat
 - indicator: com.huaweisettingsapp.mkz
   family: ResidentBat
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: ResidentBat spyware — disguised as Huawei settings
   source: mvt-indicators
+  reference: feed:mvt-indicators#ResidentBat
 - indicator: com.linkedln.service
   family: ResidentBat
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: ResidentBat spyware — typosquats LinkedIn
   source: mvt-indicators
+  reference: feed:mvt-indicators#ResidentBat
 - indicator: com.oneplussync.bat
   family: ResidentBat
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: ResidentBat spyware — disguised as OnePlus sync
   source: mvt-indicators
+  reference: feed:mvt-indicators#ResidentBat
 - indicator: cm.google.android.apps.assistant
   family: ResidentBat
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: ResidentBat spyware — typosquats Google (cm. not com.)
   source: mvt-indicators
+  reference: feed:mvt-indicators#ResidentBat
 - indicator: com.android.framework.safety
   family: ResidentBat
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: ResidentBat spyware — disguised as Android framework
   source: mvt-indicators
+  reference: feed:mvt-indicators#ResidentBat
 - indicator: com.hihonor.core.service
   family: ResidentBat
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: ResidentBat spyware — disguised as Honor service
   source: mvt-indicators
+  reference: feed:mvt-indicators#ResidentBat
 - indicator: com.client.appA
   family: Cellebrite
   category: FORENSIC_TOOL
@@ -155,6 +167,7 @@ entries:
   description: Cellebrite UFED agent — presence indicates physical device extraction
     occurred
   source: mvt-indicators
+  reference: feed:mvt-indicators#Cellebrite
 - indicator: org.lgvvfj.pluscqpuj
   family: Mirax Bot
   category: MALWARE
