@@ -337,3 +337,43 @@ def test_approved_section_citation_with_campaign_rejected(tmp_path):
                       env=_tokens_env(tmp_path, SECTION_LINE))
     assert r.returncode == 1
     assert "a section-cited entry may not carry a campaign key" in r.stderr
+
+
+def test_not_campaign_rules(tmp_path):
+    thief = _entry(indicator="thief.example", family="Predator The Thief", source="threatfox",
+                   reference="feed:threatfox#Predator The Thief", not_campaign=True)
+    r = run_validator(tmp_path, "c2-domains.yml", _body(thief))
+    assert r.returncode == 1 and "not-campaign.txt" in r.stderr          # needs owner approval
+    exact = dict(thief, family="Pegasus", reference="feed:threatfox#Pegasus")
+    r = run_validator(tmp_path, "c2-domains.yml", _body(exact))
+    assert r.returncode == 1 and "IS a campaign name" in r.stderr
+    dotted = dict(thief, family="Pegasus.", reference="feed:threatfox#Pegasus.")
+    assert "IS a campaign name" in run_validator(tmp_path, "c2-domains.yml", _body(dotted)).stderr
+    keyed = dict(thief, campaign="predator")
+    assert "may not carry a campaign key" in run_validator(tmp_path, "c2-domains.yml", _body(keyed)).stderr
+
+
+def test_not_campaign_approved_entry_passes(tmp_path):
+    # An approved line lets a distinct homonym family through without a key (round 14, R14-7).
+    approvals = tmp_path / "not-campaign.txt"   # never the checked-in file (round 15, R15-6)
+    approvals.write_text("c2-domains.yml\tthief.example\tfeed:threatfox#Predator The Thief\tPredator The Thief\n")
+    ok = _entry(indicator="thief.example", family="Predator The Thief", source="threatfox",
+                reference="feed:threatfox#Predator The Thief", not_campaign=True)
+    env = dict(os.environ, NOT_CAMPAIGN_FILE=str(approvals))
+    assert run_validator(tmp_path, "c2-domains.yml", _body(ok), env=env).returncode == 0
+
+
+def test_campaign_family_without_key_rejected(tmp_path):
+    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(family="Midnight Mimosa")))
+    assert r.returncode == 1 and "midnight-mimosa" in r.stderr
+    ok = _entry(family="Midnight Mimosa", campaign="midnight-mimosa")
+    assert run_validator(tmp_path, "c2-domains.yml", _body(ok)).returncode == 0
+    alias = _entry(family="Intellexa")
+    assert "predator" in run_validator(tmp_path, "c2-domains.yml", _body(alias)).stderr
+    wrong = _entry(family="2021-10-07_donot", source="amnesty-investigations",
+                   reference="feed:amnesty-investigations#2021-10-07_donot", campaign="pegasus")
+    r = run_validator(tmp_path, "c2-domains.yml", _body(wrong))
+    assert r.returncode == 1 and "requires a family naming that campaign" in r.stderr
+    generic = _entry(family="Predator", source="threatfox", reference="feed:threatfox#Predator")
+    r = run_validator(tmp_path, "c2-domains.yml", _body(generic))
+    assert r.returncode == 1 and "re-source it as threat_research" in r.stderr

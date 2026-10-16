@@ -99,6 +99,7 @@ entries:
     occurred
   source: mvt-indicators
   reference: feed:mvt-indicators#Cellebrite
+  campaign: cellebrite
 - indicator: org.lgvvfj.pluscqpuj
   family: Mirax Bot
   category: MALWARE
@@ -914,6 +915,7 @@ entries:
   description: "Midnight Mimosa preinstalled enabler - platform-signed fake 'System' app (primary enabler, versionCode 900000; Bitdefender)"
   source: "threat_research"
   reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.android.sys.prot"
   family: "Midnight Mimosa"
   category: "MALWARE"
@@ -921,6 +923,7 @@ entries:
   description: "Midnight Mimosa preinstalled enabler variant (versionCode 900014; Bitdefender)"
   source: "threat_research"
   reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.android.sys.gmsprot"
   family: "Midnight Mimosa"
   category: "MALWARE"
@@ -928,6 +931,7 @@ entries:
   description: "Midnight Mimosa preinstalled enabler variant (versionCode 100000; Bitdefender)"
   source: "threat_research"
   reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.android.sys.dts"
   family: "Midnight Mimosa"
   category: "MALWARE"
@@ -935,6 +939,7 @@ entries:
   description: "Midnight Mimosa related fake-system build (Bitdefender)"
   source: "threat_research"
   reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.mobile.applock.wt"
   family: "Midnight Mimosa"
   category: "MALWARE"
@@ -942,6 +947,7 @@ entries:
   description: "Midnight Mimosa dropped payload - ad-fraud + RCE dropper cover app (Bitdefender)"
   source: "threat_research"
   reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.mobile.applock.en"
   family: "Midnight Mimosa"
   category: "MALWARE"
@@ -949,6 +955,7 @@ entries:
   description: "Midnight Mimosa dropped payload - TCP proxyware 'Locket' cover app, EnLoaderLib v1.0.6 (Bitdefender)"
   source: "threat_research"
   reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.mobile.applock.tg"
   family: "Midnight Mimosa"
   category: "MALWARE"
@@ -956,6 +963,7 @@ entries:
   description: "Midnight Mimosa dropped payload - applock-family cover app (Bitdefender)"
   source: "threat_research"
   reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.mobile.applock.wg"
   family: "Midnight Mimosa"
   category: "MALWARE"
@@ -963,6 +971,7 @@ entries:
   description: "Midnight Mimosa dropped payload - applock-family cover app (Bitdefender)"
   source: "threat_research"
   reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.mobile.applock.xk1"
   family: "Midnight Mimosa"
   category: "MALWARE"
@@ -970,6 +979,7 @@ entries:
   description: "Midnight Mimosa dropped payload - applock-family cover app (Bitdefender)"
   source: "threat_research"
   reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.mb.applock.a02"
   family: "Midnight Mimosa"
   category: "MALWARE"
@@ -977,6 +987,7 @@ entries:
   description: "Midnight Mimosa dropped payload - applock-family cover app (Bitdefender)"
   source: "threat_research"
   reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.mb.applock.ea"
   family: "Midnight Mimosa"
   category: "MALWARE"
@@ -984,6 +995,7 @@ entries:
   description: "Midnight Mimosa dropped payload - applock-family cover app (Bitdefender)"
   source: "threat_research"
   reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.fe2bu1.wh"
   family: "Midnight Mimosa"
   category: "MALWARE"
@@ -991,6 +1003,7 @@ entries:
   description: "Midnight Mimosa dropped payload - fake weather cover app installed by the preinstalled enabler (Bitdefender)"
   source: "threat_research"
   reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.yun.wth.er"
   family: "Midnight Mimosa"
   category: "MALWARE"
@@ -998,6 +1011,7 @@ entries:
   description: "Midnight Mimosa dropped payload - fake weather cover app installed by the preinstalled enabler (Bitdefender)"
   source: "threat_research"
   reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.awht.zfip.zfyg"
   family: "Midnight Mimosa"
   category: "MALWARE"
@@ -1005,6 +1019,7 @@ entries:
   description: "Midnight Mimosa dropped payload - fake weather cover app installed by the preinstalled enabler (Bitdefender)"
   source: "threat_research"
   reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 # Cold-start seeds: bundle-only packages ported 2026-10-16 (also in stalkerware-indicators, a mirror feed)
 - indicator: "com.eyezy.android"
   family: "mSpy"

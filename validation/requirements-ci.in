@@ -1,0 +1,8 @@
+# Hash-pinned CI dependencies for validate.yml (validate-ioc-data, complementarity) and ioc-drift.yml.
+# Generate requirements-ci.txt under the job's Python (3.11), from the repo root:
+#   docker run --rm -v "$PWD/validation:/w" -w /w python:3.11-slim sh -c "pip install -q pip-tools==7.6.2 && pip-compile --generate-hashes --allow-unsafe -o requirements-ci.txt requirements-ci.in"
+# (equivalent to: pipx run --python python3.11 --spec pip-tools==7.6.2 pip-compile --generate-hashes --allow-unsafe -o validation/requirements-ci.txt validation/requirements-ci.in)
+# Regenerate when the job's `python-version` changes.
+pyyaml==6.0.2
+jsonschema==4.23.0
+pytest==8.3.3

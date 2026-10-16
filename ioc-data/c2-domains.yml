@@ -3950,6 +3950,7 @@ entries:
     description: "Midnight Mimosa proxyware control host - residential-proxy enrollment, TCP port 6000 (Bitdefender)"
     source: "threat_research"
     reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+    campaign: midnight-mimosa
   - indicator: "aa86a52a98162b7d.com"
     family: "Midnight Mimosa"
     category: "MALWARE"
@@ -3957,6 +3958,7 @@ entries:
     description: "Midnight Mimosa proxyware control host - residential-proxy enrollment (Bitdefender)"
     source: "threat_research"
     reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+    campaign: midnight-mimosa
   - indicator: "442fe7151fb1e9b5.com"
     family: "Midnight Mimosa"
     category: "MALWARE"
@@ -3964,6 +3966,7 @@ entries:
     description: "Midnight Mimosa proxyware control host - residential-proxy enrollment (Bitdefender)"
     source: "threat_research"
     reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+    campaign: midnight-mimosa
   - indicator: "v46wd6uramzkmeeo.in"
     family: "Midnight Mimosa"
     category: "MALWARE"
@@ -3971,6 +3974,7 @@ entries:
     description: "Midnight Mimosa proxyware control host - residential-proxy enrollment (Bitdefender)"
     source: "threat_research"
     reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+    campaign: midnight-mimosa
   - indicator: "oss.showtimetool.com"
     family: "Midnight Mimosa"
     category: "MALWARE"
@@ -3978,6 +3982,7 @@ entries:
     description: "Midnight Mimosa CDN serving payload modules disguised as .png files (Bitdefender)"
     source: "threat_research"
     reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+    campaign: midnight-mimosa
   # SpyStealth (2026-10-14 sweep)
   - indicator: "spystealth.com"
     family: "SpyStealth"
@@ -4116,6 +4121,7 @@ entries:
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
     reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
+    campaign: graphite
     block_by_default: true
   - indicator: "awake-wood.io"
     family: "Graphite (Paragon)"
@@ -4124,6 +4130,7 @@ entries:
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
     reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
+    campaign: graphite
     block_by_default: true
   - indicator: "forti.paraccess.com"
     family: "Graphite (Paragon)"
@@ -4132,6 +4139,7 @@ entries:
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
     reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
+    campaign: graphite
     block_by_default: true
   - indicator: "modern-money.org"
     family: "Graphite (Paragon)"
@@ -4140,6 +4148,7 @@ entries:
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
     reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
+    campaign: graphite
     block_by_default: true
   - indicator: "ancient-thing.it"
     family: "Graphite (Paragon)"
@@ -4148,6 +4157,7 @@ entries:
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
     reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
+    campaign: graphite
     block_by_default: true
   - indicator: "external-astra.com"
     family: "Graphite (Paragon)"
@@ -4156,6 +4166,7 @@ entries:
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
     reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
+    campaign: graphite
     block_by_default: true
   - indicator: "internal-abba.com"
     family: "Graphite (Paragon)"
@@ -4164,6 +4175,7 @@ entries:
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
     reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
+    campaign: graphite
     block_by_default: true
   - indicator: "external-cap.com"
     family: "Graphite (Paragon)"
@@ -4172,6 +4184,7 @@ entries:
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
     reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
+    campaign: graphite
     block_by_default: true
   - indicator: "external-drt.com"
     family: "Graphite (Paragon)"
@@ -4180,6 +4193,7 @@ entries:
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
     reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
+    campaign: graphite
     block_by_default: true
   - indicator: "forti.external-muki.com"
     family: "Graphite (Paragon)"
@@ -4188,6 +4202,7 @@ entries:
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
     reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
+    campaign: graphite
     block_by_default: true
   - indicator: "external-cag.com"
     family: "Graphite (Paragon)"
@@ -4196,6 +4211,7 @@ entries:
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
     reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
+    campaign: graphite
     block_by_default: true
   - indicator: "forti.external-sht-prd-4.com"
     family: "Graphite (Paragon)"
@@ -4204,6 +4220,7 @@ entries:
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
     reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
+    campaign: graphite
     block_by_default: true
   - indicator: "forti.external-shotgun3.com"
     family: "Graphite (Paragon)"
@@ -4212,6 +4229,7 @@ entries:
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
     reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
+    campaign: graphite
     block_by_default: true
   - indicator: "forti.external-sht.com"
     family: "Graphite (Paragon)"
@@ -4220,6 +4238,7 @@ entries:
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
     reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
+    campaign: graphite
     block_by_default: true
   - indicator: "forti.internal-stg.com"
     family: "Graphite (Paragon)"
@@ -4228,6 +4247,7 @@ entries:
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
     reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
+    campaign: graphite
     block_by_default: true
   # Ported from the AndroDR bundled blocklist (bundle-only before 2026-10-16; confirmed in stalkerware-indicators)
   - indicator: "clevguard.com"

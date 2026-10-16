@@ -1,11 +1,29 @@
-# Campaign vocabulary for ioc-data `campaign` values (IOC values must be a key; rule campaign.* tags may be a key or an alias).
-# Task A4 creates the keys; Task A5 fills labels and references.
+version: "2026-10-16"
+description: >
+  The campaign vocabulary. Rule campaign.* tags and IOC `campaign` values must
+  be keys here. AndroDR's report shows one mercenary-check row per campaign.
 campaigns:
   - key: pegasus
+    label: Pegasus
+    aliases: [nso]          # NSO Group's product (round 7, Q7-3: an "NSO" family must key to pegasus)
+    references: [https://citizenlab.ca/2016/08/million-dollar-dissident-iphone-zero-day-nso-group-uae/]
   - key: predator
+    label: Predator
+    aliases: [intellexa, cytrox]
+    references: [https://thehackernews.com/2025/12/intellexa-leaks-reveal-zero-days-and.html]
   - key: graphite
-    aliases: [paragon]
+    label: Graphite (Paragon)
+    aliases: [paragon]      # Graphite is Paragon's product: one row, never "Graphite DETECTED / Paragon not detected"
+    references: [https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/]
   - key: cellebrite
+    label: Cellebrite
+    references: [https://en.wikipedia.org/wiki/Universal_Forensic_Extraction_Device]
   - key: landfall
+    label: LANDFALL
+    references: [https://thehackernews.com/2025/11/samsung-zero-click-flaw-exploited-to.html]
   - key: massistant
+    label: Massistant
+    references: [https://security.lookout.com/threat-intelligence/article/massistant-chinese-mobile-forensics]
   - key: midnight-mimosa
+    label: Midnight Mimosa
+    references: [https://thehackernews.com/2026/10/low-cost-android-phones-ship-with.html]

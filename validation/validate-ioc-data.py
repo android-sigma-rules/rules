@@ -254,6 +254,37 @@ def validate_ioc_file(data: dict, allowed_sources: set[str], filename: str, refe
             errors.append(f"{prefix}: unknown campaign '{campaign}' (allowed: {sorted(CAMPAIGNS)})")
         if campaign is not None and source not in CAMPAIGN_SOURCES:
             errors.append(f"{prefix}: campaign key on source '{source}' — only {sorted(CAMPAIGN_SOURCES)} may carry one")
+        # One resolution for both directions and for the checker: cr.resolve_campaigns (exact
+        # key/label/alias, else whole-word mentions such as "NSO Group" — round 10, S10-5).
+        resolved = cr.resolve_campaigns(entry.get("family", ""))
+        if len(resolved) > 1:
+            errors.append(f"{prefix}: family '{entry.get('family')}' names more than one campaign "
+                          f"{sorted(resolved)} — use one campaign's name (round 11, S11-2)")
+        key = next(iter(resolved)) if len(resolved) == 1 else None
+        if entry.get("not_campaign") is True:
+            # The family only shares a campaign's name (e.g. ThreatFox "Predator The Thief"): no key, no
+            # forward rule — but only for a distinct name and only with owner approval (round 13, S13-1).
+            if campaign is not None:
+                errors.append(f"{prefix}: not_campaign entries may not carry a campaign key")
+            if re.sub(r"[^a-z0-9 ]", "", cr.norm_name(entry.get("family", ""))).strip() in cr.campaign_names():
+                errors.append(f"{prefix}: not_campaign cannot mark a family that IS a campaign name")
+            if (filename, str(indicator).lower(), reference, str(entry.get("family", "")).strip()) not in NOT_CAMPAIGN:
+                errors.append(f"{prefix}: not_campaign needs an owner-approved line '<file>\\t<indicator>\\t<reference>\\t<family>' "
+                              f"in validation/not-campaign.txt")
+            key = None
+        if campaign is not None and key != campaign:
+            # Reverse rule (round 9, S9-1): the key must agree with the family. This ties the two strings
+            # together; whether the family is right is confirmed by the checker for feed references
+            # (strict folder/STIX-name match) and by the HitL reviewer for https ones.
+            errors.append(f"{prefix}: campaign '{campaign}' requires a family naming that campaign, not "
+                          f"'{entry.get('family')}'")
+        if key and entry.get("campaign") != key:
+            if source in CAMPAIGN_SOURCES:
+                errors.append(f"{prefix}: family '{entry['family']}' is campaign '{key}' — add `campaign: {key}`")
+            else:
+                errors.append(f"{prefix}: family '{entry['family']}' names campaign '{key}', but source '{source}' "
+                              f"may not carry a campaign key — re-source it as threat_research with a report "
+                              f"reference, or use the feed's own non-campaign label")
         if "cold_start_seed" in entry:
             m = FEED_REF.match(entry.get("reference", ""))
             if (entry["cold_start_seed"] is not True or filename != "package-names.yml"
