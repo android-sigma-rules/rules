@@ -30,13 +30,16 @@ import os, sys, json, urllib.request, urllib.parse, yaml
 key = os.environ.get("MALWAREBAZAAR_API_KEY")
 hashes = [e["indicator"] for e in yaml.safe_load(open(os.path.join(os.environ["REPO"], "ioc-data/malware-hashes.yml")))["entries"]
           if e.get("source") == "malwarebazaar"]
+if not key:
+    print("WARNING: MALWAREBAZAAR_API_KEY not set; malwarebazaar dump is empty, every malwarebazaar entry will be on the review list", file=sys.stderr)
 with open(sys.argv[1], "w") as out:
     out.write("## malwarebazaar/get_info.jsonl\n")
     for h in hashes if key else []:
         req = urllib.request.Request("https://mb-api.abuse.ch/api/v1/",
               data=urllib.parse.urlencode({"query": "get_info", "hash": h}).encode(),
               headers={"Auth-Key": key})
-        for rec in json.loads(urllib.request.urlopen(req, timeout=30).read().decode()).get("data") or []:
+        data = json.loads(urllib.request.urlopen(req, timeout=30).read().decode()).get("data")
+        for rec in (data if isinstance(data, list) else []):
             out.write("| " + json.dumps(rec, separators=(",", ":")) + "\n")   # one record per line
 PY
 rm -rf "$tmp"; ls -la "$out"

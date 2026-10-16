@@ -30,7 +30,7 @@ def backfill_file(path, feed_dir, write):
                                status="NEEDS_REPORT_URL", detail=""))
             continue
         ref = f"feed:{src}#{fam or 'unknown'}"
-        status, detail = cr.check(ind, ref, str(feed_dir))
+        status, detail = cr.check(ind, ref, str(feed_dir), family=fam or None)
         if status == "FOUND":
             inserts[ind] = ref
         else:
