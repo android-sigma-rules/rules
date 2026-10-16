@@ -221,6 +221,8 @@ def validate_ioc_file(data: dict, allowed_sources: set[str], filename: str, refe
             if m:
                 if m.group(1) not in allowed_sources:
                     errors.append(f"{prefix}: feed reference names unknown source '{m.group(1)}'")
+                if m.group(1) != source:
+                    errors.append(f"{prefix}: feed reference names source '{m.group(1)}' but the entry's source is '{source}'")
                 frag = m.group(0).split("#", 1)[1]
                 tp = cr.token_problem(frag, [m.group(1)])
                 if tp:

@@ -17,3 +17,4 @@ twitter.com
 t.me
 habr.com
 en.wikipedia.org
+wikipedia.org

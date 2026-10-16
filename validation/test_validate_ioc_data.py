@@ -173,7 +173,7 @@ def test_c2_domains_yml_unaffected(tmp_path):
             category: MALWARE
             severity: CRITICAL
             source: threatfox
-            reference: feed:stalkerware-indicators#DogfoodSpy
+            reference: feed:threatfox#DogfoodSpy
     """).strip()
     r = run_validator(tmp_path, "c2-domains.yml", body)
     assert r.returncode == 0, r.stderr
@@ -395,3 +395,20 @@ def test_not_campaign_approval_must_match_reference_and_family(tmp_path):
         approvals.write_text(line)
         r = run_validator(tmp_path, "c2-domains.yml", _body(ok), env=dict(os.environ, NOT_CAMPAIGN_FILE=str(approvals)))
         assert r.returncode == 1 and "not-campaign.txt" in r.stderr, line
+
+
+def test_feed_reference_must_name_entry_source(tmp_path):
+    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(
+        family="DogfoodSpy", source="stalkerware-indicators", reference="feed:threatfox#DogfoodSpy")))
+    assert r.returncode == 1
+    assert "feed reference names source 'threatfox' but the entry's source is 'stalkerware-indicators'" in r.stderr
+
+
+def test_threat_research_entry_cannot_borrow_threatfox_feed_reference(tmp_path):
+    # Graphite is a campaign; the checker refuses campaigns confirmed by ThreatFox, so a
+    # threat_research entry must not launder itself through a threatfox feed reference.
+    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(
+        family="Graphite (Paragon)", source="threat_research", campaign="graphite",
+        reference="feed:threatfox#Graphite")))
+    assert r.returncode == 1
+    assert "feed reference names source 'threatfox' but the entry's source is 'threat_research'" in r.stderr

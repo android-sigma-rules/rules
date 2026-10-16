@@ -540,6 +540,19 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
                 "the exemption on a field old builds emit, or wait for the fleet "
                 "floor to cover the emitter"
             )
+        # dns_monitor.timestamp: same inversion class — binaries <= 0.9.0.656
+        # never set it, so the matcher is false there and `not` flips it.
+        _svc = (rule.get("logsource") or {}).get("service") if isinstance(rule.get("logsource"), dict) else None
+        if _svc == "dns_monitor" and isinstance(_neg_body, dict) and any(
+            str(k).split("|")[0].lower() == "timestamp" for k in _neg_body
+        ):
+            errors.append(
+                f"selection '{_neg_name}' matches dns_monitor timestamp and is "
+                "referenced under 'not' — app builds up to 0.9.0.656 never set "
+                "the field, so the matcher is always false there and negation "
+                "inverts it to always-true, over-firing on the old fleet; "
+                "reference timestamp positively only"
+            )
 
     for sel_name, sel_value in detection.items():
         if sel_name == "condition":

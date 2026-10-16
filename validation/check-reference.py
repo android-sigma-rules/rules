@@ -514,6 +514,7 @@ def norm_name(text):
 
 # Words that name file layouts, not families: a reference fragment equal to one of these would match
 # every section of a dump (round 8, S8-1: "#txt", "#domains", "#threatfox" vouched for anything).
+# 'Unknown malware' is an owner-approved feed label (2026-10-16) and passes on purpose: only single generic words are refused.
 _GENERIC_TOKENS = {"domain", "domains", "ioc", "iocs", "hash", "hashes", "sample", "samples", "full", "indicator",
                    "indicators", "package", "packages", "readme", "txt", "csv", "json", "jsonl", "yaml", "yml",
                    "stix2", "md", "apk", "apks", "c2", "list", "data", "get info", "ip", "ips", "url", "urls",
