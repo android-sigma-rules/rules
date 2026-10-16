@@ -82,6 +82,7 @@ services:
       source_package: { kind: raw_fact, type: string, nullable: true, description: "Package name of querying app (key differs from property appName)" }
       is_blocked: { kind: raw_fact, type: boolean, description: "True if DNS response was replaced with NXDOMAIN" }
       reason: { kind: raw_fact, type: string, nullable: true, description: "Reason for blocking (blocklist match, etc.)" }
+      timestamp: { kind: raw_fact, type: long, description: "When the query was observed (epoch ms). Emitted only by app builds newer than 0.9.0.656 (the last release without it); older binaries never set it." }
 
   process_monitor:
     model_class: ProcessTelemetry
