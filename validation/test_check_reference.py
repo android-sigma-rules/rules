@@ -643,3 +643,12 @@ def test_batch_refuses_prefix_without_trailing_slash(tmp_path):
     r = run("--entries", str(tmp_path / "cand.yml"), "--allowed-sources", str(tmp_path / "sources.json"),
             "--feed-dir", str(tmp_path))
     assert json.loads(r.stdout.splitlines()[0])["status"] == "BAD_INPUT"
+
+
+def test_wbr_does_not_split_a_long_package_name():
+    # ESET pages break long package names with <wbr> / <wbr />; the void tag joins, it does not separate.
+    for tag in ("<wbr>", "<wbr/>", "<wbr />"):
+        page = f"<p>The app com.example.{tag}longname{tag}.callinfo was found.</p>"
+        assert found("com.example.longname.callinfo", page), tag
+    assert found("other.app", "<p>com.example.longname <b>other.app</b></p>")
+    assert not found("com.example.longname", "<p>com.example.<wbr></p><p>longname</p>")
