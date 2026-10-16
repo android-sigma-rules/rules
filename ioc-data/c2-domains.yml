@@ -695,6 +695,7 @@ entries:
     severity: "CRITICAL"
     description: "PixRevolution C2 / fake Google Play listing page"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/Zimperium/IOC/master/2026-03-PixRevolution/c2.csv
     block_by_default: true
   - indicator: "expedia.aplicativo-br.com"
     family: "PixRevolution"
@@ -702,6 +703,7 @@ entries:
     severity: "CRITICAL"
     description: "PixRevolution subdomain impersonating Expedia"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/Zimperium/IOC/master/2026-03-PixRevolution/c2.csv
     block_by_default: true
   - indicator: "correios.aplicativo-br.com"
     family: "PixRevolution"
@@ -709,6 +711,7 @@ entries:
     severity: "CRITICAL"
     description: "PixRevolution subdomain impersonating Correios"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/Zimperium/IOC/master/2026-03-PixRevolution/c2.csv
     block_by_default: true
 
   # Oblivion RAT (Android MaaS RAT, 2026-03)
@@ -718,6 +721,7 @@ entries:
     severity: "CRITICAL"
     description: "Oblivion RAT operator panel / C2"
     source: "threat_research"
+    reference: https://iverify.io/blog/oblivion-rat-android-spyware-analysis
     block_by_default: true
 
   # PromptSpy (AI-phishing, MorganArg JPMorgan impersonation, 2026-03)
@@ -727,6 +731,7 @@ entries:
     severity: "CRITICAL"
     description: "PromptSpy C2 / download domain impersonating JPMorgan"
     source: "threat_research"
+    reference: https://www.welivesecurity.com/en/eset-research/promptspy-ushers-in-era-android-threats-using-genai/
     block_by_default: true
   - indicator: "m-mgarg.com"
     family: "PromptSpy"
@@ -734,6 +739,7 @@ entries:
     severity: "CRITICAL"
     description: "PromptSpy C2 / phishing domain impersonating JPMorgan"
     source: "threat_research"
+    reference: https://www.welivesecurity.com/en/eset-research/promptspy-ushers-in-era-android-threats-using-genai/
     block_by_default: true
 
   # SurxRAT (AI-enhanced Android RAT, Firebase RTDB C2, 2026-03)
@@ -744,6 +750,7 @@ entries:
     description: "SurxRAT Firebase Realtime Database C2 endpoint (specific attacker
       instance; DO NOT add parent firebaseio.com — legit platform)"
     source: "threat_research"
+    reference: https://cyble.com/blog/surxrat-downloads-large-llm-module-from-hugging-face/
     block_by_default: true
 
   # Added by /update-rules discover run (2026-05-16): 7-threat harvest from discover
@@ -753,6 +760,7 @@ entries:
     severity: "CRITICAL"
     description: "Mirax delivery/download page"
     source: "threat_research"
+    reference: https://www.cleafy.com/cleafy-labs/mirax-a-new-android-rat-turning-infected-devices-into-potential-residential-proxy-nodes
     block_by_default: true
   - indicator: "ilovepng.info"
     family: "Mirax"
@@ -760,6 +768,7 @@ entries:
     severity: "CRITICAL"
     description: "Mirax WebSocket C2 gate (ports 8443/8444/8445)"
     source: "threat_research"
+    reference: https://www.cleafy.com/cleafy-labs/mirax-a-new-android-rat-turning-infected-devices-into-potential-residential-proxy-nodes
     block_by_default: true
   - indicator: "call-history-7cda4-default-rtdb.firebaseio.com"
     family: "CallPhantom"
@@ -767,6 +776,7 @@ entries:
     severity: "CRITICAL"
     description: "CallPhantom Firebase RTDB C2"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/callphantom/README.adoc
     block_by_default: true
   - indicator: "call-history-ecc1e-default-rtdb.firebaseio.com"
     family: "CallPhantom"
@@ -774,6 +784,7 @@ entries:
     severity: "CRITICAL"
     description: "CallPhantom Firebase RTDB C2"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/callphantom/README.adoc
     block_by_default: true
   - indicator: "ch-ap-4-default-rtdb.firebaseio.com"
     family: "CallPhantom"
@@ -781,6 +792,7 @@ entries:
     severity: "CRITICAL"
     description: "CallPhantom Firebase RTDB C2"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/callphantom/README.adoc
     block_by_default: true
   - indicator: "chh1-ac0a3-default-rtdb.firebaseio.com"
     family: "CallPhantom"
@@ -788,6 +800,7 @@ entries:
     severity: "CRITICAL"
     description: "CallPhantom Firebase RTDB C2"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/callphantom/README.adoc
     block_by_default: true
   - indicator: "protecaocartao.online"
     family: "NGate"
@@ -795,6 +808,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate 2026 distribution + fake Google Play page"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "piaystore.org"
     family: "NGate"
@@ -802,6 +816,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate historic fake Play Store typosquat"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "piaystore.it.com"
     family: "NGate"
@@ -809,6 +824,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate historic fake Play Store typosquat"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "applay-store.com"
     family: "NGate"
@@ -816,6 +832,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate historic fake Play Store typosquat"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "raiffeisen-cz.eu"
     family: "NGate"
@@ -823,6 +840,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate historic phishing - Raiffeisen Bank CZ"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "app.mobil-csob-cz.eu"
     family: "NGate"
@@ -830,6 +848,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate historic phishing - CSOB Czech bank"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "unicaja-playstore.com"
     family: "NGate"
@@ -837,6 +856,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate historic phishing - Unicaja Banco/Play"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "playstore-unicaja.com"
     family: "NGate"
@@ -844,6 +864,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate historic phishing - Unicaja Banco/Play"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "calxabank.info"
     family: "NGate"
@@ -851,6 +872,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate historic phishing - CaixaBank"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "nfcrackatm.com"
     family: "NGate"
@@ -858,6 +880,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate NFC ATM cash-out infrastructure"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "nfcanoncrack.com"
     family: "NGate"
@@ -865,6 +888,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate NFC tooling infrastructure"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "nfcwarriors.com"
     family: "NGate"
@@ -872,6 +896,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate infrastructure"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "devilnfc.com"
     family: "NGate"
@@ -879,6 +904,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate infrastructure"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "devilxclusive.lol"
     family: "NGate"
@@ -886,6 +912,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate infrastructure"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "reventandocajerosnfc.club"
     family: "NGate"
@@ -893,6 +920,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate infrastructure (Spanish lure)"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "spicynagets.shop"
     family: "NGate"
@@ -900,6 +928,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate infrastructure"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "seha-ksa.online"
     family: "NGate"
@@ -907,6 +936,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate infrastructure (Saudi health lure)"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "brigadeirobeach.makeup"
     family: "NGate"
@@ -914,6 +944,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate infrastructure (Brazil lure)"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "policianacional.gay"
     family: "NGate"
@@ -921,6 +952,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate infrastructure (police impersonation)"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "nonfcnomoney.com"
     family: "NGate"
@@ -928,6 +960,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate infrastructure"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "nfc.cryptomaker.info"
     family: "NGate"
@@ -935,6 +968,7 @@ entries:
     severity: "CRITICAL"
     description: "NGate infrastructure"
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/eset/malware-ioc/master/ngate/README.adoc
     block_by_default: true
   - indicator: "comodo-vpn.com"
     family: "DCHSpy"
@@ -942,6 +976,7 @@ entries:
     severity: "CRITICAL"
     description: "DCHSpy MuddyWater Comodo VPN C2 base"
     source: "threat_research"
+    reference: https://security.lookout.com/threat-intelligence/article/lookout-discovers-iranian-dchsy-surveillanceware
     block_by_default: true
   - indicator: "earthvpn.org"
     family: "DCHSpy"
@@ -949,6 +984,7 @@ entries:
     severity: "CRITICAL"
     description: "DCHSpy MuddyWater Earth VPN C2 base"
     source: "threat_research"
+    reference: https://security.lookout.com/threat-intelligence/article/lookout-discovers-iranian-dchsy-surveillanceware
     block_by_default: true
   - indicator: "iphide.net"
     family: "DCHSpy"
@@ -956,6 +992,7 @@ entries:
     severity: "CRITICAL"
     description: "DCHSpy MuddyWater Hide VPN C2 base"
     source: "threat_research"
+    reference: https://security.lookout.com/threat-intelligence/article/lookout-discovers-iranian-dchsy-surveillanceware
     block_by_default: true
   - indicator: "n14mit69company.top"
     family: "DCHSpy"
@@ -963,6 +1000,7 @@ entries:
     severity: "CRITICAL"
     description: "DCHSpy infrastructure"
     source: "threat_research"
+    reference: https://security.lookout.com/threat-intelligence/article/lookout-discovers-iranian-dchsy-surveillanceware
     block_by_default: true
   - indicator: "noblico.net"
     family: "BITTER"
@@ -970,6 +1008,7 @@ entries:
     severity: "CRITICAL"
     description: "BITTER ProSpy/ToSpy C2"
     source: "threat_research"
+    reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "ai-messenger.co"
     family: "BITTER"
@@ -977,6 +1016,7 @@ entries:
     severity: "CRITICAL"
     description: "BITTER ProSpy/ToSpy C2"
     source: "threat_research"
+    reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "spiralkey.co"
     family: "BITTER"
@@ -984,6 +1024,7 @@ entries:
     severity: "CRITICAL"
     description: "BITTER ProSpy/ToSpy C2"
     source: "threat_research"
+    reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "store.latestversion.ai"
     family: "BITTER"
@@ -991,6 +1032,7 @@ entries:
     severity: "CRITICAL"
     description: "BITTER ProSpy/ToSpy C2 + distribution"
     source: "threat_research"
+    reference: https://github.com/eset/malware-ioc/blob/master/prospytospy/README.adoc
     block_by_default: true
   - indicator: "store.appupdate.ai"
     family: "BITTER"
@@ -998,6 +1040,7 @@ entries:
     severity: "CRITICAL"
     description: "BITTER ProSpy/ToSpy C2 + distribution"
     source: "threat_research"
+    reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "totokupdate.ai"
     family: "BITTER"
@@ -1005,6 +1048,7 @@ entries:
     severity: "CRITICAL"
     description: "BITTER ToTok-themed C2"
     source: "threat_research"
+    reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "app-totok.io"
     family: "BITTER"
@@ -1012,6 +1056,7 @@ entries:
     severity: "CRITICAL"
     description: "BITTER ToTok-themed C2"
     source: "threat_research"
+    reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "signal.ct.ws"
     family: "BITTER"
@@ -1019,6 +1064,7 @@ entries:
     severity: "CRITICAL"
     description: "BITTER Signal-themed C2 + distribution"
     source: "threat_research"
+    reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "sgnlapp.info"
     family: "BITTER"
@@ -1026,6 +1072,7 @@ entries:
     severity: "CRITICAL"
     description: "BITTER Signal-themed C2"
     source: "threat_research"
+    reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "encryption-plug-in-signal.com-ae.net"
     family: "BITTER"
@@ -1033,6 +1080,7 @@ entries:
     severity: "CRITICAL"
     description: "BITTER Signal encryption plugin C2 + distribution"
     source: "threat_research"
+    reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "totokapp.info"
     family: "BITTER"
@@ -1040,6 +1088,7 @@ entries:
     severity: "CRITICAL"
     description: "BITTER ToTok-themed C2"
     source: "threat_research"
+    reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "totok-pro.io"
     family: "BITTER"
@@ -1047,6 +1096,7 @@ entries:
     severity: "CRITICAL"
     description: "BITTER ToTok Pro C2 + distribution"
     source: "threat_research"
+    reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "com-ae.net"
     family: "BITTER"
@@ -1054,6 +1104,7 @@ entries:
     severity: "CRITICAL"
     description: "BITTER infrastructure pivot domain"
     source: "threat_research"
+    reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "youtubepremiumapp.com"
     family: "BITTER"
@@ -1061,6 +1112,8 @@ entries:
     severity: "CRITICAL"
     description: "BITTER 2022 Dracarys-era infrastructure"
     source: "threat_research"
+    # verified manually: Claude (A3 research), 2026-10-16, pdftotext
+    reference: https://about.fb.com/wp-content/uploads/2022/08/Quarterly-Adversarial-Threat-Report-Q2-2022.pdf
     block_by_default: true
 
   # ---------------------------------------------------------------------------
@@ -1083,6 +1136,7 @@ entries:
     severity: "MEDIUM"
     description: "Outlogic (X-Mode Social) vendor apex domain. Referenced from inside the SDK and consumer-app privacy policies."
     source: "threat_research"
+    reference: https://etip.exodus-privacy.eu.org/trackers/85776abf-95f1-4e4d-afde-be5f8493dac2/
     block_by_default: true
   - indicator: "outlogic.io"
     family: "Outlogic"
@@ -1090,6 +1144,7 @@ entries:
     severity: "MEDIUM"
     description: "Outlogic post-rebrand corporate domain (Digital Envoy acquisition, August 2021)."
     source: "threat_research"
+    reference: https://en.wikipedia.org/wiki/X-Mode_social
     block_by_default: true
   - indicator: "api.myendpoint.io"
     family: "Outlogic"
@@ -1097,6 +1152,7 @@ entries:
     severity: "MEDIUM"
     description: "Outlogic SDK telemetry endpoint per Exodus Privacy tracker #354."
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/craiu/mobiletrackers/master/list.txt
     block_by_default: true
   - indicator: "bin5y4muil.execute-api.us-east-1.amazonaws.com"
     family: "Outlogic"
@@ -1104,6 +1160,7 @@ entries:
     severity: "MEDIUM"
     description: "Outlogic SDK AWS API Gateway telemetry endpoint per Exodus Privacy tracker #354."
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/craiu/mobiletrackers/master/list.txt
     block_by_default: true
   - indicator: "api.smartechmetrics.com"
     family: "Outlogic"
@@ -1111,6 +1168,7 @@ entries:
     severity: "MEDIUM"
     description: "Outlogic SDK telemetry endpoint per Exodus Privacy tracker #354."
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/craiu/mobiletrackers/master/list.txt
     block_by_default: true
 
   # Venntel / Gravy GOLD legacy SDK — per sir-2026-05-18-venntel
@@ -1120,6 +1178,7 @@ entries:
     severity: "MEDIUM"
     description: "Legacy Gravy GOLD SDK (TimeRAZOR) telemetry apex. Documented in vendor Javadoc and the mobiletrackers community list."
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/craiu/mobiletrackers/master/list.txt
     block_by_default: true
   - indicator: "api.findgravy.com"
     family: "Venntel"
@@ -1127,6 +1186,7 @@ entries:
     severity: "MEDIUM"
     description: "Legacy Gravy GOLD SDK (TimeRAZOR) API endpoint. Documented in vendor Javadoc."
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/craiu/mobiletrackers/master/list.txt
     block_by_default: true
   - indicator: "ws.findgravy.com"
     family: "Venntel"
@@ -1134,6 +1194,7 @@ entries:
     severity: "MEDIUM"
     description: "Legacy Gravy GOLD SDK websocket endpoint per mobiletrackers community list."
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/craiu/mobiletrackers/master/list.txt
     block_by_default: true
   - indicator: "api.foozor.com"
     family: "Venntel"
@@ -1141,6 +1202,7 @@ entries:
     severity: "MEDIUM"
     description: "Legacy Gravy GOLD SDK secondary telemetry endpoint per mobiletrackers community list."
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/craiu/mobiletrackers/master/list.txt
     block_by_default: true
 
   # Mobilewalla — per sir-2026-05-18-mobilewalla (apex only; no subdomain enumeration in reachable sources)
@@ -1175,6 +1237,7 @@ entries:
     severity: "MEDIUM"
     description: "Predicio (Telescope) SDK telemetry endpoint per Exodus Privacy tracker #357 and Vice Motherboard reporting on Salaat First."
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/craiu/mobiletrackers/master/list.txt
     block_by_default: true
   - indicator: "predic.io"
     family: "Predicio"
@@ -1182,6 +1245,7 @@ entries:
     severity: "MEDIUM"
     description: "Predicio corporate apex domain. Went dark after Google Play removal in February 2021; historical SDK builds may still resolve to it."
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/craiu/mobiletrackers/master/list.txt
     block_by_default: true
 
   # Gravy Analytics / Unacast (aggregator) — per sir-2026-05-18-gravy-analytics
@@ -1191,6 +1255,7 @@ entries:
     severity: "MEDIUM"
     description: "Gravy Analytics corporate apex domain. Per FTC consent order (December 2024). DNS resolution from a consumer device is uncommon since Gravy is an aggregator — a hit is high-signal."
     source: "threat_research"
+    reference: https://raw.githubusercontent.com/craiu/mobiletrackers/master/list.txt
     block_by_default: true
   - indicator: "unacast.com"
     family: "Gravy Analytics"
@@ -1229,6 +1294,7 @@ entries:
     severity: "HIGH"
     description: "Asin Android spyware distribution domain — fake government news source targeting Arabic-speaking users (ESET, ~2026-06)."
     source: "threat_research"
+    reference: https://thehackernews.com/2026/06/android-spyware-asin-targets-arabic.html
     block_by_default: true
   - indicator: "c-pdf.net"
     family: "Asin"
@@ -1236,6 +1302,7 @@ entries:
     severity: "MEDIUM"
     description: "Asin Android spyware distribution domain hosting a PDF-utility-disguised APK (ESET-sourced, single unstructured source; medium confidence)."
     source: "threat_research"
+    reference: https://thehackernews.com/2026/06/android-spyware-asin-targets-arabic.html
     block_by_default: true
   - indicator: "syriadefensemap.com"
     family: "Asin"
@@ -1243,6 +1310,7 @@ entries:
     severity: "MEDIUM"
     description: "Asin Android spyware distribution domain serving a 'Syria Defense Map'-disguised sample (ESET-sourced, single unstructured source; medium confidence)."
     source: "threat_research"
+    reference: https://thehackernews.com/2026/06/android-spyware-asin-targets-arabic.html
     block_by_default: true
   - indicator: "joodyallen.art"
     family: "RecruitRat"
@@ -1258,6 +1326,7 @@ entries:
     severity: "HIGH"
     description: "Astrinox Android malware C2/distribution domain"
     source: "zimperium-ioc"
+    reference: https://zimperium.com/blog/android-bankers-4-campaigns-in-a-row
     block_by_default: true
   - indicator: "aptabase.jesfeoqrj3.xyz"
     family: "AndroRAT"
@@ -1281,6 +1350,7 @@ entries:
     severity: "HIGH"
     description: "BTMOB Android RAT C2/distribution domain"
     source: "threat_research"
+    reference: https://blog.quimerax.com/btmob-exposed-inside-a-fraud-as-a-service-platform-with-1400-live-servers/
     block_by_default: true
 
   # Donot Team (APT-C-35) — Togo campaign (Amnesty Tech, Oct 2021)
@@ -1523,6 +1593,7 @@ entries:
     severity: "CRITICAL"
     description: "Ghost Tapped NFC-relay C2 (Group-IB)"
     source: "threat_research"
+    reference: https://www.group-ib.com/blog/ghost-tapped/
     block_by_default: true
   - indicator: "xxnfc.com"
     family: "GhostTapped"
@@ -1530,6 +1601,7 @@ entries:
     severity: "CRITICAL"
     description: "Ghost Tapped NFC-relay C2 (Group-IB)"
     source: "threat_research"
+    reference: https://www.group-ib.com/blog/ghost-tapped/
     block_by_default: true
   - indicator: "txnfc.com"
     family: "GhostTapped"
@@ -1537,6 +1609,7 @@ entries:
     severity: "CRITICAL"
     description: "Ghost Tapped NFC-relay C2 (Group-IB)"
     source: "threat_research"
+    reference: https://www.group-ib.com/blog/ghost-tapped/
     block_by_default: true
   - indicator: "api.kingcardnfc.com"
     family: "SuperCardX"
@@ -1544,6 +1617,7 @@ entries:
     severity: "CRITICAL"
     description: "SuperCard X NFC-relay C2 (Cleafy)"
     source: "threat_research"
+    reference: https://www.cleafy.com/cleafy-labs/supercardx-exposing-chinese-speaker-maas-for-nfc-relay-fraud-operation
     block_by_default: true
   # AntiDot (added 2026-07-03 via AI rule pipeline sweep)
   - indicator: "neuroflux42.com"
@@ -1745,6 +1819,7 @@ entries:
     severity: "HIGH"
     description: "Rokarolla banking trojan C2 domain (Zimperium zLabs)"
     source: "threat_research"
+    reference: https://securityaffairs.com/193745/cyber-crime/new-rokarolla-android-trojan-targets-217-banking-and-crypto-apps.html
     block_by_default: true
   - indicator: "beralisvc.info"
     family: "Rokarolla"
@@ -1752,6 +1827,7 @@ entries:
     severity: "HIGH"
     description: "Rokarolla C2 domain (threat research, 2026-07-03 sweep)"
     source: "threat_research"
+    reference: https://securityaffairs.com/193745/cyber-crime/new-rokarolla-android-trojan-targets-217-banking-and-crypto-apps.html
     block_by_default: true
   - indicator: "blestorians.cfd"
     family: "Rokarolla"
@@ -1759,6 +1835,7 @@ entries:
     severity: "HIGH"
     description: "Rokarolla C2 domain (threat research, 2026-07-03 sweep)"
     source: "threat_research"
+    reference: https://securityaffairs.com/193745/cyber-crime/new-rokarolla-android-trojan-targets-217-banking-and-crypto-apps.html
     block_by_default: true
   - indicator: "abiorime.cfd"
     family: "Rokarolla"
@@ -1766,6 +1843,7 @@ entries:
     severity: "HIGH"
     description: "Rokarolla C2 domain (threat research, 2026-07-03 sweep)"
     source: "threat_research"
+    reference: https://securityaffairs.com/193745/cyber-crime/new-rokarolla-android-trojan-targets-217-banking-and-crypto-apps.html
     block_by_default: true
   - indicator: "morevoms.cfd"
     family: "Rokarolla"
@@ -1773,6 +1851,7 @@ entries:
     severity: "HIGH"
     description: "Rokarolla C2 domain (threat research, 2026-07-03 sweep)"
     source: "threat_research"
+    reference: https://securityaffairs.com/193745/cyber-crime/new-rokarolla-android-trojan-targets-217-banking-and-crypto-apps.html
     block_by_default: true
   # Glitch SPY (added 2026-07-03 via AI rule pipeline sweep)
   - indicator: "sportypointsrewards.com"
@@ -1781,6 +1860,7 @@ entries:
     severity: "HIGH"
     description: "Glitch SPY WebSocket C2 domain (Cyble)"
     source: "threat_research"
+    reference: https://cyble.com/blog/glitch-spy-rat-distributed-via-fake-polish-app/
     block_by_default: true
   - indicator: "gich.etherraffleexchange.us"
     family: "Glitch SPY"
@@ -1788,6 +1868,7 @@ entries:
     severity: "HIGH"
     description: "Glitch SPY exposed admin-panel host (Cyble)"
     source: "threat_research"
+    reference: https://cyble.com/blog/glitch-spy-rat-distributed-via-fake-polish-app/
     block_by_default: true
   # NFCShare (added 2026-07-03 via AI rule pipeline sweep)
   - indicator: "areaclienti-intesa.com"
@@ -1796,6 +1877,7 @@ entries:
     severity: "HIGH"
     description: "NFCShare Intesa-impersonating distribution/phishing domain (D3Lab)"
     source: "threat_research"
+    reference: https://d3lab.net/nfcshare-evolves-from-a-banking-phishing-apk-to-a-github-hosted-android-nfc-fraud-campaign/
     block_by_default: true
   - indicator: "nfck.loseyourip.com"
     family: "NFCShare"
@@ -1803,6 +1885,7 @@ entries:
     severity: "HIGH"
     description: "NFCShare WebSocket C2 host on dynamic-DNS subdomain (D3Lab; parent loseyourip.com is a dyn-DNS provider, only this FQDN is the IOC)"
     source: "threat_research"
+    reference: https://d3lab.net/nfcshare-evolves-from-a-banking-phishing-apk-to-a-github-hosted-android-nfc-fraud-campaign/
     block_by_default: true
   # Brokewell (added 2026-07-03 via AI rule pipeline sweep)
   - indicator: "tutaj-dompl.com"
@@ -1811,6 +1894,7 @@ entries:
     severity: "HIGH"
     description: "Fake Polish apartment-rental site distributing Brokewell loader / Glitch SPY (Cyble)"
     source: "threat_research"
+    reference: https://cyble.com/blog/glitch-spy-rat-distributed-via-fake-polish-app/
     block_by_default: true
   # GoldPickaxe (added 2026-07-13 via AI rule pipeline sweep)
   - indicator: "fgiojhfjkbk.cc"
@@ -1965,6 +2049,7 @@ entries:
     severity: "HIGH"
     description: "Octagon distribution/C2 domain impersonating the Bahrain 'BH Alert' Civil Defense app (K7 Security Labs, 2026-08)."
     source: "threat_research"
+    reference: https://labs.k7computing.com/index.php/octagon-technical-analysis-of-a-fake-bahrain-civil-defense-application/
     block_by_default: true
   - indicator: "playgoogle.bh-alert.com"
     family: "Octagon"
@@ -1972,6 +2057,7 @@ entries:
     severity: "HIGH"
     description: "Octagon C2 subdomain masquerading as Google Play (K7 Security Labs, 2026-08)."
     source: "threat_research"
+    reference: https://labs.k7computing.com/index.php/octagon-technical-analysis-of-a-fake-bahrain-civil-defense-application/
     block_by_default: true
   - indicator: "download.alertbh.info"
     family: "Octagon"
@@ -1979,6 +2065,7 @@ entries:
     severity: "HIGH"
     description: "Octagon payload-download/distribution domain serving BH-Alert.apk (K7 Security Labs, 2026-08)."
     source: "threat_research"
+    reference: https://labs.k7computing.com/index.php/octagon-technical-analysis-of-a-fake-bahrain-civil-defense-application/
     block_by_default: true
   - indicator: apk.obwhatsappdownload.com
     family: Triada
@@ -2194,6 +2281,7 @@ entries:
       Kaspersky 2026-08-21 + Nokia Deepfield ipmoyu IOC set. A DNS match on any device indicates MoYu botnet
       C2 contact.'
     source: threat_research
+    reference: https://securelist.com/android-head-unit-malware/121106/
   - indicator: ishano456.sbs
     family: MoYu
     category: MALWARE
@@ -2201,6 +2289,7 @@ entries:
     description: 'MoYu Group C2 apex (JarService/clicker chain). Cross-referenced: Kaspersky + Nokia Deepfield
       ipmoyu IOC set.'
     source: threat_research
+    reference: https://securelist.com/android-head-unit-malware/121106/
   - indicator: xshaon123.sbs
     family: MoYu
     category: MALWARE
@@ -2208,30 +2297,35 @@ entries:
     description: 'MoYu Group C2 apex (JarService/clicker chain). Cross-referenced: Kaspersky + Nokia Deepfield
       ipmoyu IOC set.'
     source: threat_research
+    reference: https://securelist.com/android-head-unit-malware/121106/
   - indicator: kshahnd.sbs
     family: MoYu
     category: MALWARE
     severity: HIGH
     description: MoYu Group C2 domain (Kaspersky 2026-08-21, head-unit/TV-box botnet campaign).
     source: threat_research
+    reference: https://securelist.com/android-head-unit-malware/121106/
   - indicator: mdsjhd.sbs
     family: MoYu
     category: MALWARE
     severity: HIGH
     description: MoYu Group C2 domain (Kaspersky 2026-08-21, head-unit/TV-box botnet campaign).
     source: threat_research
+    reference: https://securelist.com/android-head-unit-malware/121106/
   - indicator: nmnsny.sbs
     family: MoYu
     category: MALWARE
     severity: HIGH
     description: MoYu Group C2 domain (Kaspersky 2026-08-21, head-unit/TV-box botnet campaign).
     source: threat_research
+    reference: https://securelist.com/android-head-unit-malware/121106/
   - indicator: kookjar.com
     family: MoYu
     category: MALWARE
     severity: HIGH
     description: MoYu Group C2 domain (Kaspersky 2026-08-21, head-unit/TV-box botnet campaign).
     source: threat_research
+    reference: https://securelist.com/android-head-unit-malware/121106/
   - indicator: ty54fgd435.my
     family: MoYu
     category: MALWARE
@@ -2239,6 +2333,7 @@ entries:
     description: 'MoYu Group loader-domain apex (Deepfield lists a1.ty54fgd435.my serving host.dex; dead
       as of 2026-07-09 but retained as historical IOC). Cross-referenced: Kaspersky + Nokia Deepfield.'
     source: threat_research
+    reference: https://securelist.com/android-head-unit-malware/121106/
   - indicator: ue886578433.online
     family: MoYu
     category: MALWARE
@@ -2246,6 +2341,7 @@ entries:
     description: 'MoYu Group loader-domain apex (Deepfield: a1.ue886578433.online, dead). Cross-referenced:
       Kaspersky + Nokia Deepfield.'
     source: threat_research
+    reference: https://securelist.com/android-head-unit-malware/121106/
   - indicator: ty4523.space
     family: MoYu
     category: MALWARE
@@ -2253,6 +2349,7 @@ entries:
     description: 'MoYu Group loader-domain apex (Deepfield: a1.ty4523.space, dead). Cross-referenced: Kaspersky
       + Nokia Deepfield.'
     source: threat_research
+    reference: https://securelist.com/android-head-unit-malware/121106/
   - indicator: admin.uipoxy.com
     family: MoYu
     category: MALWARE
@@ -2261,6 +2358,7 @@ entries:
       Nokia Deepfield passive DNS ties to BADBOX/MoYu C2. Panel infrastructure rather than a device beacon
       endpoint — MEDIUM severity.
     source: threat_research
+    reference: https://securelist.com/android-head-unit-malware/121106/
   - indicator: newsvxc.shopstoreboutique.com
     family: MoYu tigertv
     category: MALWARE
@@ -2268,6 +2366,7 @@ entries:
     description: MoYu tigertv getDomainList bootstrap seed (:2052, Cloudflare front). Contact proves the
       tigertv IPTV vehicle app is installed, not necessarily payload-path entry (Deepfield).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: appdload.mpfcms.com
     family: MoYu tigertv
     category: MALWARE
@@ -2275,6 +2374,7 @@ entries:
     description: MoYu tigertv getDomainList bootstrap seed (:2052). Contact proves vehicle-app install,
       not payload-path entry (Deepfield).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: mpfcms.mio-tvplus.com
     family: MoYu tigertv
     category: MALWARE
@@ -2282,6 +2382,7 @@ entries:
     description: MoYu tigertv getDomainList bootstrap seed (:2052). Contact proves vehicle-app install,
       not payload-path entry (Deepfield).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: miotvtop.hdwcam.com
     family: MoYu tigertv
     category: MALWARE
@@ -2289,6 +2390,7 @@ entries:
     description: MoYu tigertv XC portal seed (:8080). Contact proves vehicle-app install, not payload-path
       entry (Deepfield).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: testcf114.bookabcgames.com
     family: MoYu tigertv
     category: MALWARE
@@ -2296,6 +2398,7 @@ entries:
     description: MoYu tigertv XC portal seed (:8080, Cloudflare front; genuine upstream hostname from Deepfield).
       Contact proves vehicle-app install, not payload-path entry.
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: mtvp.hdwcam.com
     family: MoYu tigertv
     category: MALWARE
@@ -2303,6 +2406,7 @@ entries:
     description: MoYu tigertv XC portal seed (:8080), no live accessor observed. Contact proves vehicle-app
       install, not payload-path entry (Deepfield).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: xc.mpfcms.com
     family: MoYu tigertv
     category: MALWARE
@@ -2310,6 +2414,7 @@ entries:
     description: Live MoYu tigertv getDomainList XC result 2026-07-09. Contact proves vehicle-app install,
       not payload-path entry (Deepfield).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: mcm5566.bookabcgames.com
     family: MoYu tigertv
     category: MALWARE
@@ -2317,6 +2422,7 @@ entries:
     description: Live MoYu tigertv getDomainList XC result 2026-07-09 (Cloudflare front). Contact proves
       vehicle-app install, not payload-path entry (Deepfield).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: tigertvdli1.jopstop.com
     family: MoYu tigertv
     category: MALWARE
@@ -2324,12 +2430,14 @@ entries:
     description: Live MoYu tigertv getDomainList result 2026-07-09 on cover apex jopstop.com. Contact proves
       vehicle-app install only (Deepfield exposure model).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: edisajalsjfdfh.shop
     family: MoYu tigertv
     category: MALWARE
     severity: MEDIUM
     description: Historical rotated-out MoYu tigertv getDomainList pool member; NXDOMAIN 2026-07-09 (Deepfield).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: terrtest.oss-cn-hangzhou.aliyuncs.com
     family: MoYu tigertv
     category: MALWARE
@@ -2338,6 +2446,7 @@ entries:
       (dex_api.txt). Match this exact hostname only — NEVER the aliyuncs.com apex, which is shared legitimate
       infrastructure (Deepfield).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: a1.ishano456.sbs
     family: BADBOX
     category: MALWARE
@@ -2345,6 +2454,7 @@ entries:
     description: BADBOX a1 client-config C2 of the MoYu zhima chain; DNS contact indicates the device entered
       the payload path (Deepfield + Kaspersky apex corroboration; ThreatFox family BADBOX).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/iocs/domains.csv
   - indicator: t1.ishano456.sbs
     family: BADBOX
     category: MALWARE
@@ -2352,6 +2462,7 @@ entries:
     description: BADBOX t1 cpc/proxy C2 of the MoYu zhima chain; DNS contact indicates payload-path entry
       (Deepfield + Kaspersky; ThreatFox family BADBOX).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/iocs/domains.csv
   - indicator: a1.xmsae.sbs
     family: BADBOX
     category: MALWARE
@@ -2359,6 +2470,7 @@ entries:
     description: BADBOX a1 client-config C2 of the MoYu zhima chain (Deepfield + Kaspersky; ThreatFox family
       BADBOX).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/iocs/domains.csv
   - indicator: t1.xmsae.sbs
     family: BADBOX
     category: MALWARE
@@ -2366,6 +2478,7 @@ entries:
     description: BADBOX t1 cpc/proxy C2 of the MoYu zhima chain (Deepfield + Kaspersky; ThreatFox family
       BADBOX).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/iocs/domains.csv
   - indicator: a1.xshaon123.sbs
     family: BADBOX
     category: MALWARE
@@ -2373,6 +2486,7 @@ entries:
     description: BADBOX a1 client-config C2 of the MoYu zhima chain (Deepfield + Kaspersky; ThreatFox family
       BADBOX).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/iocs/domains.csv
   - indicator: t1.xshaon123.sbs
     family: BADBOX
     category: MALWARE
@@ -2380,6 +2494,7 @@ entries:
     description: BADBOX t1 cpc/proxy C2 of the MoYu zhima chain; served the live zhima module descriptor
       (Deepfield + Kaspersky; ThreatFox family BADBOX).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/iocs/domains.csv
   - indicator: a1.ty54fgd435.my
     family: BADBOX
     category: MALWARE
@@ -2387,24 +2502,28 @@ entries:
     description: MoYu host.dex loader FQDN (a1 config endpoint); NXDOMAIN 2026-07-09 (Deepfield + Kaspersky
       apex).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: a1.ue886578433.online
     family: BADBOX
     category: MALWARE
     severity: HIGH
     description: MoYu host.dex loader FQDN (a1 config endpoint); dead (Deepfield + Kaspersky apex).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: a1.ty4523.space
     family: BADBOX
     category: MALWARE
     severity: HIGH
     description: MoYu host.dex loader FQDN (a1 config endpoint); dead (Deepfield + Kaspersky apex).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: a1.vrr8345.site
     family: BADBOX
     category: MALWARE
     severity: HIGH
     description: MoYu host.dex loader FQDN, dead (Deepfield only — single source).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: task.mymoyu.shop
     family: BADBOX
     category: MALWARE
@@ -2412,6 +2531,7 @@ entries:
     description: MoYu host.dex client-activation C2 (/cpc/api/client/active); also listed by Xlab as Mzmess
       'spirit' ad-fraud C2; ThreatFox botnet_cc entry tagged 'spirit' (Deepfield + Xlab).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: 100ulife.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2438,6 +2558,7 @@ entries:
     description: BADBOX 2.0 C2 apex (HUMAN Satori appendix); adstat./update. subdomains serve Mzmess 'spirit'
       ad-fraud C2 per Xlab — two independent vendors.
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: admoyu.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2451,6 +2572,7 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    reference: https://www.humansecurity.com/wp-content/uploads/2025/03/BADBOX-2-H5-Domain-List.csv
   - indicator: ai-goal.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2489,6 +2611,7 @@ entries:
     description: Shared BADBOX 2.0 / Vo1d C2 (HUMAN Satori appendix + Dr.Web Android.Vo1d network indicator
       — two independent vendors).
     source: threat_research
+    reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.Vo1d/README.adoc
   - indicator: bltproxy.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2501,6 +2624,7 @@ entries:
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: bullet-proxy.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2514,12 +2638,14 @@ entries:
     description: Shared BADBOX 2.0 / Vo1d C2 — BB2DOOR module download host per HUMAN, Vo1d reporter per
       Xlab; also corroborated by Point Wild.
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: catmos99.com
     family: BADBOX/Vo1d
     category: MALWARE
     severity: HIGH
     description: Shared BADBOX 2.0 / Vo1d C2 (HUMAN Satori appendix + Xlab IOC list + Dr.Web hxxp://catmos99.com:81/).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: cbphe.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2550,18 +2676,21 @@ entries:
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: cxlcyy.com
     family: BADBOX 2.0
     category: MALWARE
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: cxzyr.com
     family: BADBOX 2.0
     category: MALWARE
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: dazzl.vip
     family: BADBOX 2.0
     category: MALWARE
@@ -2605,6 +2734,7 @@ entries:
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: finemob.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2647,12 +2777,14 @@ entries:
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: goologer.com
     family: BADBOX 2.0
     category: MALWARE
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: heygames.club
     family: BADBOX 2.0
     category: MALWARE
@@ -2671,6 +2803,7 @@ entries:
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: ipforyou.top
     family: BADBOX 2.0
     category: MALWARE
@@ -2684,6 +2817,7 @@ entries:
     description: IpMoYu residential-proxy service domain — MoYu Group's monetization storefront for BADBOX
       2.0 proxy exits (HUMAN Satori; corroborated by Point Wild and Nokia Deepfield's ipmoyu research).
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: jasmine.land
     family: BADBOX 2.0
     category: MALWARE
@@ -2696,6 +2830,7 @@ entries:
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: joyfulxx.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2708,12 +2843,14 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: logcer.com
     family: BADBOX 2.0
     category: MALWARE
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: long.tv
     family: BADBOX 2.0
     category: MALWARE
@@ -2729,6 +2866,7 @@ entries:
     description: Shared BADBOX 2.0 / Vo1d C2 (HUMAN Satori appendix + Dr.Web Android.Vo1d network indicator
       — two independent vendors).
     source: threat_research
+    reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.Vo1d/README.adoc
   - indicator: meisvip.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2760,6 +2898,7 @@ entries:
     description: BADBOX 2.0 / MoYu C2 apex (HUMAN Satori appendix); task./adstat. subdomains serve Mzmess
       'spirit' ad-fraud C2 per Xlab — two independent vendors.
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: msohu.online
     family: BADBOX 2.0
     category: MALWARE
@@ -2772,12 +2911,14 @@ entries:
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: mtcpmpm.com
     family: BADBOX 2.0
     category: MALWARE
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: mtcprogram.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2797,6 +2938,7 @@ entries:
     description: BADBOX 2.0 / MoYu C2 apex (HUMAN Satori appendix); task. subdomain is the host.dex activation
       C2 per Deepfield and a 'spirit' C2 per Xlab — multiple independent vendors.
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: navnow.xyz
     family: BADBOX 2.0
     category: MALWARE
@@ -2815,18 +2957,21 @@ entries:
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: pcxrl.com
     family: BADBOX 2.0
     category: MALWARE
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: pcxrlback.com
     family: BADBOX 2.0
     category: MALWARE
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: petrel-ip.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2839,12 +2984,14 @@ entries:
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: pixlo.cc
     family: BADBOX 2.0
     category: MALWARE
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: pm2za.cc
     family: BADBOX 2.0
     category: MALWARE
@@ -2863,6 +3010,7 @@ entries:
     severity: MEDIUM
     description: Shared BADBOX 2.0 / legacy Vo1d C2 (HUMAN Satori appendix + Xlab legacy Vo1d C2 list).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: qulogger.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2905,6 +3053,7 @@ entries:
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: sparkjoy.cc
     family: BADBOX 2.0
     category: MALWARE
@@ -2929,6 +3078,7 @@ entries:
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: syloger.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2965,6 +3115,7 @@ entries:
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: veezy.site
     family: BADBOX 2.0
     category: MALWARE
@@ -3013,12 +3164,14 @@ entries:
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: ycxrl.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: ycxrldow.com
     family: BADBOX 2.0
     category: MALWARE
@@ -3037,6 +3190,7 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: yydsma.com
     family: BADBOX 2.0
     category: MALWARE
@@ -3055,12 +3209,14 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: yydsmr.com
     family: BADBOX 2.0
     category: MALWARE
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: ziyemy.shop
     family: BADBOX 2.0
     category: MALWARE
@@ -3068,12 +3224,14 @@ entries:
     description: BADBOX 2.0 C2 apex (HUMAN Satori appendix); task1./task2./adstat./adstat2. subdomains serve
       Mzmess 'spirit' ad-fraud C2 per Xlab — two independent vendors.
     source: threat_research
+    reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
   - indicator: ztword.com
     family: BADBOX 2.0
     category: MALWARE
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    reference: https://www.bitsight.com/blog/badbox-botnet-back
   - indicator: zxcvbnmasdfghjkl.xyz
     family: BADBOX 2.0
     category: MALWARE
@@ -3087,120 +3245,140 @@ entries:
     description: Vo1d redirector C2 with DGA-style 16-character name (ThreatFox structured feed, Bitsight-reported,
       last seen 2026-08-21).
     source: threat_research
+    reference: feed:threatfox#Vo1d
   - indicator: ssl8rrs2.com
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Vo1d C2 for the s63 downloader, port 55600 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: ttekf42.com
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Vo1d C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: ttss442.com
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Vo1d DGA C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: works883.com
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Vo1d DGA C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: csskkjw.com
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Legacy Vo1d C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: catmore23.com
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Legacy Vo1d C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: synntre.com
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Legacy Vo1d C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: csok997.com
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Legacy Vo1d C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: conannt.com
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Legacy Vo1d C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: haveits.com
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Legacy Vo1d C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: remoredo.com
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Legacy Vo1d C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: ssl87362.com
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Vo1d downloader domain (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: wowokeys.com
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Vo1d downloader domain (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: works883.xyz
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Vo1d reporter domain (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: tumune3.com
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Vo1d liblogs payload C2, port 55501 (Xlab article body; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: pxleo5fbca7141b5.com
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Vo1d redirector C2, DGA-style 16-character name (Xlab article body; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: 6f33933ce4a5c0e1b32fea736a61351a.com
     family: Vo1d
     category: MALWARE
     severity: MEDIUM
     description: Vo1d network indicator — 32-hex-character DGA-style apex (Dr.Web; single source).
     source: threat_research
+    reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.Vo1d/README.adoc
   - indicator: dcsdk.100ulife.com
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess SDK download C2 on the BADBOX 2.0 apex 100ulife.com (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: dcsdkos.dc16888888.com
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess SDK and reporting C2 on the BADBOX 2.0 apex dc16888888.com (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: gmslb.net
     family: Mzmess
     category: MALWARE
@@ -3208,144 +3386,168 @@ entries:
     description: Mzmess 'popa' proxy plugin C2 (device registration at lb.<C2>:5002/devicereg) (Xlab; single
       source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: phonemesh.org
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'popa' proxy plugin C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: linkmob.org
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'popa' proxy plugin C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: peercon.org
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'popa' proxy plugin C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: phonegrid.org
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'popa' proxy plugin C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: safernetwork.io
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'popa' proxy plugin C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: lbk-sol.com
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'popa' proxy plugin C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: sklstech.com
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'popa' proxy plugin C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: kyc-holdings.com
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'popa' proxy plugin C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: jaguar-distributor.syslogcollector.com
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'jaguar' proxy distributor endpoint, :12000 /v1/agent/ctrl (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: g.sxim.me
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'lxhwdg' plugin RPC C2 (WSS port 2345) (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: reg.sxim.me
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'lxhwdg' plugin RPC C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: ref.sxim.me
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'lxhwdg' plugin RPC C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: task.moyu88.xyz
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'spirit' ad-fraud C2 on the BADBOX 2.0 apex moyu88.xyz (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: task1.ziyemy.shop
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'spirit' ad-fraud C2 on the BADBOX 2.0 apex ziyemy.shop (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: task2.ziyemy.shop
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'spirit' ad-fraud C2 on the BADBOX 2.0 apex ziyemy.shop (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: adstat.moyu88.xyz
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'spirit' ad-fraud C2 on the BADBOX 2.0 apex moyu88.xyz (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: adstat.ziyemy.shop
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'spirit' ad-fraud C2 (published as adstat.ziyemy.shop:3389) (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: adstat2.ziyemy.shop
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'spirit' ad-fraud C2 on the BADBOX 2.0 apex ziyemy.shop (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: adstat.ad3g.com
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'spirit' ad-fraud C2 on the BADBOX 2.0 apex ad3g.com (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: update.ad3g.com
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'spirit' ad-fraud C2 on the BADBOX 2.0 apex ad3g.com (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: spiritlib.cyou
     family: Mzmess
     category: MALWARE
     severity: MEDIUM
     description: Mzmess 'spirit' ad-fraud C2 (Xlab; single source).
     source: threat_research
+    reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
   - indicator: pxyedge.com
     family: Zhima
     category: MALWARE
     severity: HIGH
     description: Zhima reverse-proxy module infrastructure (Vo1d family)
     source: threat_research
+    reference: https://securelist.com/android-head-unit-malware/121106/
   - indicator: proxyforu.com
     family: Zhima
     category: MALWARE
     severity: HIGH
     description: Zhima reverse-proxy module infrastructure (Vo1d family)
     source: threat_research
+    reference: https://securelist.com/android-head-unit-malware/121106/
   - indicator: cctvv2.com
     family: ToxicPanda
     category: MALWARE
@@ -3428,114 +3630,133 @@ entries:
     description: TAG-182 fake 'Pis2ray VPN' distribution/C2 domain serving MarkiRAT surveillance tool to
       Iranian users (Recorded Future)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: www.pis2ray.online
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 fake 'Pis2ray VPN' distribution/C2 domain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: c.pis2ray.online
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 Pis2ray infrastructure subdomain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: vpn.pis2ray.online
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 Pis2ray infrastructure subdomain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: prx.pis2ray.online
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 Pis2ray infrastructure subdomain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: min.pis2ray.online
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 Pis2ray infrastructure subdomain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: svpn.pis2ray.online
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 Pis2ray infrastructure subdomain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: starvpn.pis2ray.online
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 'starvpn' fake-VPN subdomain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: microsoft.pis2ray.online
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 typosquat subdomain impersonating Microsoft (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: yeplayer.store
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 fake 'YESHICA/YEPlayer' media-player distribution domain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: www.yeplayer.store
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 fake 'YEPlayer' media-player distribution domain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: download.yeplayer.store
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 fake 'YEPlayer' download subdomain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: vip.yeplayer.store
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 fake 'YEPlayer' infrastructure subdomain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: yemplayer.site
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 fake 'YEMPlayer' media-player distribution domain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: www.yemplayer.site
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 fake 'YEMPlayer' media-player distribution domain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: sahar2ray.online
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 campaign infrastructure domain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: tools.sahar2ray.online
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 campaign infrastructure subdomain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: migavpn.store
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 fake 'migavpn' VPN distribution domain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   - indicator: orbitx.site
     family: MarkiRAT
     category: SPYWARE
     severity: HIGH
     description: TAG-182 campaign infrastructure domain (MarkiRAT campaign)
     source: threat_research
+    reference: https://www.recordedfuture.com/research/nexus-tag182-disseminates-markirat
   # DragonDoll (2026-10-14 sweep)
   - indicator: "channelzones.co"
     family: "DragonDoll"
@@ -3543,30 +3764,35 @@ entries:
     severity: "CRITICAL"
     description: "DragonDoll spyware C2 used by all samples (PT ESC; IP 94.103.83.127)"
     source: "threat_research"
+    reference: https://habr.com/en/companies/pt/articles/1073720/
   - indicator: "carelessfielding.xyz"
     family: "DragonDoll"
     category: "SPYWARE"
     severity: "HIGH"
     description: "DragonDoll network IOC (PT ESC; IP 93.124.129.202)"
     source: "threat_research"
+    reference: https://habr.com/en/companies/pt/articles/1073720/
   - indicator: "datewithmealways.site"
     family: "DragonDoll"
     category: "SPYWARE"
     severity: "HIGH"
     description: "DragonDoll fake Chrome-update phishing page (PT ESC; IP 77.238.241.214)"
     source: "threat_research"
+    reference: https://habr.com/en/companies/pt/articles/1073720/
   - indicator: "datewithmealways.online"
     family: "DragonDoll"
     category: "SPYWARE"
     severity: "HIGH"
     description: "DragonDoll phishing distribution host (PT ESC; IP 91.215.154.141)"
     source: "threat_research"
+    reference: https://habr.com/en/companies/pt/articles/1073720/
   - indicator: "digitaladstracking.com"
     family: "DragonDoll"
     category: "SPYWARE"
     severity: "HIGH"
     description: "DragonDoll phishing distribution host (PT ESC; IP 77.238.241.214)"
     source: "threat_research"
+    reference: https://habr.com/en/companies/pt/articles/1073720/
   # Midnight Mimosa (2026-10-14 sweep)
   - indicator: "0aa0cf0637d66c0d.com"
     family: "Midnight Mimosa"
@@ -3574,30 +3800,35 @@ entries:
     severity: "CRITICAL"
     description: "Midnight Mimosa proxyware control host - residential-proxy enrollment, TCP port 6000 (Bitdefender)"
     source: "threat_research"
+    reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
   - indicator: "aa86a52a98162b7d.com"
     family: "Midnight Mimosa"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "Midnight Mimosa proxyware control host - residential-proxy enrollment (Bitdefender)"
     source: "threat_research"
+    reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
   - indicator: "442fe7151fb1e9b5.com"
     family: "Midnight Mimosa"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "Midnight Mimosa proxyware control host - residential-proxy enrollment (Bitdefender)"
     source: "threat_research"
+    reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
   - indicator: "v46wd6uramzkmeeo.in"
     family: "Midnight Mimosa"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "Midnight Mimosa proxyware control host - residential-proxy enrollment (Bitdefender)"
     source: "threat_research"
+    reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
   - indicator: "oss.showtimetool.com"
     family: "Midnight Mimosa"
     category: "MALWARE"
     severity: "HIGH"
     description: "Midnight Mimosa CDN serving payload modules disguised as .png files (Bitdefender)"
     source: "threat_research"
+    reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
   # SpyStealth (2026-10-14 sweep)
   - indicator: "spystealth.com"
     family: "SpyStealth"
@@ -3735,6 +3966,7 @@ entries:
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
     block_by_default: true
   - indicator: "awake-wood.io"
     family: "Graphite (Paragon)"
@@ -3742,6 +3974,7 @@ entries:
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
     block_by_default: true
   - indicator: "forti.paraccess.com"
     family: "Graphite (Paragon)"
@@ -3749,6 +3982,7 @@ entries:
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
     block_by_default: true
   - indicator: "modern-money.org"
     family: "Graphite (Paragon)"
@@ -3756,6 +3990,7 @@ entries:
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
     block_by_default: true
   - indicator: "ancient-thing.it"
     family: "Graphite (Paragon)"
@@ -3763,6 +3998,7 @@ entries:
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
     block_by_default: true
   - indicator: "external-astra.com"
     family: "Graphite (Paragon)"
@@ -3770,6 +4006,7 @@ entries:
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
     block_by_default: true
   - indicator: "internal-abba.com"
     family: "Graphite (Paragon)"
@@ -3777,6 +4014,7 @@ entries:
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
     block_by_default: true
   - indicator: "external-cap.com"
     family: "Graphite (Paragon)"
@@ -3784,6 +4022,7 @@ entries:
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
     block_by_default: true
   - indicator: "external-drt.com"
     family: "Graphite (Paragon)"
@@ -3791,6 +4030,7 @@ entries:
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
     block_by_default: true
   - indicator: "forti.external-muki.com"
     family: "Graphite (Paragon)"
@@ -3798,6 +4038,7 @@ entries:
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
     block_by_default: true
   - indicator: "external-cag.com"
     family: "Graphite (Paragon)"
@@ -3805,6 +4046,7 @@ entries:
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
     block_by_default: true
   - indicator: "forti.external-sht-prd-4.com"
     family: "Graphite (Paragon)"
@@ -3812,6 +4054,7 @@ entries:
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
     block_by_default: true
   - indicator: "forti.external-shotgun3.com"
     family: "Graphite (Paragon)"
@@ -3819,6 +4062,7 @@ entries:
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
     block_by_default: true
   - indicator: "forti.external-sht.com"
     family: "Graphite (Paragon)"
@@ -3826,6 +4070,7 @@ entries:
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
     block_by_default: true
   - indicator: "forti.internal-stg.com"
     family: "Graphite (Paragon)"
@@ -3833,6 +4078,7 @@ entries:
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    reference: https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/
     block_by_default: true
   # Ported from the AndroDR bundled blocklist (bundle-only before 2026-10-16; confirmed in stalkerware-indicators)
   - indicator: "clevguard.com"
