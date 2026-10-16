@@ -23,7 +23,7 @@ print("## threatfox/full.jsonl")
 for recs in json.load(sys.stdin).values():
     for r in (recs if isinstance(recs, list) else [recs]):
         print("| " + json.dumps(r, separators=(",", ":")))' | cap > "$out/threatfox.txt"
-# MalwareBazaar needs MALWAREBAZAAR_API_KEY (204 per-hash calls). Without the key every
+# MalwareBazaar needs MALWAREBAZAAR_API_KEY (one get_info call per `source: malwarebazaar` hash). Without the key every
 # malwarebazaar entry lands on the review list, so set it before running.
 REPO="$repo" python3 - "$out/malwarebazaar.txt" <<'PY'
 import os, sys, json, urllib.request, urllib.parse, yaml

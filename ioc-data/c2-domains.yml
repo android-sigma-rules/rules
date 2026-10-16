@@ -76,11 +76,12 @@ entries:
     reference: feed:stalkerware-indicators#Cerberus
     block_by_default: true
   - indicator: "thd.cc"
-    family: "Cerberus"
+    family: "mSpy"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "Cerberus C2 shortener domain"
     source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#mSpy
     block_by_default: true
   # Cocospy cluster
   - indicator: "appjiagu.com"
@@ -1003,106 +1004,106 @@ entries:
     reference: https://security.lookout.com/threat-intelligence/article/lookout-discovers-iranian-dchsy-surveillanceware
     block_by_default: true
   - indicator: "noblico.net"
-    family: "BITTER"
+    family: "ProSpy/ToSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
-    description: "BITTER ProSpy/ToSpy C2"
+    description: "ESET Android ProSpy/ToSpy C2"
     source: "threat_research"
     reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "ai-messenger.co"
-    family: "BITTER"
+    family: "ProSpy/ToSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
-    description: "BITTER ProSpy/ToSpy C2"
+    description: "ESET Android ProSpy/ToSpy C2"
     source: "threat_research"
     reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "spiralkey.co"
-    family: "BITTER"
+    family: "ProSpy/ToSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
-    description: "BITTER ProSpy/ToSpy C2"
+    description: "ESET Android ProSpy/ToSpy C2"
     source: "threat_research"
     reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "store.latestversion.ai"
-    family: "BITTER"
+    family: "ProSpy/ToSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
-    description: "BITTER ProSpy/ToSpy C2 + distribution"
+    description: "ESET Android ProSpy/ToSpy C2 + distribution"
     source: "threat_research"
-    reference: https://github.com/eset/malware-ioc/blob/master/prospytospy/README.adoc
+    reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "store.appupdate.ai"
-    family: "BITTER"
+    family: "ProSpy/ToSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
-    description: "BITTER ProSpy/ToSpy C2 + distribution"
+    description: "ESET Android ProSpy/ToSpy C2 + distribution"
     source: "threat_research"
     reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "totokupdate.ai"
-    family: "BITTER"
+    family: "ProSpy/ToSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
-    description: "BITTER ToTok-themed C2"
+    description: "ESET Android ProSpy/ToSpy ToTok-themed C2"
     source: "threat_research"
     reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "app-totok.io"
-    family: "BITTER"
+    family: "ProSpy/ToSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
-    description: "BITTER ToTok-themed C2"
+    description: "ESET Android ProSpy/ToSpy ToTok-themed C2"
     source: "threat_research"
     reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "signal.ct.ws"
-    family: "BITTER"
+    family: "ProSpy/ToSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
-    description: "BITTER Signal-themed C2 + distribution"
+    description: "ESET Android ProSpy/ToSpy Signal-themed C2 + distribution"
     source: "threat_research"
     reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "sgnlapp.info"
-    family: "BITTER"
+    family: "ProSpy/ToSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
-    description: "BITTER Signal-themed C2"
+    description: "ESET Android ProSpy/ToSpy Signal-themed C2"
     source: "threat_research"
     reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "encryption-plug-in-signal.com-ae.net"
-    family: "BITTER"
+    family: "ProSpy/ToSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
-    description: "BITTER Signal encryption plugin C2 + distribution"
+    description: "ESET Android ProSpy/ToSpy Signal encryption plugin C2 + distribution"
     source: "threat_research"
     reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "totokapp.info"
-    family: "BITTER"
+    family: "ProSpy/ToSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
-    description: "BITTER ToTok-themed C2"
+    description: "ESET Android ProSpy/ToSpy ToTok-themed C2"
     source: "threat_research"
     reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "totok-pro.io"
-    family: "BITTER"
+    family: "ProSpy/ToSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
-    description: "BITTER ToTok Pro C2 + distribution"
+    description: "ESET Android ProSpy/ToSpy ToTok Pro C2 + distribution"
     source: "threat_research"
     reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
   - indicator: "com-ae.net"
-    family: "BITTER"
+    family: "ProSpy/ToSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
-    description: "BITTER infrastructure pivot domain"
+    description: "ESET Android ProSpy/ToSpy infrastructure pivot domain"
     source: "threat_research"
     reference: https://www.welivesecurity.com/en/eset-research/new-spyware-campaigns-target-privacy-conscious-android-users-uae/
     block_by_default: true
@@ -1206,29 +1207,8 @@ entries:
     block_by_default: true
 
   # Mobilewalla — per sir-2026-05-18-mobilewalla (apex only; no subdomain enumeration in reachable sources)
-  - indicator: "mobilewalla.com"
-    family: "Mobilewalla"
-    category: "DATA_BROKER_SDK"
-    severity: "MEDIUM"
-    description: "Mobilewalla corporate / Covariate API root domain. Per FTC complaint (Dec 2024) Mobilewalla operates a partner Covariate API; subdomains are not publicly enumerated."
-    source: "threat_research"
-    block_by_default: true
 
   # Adsquare — per sir-2026-05-18-adsquare (aggregator posture; corporate domains, no SDK telemetry confirmed)
-  - indicator: "adsquare.com"
-    family: "Adsquare"
-    category: "DATA_BROKER_SDK"
-    severity: "MEDIUM"
-    description: "Adsquare GmbH (Berlin) corporate domain. Per The Markup investigation and Netzpolitik Databroker Files. Adsquare is an aggregator; resolution from a consumer device is uncommon."
-    source: "threat_research"
-    block_by_default: true
-  - indicator: "help.adsquare.com"
-    family: "Adsquare"
-    category: "DATA_BROKER_SDK"
-    severity: "MEDIUM"
-    description: "Adsquare customer help center subdomain. Same caveat as adsquare.com."
-    source: "threat_research"
-    block_by_default: true
 
   # Predicio / Telescope SDK — per sir-2026-05-18-predicio
   - indicator: "sdk.predic.io"
@@ -1256,27 +1236,6 @@ entries:
     description: "Gravy Analytics corporate apex domain. Per FTC consent order (December 2024). DNS resolution from a consumer device is uncommon since Gravy is an aggregator — a hit is high-signal."
     source: "threat_research"
     reference: https://raw.githubusercontent.com/craiu/mobiletrackers/master/list.txt
-    block_by_default: true
-  - indicator: "unacast.com"
-    family: "Gravy Analytics"
-    category: "DATA_BROKER_SDK"
-    severity: "MEDIUM"
-    description: "Unacast (parent of Gravy Analytics post-2023 merger) corporate apex domain."
-    source: "threat_research"
-    block_by_default: true
-  - indicator: "venntel.com"
-    family: "Gravy Analytics"
-    category: "DATA_BROKER_SDK"
-    severity: "MEDIUM"
-    description: "Venntel (Gravy Analytics subsidiary that resells to US federal agencies) corporate apex domain. EFF Fog Revealed documented /Venntel/* server-to-server API paths under this domain."
-    source: "threat_research"
-    block_by_default: true
-  - indicator: "explore.venntel.com"
-    family: "Gravy Analytics"
-    category: "DATA_BROKER_SDK"
-    severity: "MEDIUM"
-    description: "Venntel public-facing customer / marketing subdomain."
-    source: "threat_research"
     block_by_default: true
   # Joker (added 2026-05-29 via AI rule pipeline)
   - indicator: "api.gaority.ink"
@@ -1360,6 +1319,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "apkv5.ppadaolnwod.xyz"
     family: "Donot Team"
@@ -1367,6 +1327,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "apkv6.endurecif.top"
     family: "Donot Team"
@@ -1374,6 +1335,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "getelements.xyz"
     family: "Donot Team"
@@ -1381,6 +1343,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "fiddaz.club"
     family: "Donot Team"
@@ -1388,6 +1351,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "lif0.top"
     family: "Donot Team"
@@ -1395,6 +1359,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "fif0.top"
     family: "Donot Team"
@@ -1402,6 +1367,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "chipp.pw"
     family: "Donot Team"
@@ -1409,6 +1375,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "mimestyle.xyz"
     family: "Donot Team"
@@ -1416,6 +1383,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "mangasiso.top"
     family: "Donot Team"
@@ -1423,6 +1391,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "and.retardrattle.website"
     family: "Donot Team"
@@ -1430,6 +1399,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "help.domainoutlet.site"
     family: "Donot Team"
@@ -1437,6 +1407,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "whynotworkonit.top"
     family: "Donot Team"
@@ -1444,6 +1415,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "spectronet.pw"
     family: "Donot Team"
@@ -1451,6 +1423,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "full.naturalpercent.life"
     family: "Donot Team"
@@ -1458,6 +1431,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "mimeversion.top"
     family: "Donot Team"
@@ -1465,6 +1439,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "rythemsjoy.club"
     family: "Donot Team"
@@ -1472,6 +1447,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "lowlight.xyz"
     family: "Donot Team"
@@ -1479,6 +1455,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "inapturst.top"
     family: "Donot Team"
@@ -1486,6 +1463,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "auth.forwardtoken.website"
     family: "Donot Team"
@@ -1493,6 +1471,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "accounts.loginshare.info"
     family: "Donot Team"
@@ -1500,6 +1479,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "seahome.top"
     family: "Donot Team"
@@ -1507,6 +1487,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "imageview.xyz"
     family: "Donot Team"
@@ -1514,6 +1495,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "flickry.xyz"
     family: "Donot Team"
@@ -1521,6 +1503,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "apkv2.qwertykeypad.host"
     family: "Donot Team"
@@ -1528,6 +1511,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "userauthen.pw"
     family: "Donot Team"
@@ -1535,6 +1519,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "join.officeframe.work"
     family: "Donot Team"
@@ -1542,6 +1527,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "zumba.tampotrust.agency"
     family: "Donot Team"
@@ -1549,6 +1535,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   - indicator: "image.loadingmessage.info"
     family: "Donot Team"
@@ -1556,6 +1543,7 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2021-10-07_donot
     block_by_default: true
   # FinSpy (FinFisher) — Egypt campaign (Amnesty Tech, Sept 2020)
   - indicator: "flash.browserupdate.download"
@@ -1564,6 +1552,7 @@ entries:
     severity: "HIGH"
     description: "FinSpy (FinFisher) distribution domain — Egypt campaign (Amnesty Tech, Sept 2020); FinFisher insolvent since 2022, domain may have been re-registered"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2020-09-25_finfisher
     block_by_default: true
   - indicator: "current.browserupdate.download"
     family: "FinSpy"
@@ -1571,6 +1560,7 @@ entries:
     severity: "HIGH"
     description: "FinSpy (FinFisher) distribution domain — Egypt campaign (Amnesty Tech, Sept 2020); FinFisher insolvent since 2022, domain may have been re-registered"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2020-09-25_finfisher
     block_by_default: true
   - indicator: "files.browserupdate.download"
     family: "FinSpy"
@@ -1578,6 +1568,7 @@ entries:
     severity: "HIGH"
     description: "FinSpy (FinFisher) distribution domain — Egypt campaign (Amnesty Tech, Sept 2020); FinFisher insolvent since 2022, domain may have been re-registered"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2020-09-25_finfisher
     block_by_default: true
   - indicator: "browserupdate.download"
     family: "FinSpy"
@@ -1585,6 +1576,7 @@ entries:
     severity: "HIGH"
     description: "FinSpy (FinFisher) distribution domain — Egypt campaign (Amnesty Tech, Sept 2020); FinFisher insolvent since 2022, domain may have been re-registered"
     source: "amnesty-investigations"
+    reference: feed:amnesty-investigations#2020-09-25_finfisher
     block_by_default: true
   # NFC-relay fraud (SuperCard X / Ghost Tapped) — research-verified
   - indicator: "nfc.rc8820.com"
@@ -2068,27 +2060,30 @@ entries:
     reference: https://labs.k7computing.com/index.php/octagon-technical-analysis-of-a-fake-bahrain-civil-defense-application/
     block_by_default: true
   - indicator: apk.obwhatsappdownload.com
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada distribution host for OBWhatsApp modded-WhatsApp APKs (payload delivery). Remediation:
       uninstall any WhatsApp mod (GBWhatsApp/OBWhatsApp/WhatsPlus) and reinstall official WhatsApp from
       Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: apk.whatsplus.online
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada distribution host for WhatsPlus modded-WhatsApp APKs (payload delivery). Remediation:
       uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: apk.whatsplusdownload.com
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada distribution host for WhatsPlus modded-WhatsApp APKs (payload delivery). Remediation:
       uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: app.gbwhat.pro
     family: Triada
     category: MALWARE
@@ -2106,26 +2101,29 @@ entries:
     source: threatfox
     reference: feed:threatfox#Triada
   - indicator: c.gbwhat.pro
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada infrastructure for GBWhatsApp modded-WhatsApp distribution/C2. Remediation: uninstall
       any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: gb-dwnplus.org
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada distribution host for GBWhatsApp-style modded-WhatsApp APKs (payload delivery).
       Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: gbappze.com
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada distribution host for GBWhatsApp-style modded-WhatsApp APKs (payload delivery).
       Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: gbw.cmpc.fun
     family: Triada
     category: MALWARE
@@ -2135,135 +2133,143 @@ entries:
     source: threatfox
     reference: feed:threatfox#Triada
   - indicator: gbwaapps.org
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada distribution host for GBWhatsApp-style modded-WhatsApp APKs (payload delivery).
       Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: h5.gbwhatsapp.download
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada distribution host for GBWhatsApp modded-WhatsApp APKs (payload delivery). Remediation:
       uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: lb-ndrq4ayq-1h7mf9psqdkb65lv.clb.sg-tencentclb.net
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada backend load-balancer hostname (Tencent Cloud CLB instance) serving GBWhatsApp/WhatsPlus
       mod distribution infrastructure. Instance-specific subdomain, not the shared clb.sg-tencentclb.net
       parent. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: lb-rnypyjwi-rzm2gb9ys7wtc4u0.clb.sg-tencentclb.net
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada backend load-balancer hostname (Tencent Cloud CLB instance) serving GBWhatsApp/WhatsPlus
       mod distribution infrastructure. Instance-specific subdomain, not the shared clb.sg-tencentclb.net
       parent. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: node-vml.vidfree.net
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada infrastructure for VidMate/AlexMods modded-app distribution (payload delivery/C2).
       Remediation: uninstall VidMate or AlexMods-sourced apps; install apps only from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: origin-apk.gbwhat.pro
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada origin server for GBWhatsApp modded-WhatsApp APK distribution (payload delivery).
       Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: origin-apk.obwhatsappdownload.com
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada origin server for OBWhatsApp modded-WhatsApp APK distribution (payload delivery).
       Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: origin-ug.whatsplus.online
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada origin server for WhatsPlus modded-WhatsApp distribution (payload delivery/C2).
       Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: origin-www.whatsplus.online
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada origin server for WhatsPlus modded-WhatsApp distribution (payload delivery/C2).
       Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: prod-weblink.videmateshare.com
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada infrastructure for VidMate modded-app distribution (payload delivery/C2). Remediation:
       uninstall VidMate-sourced apps; install apps only from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: static.cdns.space
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Static-content host used by Triada-bundled mod-app distribution infrastructure (payload
       delivery). Remediation: uninstall modded WhatsApp/VidMate apps; install apps only from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: ug.gbwhat.pro
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada infrastructure for GBWhatsApp modded-WhatsApp distribution/C2. Remediation: uninstall
       any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: ug.obwhatsappdownload.com
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada infrastructure for OBWhatsApp modded-WhatsApp distribution/C2. Remediation: uninstall
       any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: ug.whatsplus.online
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada infrastructure for WhatsPlus modded-WhatsApp distribution/C2. Remediation: uninstall
       any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: vid-cdn.vidfree.net
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada infrastructure for VidMate/AlexMods modded-app distribution (payload delivery/C2).
       Remediation: uninstall VidMate or AlexMods-sourced apps; install apps only from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: videmateshare.com
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada infrastructure for VidMate modded-app distribution (payload delivery/C2). Remediation:
       uninstall VidMate-sourced apps; install apps only from Google Play.'
     source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: www.vidfree.net
-    family: Triada
+    family: Unknown malware
     category: MALWARE
     severity: HIGH
     description: 'Triada infrastructure for VidMate/AlexMods modded-app distribution (payload delivery/C2).
       Remediation: uninstall VidMate or AlexMods-sourced apps; install apps only from Google Play.'
     source: threatfox
-  - indicator: exovision.cc
-    family: unknown_rat
-    category: MALWARE
-    severity: HIGH
-    description: 'C2 panel host for an unnamed Android RAT/stealer (ThreatFox tags: Android, c2-panel, RAT,
-      stealer; confidence 75). Domain derived from the reported panel URL https://exovision.cc/. Remediation:
-      a DNS query to this domain from an app indicates a RAT infection; identify and uninstall the querying
-      app and change credentials entered on the device.'
-    source: threatfox
+    reference: feed:threatfox#Unknown malware
   - indicator: garant-help.com
     family: Droid-Watcher
     category: SPYWARE
@@ -2273,6 +2279,7 @@ entries:
       since. Remediation: if contacted, treat the device as potentially compromised and seek expert forensic
       assistance.'
     source: amnesty-investigations
+    reference: feed:amnesty-investigations#2020-03-12_uzbekistan
   - indicator: xmsae.sbs
     family: MoYu
     category: MALWARE
@@ -2539,18 +2546,24 @@ entries:
     description: BADBOX 2.0 C2 apex (HUMAN Satori appendix); dcsdk. subdomain serves Mzmess SDK downloads
       per Xlab — two independent vendors.
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: 1ztop.work
     family: BADBOX 2.0
     category: MALWARE
     severity: HIGH
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; corroborated by Bitsight sinkhole telemetry).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: 99soya.shop
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: ad3g.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2566,11 +2579,13 @@ entries:
     description: BADBOX 2.0 / MoYu ad-fraud C2 (HUMAN Satori appendix; single source). Namesake of the AdmoyuService
       component fingerprinted by androdr-094.
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: ads-goal.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
-    description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
+    description: BADBOX 2.0 H5 ad-fraud game domain (HUMAN BADBOX 2.0 H5 domain list).
     source: threat_research
     reference: https://www.humansecurity.com/wp-content/uploads/2025/03/BADBOX-2-H5-Domain-List.csv
   - indicator: ai-goal.com
@@ -2579,12 +2594,16 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: apotube.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: app-goal.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2592,18 +2611,24 @@ entries:
     description: BADBOX 2.0 C2; com.mz.sdk hidden-WebView module contacts it via XHR for fraud keywords/playlists
       (HUMAN Satori; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: appclicking.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: astrolink.cn
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: bitemores.com
     family: BADBOX/Vo1d
     category: MALWARE
@@ -2618,6 +2643,8 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 residential-proxy infrastructure C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: bluefish.work
     family: BADBOX 2.0
     category: MALWARE
@@ -2631,6 +2658,8 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 residential-proxy infrastructure C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: catmore88.com
     family: BADBOX/Vo1d
     category: MALWARE
@@ -2652,24 +2681,32 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: cbpheback.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: clickby.net
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: clocksyn.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: coslogdydy.in
     family: BADBOX 2.0
     category: MALWARE
@@ -2697,6 +2734,8 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: dc16888888.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2704,30 +2743,40 @@ entries:
     description: BADBOX 2.0 C2 apex (HUMAN Satori appendix); dcsdkos. subdomain serves Mzmess SDK/reporting
       C2 per Xlab — two independent vendors.
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: dcylog.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: dqmop.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: duoduodev.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: easyjoy.me
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: echojoy.xyz
     family: BADBOX 2.0
     category: MALWARE
@@ -2741,36 +2790,48 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: firehub.link
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: firehub.work
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: flyermobi.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: fuhidd.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: g1ee.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: giddy.cc
     family: BADBOX 2.0
     category: MALWARE
@@ -2791,12 +2852,16 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: huulog.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: huuww.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2810,6 +2875,8 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 residential-proxy infrastructure C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: ipmoyu.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2824,6 +2891,8 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: jolted.vip
     family: BADBOX 2.0
     category: MALWARE
@@ -2837,6 +2906,8 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: jutux.work
     family: BADBOX 2.0
     category: MALWARE
@@ -2859,6 +2930,8 @@ entries:
       ad-fraud module. CAUTION: very short apex — treat as an exact-match indicator only, never a substring/suffix
       pattern.'
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: meiboot.com
     family: BADBOX/Vo1d
     category: MALWARE
@@ -2873,24 +2946,32 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: moonhub.work
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: motiyu.net
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: moyix.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: moyu88.xyz
     family: BADBOX 2.0
     category: MALWARE
@@ -2905,6 +2986,8 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: msohu.shop
     family: BADBOX 2.0
     category: MALWARE
@@ -2925,12 +3008,16 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: mtcpuouo.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: mymoyu.shop
     family: BADBOX 2.0
     category: MALWARE
@@ -2945,12 +3032,16 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: net-goal.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: pccyy.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2978,6 +3069,8 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 residential-proxy infrastructure C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: pixelscast.com
     family: BADBOX 2.0
     category: MALWARE
@@ -2998,12 +3091,16 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: qazwsxedc.xyz
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: qocoll.com
     family: BADBOX/Vo1d
     category: MALWARE
@@ -3017,36 +3114,48 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: randomhow.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: retrofitxer.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: rzless.work
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: shanhulan.cn
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: simplekds.me
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: soyatea.online
     family: BADBOX 2.0
     category: MALWARE
@@ -3060,18 +3169,24 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: supportdatainput.top
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: sustat.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: swiftcode.work
     family: BADBOX 2.0
     category: MALWARE
@@ -3085,30 +3200,40 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: sysbinder.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: sysbinder.xyz
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: ttyunos.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: tuding.xyz
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: tvsnapp.com
     family: BADBOX 2.0
     category: MALWARE
@@ -3122,42 +3247,56 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: vividweb.work
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: vmud.net
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: wildpettykiwi.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: wildpettykiwi.info
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: wildpettykiwi.xyz
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: wotads.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: ycxad.com
     family: BADBOX 2.0
     category: MALWARE
@@ -3178,12 +3317,16 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: yeyeyeye.xyz
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: yxcrl.com
     family: BADBOX 2.0
     category: MALWARE
@@ -3197,12 +3340,16 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: yydsmb.com
     family: BADBOX 2.0
     category: MALWARE
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: yydsmd.com
     family: BADBOX 2.0
     category: MALWARE
@@ -3238,13 +3385,15 @@ entries:
     severity: MEDIUM
     description: BADBOX 2.0 botnet C2 (HUMAN Satori appendix; single source).
     source: threat_research
+    # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+    reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
   - indicator: gecsge4e1e5427f8.com
     family: Vo1d
     category: MALWARE
     severity: HIGH
     description: Vo1d redirector C2 with DGA-style 16-character name (ThreatFox structured feed, Bitsight-reported,
       last seen 2026-08-21).
-    source: threat_research
+    source: threatfox
     reference: feed:threatfox#Vo1d
   - indicator: ssl8rrs2.com
     family: Vo1d

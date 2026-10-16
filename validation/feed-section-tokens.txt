@@ -1,0 +1,44 @@
+# Owner-approved lines, tab-separated: <ioc-data file>\t<indicator>\t<reference>\t<family> (a feed: reference whose fragment is a
+# feed section, not the entry's family; Task A3 Step 2b). Approval = a PR the owner merges after the HitL review; the repo has a
+# single owner and no CODEOWNERS file.
+# 2026-10-16: owner-approved section-cited table in validation/backfill-removals.md (Task A3).
+c2-domains.yml	accounts.loginshare.info	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	and.retardrattle.website	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	apkv2.qwertykeypad.host	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	apkv5.ppadaolnwod.xyz	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	apkv6.endurecif.top	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	auth.forwardtoken.website	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	bulk.fun	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	chipp.pw	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	fiddaz.club	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	fif0.top	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	flickry.xyz	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	full.naturalpercent.life	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	getelements.xyz	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	help.domainoutlet.site	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	image.loadingmessage.info	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	imageview.xyz	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	inapturst.top	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	join.officeframe.work	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	lif0.top	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	lowlight.xyz	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	mangasiso.top	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	mimestyle.xyz	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	mimeversion.top	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	rythemsjoy.club	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	seahome.top	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	spectronet.pw	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	userauthen.pw	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	whynotworkonit.top	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	zumba.tampotrust.agency	feed:amnesty-investigations#2021-10-07_donot	Donot Team
+c2-domains.yml	garant-help.com	feed:amnesty-investigations#2020-03-12_uzbekistan	Droid-Watcher
+c2-domains.yml	browserupdate.download	feed:amnesty-investigations#2020-09-25_finfisher	FinSpy
+c2-domains.yml	current.browserupdate.download	feed:amnesty-investigations#2020-09-25_finfisher	FinSpy
+c2-domains.yml	files.browserupdate.download	feed:amnesty-investigations#2020-09-25_finfisher	FinSpy
+c2-domains.yml	flash.browserupdate.download	feed:amnesty-investigations#2020-09-25_finfisher	FinSpy
+malware-hashes.yml	902c5f46ac101b6f30032d4c5c86ecec115add3605fb0d66057130b6e11c57e6	feed:amnesty-investigations#2020-03-12_uzbekistan	Droid-Watcher
+malware-hashes.yml	1d07b5d4a63e40c097b23a24b9c0b767a3bc8b83911d7f9e24e8d82ff7d13fd2	feed:zimperium-ioc#masive-apks	Massiv
+malware-hashes.yml	2feff8bbf445c9ed83bbb047e5540c89043dddeaea60e30e312c4877bcaf7f21	feed:zimperium-ioc#masive-apks	Massiv
+malware-hashes.yml	7e7efb8e547d26d8e92bf6e0a86d8fb1146938c2d3d08734056728d74f605ee0	feed:zimperium-ioc#masive-apks	Massiv
+malware-hashes.yml	e49ee5c3c13fd70c29c973406b72b68d0101d288db299bcb7ada09394d088bd3	feed:zimperium-ioc#masive-apks	Massiv
+malware-hashes.yml	f9a52a923989353deb55136830070554db40f544be5a43534273126060f8c1f6	feed:zimperium-ioc#masive-apks	Massiv

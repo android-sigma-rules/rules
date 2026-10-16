@@ -6,75 +6,6 @@ sources:
   - amnesty-investigations
   - threat_research
 entries:
-- indicator: com.ttsapp
-  family: TheTruthSpy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: TheTruthSpy stalkerware alias — if not self-installed, contact a DV
-    hotline
-  source: stalkerware-indicators
-- indicator: com.apspy
-  family: TheTruthSpy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: TheTruthSpy/ApSpy stalkerware — if not self-installed, contact a DV
-    hotline
-  source: stalkerware-indicators
-- indicator: com.vvt.android
-  family: FlexiSpy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: FlexiSpy stalkerware — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: com.mspy
-  family: mSpy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: mSpy stalkerware — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: com.eyezy
-  family: mSpy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: Eyezy/mSpy stalkerware — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: med.mspy
-  family: mSpy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: mSpy stalkerware variant — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: com.duiyun
-  family: Cocospy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: Cocospy/Duiyun stalkerware — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: com.sc.cocospy
-  family: Cocospy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: Cocospy stalkerware variant — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: com.sc.spyic
-  family: Cocospy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: Cocospy/Spyic stalkerware — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: com.sc.spyzie
-  family: Cocospy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: Cocospy/Spyzie stalkerware — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: com.minspy
-  family: Cocospy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: Minspy stalkerware (Cocospy cluster) — if not self-installed, contact
-    a DV hotline
-  source: stalkerware-indicators
 - indicator: com.serv.services
   family: NoviSpy
   category: NATION_STATE_SPYWARE
@@ -204,12 +135,6 @@ entries:
   description: Oblivion RAT Android MaaS — masquerades as Google Play update (2026-03)
   source: threat_research
   reference: https://iverify.io/blog/oblivion-rat-android-spyware-analysis
-- indicator: com.oblivion.dropper
-  family: Oblivion RAT
-  category: SPYWARE
-  severity: CRITICAL
-  description: Oblivion RAT dropper APK
-  source: threat_research
 - indicator: com.yandexxxx.update
   family: Oblivion RAT
   category: SPYWARE
@@ -225,13 +150,6 @@ entries:
     C2 (Russian banking targets, 2026-03)
   source: threat_research
   reference: https://www.cyfirma.com/research/taxispy-rat-analysis-of-taxispy-rat-russian-banking-focused-android-malware-with-full-remote-control/
-- indicator: net.ustexas.myavlive
-  family: PromptSpy
-  category: MALWARE
-  severity: CRITICAL
-  description: PromptSpy — first Android malware to abuse Google Gemini at runtime;
-    JPMorgan Chase impersonation in Argentina (2026-03)
-  source: threat_research
 
 # Added by /update-rules discover run (2026-05-16): 7-threat harvest from discover
 - indicator: "calldetaila.ndcallhisto.rytogetan.ynumber"
@@ -395,12 +313,6 @@ entries:
   description: "DCHSpy MuddyWater Hide VPN lure"
   source: "threat_research"
   reference: https://thehackernews.com/2025/07/iran-linked-dchspy-android-malware.html
-- indicator: "com.meyapico.massistant"
-  family: "Massistant"
-  category: "FORENSIC_TOOL"
-  severity: "CRITICAL"
-  description: "Massistant Chinese mobile forensics by Meiya Pico"
-  source: "threat_research"
 # --- update-rules-e2e batch 2026-06-08 (BTMOB/TrickMo/Astrinox/Massiv/SaferRat/RecruitRat/PixRevolution/AndroRAT/Antidot/Asin) ---
 - indicator: com.app16330.core20461
   family: TrickMo
@@ -846,6 +758,8 @@ entries:
   description: BB2DOOR (BADBOX 2.0) backdoor loader package (HUMAN Satori; corroborated by Point Wild).
     BADBOX 2.0 ships preinstalled in firmware or inside rebundled apps from unofficial marketplaces.
   source: threat_research
+  # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+  reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
 - indicator: com.hs.cld
   family: BADBOX 2.0
   category: MALWARE
@@ -854,6 +768,8 @@ entries:
     Listed by HUMAN as a package indicator; may also appear only as a DEX namespace rather than an installed
     package.
   source: threat_research
+  # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+  reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
 - indicator: com.hs.q
   family: BADBOX 2.0
   category: MALWARE
@@ -861,6 +777,8 @@ entries:
   description: BB2DOOR removal-resistance module — com.hs.q.Main in q.jar blocks backdoor removal (HUMAN
     Satori). May also appear only as a DEX namespace rather than an installed package.
   source: threat_research
+  # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+  reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
 - indicator: com.mz.sdk
   family: BADBOX 2.0
   category: MALWARE
@@ -869,12 +787,16 @@ entries:
     invisible WebViews that fetch fraud playlists from app-goal.com (HUMAN Satori). Namespace indicator
     — may not occur as a standalone installed package.
   source: threat_research
+  # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+  reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
 - indicator: com.debby.devour
   family: BADBOX 2.0
   category: MALWARE
   severity: HIGH
   description: BADBOX 2.0 ad-fraud module app observed auto-installed from file.long.tv (HUMAN Satori).
   source: threat_research
+  # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+  reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
 - indicator: com.google.android.gms.stable
   family: Vo1d
   category: MALWARE
