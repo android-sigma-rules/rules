@@ -652,3 +652,11 @@ def test_wbr_does_not_split_a_long_package_name():
         assert found("com.example.longname.callinfo", page), tag
     assert found("other.app", "<p>com.example.longname <b>other.app</b></p>")
     assert not found("com.example.longname", "<p>com.example.<wbr></p><p>longname</p>")
+
+
+def test_wbr_joins_only_within_a_text_run():
+    # A <wbr> right after a closing block tag must not glue the next block onto the previous one.
+    assert not found("com.example.longname", "<p>com.example.</p><wbr>longname")
+    assert not found("com.example.longname", "<div>com.example.</div><wbr/><div>longname</div>")
+    assert found("com.example.longname", "<p>com.example.<WBR>longname</p>")
+    assert found("com.example.longname", "<p>com.example.<WBR/>longname</p>")

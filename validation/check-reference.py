@@ -65,17 +65,20 @@ class _Text(HTMLParser):
 
     def __init__(self):
         super().__init__(convert_charrefs=True)
-        self.prose, self.weak, self._skip, self._join = [], [], 0, False
+        self.prose, self.weak, self._skip, self._join, self._in_run = [], [], 0, False, False
 
     def handle_starttag(self, tag, attrs):
-        # <wbr> is a word-break hint inside a word: the next text joins the previous one.
-        self._join = tag == "wbr"
+        # <wbr> is a word-break hint inside a word: the next text joins the previous one,
+        # but only when the <wbr> sits directly inside a text run (no other tag since the text).
+        self._join = tag == "wbr" and self._in_run
+        self._in_run = self._join
         if tag in ("script", "style"):
             self._skip += 1
         self.weak.extend(v for _, v in attrs if v)
 
     def handle_endtag(self, tag):
-        self._join = self._join and tag == "wbr"
+        if tag != "wbr":
+            self._join = self._in_run = False
         if tag in ("script", "style") and self._skip:
             self._skip -= 1
 
@@ -86,6 +89,7 @@ class _Text(HTMLParser):
             else:
                 self.prose.append(data)
         self._join = False
+        self._in_run = not self._skip
 
 
 def _variants(indicator):
