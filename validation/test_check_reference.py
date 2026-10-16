@@ -165,6 +165,22 @@ def test_pdf_is_unsupported_not_missing(monkeypatch):
     assert cr.check("evil.com", "https://example.org/report.pdf", None)[0] == "FETCH_UNSUPPORTED"
 
 
+def test_js_rendered_shell_is_unsupported_not_not_found(monkeypatch):
+    public_dns(monkeypatch)
+    shell = (b'<html><head><script src="app.js"></script></head><body><div id="root"></div>'
+             b'<noscript>Enable JavaScript</noscript></body></html>')
+    monkeypatch.setattr(cr, "fetch", lambda url, allowed: (shell, "text/html", url, []))
+    assert cr.check("evil.com", "https://example.org/app", None)[0] == "FETCH_UNSUPPORTED"
+
+
+def test_long_static_page_with_script_stays_not_found(monkeypatch):
+    public_dns(monkeypatch)
+    prose = "<p>" + "This is ordinary article prose about mobile security research. " * 10 + "</p>"
+    page = ("<html><body>" + prose + "<script>var x = 1;</script></body></html>").encode()
+    monkeypatch.setattr(cr, "fetch", lambda url, allowed: (page, "text/html", url, []))
+    assert cr.check("evil.com", "https://example.org/article", None)[0] == "NOT_FOUND"
+
+
 def test_non_https_private_and_userinfo_blocked():
     assert cr.check("evil.com", "ftp://x", None)[0] in ("FETCH_FAILED", "BAD_INPUT")
     for url in ["https://127.0.0.1/x", "https://10.0.0.5/x", "https://169.254.169.254/latest", "https://[::1]/x",

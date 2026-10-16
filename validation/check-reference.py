@@ -38,6 +38,7 @@ MAX_REDIRECTS = 3
 MAX_OCCURRENCES = 1000   # accepted occurrences per check, across sections and variants
 TEXT_TYPES = ("text/html", "text/plain", "application/json", "text/csv", "application/xml", "text/xml")
 EXIT = {"FOUND": 0, "NOT_FOUND": 1, "WEAK_FOUND": 1, "FAMILY_MISMATCH": 1, "SECTION_CITED": 1}   # CAPPED -> 2
+JS_SHELL_MAX_PROSE = 400   # an HTML page with less static prose than this and a <script>/<noscript> is a JS shell
 
 _SAFE_INDICATOR = re.compile(r"[A-Za-z0-9._:-]{1,253}")
 # No query string and no port other than 443 (plan gate round 6, S6-2/S6-5): a site's search page
@@ -301,11 +302,25 @@ def _check_url(indicator, reference, allowed_prefixes):
         return "FETCH_FAILED", str(e)
     if body[:5] == b"%PDF-" or (ctype and not ctype.startswith(TEXT_TYPES)):
         return "FETCH_UNSUPPORTED", f"content-type {ctype or 'pdf'}"
-    status, snippet = find_indicator(indicator, body.decode("utf-8", errors="ignore"))
+    text = body.decode("utf-8", errors="ignore")
+    status, snippet = find_indicator(indicator, text)
     if status == "FOUND" and any(_indicator_in_url(indicator, u) for u in [reference, final_url] + hops):
         # The page may just echo its own URL (a search or tag page): never stronger than WEAK.
         return "WEAK_FOUND", "indicator is part of the reference URL itself; cite the primary report"
+    if status == "NOT_FOUND" and ctype == "text/html" and _is_js_shell(text):
+        # A JS-rendered shell has no static text to check: manual review, never a removal (Review Focus #1).
+        return "FETCH_UNSUPPORTED", "page looks JavaScript-rendered (little static text); check manually"
     return status, snippet or f"{indicator} not in {reference}"
+
+
+def _is_js_shell(text):
+    """HTML with little static prose that carries a script or noscript tag (the page is rendered client-side)."""
+    p = _Text()
+    p.feed(text)
+    p.close()
+    prose = normalize(" ".join(p.prose)).strip()
+    raw = text.lower()
+    return len(prose) < JS_SHELL_MAX_PROSE and ("<script" in raw or "<noscript" in raw)
 
 
 def _child(q, indicator, reference, allowed_prefixes):
