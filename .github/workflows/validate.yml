@@ -117,6 +117,26 @@ jobs:
         run: |
           sha256sum -c rules.sha256 --strict --quiet \
             || { echo "::error::rules.sha256 is out of sync with rule content. Regenerate: while read -r f; do printf '%s  %s\n' \"\$(sha256sum \"\$f\" | cut -d' ' -f1)\" \"\$f\"; done < rules.txt > rules.sha256"; exit 1; }
+      # Per-file limits at 80% of each installed-app fetcher's cap (plan gate round 5, S5-8):
+      # BrandImpersonationResolver MAX_FETCH_BYTES = 262_144; OemPrefixResolver MAX_RESPONSE_SIZE = 100_000;
+      # PublicRepoIocFeed maxBytes = 1_000_000. A file over its cap is silently dropped on devices.
+      - name: ioc-data files stay under their app fetch caps
+        run: |
+          limit() { case "$(basename "$1")" in
+                      brand-names.yml|brand-domains.yml) echo 209715 ;;
+                      known-oem-prefixes.yml) echo 80000 ;;
+                      *) echo 800000 ;;
+                    esac; }
+          for f in ioc-data/*.yml; do
+            s=$(stat -c %s "$f"); l=$(limit "$f")
+            [ "$s" -le "$l" ] || { echo "::error::$f is $s bytes (limit $l, 80% of the app's fetch cap for this file) — split it before installed apps drop it"; exit 1; }
+          done
+      - name: ioc-data.sha256 lists every ioc-data file and verifies
+        run: |
+          diff <(awk '{print $2}' ioc-data.sha256 | sort) <(ls ioc-data/*.yml | sort) \
+            || { echo "::error::ioc-data.sha256 and ioc-data/ list different files"; exit 1; }
+          sha256sum -c ioc-data.sha256 --strict --quiet \
+            || { echo "::error::ioc-data.sha256 is stale. Regenerate: for f in \$(ls ioc-data/*.yml | sort); do printf '%s  %s\\n' \"\$(sha256sum \"\$f\" | cut -d' ' -f1)\" \"\$f\"; done > ioc-data.sha256"; exit 1; }
 
   validate-complementarity-changed:
     name: Complementarity (strict on changed files)
