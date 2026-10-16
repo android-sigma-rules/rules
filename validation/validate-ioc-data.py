@@ -129,7 +129,7 @@ def load_reference_prefixes(path) -> dict[str, list[str]]:
 def section_tokens() -> set[tuple[str, str, str, str]]:
     """Owner-approved section citations: '<ioc-data file>\t<indicator>\t<reference>\t<family>' — all four
     must match, so an approved line can't be reused for a different section or family (round 9, S9-2)."""
-    f = SCRIPT_DIR / "feed-section-tokens.txt"
+    f = Path(os.environ.get("SECTION_TOKENS_FILE", SCRIPT_DIR / "feed-section-tokens.txt"))   # override for tests only (as NOT_CAMPAIGN_FILE)
     if not f.exists():
         return set()
     out = set()

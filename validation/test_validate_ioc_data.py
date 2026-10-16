@@ -222,8 +222,9 @@ def test_other_sources_prefix_not_accepted(tmp_path):
 
 
 def test_feed_reference_must_name_allowed_source(tmp_path):
-    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(reference="feed:not-a-source#X")))
-    assert r.returncode == 1
+    # family == fragment, so only the unknown-source check can fire (no section-token error).
+    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(family="X", reference="feed:not-a-source#X")))
+    assert r.returncode == 1 and "unknown source 'not-a-source'" in r.stderr
 
 
 def test_unknown_campaign_rejected(tmp_path):
@@ -283,3 +284,56 @@ def test_block_by_default_only_in_c2_domains(tmp_path):
     assert run_validator(tmp_path, "c2-domains.yml", _body(_entry(block_by_default=True))).returncode == 0
     r = run_validator(tmp_path, "package-names.yml", _body(_entry(block_by_default=True)))
     assert r.returncode == 1 and "block_by_default" in r.stderr
+
+
+# ---------- A4 fix round 1: one failing-first test per rule ----------
+
+def test_denylisted_bare_host_prefix_rejected(tmp_path):
+    # Rule: a reference_prefixes entry naming a denylisted host alone (no path) is refused at load.
+    import importlib.util, json, pytest
+    spec = importlib.util.spec_from_file_location("vid", THIS_DIR / "validate-ioc-data.py")
+    vid = importlib.util.module_from_spec(spec); spec.loader.exec_module(vid)
+    bad = tmp_path / "s.json"
+    bad.write_text(json.dumps([{"id": "x", "reference_prefixes": ["https://medium.com/"]}]))
+    with pytest.raises(SystemExit) as exc:
+        vid.load_reference_prefixes(bad)
+    assert "bare multi-tenant host" in str(exc.value.code)
+
+
+SECTION_REF = "feed:amnesty-investigations#2021-10-07_donot"
+SECTION_FAM = "Donot Team"
+SECTION_IND = "accounts.dogfood.example"
+SECTION_LINE = "c2-domains.yml\t" + SECTION_IND + "\t" + SECTION_REF + "\t" + SECTION_FAM
+
+
+def _section_body(campaign=None):
+    e = _entry(indicator=SECTION_IND, family=SECTION_FAM, category="SPYWARE", severity="HIGH",
+               source="amnesty-investigations", reference=SECTION_REF)
+    if campaign is not None:
+        e["campaign"] = campaign
+    return _body(e)
+
+
+def _tokens_env(tmp_path, line=None):
+    # Points the validator at a scratch approval file (SECTION_TOKENS_FILE); the real file is untouched.
+    f = tmp_path / "tokens.txt"
+    f.write_text("" if line is None else line + "\n")
+    return {**os.environ, "SECTION_TOKENS_FILE": str(f)}
+
+
+def test_section_citation_without_approval_rejected(tmp_path):
+    r = run_validator(tmp_path, "c2-domains.yml", _section_body(), env=_tokens_env(tmp_path))
+    assert r.returncode == 1
+    assert "needs an owner-approved line in validation/feed-section-tokens.txt" in r.stderr
+
+
+def test_section_citation_with_approval_accepted(tmp_path):
+    r = run_validator(tmp_path, "c2-domains.yml", _section_body(), env=_tokens_env(tmp_path, SECTION_LINE))
+    assert r.returncode == 0, r.stderr
+
+
+def test_approved_section_citation_with_campaign_rejected(tmp_path):
+    r = run_validator(tmp_path, "c2-domains.yml", _section_body(campaign="pegasus"),
+                      env=_tokens_env(tmp_path, SECTION_LINE))
+    assert r.returncode == 1
+    assert "a section-cited entry may not carry a campaign key" in r.stderr
