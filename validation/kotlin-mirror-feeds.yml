@@ -35,6 +35,10 @@ feeds:
     url: https://raw.githubusercontent.com/mvt-project/mvt-indicators/main/indicators.yaml
     parser: mvt-stix
     types: [PACKAGE_NAME, C2_DOMAIN]
+    # One rule for MVT-listed domains (Task A4): an ioc-data domain also listed by a mapped MVT collection is
+    # allowed only when it states that collection's `campaign` key (it adds research provenance on top of MVT);
+    # the complementarity check must exempt exactly those entries when MVT stops being parser_limited.
+    # Collections and keys: validation/mvt-campaign-map.json.
     # AndroDR #127: live indicators.yaml is a two-level index of STIX2 bundles
     # (one HTTPS fetch per campaign). The Python parser still does the
     # single-pass shape and returns 0. Kotlin MvtIndicatorsFeed.kt implements

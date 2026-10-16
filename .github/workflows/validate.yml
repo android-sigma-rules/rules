@@ -130,6 +130,13 @@ jobs:
           for f in ${{ steps.changed.outputs.files }}; do
             python3 validation/validate-ioc-complementarity.py --file "$f" --mode strict
           done
+      - name: MVT campaign keys (when c2-domains or the MVT map changed)
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          if git diff --name-only "origin/$BASE_REF...HEAD" -- ioc-data/c2-domains.yml validation/mvt-campaign-map.json | grep -q .; then
+            python3 validation/check-mvt-campaign-keys.py
+          fi
 
   validate-complementarity-all-advisory:
     name: Complementarity (advisory on all files)

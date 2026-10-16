@@ -243,8 +243,14 @@ IOC_TYPE_BY_FILENAME = {
     "brand-domains.yml":    "BRAND_DOMAIN",
 }
 
+# ioc-data files that carry no indicators (Task A4: the campaign vocabulary). Skipped, not an error.
+NON_IOC_FILES = {"campaigns.yml"}
+
 
 def check_file(ioc_file: pathlib.Path, upstream_union: set[tuple[str, str]]) -> list[str]:
+    if ioc_file.name in NON_IOC_FILES:
+        print(f"[complementarity] {ioc_file.name} is not an IOC file; skipped.", file=sys.stderr)
+        return []
     ioc_type = IOC_TYPE_BY_FILENAME.get(ioc_file.name)
     if ioc_type is None:
         print(

@@ -1,0 +1,11 @@
+# Campaign vocabulary for ioc-data `campaign` values (IOC values must be a key; rule campaign.* tags may be a key or an alias).
+# Task A4 creates the keys; Task A5 fills labels and references.
+campaigns:
+  - key: pegasus
+  - key: predator
+  - key: graphite
+    aliases: [paragon]
+  - key: cellebrite
+  - key: landfall
+  - key: massistant
+  - key: midnight-mimosa

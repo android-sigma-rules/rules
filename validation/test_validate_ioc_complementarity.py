@@ -311,3 +311,18 @@ def test_cold_start_seed_must_be_boolean_true(tmp_path):
                         '  source: stalkerware-indicators\n  cold_start_seed: "true"\n')
     r = run_script(["--offline-snapshot", str(upstream_snapshot), "--file", str(ioc_file), "--mode", "strict"])
     assert r.returncode != 0   # a string is not the marker; the duplicate is still a violation
+
+
+def test_every_ioc_data_file_is_registered():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("comp", SCRIPT)
+    comp = importlib.util.module_from_spec(spec); spec.loader.exec_module(comp)
+    names = {p.name for p in (THIS_DIR.parent / "ioc-data").glob("*.yml")}
+    assert names <= set(comp.IOC_TYPE_BY_FILENAME) | comp.NON_IOC_FILES, names - set(comp.IOC_TYPE_BY_FILENAME)
+
+
+def test_campaigns_yml_is_skipped(tmp_path):
+    snap = tmp_path / "upstream.txt"; snap.write_text("PACKAGE_NAME\tx\n")
+    f = tmp_path / "campaigns.yml"; f.write_text("campaigns:\n- key: graphite\n  label: Graphite (Paragon)\n")
+    r = run_script(["--offline-snapshot", str(snap), "--file", str(f), "--mode", "strict"])
+    assert r.returncode == 0, r.stderr

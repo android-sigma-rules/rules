@@ -2,56 +2,105 @@
   {
     "id": "stalkerware-indicators",
     "name": "AssoEchap Stalkerware Indicators",
-    "url": "https://github.com/AssoEchap/stalkerware-indicators"
+    "url": "https://github.com/AssoEchap/stalkerware-indicators",
+    "reference_prefixes": []
   },
   {
     "id": "malwarebazaar",
     "name": "abuse.ch MalwareBazaar",
-    "url": "https://bazaar.abuse.ch"
+    "url": "https://bazaar.abuse.ch",
+    "reference_prefixes": [
+      "https://d3lab.net/"
+    ]
   },
   {
     "id": "threatfox",
     "name": "abuse.ch ThreatFox",
-    "url": "https://threatfox.abuse.ch"
+    "url": "https://threatfox.abuse.ch",
+    "reference_prefixes": []
   },
   {
     "id": "amnesty-investigations",
     "name": "Amnesty International Security Lab",
-    "url": "https://github.com/AmnestyTech/investigations"
+    "url": "https://github.com/AmnestyTech/investigations",
+    "reference_prefixes": []
   },
   {
     "id": "citizenlab-indicators",
     "name": "Citizen Lab Malware Indicators",
-    "url": "https://github.com/citizenlab/malware-indicators"
+    "url": "https://github.com/citizenlab/malware-indicators",
+    "reference_prefixes": []
   },
   {
     "id": "mvt-indicators",
     "name": "MVT Project STIX2 Indicators",
-    "url": "https://github.com/mvt-project/mvt-indicators"
+    "url": "https://github.com/mvt-project/mvt-indicators",
+    "reference_prefixes": []
   },
   {
     "id": "virustotal",
     "name": "VirusTotal Intelligence",
-    "url": "https://www.virustotal.com"
+    "url": "https://www.virustotal.com",
+    "reference_prefixes": []
   },
   {
     "id": "android-security-bulletin",
     "name": "Google Android Security Bulletins",
-    "url": "https://source.android.com/docs/security/bulletin"
+    "url": "https://source.android.com/docs/security/bulletin",
+    "reference_prefixes": []
   },
   {
     "id": "zimperium-ioc",
     "name": "Zimperium IOC Repository",
-    "url": "https://github.com/Zimperium/IOC"
+    "url": "https://github.com/Zimperium/IOC",
+    "reference_prefixes": [
+      "https://zimperium.com/blog/"
+    ]
   },
   {
     "id": "threat_research",
     "name": "AI Pipeline Threat Research (cross-vendor)",
-    "url": "https://github.com/yasirhamza/AndroDR"
+    "url": "https://github.com/yasirhamza/AndroDR",
+    "reference_prefixes": [
+      "https://about.fb.com/wp-content/uploads/2022/08/",
+      "https://blog.polyswarm.io/",
+      "https://blog.quimerax.com/btmob-exposed-inside-a-fraud-as-a-service-platform-with-1400-live-servers/",
+      "https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/",
+      "https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/",
+      "https://cyble.com/blog/",
+      "https://d3lab.net/nfcshare-evolves-from-a-banking-phishing-apk-to-a-github-hosted-android-nfc-fraud-campaign/",
+      "https://en.wikipedia.org/wiki/",
+      "https://etip.exodus-privacy.eu.org/trackers/85776abf-95f1-4e4d-afde-be5f8493dac2/",
+      "https://github.com/Zimperium/IOC/blob/master/2026-03-Oblivion-RAT/",
+      "https://github.com/eset/malware-ioc/blob/master/",
+      "https://habr.com/en/companies/pt/articles/1073720/",
+      "https://iverify.io/blog/",
+      "https://labs.k7computing.com/index.php/octagon-technical-analysis-of-a-fake-bahrain-civil-defense-application/",
+      "https://raw.githubusercontent.com/CRIL-ThreatIntelligence/IOCs/main/SURXRAT/",
+      "https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/",
+      "https://raw.githubusercontent.com/Zimperium/IOC/master/",
+      "https://raw.githubusercontent.com/craiu/mobiletrackers/master/",
+      "https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/",
+      "https://raw.githubusercontent.com/eset/malware-ioc/master/",
+      "https://securelist.com/android-head-unit-malware/121106/",
+      "https://security.lookout.com/threat-intelligence/article/",
+      "https://securityaffairs.com/193745/cyber-crime/",
+      "https://thehackernews.com/",
+      "https://www.bitdefender.com/en-us/blog/labs/",
+      "https://www.bitsight.com/blog/",
+      "https://www.cleafy.com/cleafy-labs/",
+      "https://www.cyfirma.com/research/taxispy-rat-analysis-of-taxispy-rat-russian-banking-focused-android-malware-with-full-remote-control/",
+      "https://www.group-ib.com/blog/",
+      "https://www.humansecurity.com/",
+      "https://www.recordedfuture.com/research/",
+      "https://www.threatfabric.com/blogs/",
+      "https://www.welivesecurity.com/en/eset-research/"
+    ]
   },
   {
     "id": "prodaft-malware-ioc",
     "name": "PRODAFT Malware IOC Repository",
-    "url": "https://github.com/prodaft/malware-ioc"
+    "url": "https://github.com/prodaft/malware-ioc",
+    "reference_prefixes": []
   }
 ]

@@ -1,0 +1,17 @@
+github.com
+gist.github.com
+raw.githubusercontent.com
+objects.githubusercontent.com
+gitlab.com
+github.io
+blogspot.com
+medium.com
+substack.com
+wordpress.com
+sites.google.com
+web.archive.org
+archive.ph
+pastebin.com
+x.com
+twitter.com
+t.me

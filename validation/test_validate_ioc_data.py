@@ -6,6 +6,7 @@ that cannot match on-device (MD5, SHA-1 in APK context, TLSH, SHA-512, ssdeep).
 Run:
     python3 -m pytest validation/test_validate_ioc_data.py -v
 """
+import os
 import pathlib
 import subprocess
 import sys
@@ -16,13 +17,13 @@ THIS_DIR = pathlib.Path(__file__).parent
 SCRIPT = THIS_DIR / "validate-ioc-data.py"
 
 
-def run_validator(tmp_path, filename: str, body: str):
+def run_validator(tmp_path, filename: str, body: str, env=None):
     """Write `body` to tmp_path/filename and run the validator on it."""
     p = tmp_path / filename
     p.write_text(body)
     result = subprocess.run(
         [sys.executable, str(SCRIPT), str(p)],
-        capture_output=True, text=True,
+        capture_output=True, text=True, env=env,
     )
     return result
 
@@ -48,6 +49,7 @@ def _apk_body(indicator: str, source: str = "malwarebazaar") -> str:
             category: MALWARE
             severity: HIGH
             source: {source}
+            reference: feed:{source}#DogfoodSpy
     """).strip()
 
 
@@ -62,6 +64,7 @@ def _cert_body(indicator: str) -> str:
             category: STALKERWARE
             severity: CRITICAL
             source: stalkerware-indicators
+            reference: feed:stalkerware-indicators#DogfoodSpy
     """).strip()
 
 
@@ -148,11 +151,12 @@ def test_package_names_yml_unaffected(tmp_path):
         description: "test"
         sources: [stalkerware-indicators]
         entries:
-          - indicator: com.example.spyware
+          - indicator: com.dogfood.monitor
             family: DogfoodSpy
             category: STALKERWARE
             severity: CRITICAL
             source: stalkerware-indicators
+            reference: feed:stalkerware-indicators#DogfoodSpy
     """).strip()
     r = run_validator(tmp_path, "package-names.yml", body)
     assert r.returncode == 0, r.stderr
@@ -164,11 +168,118 @@ def test_c2_domains_yml_unaffected(tmp_path):
         description: "test"
         sources: [threatfox]
         entries:
-          - indicator: c2.evil.example.com
+          - indicator: api.dogfood-telemetry.example
             family: DogfoodSpy
             category: MALWARE
             severity: CRITICAL
             source: threatfox
+            reference: feed:stalkerware-indicators#DogfoodSpy
     """).strip()
     r = run_validator(tmp_path, "c2-domains.yml", body)
     assert r.returncode == 0, r.stderr
+
+
+def _entry(**over):
+    # Default family is not a campaign name: A5's family-to-campaign rule would otherwise demand a key.
+    e = {"indicator": "evil.example", "family": "DogfoodSpy", "category": "NATION_STATE_SPYWARE",
+         "severity": "CRITICAL", "source": "threat_research",
+         "reference": "https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/"}
+    e.update(over)
+    return e
+
+
+def _body(entry):
+    import yaml
+    return yaml.safe_dump({"version": "x", "description": "t", "sources": [entry.get("source", "x")],
+                           "entries": [{k: v for k, v in entry.items() if v is not None}]})
+
+
+# Requires https://citizenlab.ca/ in threat_research's reference_prefixes (true
+# once A3 lands: the Graphite entries cite Citizen Lab).
+def test_valid_entry_passes(tmp_path):
+    assert run_validator(tmp_path, "c2-domains.yml", _body(_entry())).returncode == 0
+
+
+def test_missing_family_rejected(tmp_path):
+    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(family=None)))
+    assert r.returncode == 1 and "family" in r.stderr
+
+
+def test_missing_reference_rejected(tmp_path):
+    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(reference=None)))
+    assert r.returncode == 1 and "reference" in r.stderr
+
+
+def test_reference_prefix_not_allowed(tmp_path):
+    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(reference="https://random-blog.example/x")))
+    assert r.returncode == 1 and "prefix" in r.stderr
+
+
+def test_other_sources_prefix_not_accepted(tmp_path):
+    # A prefix allowed for a different source must not validate this entry.
+    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(source="stalkerware-indicators")))
+    assert r.returncode == 1 and "prefix" in r.stderr
+
+
+def test_feed_reference_must_name_allowed_source(tmp_path):
+    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(reference="feed:not-a-source#X")))
+    assert r.returncode == 1
+
+
+def test_unknown_campaign_rejected(tmp_path):
+    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(campaign="notacampaign")))
+    assert r.returncode == 1 and "campaign" in r.stderr
+
+
+def test_known_campaign_accepted(tmp_path):
+    # Family must name the campaign (A5's reverse rule); A4 doesn't enforce that yet, but the fixture
+    # is already valid under it so the test stays green after A5 (round 10, R10-3).
+    assert run_validator(tmp_path, "c2-domains.yml",
+                         _body(_entry(family="Graphite (Paragon)", campaign="graphite"))).returncode == 0
+
+
+def test_campaign_on_generic_source_rejected(tmp_path):
+    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(source="threatfox", campaign="graphite",
+                      reference="feed:threatfox#Graphite (Paragon)")))
+    assert r.returncode == 1 and "campaign key on source" in r.stderr
+
+
+def test_placeholder_shaped_domain_rejected(tmp_path):
+    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(indicator="anubis-c2.net")))
+    assert r.returncode == 1 and "placeholder" in r.stderr
+
+
+def test_unpinned_or_traversing_reference_rejected(tmp_path):
+    for ref in ["https://citizenlab.ca/2025/../x/", "https://citizenlab.ca/a%2Fb",
+                "https://github.com/mvt-project/mvt-indicators/blob/abc1234/x"]:
+        r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(reference=ref)))
+        assert r.returncode == 1, ref
+
+
+def test_unpinned_code_host_prefix_rejected(tmp_path, monkeypatch):
+    # load_reference_prefixes exits on a prefix prefix_problem() refuses (shared rule with the checker).
+    import importlib.util, json, pytest
+    spec = importlib.util.spec_from_file_location("vid", THIS_DIR / "validate-ioc-data.py")
+    vid = importlib.util.module_from_spec(spec); spec.loader.exec_module(vid)
+    bad = tmp_path / "s.json"
+    bad.write_text(json.dumps([{"id": "x", "reference_prefixes": ["https://raw.githubusercontent.com/mvt-project/mvt-indicators/"]}]))
+    with pytest.raises(SystemExit):
+        vid.load_reference_prefixes(bad)
+
+
+def test_cold_start_seed_only_in_package_names_with_mirror_feed_reference(tmp_path):
+    ok = _entry(indicator="com.cocospy", family="Cocospy", category="STALKERWARE", source="stalkerware-indicators",
+                reference="feed:stalkerware-indicators#Cocospy", cold_start_seed=True)
+    assert run_validator(tmp_path, "package-names.yml", _body(ok)).returncode == 0
+    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(cold_start_seed=True)))
+    assert r.returncode == 1 and "cold_start_seed" in r.stderr
+    https_ref = dict(ok, reference="https://citizenlab.ca/x/", source="threat_research")
+    r = run_validator(tmp_path, "package-names.yml", _body(https_ref))
+    assert r.returncode == 1 and "cold_start_seed" in r.stderr
+
+
+# Added beside the brief's tests: Interfaces requires block_by_default outside c2-domains.yml to be rejected.
+def test_block_by_default_only_in_c2_domains(tmp_path):
+    assert run_validator(tmp_path, "c2-domains.yml", _body(_entry(block_by_default=True))).returncode == 0
+    r = run_validator(tmp_path, "package-names.yml", _body(_entry(block_by_default=True)))
+    assert r.returncode == 1 and "block_by_default" in r.stderr

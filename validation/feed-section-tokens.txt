@@ -1,6 +1,4 @@
-# Owner-approved lines, tab-separated: <ioc-data file>\t<indicator>\t<reference>\t<family> (a feed: reference whose fragment is a
-# feed section, not the entry's family; Task A3 Step 2b). Approval = a PR the owner merges after the HitL review; the repo has a
-# single owner and no CODEOWNERS file.
+# Owner-approved lines, tab-separated: <ioc-data file>\t<indicator>\t<reference>\t<family>. Approval = a PR the owner merges after the HitL review; the repo has a single owner and no CODEOWNERS file.
 # 2026-10-16: owner-approved section-cited table in validation/backfill-removals.md (Task A3).
 c2-domains.yml	accounts.loginshare.info	feed:amnesty-investigations#2021-10-07_donot	Donot Team
 c2-domains.yml	and.retardrattle.website	feed:amnesty-investigations#2021-10-07_donot	Donot Team
