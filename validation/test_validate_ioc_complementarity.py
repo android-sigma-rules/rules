@@ -268,3 +268,46 @@ def test_advisory_mode_reports_but_does_not_fail(tmp_path):
     ])
     assert result.returncode == 0, result.stdout + result.stderr
     assert "WARN" in (result.stdout + result.stderr) or "advisory" in (result.stdout + result.stderr).lower()
+
+
+def test_cold_start_seed_entry_is_skipped(tmp_path):
+    upstream_snapshot = tmp_path / "upstream.txt"
+    upstream_snapshot.write_text("PACKAGE_NAME\tcom.cocospy\n")
+    ioc_file = tmp_path / "package-names.yml"
+    ioc_file.write_text(textwrap.dedent("""
+        version: "2026-10-16"
+        description: "test"
+        entries:
+          - indicator: com.cocospy
+            family: Cocospy
+            category: STALKERWARE
+            severity: CRITICAL
+            source: stalkerware-indicators
+            reference: "feed:stalkerware-indicators#Cocospy"
+            cold_start_seed: true
+    """).strip())
+    r = run_script(["--offline-snapshot", str(upstream_snapshot), "--file", str(ioc_file), "--mode", "strict"])
+    assert r.returncode == 0, r.stdout + r.stderr
+    assert "cold_start_seed" in r.stderr   # exempted loudly, like parser_limited feeds
+
+
+def test_cold_start_seed_retracted_upstream_fails(tmp_path):
+    # The seed outranks the mirror feed on devices (rules repo > stalkerware), so a retraction
+    # upstream must turn into a red check here, not a silent permanent copy (round 6, S6-6/ARCH6-5).
+    upstream_snapshot = tmp_path / "upstream.txt"
+    upstream_snapshot.write_text("PACKAGE_NAME\tcom.other\n")
+    ioc_file = tmp_path / "package-names.yml"
+    ioc_file.write_text('version: "x"\ndescription: t\nentries:\n- indicator: com.cocospy\n'
+                        '  source: stalkerware-indicators\n  cold_start_seed: true\n')
+    r = run_script(["--offline-snapshot", str(upstream_snapshot), "--file", str(ioc_file), "--mode", "strict"])
+    assert r.returncode != 0 and "no longer in" in (r.stdout + r.stderr)
+
+
+def test_cold_start_seed_must_be_boolean_true(tmp_path):
+    upstream_snapshot = tmp_path / "upstream.txt"
+    upstream_snapshot.write_text("PACKAGE_NAME\tcom.cocospy\n")
+    ioc_file = tmp_path / "package-names.yml"
+    ioc_file.write_text('version: "x"\ndescription: t\nentries:\n- indicator: com.cocospy\n'
+                        '  source: stalkerware-indicators\n  cold_start_seed: "true"\n')
+    r = run_script(["--offline-snapshot", str(upstream_snapshot), "--file", str(ioc_file), "--mode", "strict"])
+    assert r.returncode != 0   # a string is not the marker; the duplicate is still a violation

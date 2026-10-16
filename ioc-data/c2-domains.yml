@@ -16,6 +16,7 @@ entries:
     description: "TheTruthSpy C2 domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#TheTruthSpy
+    block_by_default: true
   - indicator: "copy9.com"
     family: "TheTruthSpy"
     category: "STALKERWARE"
@@ -23,6 +24,7 @@ entries:
     description: "Copy9/TheTruthSpy C2 domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#TheTruthSpy
+    block_by_default: true
   - indicator: "ispyoo.com"
     family: "TheTruthSpy"
     category: "STALKERWARE"
@@ -30,6 +32,7 @@ entries:
     description: "iSpyoo/TheTruthSpy C2 domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#TheTruthSpy
+    block_by_default: true
   # FlexiSpy
   - indicator: "flexispy.com"
     family: "FlexiSpy"
@@ -38,6 +41,7 @@ entries:
     description: "FlexiSpy C2 domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#FlexiSpy
+    block_by_default: true
   - indicator: "djp.bz"
     family: "FlexiSpy"
     category: "STALKERWARE"
@@ -45,6 +49,7 @@ entries:
     description: "FlexiSpy C2 shortener domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#FlexiSpy
+    block_by_default: true
   - indicator: "dmw.bz"
     family: "FlexiSpy"
     category: "STALKERWARE"
@@ -52,6 +57,7 @@ entries:
     description: "FlexiSpy C2 shortener domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#FlexiSpy
+    block_by_default: true
   - indicator: "mflx.biz"
     family: "FlexiSpy"
     category: "STALKERWARE"
@@ -59,6 +65,7 @@ entries:
     description: "FlexiSpy C2 domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#FlexiSpy
+    block_by_default: true
   # Cerberus
   - indicator: "cerberusapp.com"
     family: "Cerberus"
@@ -67,12 +74,14 @@ entries:
     description: "Cerberus C2 domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#Cerberus
+    block_by_default: true
   - indicator: "thd.cc"
     family: "Cerberus"
     category: "STALKERWARE"
     severity: "CRITICAL"
     description: "Cerberus C2 shortener domain"
     source: "stalkerware-indicators"
+    block_by_default: true
   # Cocospy cluster
   - indicator: "appjiagu.com"
     family: "Cocospy"
@@ -81,6 +90,7 @@ entries:
     description: "Cocospy cluster packer/C2 domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#Cocospy
+    block_by_default: true
   - indicator: "cocospy.com"
     family: "Cocospy"
     category: "STALKERWARE"
@@ -88,6 +98,7 @@ entries:
     description: "Cocospy C2 domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#Cocospy
+    block_by_default: true
   - indicator: "spyic.com"
     family: "Cocospy"
     category: "STALKERWARE"
@@ -95,6 +106,7 @@ entries:
     description: "Spyic C2 domain (Cocospy cluster)"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#Cocospy
+    block_by_default: true
   - indicator: "spyzie.io"
     family: "Cocospy"
     category: "STALKERWARE"
@@ -102,6 +114,7 @@ entries:
     description: "Spyzie C2 domain (Cocospy cluster)"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#Cocospy
+    block_by_default: true
   - indicator: "phonedata.me"
     family: "Cocospy"
     category: "STALKERWARE"
@@ -109,6 +122,7 @@ entries:
     description: "Cocospy cluster data exfiltration domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#Cocospy
+    block_by_default: true
 
   # mSpyitaly
   - indicator: "mspyitaly.com"
@@ -118,6 +132,7 @@ entries:
     description: "mSpyitaly C2 domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#mSpyitaly
+    block_by_default: true
   - indicator: "dc-407883c18502.mspyitaly.com"
     family: "mSpyitaly"
     category: "STALKERWARE"
@@ -125,6 +140,7 @@ entries:
     description: "mSpyitaly C2 subdomain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#mSpyitaly
+    block_by_default: true
   # SpyTek
   - indicator: "spytekonline.co.za"
     family: "SpyTek"
@@ -133,6 +149,7 @@ entries:
     description: "SpyTek C2 domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#SpyTek
+    block_by_default: true
   - indicator: "spytek.co.za"
     family: "SpyTek"
     category: "STALKERWARE"
@@ -140,6 +157,7 @@ entries:
     description: "SpyTek C2 domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#SpyTek
+    block_by_default: true
   - indicator: "portal.spytek.co.za"
     family: "SpyTek"
     category: "STALKERWARE"
@@ -147,6 +165,7 @@ entries:
     description: "SpyTek C2 portal domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#SpyTek
+    block_by_default: true
   # Android007 / SpyBunker
   - indicator: "android007.com"
     family: "Android007"
@@ -155,6 +174,7 @@ entries:
     description: "Android007/SpyBunker C2 domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#Android007
+    block_by_default: true
   - indicator: "portal.android007.com"
     family: "Android007"
     category: "STALKERWARE"
@@ -162,6 +182,7 @@ entries:
     description: "Android007 C2 portal domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#Android007
+    block_by_default: true
   - indicator: "spybunker.com"
     family: "Android007"
     category: "STALKERWARE"
@@ -169,6 +190,7 @@ entries:
     description: "SpyBunker C2 domain (Android007 alias)"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#Android007
+    block_by_default: true
   # RioSPY
   - indicator: "riospy.net"
     family: "RioSPY"
@@ -177,6 +199,7 @@ entries:
     description: "RioSPY C2 domain"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#RioSPY
+    block_by_default: true
 
   # Wintego Helios (Israeli spyware, May 2024) — Amnesty International
   - indicator: "africatech.eu"
@@ -185,132 +208,154 @@ entries:
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "afrinews.eu"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "androidcheckupdate.com"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "androidsensorfirmware.net"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "galaxyupdate.network"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "galaxyupdatecheck.com"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "galaxy-update-check.com"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "lidarfirmwareupdate.network"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "senedroid.net"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "syndicationcdn.com"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "bbc.bio"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "bbc.tf"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "cnn.gallery"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "tiktok.do"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "ups.so"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "dakaractu.news"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "jeuneafrique.eu"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "jeuneafrique.news"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "senego.fr"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "senego.info"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "seneweb.eu"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   - indicator: "tribunnews.org"
     family: "Wintego Helios"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     source: "amnesty-investigations"
     reference: feed:amnesty-investigations#Wintego Helios
+    block_by_default: true
   # ClayRat (Russia campaign, Oct-Dec 2025; infrastructure reportedly offline Dec 2025 post-operator-arrest, retained for forensic + copycat detection)
   - indicator: "clayrat.top"
     family: "ClayRat"
@@ -319,282 +364,329 @@ entries:
     description: "ClayRat C2/phishing root domain"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "allan.clayrat.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "buka.clayrat.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "holojo.clayrat.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "test.clayrat.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "red.clayrat.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "chmo2.clayrat.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "error.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "capone.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "imper1.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "rizza.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "pasha.dig.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "oslik.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "players1.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "trent.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "pacy.clayhusas.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "pasha.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "gelya.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "magic.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "ataev.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "bimb.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "patrik.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "evgen.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "swaga.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "allan.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "capone.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "yard.claybaster.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "packwa.claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "np.claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "califor.claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "pasha.claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "capone.claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "ataev2.claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "holik.claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "zam.claydc.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "clay.rest"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "clayfenrirhuy.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "clayratnik.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "claysrat.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "trustnik.sbs"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "macmafia.top"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "youtubeplusandroid.ru"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "actedsda.cfd"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
   - indicator: "antiradar.life"
     family: "ClayRat"
     category: "SPYWARE"
     severity: "CRITICAL"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#ClayRat
+    block_by_default: true
 
   # PixRevolution (Brazilian PIX banking trojan, agent-in-the-loop, 2026-03)
   - indicator: "aplicativo-br.com"
@@ -603,18 +695,21 @@ entries:
     severity: "CRITICAL"
     description: "PixRevolution C2 / fake Google Play listing page"
     source: "threat_research"
+    block_by_default: true
   - indicator: "expedia.aplicativo-br.com"
     family: "PixRevolution"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "PixRevolution subdomain impersonating Expedia"
     source: "threat_research"
+    block_by_default: true
   - indicator: "correios.aplicativo-br.com"
     family: "PixRevolution"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "PixRevolution subdomain impersonating Correios"
     source: "threat_research"
+    block_by_default: true
 
   # Oblivion RAT (Android MaaS RAT, 2026-03)
   - indicator: "oblvn.sbs"
@@ -623,6 +718,7 @@ entries:
     severity: "CRITICAL"
     description: "Oblivion RAT operator panel / C2"
     source: "threat_research"
+    block_by_default: true
 
   # PromptSpy (AI-phishing, MorganArg JPMorgan impersonation, 2026-03)
   - indicator: "mgardownload.com"
@@ -631,12 +727,14 @@ entries:
     severity: "CRITICAL"
     description: "PromptSpy C2 / download domain impersonating JPMorgan"
     source: "threat_research"
+    block_by_default: true
   - indicator: "m-mgarg.com"
     family: "PromptSpy"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "PromptSpy C2 / phishing domain impersonating JPMorgan"
     source: "threat_research"
+    block_by_default: true
 
   # SurxRAT (AI-enhanced Android RAT, Firebase RTDB C2, 2026-03)
   - indicator: "xrat-sisuriya-default-rtdb.firebaseio.com"
@@ -646,6 +744,7 @@ entries:
     description: "SurxRAT Firebase Realtime Database C2 endpoint (specific attacker
       instance; DO NOT add parent firebaseio.com — legit platform)"
     source: "threat_research"
+    block_by_default: true
 
   # Added by /update-rules discover run (2026-05-16): 7-threat harvest from discover
   - indicator: "descarga-smtr.net"
@@ -654,270 +753,315 @@ entries:
     severity: "CRITICAL"
     description: "Mirax delivery/download page"
     source: "threat_research"
+    block_by_default: true
   - indicator: "ilovepng.info"
     family: "Mirax"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "Mirax WebSocket C2 gate (ports 8443/8444/8445)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "call-history-7cda4-default-rtdb.firebaseio.com"
     family: "CallPhantom"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "CallPhantom Firebase RTDB C2"
     source: "threat_research"
+    block_by_default: true
   - indicator: "call-history-ecc1e-default-rtdb.firebaseio.com"
     family: "CallPhantom"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "CallPhantom Firebase RTDB C2"
     source: "threat_research"
+    block_by_default: true
   - indicator: "ch-ap-4-default-rtdb.firebaseio.com"
     family: "CallPhantom"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "CallPhantom Firebase RTDB C2"
     source: "threat_research"
+    block_by_default: true
   - indicator: "chh1-ac0a3-default-rtdb.firebaseio.com"
     family: "CallPhantom"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "CallPhantom Firebase RTDB C2"
     source: "threat_research"
+    block_by_default: true
   - indicator: "protecaocartao.online"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate 2026 distribution + fake Google Play page"
     source: "threat_research"
+    block_by_default: true
   - indicator: "piaystore.org"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate historic fake Play Store typosquat"
     source: "threat_research"
+    block_by_default: true
   - indicator: "piaystore.it.com"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate historic fake Play Store typosquat"
     source: "threat_research"
+    block_by_default: true
   - indicator: "applay-store.com"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate historic fake Play Store typosquat"
     source: "threat_research"
+    block_by_default: true
   - indicator: "raiffeisen-cz.eu"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate historic phishing - Raiffeisen Bank CZ"
     source: "threat_research"
+    block_by_default: true
   - indicator: "app.mobil-csob-cz.eu"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate historic phishing - CSOB Czech bank"
     source: "threat_research"
+    block_by_default: true
   - indicator: "unicaja-playstore.com"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate historic phishing - Unicaja Banco/Play"
     source: "threat_research"
+    block_by_default: true
   - indicator: "playstore-unicaja.com"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate historic phishing - Unicaja Banco/Play"
     source: "threat_research"
+    block_by_default: true
   - indicator: "calxabank.info"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate historic phishing - CaixaBank"
     source: "threat_research"
+    block_by_default: true
   - indicator: "nfcrackatm.com"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate NFC ATM cash-out infrastructure"
     source: "threat_research"
+    block_by_default: true
   - indicator: "nfcanoncrack.com"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate NFC tooling infrastructure"
     source: "threat_research"
+    block_by_default: true
   - indicator: "nfcwarriors.com"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate infrastructure"
     source: "threat_research"
+    block_by_default: true
   - indicator: "devilnfc.com"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate infrastructure"
     source: "threat_research"
+    block_by_default: true
   - indicator: "devilxclusive.lol"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate infrastructure"
     source: "threat_research"
+    block_by_default: true
   - indicator: "reventandocajerosnfc.club"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate infrastructure (Spanish lure)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "spicynagets.shop"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate infrastructure"
     source: "threat_research"
+    block_by_default: true
   - indicator: "seha-ksa.online"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate infrastructure (Saudi health lure)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "brigadeirobeach.makeup"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate infrastructure (Brazil lure)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "policianacional.gay"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate infrastructure (police impersonation)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "nonfcnomoney.com"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate infrastructure"
     source: "threat_research"
+    block_by_default: true
   - indicator: "nfc.cryptomaker.info"
     family: "NGate"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "NGate infrastructure"
     source: "threat_research"
+    block_by_default: true
   - indicator: "comodo-vpn.com"
     family: "DCHSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "DCHSpy MuddyWater Comodo VPN C2 base"
     source: "threat_research"
+    block_by_default: true
   - indicator: "earthvpn.org"
     family: "DCHSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "DCHSpy MuddyWater Earth VPN C2 base"
     source: "threat_research"
+    block_by_default: true
   - indicator: "iphide.net"
     family: "DCHSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "DCHSpy MuddyWater Hide VPN C2 base"
     source: "threat_research"
+    block_by_default: true
   - indicator: "n14mit69company.top"
     family: "DCHSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "DCHSpy infrastructure"
     source: "threat_research"
+    block_by_default: true
   - indicator: "noblico.net"
     family: "BITTER"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "BITTER ProSpy/ToSpy C2"
     source: "threat_research"
+    block_by_default: true
   - indicator: "ai-messenger.co"
     family: "BITTER"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "BITTER ProSpy/ToSpy C2"
     source: "threat_research"
+    block_by_default: true
   - indicator: "spiralkey.co"
     family: "BITTER"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "BITTER ProSpy/ToSpy C2"
     source: "threat_research"
+    block_by_default: true
   - indicator: "store.latestversion.ai"
     family: "BITTER"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "BITTER ProSpy/ToSpy C2 + distribution"
     source: "threat_research"
+    block_by_default: true
   - indicator: "store.appupdate.ai"
     family: "BITTER"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "BITTER ProSpy/ToSpy C2 + distribution"
     source: "threat_research"
+    block_by_default: true
   - indicator: "totokupdate.ai"
     family: "BITTER"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "BITTER ToTok-themed C2"
     source: "threat_research"
+    block_by_default: true
   - indicator: "app-totok.io"
     family: "BITTER"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "BITTER ToTok-themed C2"
     source: "threat_research"
+    block_by_default: true
   - indicator: "signal.ct.ws"
     family: "BITTER"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "BITTER Signal-themed C2 + distribution"
     source: "threat_research"
+    block_by_default: true
   - indicator: "sgnlapp.info"
     family: "BITTER"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "BITTER Signal-themed C2"
     source: "threat_research"
+    block_by_default: true
   - indicator: "encryption-plug-in-signal.com-ae.net"
     family: "BITTER"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "BITTER Signal encryption plugin C2 + distribution"
     source: "threat_research"
+    block_by_default: true
   - indicator: "totokapp.info"
     family: "BITTER"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "BITTER ToTok-themed C2"
     source: "threat_research"
+    block_by_default: true
   - indicator: "totok-pro.io"
     family: "BITTER"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "BITTER ToTok Pro C2 + distribution"
     source: "threat_research"
+    block_by_default: true
   - indicator: "com-ae.net"
     family: "BITTER"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "BITTER infrastructure pivot domain"
     source: "threat_research"
+    block_by_default: true
   - indicator: "youtubepremiumapp.com"
     family: "BITTER"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "BITTER 2022 Dracarys-era infrastructure"
     source: "threat_research"
+    block_by_default: true
 
   # ---------------------------------------------------------------------------
   # Data-broker SDK telemetry (AndroDR #168)
@@ -939,30 +1083,35 @@ entries:
     severity: "MEDIUM"
     description: "Outlogic (X-Mode Social) vendor apex domain. Referenced from inside the SDK and consumer-app privacy policies."
     source: "threat_research"
+    block_by_default: true
   - indicator: "outlogic.io"
     family: "Outlogic"
     category: "DATA_BROKER_SDK"
     severity: "MEDIUM"
     description: "Outlogic post-rebrand corporate domain (Digital Envoy acquisition, August 2021)."
     source: "threat_research"
+    block_by_default: true
   - indicator: "api.myendpoint.io"
     family: "Outlogic"
     category: "DATA_BROKER_SDK"
     severity: "MEDIUM"
     description: "Outlogic SDK telemetry endpoint per Exodus Privacy tracker #354."
     source: "threat_research"
+    block_by_default: true
   - indicator: "bin5y4muil.execute-api.us-east-1.amazonaws.com"
     family: "Outlogic"
     category: "DATA_BROKER_SDK"
     severity: "MEDIUM"
     description: "Outlogic SDK AWS API Gateway telemetry endpoint per Exodus Privacy tracker #354."
     source: "threat_research"
+    block_by_default: true
   - indicator: "api.smartechmetrics.com"
     family: "Outlogic"
     category: "DATA_BROKER_SDK"
     severity: "MEDIUM"
     description: "Outlogic SDK telemetry endpoint per Exodus Privacy tracker #354."
     source: "threat_research"
+    block_by_default: true
 
   # Venntel / Gravy GOLD legacy SDK — per sir-2026-05-18-venntel
   - indicator: "findgravy.com"
@@ -971,24 +1120,28 @@ entries:
     severity: "MEDIUM"
     description: "Legacy Gravy GOLD SDK (TimeRAZOR) telemetry apex. Documented in vendor Javadoc and the mobiletrackers community list."
     source: "threat_research"
+    block_by_default: true
   - indicator: "api.findgravy.com"
     family: "Venntel"
     category: "DATA_BROKER_SDK"
     severity: "MEDIUM"
     description: "Legacy Gravy GOLD SDK (TimeRAZOR) API endpoint. Documented in vendor Javadoc."
     source: "threat_research"
+    block_by_default: true
   - indicator: "ws.findgravy.com"
     family: "Venntel"
     category: "DATA_BROKER_SDK"
     severity: "MEDIUM"
     description: "Legacy Gravy GOLD SDK websocket endpoint per mobiletrackers community list."
     source: "threat_research"
+    block_by_default: true
   - indicator: "api.foozor.com"
     family: "Venntel"
     category: "DATA_BROKER_SDK"
     severity: "MEDIUM"
     description: "Legacy Gravy GOLD SDK secondary telemetry endpoint per mobiletrackers community list."
     source: "threat_research"
+    block_by_default: true
 
   # Mobilewalla — per sir-2026-05-18-mobilewalla (apex only; no subdomain enumeration in reachable sources)
   - indicator: "mobilewalla.com"
@@ -997,6 +1150,7 @@ entries:
     severity: "MEDIUM"
     description: "Mobilewalla corporate / Covariate API root domain. Per FTC complaint (Dec 2024) Mobilewalla operates a partner Covariate API; subdomains are not publicly enumerated."
     source: "threat_research"
+    block_by_default: true
 
   # Adsquare — per sir-2026-05-18-adsquare (aggregator posture; corporate domains, no SDK telemetry confirmed)
   - indicator: "adsquare.com"
@@ -1005,12 +1159,14 @@ entries:
     severity: "MEDIUM"
     description: "Adsquare GmbH (Berlin) corporate domain. Per The Markup investigation and Netzpolitik Databroker Files. Adsquare is an aggregator; resolution from a consumer device is uncommon."
     source: "threat_research"
+    block_by_default: true
   - indicator: "help.adsquare.com"
     family: "Adsquare"
     category: "DATA_BROKER_SDK"
     severity: "MEDIUM"
     description: "Adsquare customer help center subdomain. Same caveat as adsquare.com."
     source: "threat_research"
+    block_by_default: true
 
   # Predicio / Telescope SDK — per sir-2026-05-18-predicio
   - indicator: "sdk.predic.io"
@@ -1019,12 +1175,14 @@ entries:
     severity: "MEDIUM"
     description: "Predicio (Telescope) SDK telemetry endpoint per Exodus Privacy tracker #357 and Vice Motherboard reporting on Salaat First."
     source: "threat_research"
+    block_by_default: true
   - indicator: "predic.io"
     family: "Predicio"
     category: "DATA_BROKER_SDK"
     severity: "MEDIUM"
     description: "Predicio corporate apex domain. Went dark after Google Play removal in February 2021; historical SDK builds may still resolve to it."
     source: "threat_research"
+    block_by_default: true
 
   # Gravy Analytics / Unacast (aggregator) — per sir-2026-05-18-gravy-analytics
   - indicator: "gravyanalytics.com"
@@ -1033,24 +1191,28 @@ entries:
     severity: "MEDIUM"
     description: "Gravy Analytics corporate apex domain. Per FTC consent order (December 2024). DNS resolution from a consumer device is uncommon since Gravy is an aggregator — a hit is high-signal."
     source: "threat_research"
+    block_by_default: true
   - indicator: "unacast.com"
     family: "Gravy Analytics"
     category: "DATA_BROKER_SDK"
     severity: "MEDIUM"
     description: "Unacast (parent of Gravy Analytics post-2023 merger) corporate apex domain."
     source: "threat_research"
+    block_by_default: true
   - indicator: "venntel.com"
     family: "Gravy Analytics"
     category: "DATA_BROKER_SDK"
     severity: "MEDIUM"
     description: "Venntel (Gravy Analytics subsidiary that resells to US federal agencies) corporate apex domain. EFF Fog Revealed documented /Venntel/* server-to-server API paths under this domain."
     source: "threat_research"
+    block_by_default: true
   - indicator: "explore.venntel.com"
     family: "Gravy Analytics"
     category: "DATA_BROKER_SDK"
     severity: "MEDIUM"
     description: "Venntel public-facing customer / marketing subdomain."
     source: "threat_research"
+    block_by_default: true
   # Joker (added 2026-05-29 via AI rule pipeline)
   - indicator: "api.gaority.ink"
     family: "Joker"
@@ -1059,6 +1221,7 @@ entries:
     description: "Joker (Bread) C2/exfil domain (tria.ge sandbox-observed). Caught by generic DNS IOC lookup (androdr-003)."
     source: "threatfox"
     reference: feed:threatfox#Joker
+    block_by_default: true
 # --- update-rules-e2e batch 2026-06-08 (BTMOB/TrickMo/Astrinox/Massiv/SaferRat/RecruitRat/PixRevolution/AndroRAT/Antidot/Asin) ---
   - indicator: "govlens.net"
     family: "Asin"
@@ -1066,18 +1229,21 @@ entries:
     severity: "HIGH"
     description: "Asin Android spyware distribution domain — fake government news source targeting Arabic-speaking users (ESET, ~2026-06)."
     source: "threat_research"
+    block_by_default: true
   - indicator: "c-pdf.net"
     family: "Asin"
     category: "SPYWARE"
     severity: "MEDIUM"
     description: "Asin Android spyware distribution domain hosting a PDF-utility-disguised APK (ESET-sourced, single unstructured source; medium confidence)."
     source: "threat_research"
+    block_by_default: true
   - indicator: "syriadefensemap.com"
     family: "Asin"
     category: "SPYWARE"
     severity: "MEDIUM"
     description: "Asin Android spyware distribution domain serving a 'Syria Defense Map'-disguised sample (ESET-sourced, single unstructured source; medium confidence)."
     source: "threat_research"
+    block_by_default: true
   - indicator: "joodyallen.art"
     family: "RecruitRat"
     category: "MALWARE"
@@ -1085,12 +1251,14 @@ entries:
     description: "RecruitRat Android RAT C2/distribution domain"
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#RecruitRat
+    block_by_default: true
   - indicator: "xhire.cc"
     family: "Astrinox"
     category: "MALWARE"
     severity: "HIGH"
     description: "Astrinox Android malware C2/distribution domain"
     source: "zimperium-ioc"
+    block_by_default: true
   - indicator: "aptabase.jesfeoqrj3.xyz"
     family: "AndroRAT"
     category: "MALWARE"
@@ -1098,6 +1266,7 @@ entries:
     description: "AndroRAT Android RAT C2/distribution domain"
     source: "threatfox"
     reference: feed:threatfox#AndroRAT
+    block_by_default: true
   - indicator: "catfoodeuro.shop"
     family: "Antidot"
     category: "MALWARE"
@@ -1105,12 +1274,14 @@ entries:
     description: "Antidot Android banking trojan C2/distribution domain"
     source: "threatfox"
     reference: feed:threatfox#Antidot
+    block_by_default: true
   - indicator: "server.yaarsa.com"
     family: "BTMOB"
     category: "MALWARE"
     severity: "HIGH"
     description: "BTMOB Android RAT C2/distribution domain"
     source: "threat_research"
+    block_by_default: true
 
   # Donot Team (APT-C-35) — Togo campaign (Amnesty Tech, Oct 2021)
   - indicator: "bulk.fun"
@@ -1119,174 +1290,203 @@ entries:
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "apkv5.ppadaolnwod.xyz"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "apkv6.endurecif.top"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "getelements.xyz"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "fiddaz.club"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "lif0.top"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "fif0.top"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "chipp.pw"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "mimestyle.xyz"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "mangasiso.top"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "and.retardrattle.website"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "help.domainoutlet.site"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "whynotworkonit.top"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "spectronet.pw"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "full.naturalpercent.life"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "mimeversion.top"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "rythemsjoy.club"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "lowlight.xyz"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "inapturst.top"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "auth.forwardtoken.website"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "accounts.loginshare.info"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "seahome.top"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "imageview.xyz"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "flickry.xyz"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "apkv2.qwertykeypad.host"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "userauthen.pw"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "join.officeframe.work"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "zumba.tampotrust.agency"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "image.loadingmessage.info"
     family: "Donot Team"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Donot Team (APT-C-35) spyware C2/APK-delivery domain — Togo campaign (Amnesty Tech, Oct 2021); domain may have been re-registered since"
     source: "amnesty-investigations"
+    block_by_default: true
   # FinSpy (FinFisher) — Egypt campaign (Amnesty Tech, Sept 2020)
   - indicator: "flash.browserupdate.download"
     family: "FinSpy"
@@ -1294,24 +1494,28 @@ entries:
     severity: "HIGH"
     description: "FinSpy (FinFisher) distribution domain — Egypt campaign (Amnesty Tech, Sept 2020); FinFisher insolvent since 2022, domain may have been re-registered"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "current.browserupdate.download"
     family: "FinSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "HIGH"
     description: "FinSpy (FinFisher) distribution domain — Egypt campaign (Amnesty Tech, Sept 2020); FinFisher insolvent since 2022, domain may have been re-registered"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "files.browserupdate.download"
     family: "FinSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "HIGH"
     description: "FinSpy (FinFisher) distribution domain — Egypt campaign (Amnesty Tech, Sept 2020); FinFisher insolvent since 2022, domain may have been re-registered"
     source: "amnesty-investigations"
+    block_by_default: true
   - indicator: "browserupdate.download"
     family: "FinSpy"
     category: "NATION_STATE_SPYWARE"
     severity: "HIGH"
     description: "FinSpy (FinFisher) distribution domain — Egypt campaign (Amnesty Tech, Sept 2020); FinFisher insolvent since 2022, domain may have been re-registered"
     source: "amnesty-investigations"
+    block_by_default: true
   # NFC-relay fraud (SuperCard X / Ghost Tapped) — research-verified
   - indicator: "nfc.rc8820.com"
     family: "GhostTapped"
@@ -1319,24 +1523,28 @@ entries:
     severity: "CRITICAL"
     description: "Ghost Tapped NFC-relay C2 (Group-IB)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "xxnfc.com"
     family: "GhostTapped"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "Ghost Tapped NFC-relay C2 (Group-IB)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "txnfc.com"
     family: "GhostTapped"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "Ghost Tapped NFC-relay C2 (Group-IB)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "api.kingcardnfc.com"
     family: "SuperCardX"
     category: "MALWARE"
     severity: "CRITICAL"
     description: "SuperCard X NFC-relay C2 (Cleafy)"
     source: "threat_research"
+    block_by_default: true
   # AntiDot (added 2026-07-03 via AI rule pipeline sweep)
   - indicator: "neuroflux42.com"
     family: "AntiDot"
@@ -1345,6 +1553,7 @@ entries:
     description: "AntiDot botnet (LARVA-398 MaaS) gate/C2 domain (PRODAFT)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "dhuieowdwj89hd1jd1.club"
     family: "AntiDot"
     category: "MALWARE"
@@ -1352,6 +1561,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "openkitchen22.site"
     family: "AntiDot"
     category: "MALWARE"
@@ -1359,6 +1569,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "kitchencoocing.shop"
     family: "AntiDot"
     category: "MALWARE"
@@ -1366,6 +1577,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "foodlooc.online"
     family: "AntiDot"
     category: "MALWARE"
@@ -1373,6 +1585,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "trustcdncloud.space"
     family: "AntiDot"
     category: "MALWARE"
@@ -1380,6 +1593,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "zizzytantonedai.store"
     family: "AntiDot"
     category: "MALWARE"
@@ -1387,6 +1601,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "ellongerritassa.cfd"
     family: "AntiDot"
     category: "MALWARE"
@@ -1394,6 +1609,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "tynaderouindeah.store"
     family: "AntiDot"
     category: "MALWARE"
@@ -1401,6 +1617,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "imonitussyberon.store"
     family: "AntiDot"
     category: "MALWARE"
@@ -1408,6 +1625,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "vertonasaeledal.store"
     family: "AntiDot"
     category: "MALWARE"
@@ -1415,6 +1633,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "goalshet.store"
     family: "AntiDot"
     category: "MALWARE"
@@ -1422,6 +1641,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "passionfruitsz.info"
     family: "AntiDot"
     category: "MALWARE"
@@ -1429,6 +1649,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "cloudmemoturowp.org"
     family: "AntiDot"
     category: "MALWARE"
@@ -1436,6 +1657,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "kangarooeaglerabbit.info"
     family: "AntiDot"
     category: "MALWARE"
@@ -1443,6 +1665,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "trustcdncloud.buzz"
     family: "AntiDot"
     category: "MALWARE"
@@ -1450,6 +1673,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "trustcdncloud.click"
     family: "AntiDot"
     category: "MALWARE"
@@ -1457,6 +1681,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "trustcdncloud.shop"
     family: "AntiDot"
     category: "MALWARE"
@@ -1464,6 +1689,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "southkelib.best"
     family: "AntiDot"
     category: "MALWARE"
@@ -1471,6 +1697,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "taosaomao.online"
     family: "AntiDot"
     category: "MALWARE"
@@ -1478,6 +1705,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "shopdoorjshr.me"
     family: "AntiDot"
     category: "MALWARE"
@@ -1485,6 +1713,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "portalmeowhjukolip.info"
     family: "AntiDot"
     category: "MALWARE"
@@ -1492,6 +1721,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "portalmeowhjukolip.cloud"
     family: "AntiDot"
     category: "MALWARE"
@@ -1499,6 +1729,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   - indicator: "progods.site"
     family: "AntiDot"
     category: "MALWARE"
@@ -1506,6 +1737,7 @@ entries:
     description: "AntiDot C2 domain (PRODAFT malware-ioc, 2026-07-03 sweep)"
     source: "prodaft-malware-ioc"
     reference: feed:prodaft-malware-ioc#AntiDot
+    block_by_default: true
   # Rokarolla (added 2026-07-03 via AI rule pipeline sweep)
   - indicator: "infocontablidades.it.com"
     family: "Rokarolla"
@@ -1513,30 +1745,35 @@ entries:
     severity: "HIGH"
     description: "Rokarolla banking trojan C2 domain (Zimperium zLabs)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "beralisvc.info"
     family: "Rokarolla"
     category: "MALWARE"
     severity: "HIGH"
     description: "Rokarolla C2 domain (threat research, 2026-07-03 sweep)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "blestorians.cfd"
     family: "Rokarolla"
     category: "MALWARE"
     severity: "HIGH"
     description: "Rokarolla C2 domain (threat research, 2026-07-03 sweep)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "abiorime.cfd"
     family: "Rokarolla"
     category: "MALWARE"
     severity: "HIGH"
     description: "Rokarolla C2 domain (threat research, 2026-07-03 sweep)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "morevoms.cfd"
     family: "Rokarolla"
     category: "MALWARE"
     severity: "HIGH"
     description: "Rokarolla C2 domain (threat research, 2026-07-03 sweep)"
     source: "threat_research"
+    block_by_default: true
   # Glitch SPY (added 2026-07-03 via AI rule pipeline sweep)
   - indicator: "sportypointsrewards.com"
     family: "Glitch SPY"
@@ -1544,12 +1781,14 @@ entries:
     severity: "HIGH"
     description: "Glitch SPY WebSocket C2 domain (Cyble)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "gich.etherraffleexchange.us"
     family: "Glitch SPY"
     category: "MALWARE"
     severity: "HIGH"
     description: "Glitch SPY exposed admin-panel host (Cyble)"
     source: "threat_research"
+    block_by_default: true
   # NFCShare (added 2026-07-03 via AI rule pipeline sweep)
   - indicator: "areaclienti-intesa.com"
     family: "NFCShare"
@@ -1557,12 +1796,14 @@ entries:
     severity: "HIGH"
     description: "NFCShare Intesa-impersonating distribution/phishing domain (D3Lab)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "nfck.loseyourip.com"
     family: "NFCShare"
     category: "MALWARE"
     severity: "HIGH"
     description: "NFCShare WebSocket C2 host on dynamic-DNS subdomain (D3Lab; parent loseyourip.com is a dyn-DNS provider, only this FQDN is the IOC)"
     source: "threat_research"
+    block_by_default: true
   # Brokewell (added 2026-07-03 via AI rule pipeline sweep)
   - indicator: "tutaj-dompl.com"
     family: "Brokewell"
@@ -1570,6 +1811,7 @@ entries:
     severity: "HIGH"
     description: "Fake Polish apartment-rental site distributing Brokewell loader / Glitch SPY (Cyble)"
     source: "threat_research"
+    block_by_default: true
   # GoldPickaxe (added 2026-07-13 via AI rule pipeline sweep)
   - indicator: "fgiojhfjkbk.cc"
     family: "GoldPickaxe"
@@ -1578,6 +1820,7 @@ entries:
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#GoldPickaxe
+    block_by_default: true
   - indicator: "id.btyrw.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
@@ -1585,6 +1828,7 @@ entries:
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#GoldPickaxe
+    block_by_default: true
   - indicator: "thituu.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
@@ -1592,6 +1836,7 @@ entries:
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#GoldPickaxe
+    block_by_default: true
   - indicator: "id.nercx.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
@@ -1599,6 +1844,7 @@ entries:
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#GoldPickaxe
+    block_by_default: true
   - indicator: "dmnw.api4321.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
@@ -1606,6 +1852,7 @@ entries:
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#GoldPickaxe
+    block_by_default: true
   - indicator: "qecdf.api95642.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
@@ -1613,6 +1860,7 @@ entries:
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#GoldPickaxe
+    block_by_default: true
   - indicator: "fgr5yt.apihjr84231.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
@@ -1620,6 +1868,7 @@ entries:
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#GoldPickaxe
+    block_by_default: true
   - indicator: "radc.api23883.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
@@ -1627,6 +1876,7 @@ entries:
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#GoldPickaxe
+    block_by_default: true
   - indicator: "dfffhekfv.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
@@ -1634,6 +1884,7 @@ entries:
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#GoldPickaxe
+    block_by_default: true
   - indicator: "sdsfdfg.dfffhekfv.cc"
     family: "GoldPickaxe"
     category: "MALWARE"
@@ -1641,6 +1892,7 @@ entries:
     description: "GoldPickaxe (GoldFactory) C2 / payload-distribution host, July 2026 variant (Zimperium zLabs). AES-encrypted C2 traffic."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#GoldPickaxe
+    block_by_default: true
   # RedWing (added 2026-07-13 via AI rule pipeline sweep)
   - indicator: "krusty-crabs.sbs"
     family: "RedWing"
@@ -1649,6 +1901,7 @@ entries:
     description: "RedWing C2 / distribution host (Zimperium zLabs, 2026-07)."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#RedWing
+    block_by_default: true
   - indicator: "redwing.top"
     family: "RedWing"
     category: "MALWARE"
@@ -1656,6 +1909,7 @@ entries:
     description: "RedWing C2 / distribution host (Zimperium zLabs, 2026-07)."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#RedWing
+    block_by_default: true
   - indicator: "api-sync-service.mdkd1184.workers.dev"
     family: "RedWing"
     category: "MALWARE"
@@ -1663,6 +1917,7 @@ entries:
     description: "RedWing C2 / distribution host (Zimperium zLabs, 2026-07). Full FQDN only (Cloudflare Worker relay); does not match the shared workers.dev parent."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#RedWing
+    block_by_default: true
   - indicator: "redwingqq.top"
     family: "RedWing"
     category: "MALWARE"
@@ -1670,6 +1925,7 @@ entries:
     description: "RedWing C2 / distribution host (Zimperium zLabs, 2026-07)."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#RedWing
+    block_by_default: true
   - indicator: "manyrei.live"
     family: "RedWing"
     category: "MALWARE"
@@ -1677,6 +1933,7 @@ entries:
     description: "RedWing C2 / distribution host (Zimperium zLabs, 2026-07)."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#RedWing
+    block_by_default: true
   - indicator: "wmanyrei.icu"
     family: "RedWing"
     category: "MALWARE"
@@ -1684,6 +1941,7 @@ entries:
     description: "RedWing C2 / distribution host (Zimperium zLabs, 2026-07)."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#RedWing
+    block_by_default: true
   - indicator: "yandex-disk.net"
     family: "RedWing"
     category: "MALWARE"
@@ -1691,6 +1949,7 @@ entries:
     description: "RedWing C2 / distribution host (Zimperium zLabs, 2026-07). Typosquat impersonating Yandex Disk; distinct apex from legitimate yandex.ru/disk.yandex.ru."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#RedWing
+    block_by_default: true
   - indicator: "offservers.ru"
     family: "RedWing"
     category: "MALWARE"
@@ -1698,6 +1957,7 @@ entries:
     description: "RedWing C2 / distribution host (Zimperium zLabs, 2026-07)."
     source: "zimperium-ioc"
     reference: feed:zimperium-ioc#RedWing
+    block_by_default: true
   # Octagon (added 2026-08-05 via AI rule pipeline discover run)
   - indicator: "bh-alert.com"
     family: "Octagon"
@@ -1705,18 +1965,21 @@ entries:
     severity: "HIGH"
     description: "Octagon distribution/C2 domain impersonating the Bahrain 'BH Alert' Civil Defense app (K7 Security Labs, 2026-08)."
     source: "threat_research"
+    block_by_default: true
   - indicator: "playgoogle.bh-alert.com"
     family: "Octagon"
     category: "MALWARE"
     severity: "HIGH"
     description: "Octagon C2 subdomain masquerading as Google Play (K7 Security Labs, 2026-08)."
     source: "threat_research"
+    block_by_default: true
   - indicator: "download.alertbh.info"
     family: "Octagon"
     category: "MALWARE"
     severity: "HIGH"
     description: "Octagon payload-download/distribution domain serving BH-Alert.apk (K7 Security Labs, 2026-08)."
     source: "threat_research"
+    block_by_default: true
   - indicator: apk.obwhatsappdownload.com
     family: Triada
     category: MALWARE
@@ -3472,87 +3735,255 @@ entries:
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "awake-wood.io"
     family: "Graphite (Paragon)"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "forti.paraccess.com"
     family: "Graphite (Paragon)"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "modern-money.org"
     family: "Graphite (Paragon)"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "ancient-thing.it"
     family: "Graphite (Paragon)"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "external-astra.com"
     family: "Graphite (Paragon)"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "internal-abba.com"
     family: "Graphite (Paragon)"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "external-cap.com"
     family: "Graphite (Paragon)"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "external-drt.com"
     family: "Graphite (Paragon)"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "forti.external-muki.com"
     family: "Graphite (Paragon)"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "external-cag.com"
     family: "Graphite (Paragon)"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "forti.external-sht-prd-4.com"
     family: "Graphite (Paragon)"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "forti.external-shotgun3.com"
     family: "Graphite (Paragon)"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "forti.external-sht.com"
     family: "Graphite (Paragon)"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    block_by_default: true
   - indicator: "forti.internal-stg.com"
     family: "Graphite (Paragon)"
     category: "NATION_STATE_SPYWARE"
     severity: "CRITICAL"
     description: "Paragon Graphite infrastructure certificate name (Citizen Lab, March 2025)"
     source: "threat_research"
+    block_by_default: true
+  # Ported from the AndroDR bundled blocklist (bundle-only before 2026-10-16; confirmed in stalkerware-indicators)
+  - indicator: "clevguard.com"
+    family: "ClevGuard"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "ClevGuard stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#ClevGuard
+    block_by_default: true
+  - indicator: "cocospy.net"
+    family: "Cocospy"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "Cocospy stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Cocospy
+    block_by_default: true
+  - indicator: "eyezy.com"
+    family: "mSpy"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "mSpy stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#mSpy
+    block_by_default: true
+  - indicator: "highstermobile.com"
+    family: "HighsterMobile"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "HighsterMobile stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#HighsterMobile
+    block_by_default: true
+  - indicator: "hoverwatch.com"
+    family: "Hoverwatch"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "Hoverwatch stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Hoverwatch
+    block_by_default: true
+  - indicator: "ikeymonitor.com"
+    family: "iKeyMonitor"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "iKeyMonitor stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#iKeyMonitor
+    block_by_default: true
+  - indicator: "kidlogger.net"
+    family: "KidsShield"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "KidsShield stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#KidsShield
+    block_by_default: true
+  - indicator: "minspy.com"
+    family: "Cocospy"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "Cocospy stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Cocospy
+    block_by_default: true
+  - indicator: "mobilespy.at"
+    family: "MobileSpy"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "MobileSpy stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#MobileSpy
+    block_by_default: true
+  - indicator: "mspy.com"
+    family: "mSpy"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "mSpy stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#mSpy
+    block_by_default: true
+  - indicator: "nexspy.com"
+    family: "NexSpy"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "NexSpy stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#NexSpy
+    block_by_default: true
+  - indicator: "spy-phone-app.com"
+    family: "SpyphoneMobileTracker"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "SpyphoneMobileTracker stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#SpyphoneMobileTracker
+    block_by_default: true
+  - indicator: "spyera.com"
+    family: "SpyEra"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "SpyEra stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#SpyEra
+    block_by_default: true
+  - indicator: "spylive360.com"
+    family: "SpyLive360"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "SpyLive360 stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#SpyLive360
+    block_by_default: true
+  - indicator: "spynger.com"
+    family: "Spynger"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "Spynger stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Spynger
+    block_by_default: true
+  - indicator: "spyzie.com"
+    family: "Cocospy"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "Cocospy stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#Cocospy
+    block_by_default: true
+  - indicator: "trackmy.mobi"
+    family: "EasyPhoneTrack"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "EasyPhoneTrack stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#EasyPhoneTrack
+    block_by_default: true
+  - indicator: "umobix.com"
+    family: "uMobix"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "uMobix stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#uMobix
+    block_by_default: true
+  - indicator: "xnspy.com"
+    family: "XNSpy"
+    category: "STALKERWARE"
+    severity: "CRITICAL"
+    description: "XNSpy stalkerware vendor domain (ported from the AndroDR bundled blocklist)"
+    source: "stalkerware-indicators"
+    reference: feed:stalkerware-indicators#XNSpy
+    block_by_default: true

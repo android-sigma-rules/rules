@@ -965,3 +965,100 @@ entries:
   severity: "CRITICAL"
   description: "Midnight Mimosa dropped payload - fake weather cover app installed by the preinstalled enabler (Bitdefender)"
   source: "threat_research"
+# Cold-start seeds: bundle-only packages ported 2026-10-16 (also in stalkerware-indicators, a mirror feed)
+- indicator: "com.eyezy.android"
+  family: "Eyezy"
+  category: "STALKERWARE"
+  severity: "HIGH"
+  description: "Commercial stalkerware marketed as parental monitoring. Captures keystrokes, reads encrypted messages, and tracks location."
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#Eyezy
+  cold_start_seed: true
+- indicator: "com.ispyoo"
+  family: "TheTruthSpy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "TheTruthSpy/iSpyoo stalkerware — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#TheTruthSpy
+  cold_start_seed: true
+- indicator: "com.mxspy"
+  family: "TheTruthSpy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "TheTruthSpy/MxSpy stalkerware — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#TheTruthSpy
+  cold_start_seed: true
+- indicator: "com.spyzee"
+  family: "TheTruthSpy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "TheTruthSpy/Spyzee stalkerware — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#TheTruthSpy
+  cold_start_seed: true
+- indicator: "com.fp.backup"
+  family: "FlexiSpy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "FlexiSpy stalkerware disguised as backup — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#FlexiSpy
+  cold_start_seed: true
+- indicator: "com.lsdroid.cerberus"
+  family: "Cerberus"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "Cerberus anti-theft app abused as stalkerware — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#Cerberus
+  cold_start_seed: true
+- indicator: "com.surebrec"
+  family: "Cerberus"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "Cerberus stalkerware alias — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#Cerberus
+  cold_start_seed: true
+- indicator: "update.service.android"
+  family: "mSpy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "mSpy stalkerware disguised as system update — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#mSpy
+  cold_start_seed: true
+- indicator: "core.update.framework"
+  family: "mSpy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "mSpy stalkerware disguised as framework update — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#mSpy
+  cold_start_seed: true
+- indicator: "com.cocospy"
+  family: "Cocospy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "Cocospy stalkerware — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#Cocospy
+  cold_start_seed: true
+- indicator: "com.sc.fonemonitor"
+  family: "Cocospy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "Cocospy/FoneMonitor stalkerware — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#Cocospy
+  cold_start_seed: true
+- indicator: "com.spyic"
+  family: "Cocospy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "Spyic stalkerware (Cocospy cluster) — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#Cocospy
+  cold_start_seed: true

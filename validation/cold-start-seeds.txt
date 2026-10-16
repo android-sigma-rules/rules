@@ -1,0 +1,12 @@
+com.cocospy
+com.eyezy.android
+com.fp.backup
+com.ispyoo
+com.lsdroid.cerberus
+com.mxspy
+com.sc.fonemonitor
+com.spyic
+com.spyzee
+com.surebrec
+core.update.framework
+update.service.android

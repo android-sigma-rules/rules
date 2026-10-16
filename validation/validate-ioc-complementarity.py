@@ -263,6 +263,15 @@ def check_file(ioc_file: pathlib.Path, upstream_union: set[tuple[str, str]]) -> 
         if not indicator:
             continue
         normalized = normalize_value(str(indicator), ioc_type)
+        if entry.get("cold_start_seed") is True:
+            # Inverted rule for seeds: they MUST still be in the feed they copy.
+            if (ioc_type, normalized) in upstream_union:
+                print(f"[complementarity] entries[{idx}] '{indicator}' exempt: cold_start_seed "
+                      f"(bundled cold-start copy of a mirror-feed entry)", file=sys.stderr)
+            else:
+                violations.append(f"  entries[{idx}] '{indicator}' is a cold_start_seed but no longer in "
+                                  f"its mirror feed (retracted upstream?) — review and remove it")
+            continue
         if (ioc_type, normalized) in upstream_union:
             source = entry.get("source", "?")
             violations.append(
