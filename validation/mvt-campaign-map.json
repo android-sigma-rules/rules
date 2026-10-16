@@ -1,0 +1,8 @@
+[
+  {"name": "NSO Group Pegasus Indicators of Compromise",
+   "url": "https://raw.githubusercontent.com/AmnestyTech/investigations/master/2021-07-18_nso/pegasus.stix2",
+   "key": "pegasus"},
+  {"name": "Predator Spyware Indicators of Compromise",
+   "url": "https://raw.githubusercontent.com/mvt-project/mvt-indicators/main/intellexa_predator/predator.stix2",
+   "key": "predator"}
+]

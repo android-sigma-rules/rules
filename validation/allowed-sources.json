@@ -2,56 +2,103 @@
   {
     "id": "stalkerware-indicators",
     "name": "AssoEchap Stalkerware Indicators",
-    "url": "https://github.com/AssoEchap/stalkerware-indicators"
+    "url": "https://github.com/AssoEchap/stalkerware-indicators",
+    "reference_prefixes": []
   },
   {
     "id": "malwarebazaar",
     "name": "abuse.ch MalwareBazaar",
-    "url": "https://bazaar.abuse.ch"
+    "url": "https://bazaar.abuse.ch",
+    "reference_prefixes": []
   },
   {
     "id": "threatfox",
     "name": "abuse.ch ThreatFox",
-    "url": "https://threatfox.abuse.ch"
+    "url": "https://threatfox.abuse.ch",
+    "reference_prefixes": []
   },
   {
     "id": "amnesty-investigations",
     "name": "Amnesty International Security Lab",
-    "url": "https://github.com/AmnestyTech/investigations"
+    "url": "https://github.com/AmnestyTech/investigations",
+    "reference_prefixes": []
   },
   {
     "id": "citizenlab-indicators",
     "name": "Citizen Lab Malware Indicators",
-    "url": "https://github.com/citizenlab/malware-indicators"
+    "url": "https://github.com/citizenlab/malware-indicators",
+    "reference_prefixes": []
   },
   {
     "id": "mvt-indicators",
     "name": "MVT Project STIX2 Indicators",
-    "url": "https://github.com/mvt-project/mvt-indicators"
+    "url": "https://github.com/mvt-project/mvt-indicators",
+    "reference_prefixes": []
   },
   {
     "id": "virustotal",
     "name": "VirusTotal Intelligence",
-    "url": "https://www.virustotal.com"
+    "url": "https://www.virustotal.com",
+    "reference_prefixes": []
   },
   {
     "id": "android-security-bulletin",
     "name": "Google Android Security Bulletins",
-    "url": "https://source.android.com/docs/security/bulletin"
+    "url": "https://source.android.com/docs/security/bulletin",
+    "reference_prefixes": []
   },
   {
     "id": "zimperium-ioc",
     "name": "Zimperium IOC Repository",
-    "url": "https://github.com/Zimperium/IOC"
+    "url": "https://github.com/Zimperium/IOC",
+    "reference_prefixes": [
+      "https://zimperium.com/"
+    ]
   },
   {
     "id": "threat_research",
     "name": "AI Pipeline Threat Research (cross-vendor)",
-    "url": "https://github.com/yasirhamza/AndroDR"
+    "url": "https://github.com/yasirhamza/AndroDR",
+    "reference_prefixes": [
+      "https://about.fb.com/",
+      "https://blog.polyswarm.io/",
+      "https://blog.quimerax.com/",
+      "https://blog.xlab.qianxin.com/",
+      "https://citizenlab.ca/",
+      "https://cyble.com/",
+      "https://d3lab.net/",
+      "https://en.wikipedia.org/wiki/",
+      "https://etip.exodus-privacy.eu.org/",
+      "https://github.com/Zimperium/IOC/blob/master/2026-03-Oblivion-RAT/",
+      "https://github.com/eset/malware-ioc/blob/master/",
+      "https://habr.com/en/companies/pt/articles/1073720/",
+      "https://iverify.io/",
+      "https://labs.k7computing.com/",
+      "https://raw.githubusercontent.com/CRIL-ThreatIntelligence/IOCs/main/SURXRAT/",
+      "https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/",
+      "https://raw.githubusercontent.com/Zimperium/IOC/master/",
+      "https://raw.githubusercontent.com/craiu/mobiletrackers/master/",
+      "https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/",
+      "https://raw.githubusercontent.com/eset/malware-ioc/master/",
+      "https://securelist.com/",
+      "https://security.lookout.com/",
+      "https://securityaffairs.com/",
+      "https://thehackernews.com/",
+      "https://www.bitdefender.com/",
+      "https://www.bitsight.com/",
+      "https://www.cleafy.com/",
+      "https://www.cyfirma.com/",
+      "https://www.group-ib.com/",
+      "https://www.humansecurity.com/",
+      "https://www.recordedfuture.com/",
+      "https://www.threatfabric.com/",
+      "https://www.welivesecurity.com/"
+    ]
   },
   {
     "id": "prodaft-malware-ioc",
     "name": "PRODAFT Malware IOC Repository",
-    "url": "https://github.com/prodaft/malware-ioc"
+    "url": "https://github.com/prodaft/malware-ioc",
+    "reference_prefixes": []
   }
 ]

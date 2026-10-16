@@ -6,99 +6,34 @@ sources:
   - amnesty-investigations
   - threat_research
 entries:
-- indicator: com.ttsapp
-  family: TheTruthSpy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: TheTruthSpy stalkerware alias — if not self-installed, contact a DV
-    hotline
-  source: stalkerware-indicators
-- indicator: com.apspy
-  family: TheTruthSpy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: TheTruthSpy/ApSpy stalkerware — if not self-installed, contact a DV
-    hotline
-  source: stalkerware-indicators
-- indicator: com.vvt.android
-  family: FlexiSpy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: FlexiSpy stalkerware — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: com.mspy
-  family: mSpy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: mSpy stalkerware — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: com.eyezy
-  family: mSpy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: Eyezy/mSpy stalkerware — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: med.mspy
-  family: mSpy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: mSpy stalkerware variant — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: com.duiyun
-  family: Cocospy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: Cocospy/Duiyun stalkerware — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: com.sc.cocospy
-  family: Cocospy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: Cocospy stalkerware variant — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: com.sc.spyic
-  family: Cocospy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: Cocospy/Spyic stalkerware — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: com.sc.spyzie
-  family: Cocospy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: Cocospy/Spyzie stalkerware — if not self-installed, contact a DV hotline
-  source: stalkerware-indicators
-- indicator: com.minspy
-  family: Cocospy
-  category: STALKERWARE
-  severity: CRITICAL
-  description: Minspy stalkerware (Cocospy cluster) — if not self-installed, contact
-    a DV hotline
-  source: stalkerware-indicators
 - indicator: com.serv.services
   family: NoviSpy
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: NoviSpy spyware — deployed by Serbian intelligence against journalists
   source: amnesty-investigations
+  reference: feed:amnesty-investigations#NoviSpy
 - indicator: com.accesibilityservice
   family: NoviSpy
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: NoviSpy spyware — disguised as accessibility service
   source: amnesty-investigations
+  reference: feed:amnesty-investigations#NoviSpy
 - indicator: com.li.activity
   family: NoviSpy
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: NoviSpy spyware variant
   source: amnesty-investigations
+  reference: feed:amnesty-investigations#NoviSpy
 - indicator: com.gu.activity
   family: NoviSpy
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: NoviSpy spyware variant
   source: amnesty-investigations
+  reference: feed:amnesty-investigations#NoviSpy
 - indicator: com.google.android.service
   family: ResidentBat
   category: NATION_STATE_SPYWARE
@@ -106,48 +41,56 @@ entries:
   description: ResidentBat spyware — targets Belarusian journalists, disguised as
     Google service
   source: mvt-indicators
+  reference: feed:mvt-indicators#ResidentBat
 - indicator: com.google.bat
   family: ResidentBat
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: ResidentBat spyware
   source: mvt-indicators
+  reference: feed:mvt-indicators#ResidentBat
 - indicator: com.huaweisettingsapp.mkz
   family: ResidentBat
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: ResidentBat spyware — disguised as Huawei settings
   source: mvt-indicators
+  reference: feed:mvt-indicators#ResidentBat
 - indicator: com.linkedln.service
   family: ResidentBat
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: ResidentBat spyware — typosquats LinkedIn
   source: mvt-indicators
+  reference: feed:mvt-indicators#ResidentBat
 - indicator: com.oneplussync.bat
   family: ResidentBat
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: ResidentBat spyware — disguised as OnePlus sync
   source: mvt-indicators
+  reference: feed:mvt-indicators#ResidentBat
 - indicator: cm.google.android.apps.assistant
   family: ResidentBat
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: ResidentBat spyware — typosquats Google (cm. not com.)
   source: mvt-indicators
+  reference: feed:mvt-indicators#ResidentBat
 - indicator: com.android.framework.safety
   family: ResidentBat
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: ResidentBat spyware — disguised as Android framework
   source: mvt-indicators
+  reference: feed:mvt-indicators#ResidentBat
 - indicator: com.hihonor.core.service
   family: ResidentBat
   category: NATION_STATE_SPYWARE
   severity: CRITICAL
   description: ResidentBat spyware — disguised as Honor service
   source: mvt-indicators
+  reference: feed:mvt-indicators#ResidentBat
 - indicator: com.client.appA
   family: Cellebrite
   category: FORENSIC_TOOL
@@ -155,6 +98,8 @@ entries:
   description: Cellebrite UFED agent — presence indicates physical device extraction
     occurred
   source: mvt-indicators
+  reference: feed:mvt-indicators#Cellebrite
+  campaign: cellebrite
 - indicator: org.lgvvfj.pluscqpuj
   family: Mirax Bot
   category: MALWARE
@@ -162,42 +107,42 @@ entries:
   description: Mirax Bot Android banking RAT — masquerades as video player (Meta-ads
     distribution, 2025-12+)
   source: threat_research
+  reference: https://www.cleafy.com/cleafy-labs/mirax-a-new-android-rat-turning-infected-devices-into-potential-residential-proxy-nodes
 - indicator: org.yjeiwd.plusdc71
   family: Mirax Bot
   category: MALWARE
   severity: CRITICAL
   description: Mirax Bot Android banking RAT variant
   source: threat_research
+  reference: https://www.cleafy.com/cleafy-labs/mirax-a-new-android-rat-turning-infected-devices-into-potential-residential-proxy-nodes
 - indicator: org.dawme.secure5ny
   family: Mirax Bot
   category: MALWARE
   severity: CRITICAL
   description: Mirax Bot Android banking RAT variant
   source: threat_research
+  reference: https://www.cleafy.com/cleafy-labs/mirax-a-new-android-rat-turning-infected-devices-into-potential-residential-proxy-nodes
 - indicator: org.azgaw.managergst1d
   family: Mirax Bot
   category: MALWARE
   severity: CRITICAL
   description: Mirax Bot Android banking RAT variant
   source: threat_research
+  reference: https://www.cleafy.com/cleafy-labs/mirax-a-new-android-rat-turning-infected-devices-into-potential-residential-proxy-nodes
 - indicator: com.oblivion.client
   family: Oblivion RAT
   category: SPYWARE
   severity: CRITICAL
   description: Oblivion RAT Android MaaS — masquerades as Google Play update (2026-03)
   source: threat_research
-- indicator: com.oblivion.dropper
-  family: Oblivion RAT
-  category: SPYWARE
-  severity: CRITICAL
-  description: Oblivion RAT dropper APK
-  source: threat_research
+  reference: https://iverify.io/blog/oblivion-rat-android-spyware-analysis
 - indicator: com.yandexxxx.update
   family: Oblivion RAT
   category: SPYWARE
   severity: CRITICAL
   description: Oblivion RAT — typosquats Yandex update
   source: threat_research
+  reference: https://iverify.io/blog/oblivion-rat-android-spyware-analysis
 - indicator: ru.y34tuy.t8595
   family: TaxiSpy
   category: MALWARE
@@ -205,13 +150,7 @@ entries:
   description: TaxiSpy Android banking RAT — hijacks default SMS handler, Firebase
     C2 (Russian banking targets, 2026-03)
   source: threat_research
-- indicator: net.ustexas.myavlive
-  family: PromptSpy
-  category: MALWARE
-  severity: CRITICAL
-  description: PromptSpy — first Android malware to abuse Google Gemini at runtime;
-    JPMorgan Chase impersonation in Argentina (2026-03)
-  source: threat_research
+  reference: https://www.cyfirma.com/research/taxispy-rat-analysis-of-taxispy-rat-russian-banking-focused-android-malware-with-full-remote-control/
 
 # Added by /update-rules discover run (2026-05-16): 7-threat harvest from discover
 - indicator: "calldetaila.ndcallhisto.rytogetan.ynumber"
@@ -220,144 +159,161 @@ entries:
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app (top variant, 3M+ downloads)"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.pixelxinnovation.manager"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "sc.call.ofany.mobiledetail"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.cddhaduk.callerid.block.contact"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.basehistory.historydownloading"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.call.of.any.number"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.rajni.callhistory"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.callhistory.calldetails.callerids.callerhistory.callhostoryanynumber.getcall.history.callhistorymanager"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.callinformative.instantcallhistory.callhistorybluethem.callinfo"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.call.detail.caller.history"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.anycallinformation.datadetailswho.callinfo.numberfinder"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.callhistory.callhistoryyourgf"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.calldetails.smshistory.callhistoryofanynumber"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.callhistory.anynumber.chapfvor.history"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.callhistory.callhistoryany.call"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.getanynumberofcallhistory.callhistoryofanynumber.findcalldetailsofanynumber"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.easyranktools.callhistoryforanynumber"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.sbpinfotech.findlocationofanynumber"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "callhistoryeditor.callhistory.numberdetails.calleridlocator"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.all_historydownload.anynumber.callhistorybackup"
   family: "CallPhantom"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "CallPhantom premium-SMS fraud app"
   source: "threat_research"
+  reference: https://www.welivesecurity.com/en/eset-research/fake-call-logs-real-payments-how-callphantom-tricks-android-users/
 - indicator: "com.earth.earth_vpn"
   family: "DCHSpy"
   category: "NATION_STATE_SPYWARE"
   severity: "CRITICAL"
   description: "DCHSpy MuddyWater Earth VPN lure"
   source: "threat_research"
+  reference: https://thehackernews.com/2025/07/iran-linked-dchspy-android-malware.html
 - indicator: "com.comodoapp.comodovpn"
   family: "DCHSpy"
   category: "NATION_STATE_SPYWARE"
   severity: "CRITICAL"
   description: "DCHSpy MuddyWater Comodo VPN lure"
   source: "threat_research"
+  reference: https://thehackernews.com/2025/07/iran-linked-dchspy-android-malware.html
 - indicator: "com.hv.hide_vpn"
   family: "DCHSpy"
   category: "NATION_STATE_SPYWARE"
   severity: "CRITICAL"
   description: "DCHSpy MuddyWater Hide VPN lure"
   source: "threat_research"
-- indicator: "com.meyapico.massistant"
-  family: "Massistant"
-  category: "FORENSIC_TOOL"
-  severity: "CRITICAL"
-  description: "Massistant Chinese mobile forensics by Meiya Pico"
-  source: "threat_research"
+  reference: https://thehackernews.com/2025/07/iran-linked-dchspy-android-malware.html
 # --- update-rules-e2e batch 2026-06-08 (BTMOB/TrickMo/Astrinox/Massiv/SaferRat/RecruitRat/PixRevolution/AndroRAT/Antidot/Asin) ---
 - indicator: com.app16330.core20461
   family: TrickMo
@@ -365,24 +321,28 @@ entries:
   severity: HIGH
   description: TrickMo Android banking trojan package name
   source: threat_research
+  reference: https://www.threatfabric.com/blogs/new-trickmo-variant-device-take-over-malware-targeting-banking-fintech-wallet-auth-app
 - indicator: com.app15318.core1173
   family: TrickMo
   category: MALWARE
   severity: HIGH
   description: TrickMo Android banking trojan package name
   source: threat_research
+  reference: https://www.threatfabric.com/blogs/new-trickmo-variant-device-take-over-malware-targeting-banking-fintech-wallet-auth-app
 - indicator: uncle.collop416.wifekin78
   family: TrickMo
   category: MALWARE
   severity: HIGH
   description: TrickMo Android banking trojan package name
   source: threat_research
+  reference: https://www.threatfabric.com/blogs/new-trickmo-variant-device-take-over-malware-targeting-banking-fintech-wallet-auth-app
 - indicator: nibong.lida531.butler836
   family: TrickMo
   category: MALWARE
   severity: HIGH
   description: TrickMo Android banking trojan package name
   source: threat_research
+  reference: https://www.threatfabric.com/blogs/new-trickmo-variant-device-take-over-malware-targeting-banking-fintech-wallet-auth-app
 # Android.MagicAd (added 2026-07-03 via AI rule pipeline sweep)
 - indicator: com.onetower.defense.idle
   family: Android.MagicAd
@@ -390,270 +350,315 @@ entries:
   severity: MEDIUM
   description: Android.MagicAd adware trojan package (Doctor Web Q2 2026); displays intrusive background ads via OEM-specific bypasses. Uninstall.
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.funbees.pighub
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.ultimate.highway.racer
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.anime.wallpapers.aesthetic
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.simple.pdfviewer.reader.app
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.fruit.blender.maker
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.quickcommander.filehome.manager
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.gamesland.platform
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.rhythmball.music.runner
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.uptwo.cleanup.master
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.heartrate.healthtrack.rate.analyzer
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.power.cleanup.pro
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.track.app.base
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.bp.logandiary.life
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.line.protection.puppyrescue
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.playall.video4k
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.paperhub.festivals
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.bloodp.recorder.pressure
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.pekRacingTraffice.OffroadJeep
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.snakearena.survival
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.weathersense.livenow
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.bp.bloodpressure.healthtraker
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.jump.boy.funplay
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.water.sorting.funpuzzle
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.dogbee.linesaver
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.billhub.apps
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.utility.localweather
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.supermax.clenauppro
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.pekRacingTraffice.RacerATV
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.aerovia.mobile
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.blockstorm.puzzle.adventure
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.finaldefense.Undeadman
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.pekRacingTraffice.Offroad
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.shortdrama.watchhigh
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.zombieattack.defense
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.chatapp.twig
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: indianbhabhi.livechat.dating
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.mobiledeviceinfo.mobiledeviceinfoapp
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.corepulse.checkapps
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.chaithu.foodorder
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.peacecore.apps
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.brainularapp.brainular
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.ytapp.pythonlife
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.weather.reportandforcast
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 - indicator: com.mushawara.iq
   family: Android.MagicAd
   category: MALWARE
   severity: MEDIUM
   description: Android.MagicAd app package name (threat research, 2026-07-03 sweep)
   source: threat_research
+  reference: https://raw.githubusercontent.com/DoctorWebLtd/malware-iocs/master/Android.MagicAd.1/README.adoc
 # NFCShare (added 2026-07-03 via AI rule pipeline sweep)
 - indicator: com.modol.nap
   family: NFCShare
@@ -661,6 +666,7 @@ entries:
   severity: HIGH
   description: NFCShare NFC card-data-theft trojan package (D3Lab). Uninstall immediately; contact bank to reissue exposed cards.
   source: threat_research
+  reference: https://d3lab.net/nfcshare-evolves-from-a-banking-phishing-apk-to-a-github-hosted-android-nfc-fraud-campaign/
 # Octagon (added 2026-08-05 via AI rule pipeline discover run)
 - indicator: com.kit.kitty
   family: Octagon
@@ -668,12 +674,14 @@ entries:
   severity: HIGH
   description: Octagon Android RAT stage-1 loader (K7 Security Labs, 2026-08). Disguised as 'Kitty'; hides an RC4-encrypted DEX in a fake font and DexClassLoader-drops the child RAT.
   source: threat_research
+  reference: https://labs.k7computing.com/index.php/octagon-technical-analysis-of-a-fake-bahrain-civil-defense-application/
 - indicator: com.kisa.octagonpanel
   family: Octagon
   category: MALWARE
   severity: HIGH
   description: Octagon Android RAT child payload ('OctagonPanel'/'Ward') installed by the com.kit.kitty loader (K7 Security Labs, 2026-08).
   source: threat_research
+  reference: https://labs.k7computing.com/index.php/octagon-technical-analysis-of-a-fake-bahrain-civil-defense-application/
 - indicator: com.tw.jar1
   family: JarService
   category: MALWARE
@@ -683,6 +691,7 @@ entries:
     XOR-decrypts and reflection-loads later stages, ultimately the zhima residential-proxy module. Remediation:
     reflash/factory-reset affected head-unit firmware and isolate it from untrusted networks.'
   source: threat_research
+  reference: https://securelist.com/android-head-unit-malware/121106/
 - indicator: com.abc.nexus
   family: MoYu
   category: MALWARE
@@ -691,6 +700,7 @@ entries:
     Kaspersky 2026-08-21, same actor as the head-unit JarService chain). Remediation: remove the app or
     reflash the device firmware.'
   source: threat_research
+  reference: https://securelist.com/android-head-unit-malware/121106/
 - indicator: com.android.tigertv
   family: MoYu tigertv
   category: MALWARE
@@ -700,6 +710,7 @@ entries:
     chain from BADBOX a1./t1. C2. Presence indicates the device is in the MoYu delivery path. Single source
     (Nokia Deepfield ipmoyu). Uninstall the IPTV app and check DNS logs for a1./t1. C2 contact.'
   source: threat_research
+  reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
 - indicator: com.android.tigersport
   family: MoYu tigertv
   category: MALWARE
@@ -707,6 +718,7 @@ entries:
   description: MoYu Group (BADBOX 2.0) IPTV delivery-vehicle app (tigertv family); clean at install, fetches
     the zhima proxy/ad-fraud chain at runtime. Single source (Deepfield ipmoyu).
   source: threat_research
+  reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
 - indicator: com.android.mioplus
   family: MoYu tigertv
   category: MALWARE
@@ -714,6 +726,7 @@ entries:
   description: MoYu Group (BADBOX 2.0) IPTV delivery-vehicle app (MIO_Plus brand, tigertv family); clean
     at install, fetches the zhima proxy/ad-fraud chain at runtime. Single source (Deepfield ipmoyu).
   source: threat_research
+  reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
 - indicator: com.android.miosport
   family: MoYu tigertv
   category: MALWARE
@@ -721,6 +734,7 @@ entries:
   description: MoYu Group (BADBOX 2.0) IPTV delivery-vehicle app (tigertv family); clean at install, fetches
     the zhima proxy/ad-fraud chain at runtime. Single source (Deepfield ipmoyu).
   source: threat_research
+  reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
 - indicator: com.android.vo_vivo
   family: MoYu tigertv
   category: MALWARE
@@ -728,6 +742,7 @@ entries:
   description: MoYu Group (BADBOX 2.0) IPTV delivery-vehicle app (Vo_Vivo brand, tigertv family); clean
     at install, fetches the zhima proxy/ad-fraud chain at runtime. Single source (Deepfield ipmoyu).
   source: threat_research
+  reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
 - indicator: com.android.vo_fixture
   family: MoYu tigertv
   category: MALWARE
@@ -736,6 +751,7 @@ entries:
     name from Deepfield, 'fixture' refers to sports fixtures); clean at install, fetches the zhima proxy/ad-fraud
     chain at runtime. Single source (Deepfield ipmoyu).
   source: threat_research
+  reference: https://raw.githubusercontent.com/deepfield/public-research/main/ipmoyu/report.md
 - indicator: com.hs.app
   family: BADBOX 2.0
   category: MALWARE
@@ -743,6 +759,8 @@ entries:
   description: BB2DOOR (BADBOX 2.0) backdoor loader package (HUMAN Satori; corroborated by Point Wild).
     BADBOX 2.0 ships preinstalled in firmware or inside rebundled apps from unofficial marketplaces.
   source: threat_research
+  # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+  reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
 - indicator: com.hs.cld
   family: BADBOX 2.0
   category: MALWARE
@@ -751,6 +769,8 @@ entries:
     Listed by HUMAN as a package indicator; may also appear only as a DEX namespace rather than an installed
     package.
   source: threat_research
+  # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+  reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
 - indicator: com.hs.q
   family: BADBOX 2.0
   category: MALWARE
@@ -758,6 +778,8 @@ entries:
   description: BB2DOOR removal-resistance module — com.hs.q.Main in q.jar blocks backdoor removal (HUMAN
     Satori). May also appear only as a DEX namespace rather than an installed package.
   source: threat_research
+  # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+  reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
 - indicator: com.mz.sdk
   family: BADBOX 2.0
   category: MALWARE
@@ -766,12 +788,16 @@ entries:
     invisible WebViews that fetch fraud playlists from app-goal.com (HUMAN Satori). Namespace indicator
     — may not occur as a standalone installed package.
   source: threat_research
+  # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+  reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
 - indicator: com.debby.devour
   family: BADBOX 2.0
   category: MALWARE
   severity: HIGH
   description: BADBOX 2.0 ad-fraud module app observed auto-installed from file.long.tv (HUMAN Satori).
   source: threat_research
+  # verified manually: Claude (A3 research), 2026-10-16, archive.org snapshot 20250509164849
+  reference: https://www.humansecurity.com/learn/blog/satori-threat-intelligence-disruption-badbox-2-0/
 - indicator: com.google.android.gms.stable
   family: Vo1d
   category: MALWARE
@@ -781,6 +807,7 @@ entries:
     Presence usually indicates firmware-level compromise of an AOSP TV box — factory reset may not remove
     system-partition implants.
   source: threat_research
+  reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
 - indicator: com.google.android.services
   family: Vo1d
   category: MALWARE
@@ -788,6 +815,7 @@ entries:
   description: Legacy Vo1d APK component (Android.Vo1d.1.origin) masquerading as a Google package (Dr.Web;
     corroborated by Xlab).
   source: threat_research
+  reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
 - indicator: com.goog1e.apps
   family: Vo1d
   category: MALWARE
@@ -795,6 +823,7 @@ entries:
   description: Typosquatted Google package used by Vo1d; its data directory is deleted by the new variant's
     cleanup routine (Xlab; medium confidence, single source).
   source: threat_research
+  reference: https://blog.xlab.qianxin.com/long-live-the-vo1d_botnet/
 - indicator: com.app.mz.popan
   family: Mzmess
   category: MALWARE
@@ -802,6 +831,7 @@ entries:
   description: Mzmess 'Popa' proxy plugin delivered onto Vo1d-infected TV boxes; turns the device into
     a proxy exit node (Xlab; package name corroborated by The Hacker News).
   source: threat_research
+  reference: https://thehackernews.com/2025/03/vo1d-botnets-peak-surpasses-159m.html
 - indicator: com.app.mz.jaguarn
   family: Mzmess
   category: MALWARE
@@ -809,6 +839,7 @@ entries:
   description: Mzmess 'Jaguar' proxy plugin delivered onto Vo1d-infected TV boxes (Xlab; package name
     corroborated by The Hacker News).
   source: threat_research
+  reference: https://thehackernews.com/2025/03/vo1d-botnets-peak-surpasses-159m.html
 - indicator: com.app.mz.lxhwdgn
   family: Mzmess
   category: MALWARE
@@ -816,6 +847,7 @@ entries:
   description: Mzmess 'Lxhwdg' plugin (purpose unknown; WSS RPC C2 on port 2345) delivered onto Vo1d-infected
     TV boxes (Xlab; package name corroborated by The Hacker News).
   source: threat_research
+  reference: https://thehackernews.com/2025/03/vo1d-botnets-peak-surpasses-159m.html
 - indicator: com.app.mz.spiritn
   family: Mzmess
   category: MALWARE
@@ -823,6 +855,7 @@ entries:
   description: Mzmess 'Spirit' ad-promotion / traffic-inflation plugin delivered onto Vo1d-infected TV
     boxes (Xlab; package name corroborated by The Hacker News).
   source: threat_research
+  reference: https://thehackernews.com/2025/03/vo1d-botnets-peak-surpasses-159m.html
 - indicator: tech.intel.dialer.updater
   family: Manic
   category: MALWARE
@@ -830,36 +863,42 @@ entries:
   description: Manic banker/spyware hybrid wrapper-dropper impersonating a vendor system utility (ThreatFabric
     2026-08; targets Ukraine and Europe)
   source: threat_research
+  reference: https://www.threatfabric.com/blogs/manic-blend-between-banking-malware-and-spyware
 - indicator: org.honor.secure.helper
   family: Manic
   category: MALWARE
   severity: CRITICAL
   description: Manic wrapper-dropper impersonating a vendor system utility
   source: threat_research
+  reference: https://www.threatfabric.com/blogs/manic-blend-between-banking-malware-and-spyware
 - indicator: tech.apple.dialer.scheduler
   family: Manic
   category: MALWARE
   severity: CRITICAL
   description: Manic wrapper-dropper impersonating a vendor system utility
   source: threat_research
+  reference: https://www.threatfabric.com/blogs/manic-blend-between-banking-malware-and-spyware
 - indicator: org.lenovo.storage.processor
   family: Manic
   category: MALWARE
   severity: CRITICAL
   description: Manic implant impersonating a vendor system utility
   source: threat_research
+  reference: https://www.threatfabric.com/blogs/manic-blend-between-banking-malware-and-spyware
 - indicator: dev.huawei.media.helper
   family: Manic
   category: MALWARE
   severity: CRITICAL
   description: Manic implant impersonating a vendor system utility
   source: threat_research
+  reference: https://www.threatfabric.com/blogs/manic-blend-between-banking-malware-and-spyware
 - indicator: io.motorola.secure.executor
   family: Manic
   category: MALWARE
   severity: CRITICAL
   description: Manic implant impersonating a vendor system utility
   source: threat_research
+  reference: https://www.threatfabric.com/blogs/manic-blend-between-banking-malware-and-spyware
 # DragonDoll (2026-10-14 sweep)
 - indicator: "com.me4dymbu.ysbf4ghb"
   family: "DragonDoll"
@@ -867,6 +906,7 @@ entries:
   severity: "CRITICAL"
   description: "DragonDoll hidden second-stage spyware payload package, entry class x1 (PT ESC)"
   source: "threat_research"
+  reference: https://habr.com/en/companies/pt/articles/1073720/
 # Midnight Mimosa (2026-10-14 sweep)
 - indicator: "com.android.system.lite"
   family: "Midnight Mimosa"
@@ -874,81 +914,206 @@ entries:
   severity: "CRITICAL"
   description: "Midnight Mimosa preinstalled enabler - platform-signed fake 'System' app (primary enabler, versionCode 900000; Bitdefender)"
   source: "threat_research"
+  reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.android.sys.prot"
   family: "Midnight Mimosa"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "Midnight Mimosa preinstalled enabler variant (versionCode 900014; Bitdefender)"
   source: "threat_research"
+  reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.android.sys.gmsprot"
   family: "Midnight Mimosa"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "Midnight Mimosa preinstalled enabler variant (versionCode 100000; Bitdefender)"
   source: "threat_research"
+  reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.android.sys.dts"
   family: "Midnight Mimosa"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "Midnight Mimosa related fake-system build (Bitdefender)"
   source: "threat_research"
+  reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.mobile.applock.wt"
   family: "Midnight Mimosa"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "Midnight Mimosa dropped payload - ad-fraud + RCE dropper cover app (Bitdefender)"
   source: "threat_research"
+  reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.mobile.applock.en"
   family: "Midnight Mimosa"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "Midnight Mimosa dropped payload - TCP proxyware 'Locket' cover app, EnLoaderLib v1.0.6 (Bitdefender)"
   source: "threat_research"
+  reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.mobile.applock.tg"
   family: "Midnight Mimosa"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "Midnight Mimosa dropped payload - applock-family cover app (Bitdefender)"
   source: "threat_research"
+  reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.mobile.applock.wg"
   family: "Midnight Mimosa"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "Midnight Mimosa dropped payload - applock-family cover app (Bitdefender)"
   source: "threat_research"
+  reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.mobile.applock.xk1"
   family: "Midnight Mimosa"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "Midnight Mimosa dropped payload - applock-family cover app (Bitdefender)"
   source: "threat_research"
+  reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.mb.applock.a02"
   family: "Midnight Mimosa"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "Midnight Mimosa dropped payload - applock-family cover app (Bitdefender)"
   source: "threat_research"
+  reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.mb.applock.ea"
   family: "Midnight Mimosa"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "Midnight Mimosa dropped payload - applock-family cover app (Bitdefender)"
   source: "threat_research"
+  reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.fe2bu1.wh"
   family: "Midnight Mimosa"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "Midnight Mimosa dropped payload - fake weather cover app installed by the preinstalled enabler (Bitdefender)"
   source: "threat_research"
+  reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.yun.wth.er"
   family: "Midnight Mimosa"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "Midnight Mimosa dropped payload - fake weather cover app installed by the preinstalled enabler (Bitdefender)"
   source: "threat_research"
+  reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
 - indicator: "com.awht.zfip.zfyg"
   family: "Midnight Mimosa"
   category: "MALWARE"
   severity: "CRITICAL"
   description: "Midnight Mimosa dropped payload - fake weather cover app installed by the preinstalled enabler (Bitdefender)"
   source: "threat_research"
+  reference: https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
+  campaign: midnight-mimosa
+# Cold-start seeds: bundle-only packages ported 2026-10-16 (also in stalkerware-indicators, a mirror feed)
+- indicator: "com.eyezy.android"
+  family: "mSpy"
+  category: "STALKERWARE"
+  severity: "HIGH"
+  description: "Commercial stalkerware marketed as parental monitoring. Captures keystrokes, reads encrypted messages, and tracks location."
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#mSpy
+  cold_start_seed: true
+- indicator: "com.ispyoo"
+  family: "TheTruthSpy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "TheTruthSpy/iSpyoo stalkerware — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#TheTruthSpy
+  cold_start_seed: true
+- indicator: "com.mxspy"
+  family: "TheTruthSpy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "TheTruthSpy/MxSpy stalkerware — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#TheTruthSpy
+  cold_start_seed: true
+- indicator: "com.spyzee"
+  family: "TheTruthSpy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "TheTruthSpy/Spyzee stalkerware — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#TheTruthSpy
+  cold_start_seed: true
+- indicator: "com.fp.backup"
+  family: "FlexiSpy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "FlexiSpy stalkerware disguised as backup — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#FlexiSpy
+  cold_start_seed: true
+- indicator: "com.lsdroid.cerberus"
+  family: "Cerberus"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "Cerberus anti-theft app abused as stalkerware — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#Cerberus
+  cold_start_seed: true
+- indicator: "com.surebrec"
+  family: "Cerberus"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "Cerberus stalkerware alias — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#Cerberus
+  cold_start_seed: true
+- indicator: "update.service.android"
+  family: "mSpy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "mSpy stalkerware disguised as system update — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#mSpy
+  cold_start_seed: true
+- indicator: "core.update.framework"
+  family: "mSpy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "mSpy stalkerware disguised as framework update — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#mSpy
+  cold_start_seed: true
+- indicator: "com.cocospy"
+  family: "Cocospy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "Cocospy stalkerware — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#Cocospy
+  cold_start_seed: true
+- indicator: "com.sc.fonemonitor"
+  family: "Cocospy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "Cocospy/FoneMonitor stalkerware — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#Cocospy
+  cold_start_seed: true
+- indicator: "com.spyic"
+  family: "Cocospy"
+  category: "STALKERWARE"
+  severity: "CRITICAL"
+  description: "Spyic stalkerware (Cocospy cluster) — if not self-installed, contact a DV hotline"
+  source: "stalkerware-indicators"
+  reference: feed:stalkerware-indicators#Cocospy
+  cold_start_seed: true

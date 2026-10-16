@@ -1,0 +1,30 @@
+name: ioc-drift
+
+# Drift watch: MVT's live campaign index vs the committed map and c2-domains keys, and
+# package-names.yml vs the mirror feeds the app already pulls. Weekly + on demand.
+on:
+  schedule: [{cron: '17 6 * * 1'}]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  drift:
+    name: IOC drift watch
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.11'
+      - name: Install deps
+        run: pip install --require-hashes -r validation/requirements-ci.txt
+      - name: MVT campaign map matches MVT's live index
+        run: python3 validation/check-mvt-campaign-keys.py --check-map
+      - name: MVT campaign keys on c2-domains.yml
+        run: python3 validation/check-mvt-campaign-keys.py
+      - name: package-names.yml complementarity (strict)
+        run: python3 validation/validate-ioc-complementarity.py --file ioc-data/package-names.yml --mode strict

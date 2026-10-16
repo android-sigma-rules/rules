@@ -1,0 +1,1 @@
+# Owner-approved lines, tab-separated: <ioc-data file>\t<indicator>\t<reference>\t<family>. Approval = a PR the owner merges after the HitL review; the repo has a single owner and no CODEOWNERS file.

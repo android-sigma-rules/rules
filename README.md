@@ -82,6 +82,12 @@ remediation:
 4. Tag with MITRE ATT&CK techniques
 5. Submit a PR
 
+Any edit to `ioc-data/*.yml` must also regenerate `ioc-data.sha256`. CI fails if the manifest is stale; app versions that verify the manifest drop files whose hashes do not match. Regenerate it with:
+
+```bash
+for f in $(ls ioc-data/*.yml | sort); do printf '%s  %s\n' "$(sha256sum "$f" | cut -d' ' -f1)" "$f"; done > ioc-data.sha256
+```
+
 ## License
 
 CC-BY-4.0

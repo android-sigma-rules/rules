@@ -1072,3 +1072,32 @@ def test_display_lint_allowed_set_comes_from_the_schema():
     assert set(enum) == {"app_risk", "device_posture", "correlation"}, enum
     src = (THIS_DIR / "validate-rule.py").read_text()
     assert '"network"' not in src, "the lint must not carry its own copy of the bucket list"
+
+
+# ---------- dns_monitor.timestamp negation guard ----------
+
+def _dns_rule(detection):
+    rule = make_app_rule(id="androdr-313")
+    rule["logsource"] = {"product": "androdr", "service": "dns_monitor"}
+    rule["detection"] = detection
+    return rule
+
+
+def test_dns_timestamp_negated_filter_rejected(tmp_path):
+    rule = _dns_rule({
+        "selection": {"is_blocked": False},
+        "filter_recent": {"timestamp|gte": 1700000000000},
+        "condition": "selection and not filter_recent",
+    })
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "dns_monitor timestamp" in result.stderr and "over-firing" in result.stderr
+
+
+def test_dns_timestamp_positive_reference_accepted(tmp_path):
+    rule = _dns_rule({
+        "selection": {"is_blocked": False, "timestamp|gte": 1700000000000},
+        "condition": "selection",
+    })
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 0, result.stderr

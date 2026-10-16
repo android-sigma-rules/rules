@@ -9,10 +9,13 @@ Exit codes:
   2 = file not found / parse error
 """
 
+import importlib.util
 import json
+import os
 import re
 import sys
 import unicodedata
+import urllib.parse
 from pathlib import Path
 
 try:
@@ -79,8 +82,87 @@ def load_allowed_sources(path: Path) -> set[str]:
     return {entry["id"] for entry in entries}
 
 
-def validate_ioc_file(data: dict, allowed_sources: set[str], filename: str) -> list[str]:
+PLACEHOLDER_DOMAIN = re.compile(
+    r"(^|[.-])c2([.-])|-(panel|spyware|malware|stalkerware|exploit|implant|dropper|botnet)\d*\.[a-z]+$")
+PLACEHOLDER_PACKAGE = re.compile(r"^com\.[a-z0-9]+\.(spyware|stalkerware|malware|trojan|rat|rootkit)$")
+FEED_REF = re.compile(r"^feed:([a-z0-9_-]+)#.+$")
+
+# Bare hosts that serve anyone's content; a prefix may name a path under them
+# (e.g. https://github.com/mvt-project/) but never the host alone. Data beside
+# the prefixes it governs: validation/reference-host-denylist.txt.
+MULTI_TENANT = {l.strip() for l in (SCRIPT_DIR / "reference-host-denylist.txt").read_text().split("\n")
+                if l.strip() and not l.startswith("#")}
+
+
+# Sources whose entries may name a campaign. Generic feeds never do (spec §3.1a, R7).
+CAMPAIGN_SOURCES = {"threat_research", "amnesty-investigations", "citizenlab-indicators", "mvt-indicators"}
+
+
+def campaign_keys() -> set[str]:
+    data = yaml.safe_load((SCRIPT_DIR.parent / "ioc-data" / "campaigns.yml").read_text()) or {}
+    return {c["key"] for c in data.get("campaigns", [])}
+
+
+
+# One prefix/URL rule for CI and the checker (plan gate round 5, S5-3): import check-reference.py.
+_cr_spec = importlib.util.spec_from_file_location("check_reference", SCRIPT_DIR / "check-reference.py")
+cr = importlib.util.module_from_spec(_cr_spec)
+_cr_spec.loader.exec_module(cr)
+
+
+def load_reference_prefixes(path) -> dict[str, list[str]]:
+    out = {}
+    for s in json.load(open(path)):
+        prefixes = s.get("reference_prefixes", [])
+        for p in prefixes:
+            problem = cr.prefix_problem(p)
+            if problem:
+                sys.exit(f"allowed-sources.json: prefix '{p}' for {s['id']}: {problem}")
+            u = urllib.parse.urlparse(p)
+            bare = (u.path or "/") == "/"
+            if bare and any(u.hostname == h or u.hostname.endswith("." + h) for h in MULTI_TENANT):
+                sys.exit(f"allowed-sources.json: '{p}' for {s['id']} is a bare multi-tenant host")
+        out[s["id"]] = prefixes
+    return out
+
+
+def section_tokens() -> set[tuple[str, str, str, str]]:
+    """Owner-approved section citations: '<ioc-data file>\t<indicator>\t<reference>\t<family>' — all four
+    must match, so an approved line can't be reused for a different section or family (round 9, S9-2)."""
+    f = Path(os.environ.get("SECTION_TOKENS_FILE", SCRIPT_DIR / "feed-section-tokens.txt"))   # override for tests only (as NOT_CAMPAIGN_FILE)
+    if not f.exists():
+        return set()
+    out = set()
+    for l in f.read_text().split("\n"):
+        if l.strip() and not l.startswith("#"):
+            fn, ind, ref, fam = (l.split("\t") + ["", "", "", ""])[:4]
+            out.add((fn, ind.strip().lower(), ref.strip(), fam.strip()))
+    return out
+
+
+def not_campaign_approvals() -> set[tuple[str, str, str, str]]:
+    """Owner-approved not_campaign entries: '<ioc-data file>\t<indicator>\t<reference>\t<family>' (rounds 13-14)."""
+    f = Path(os.environ.get("NOT_CAMPAIGN_FILE", SCRIPT_DIR / "not-campaign.txt"))   # override for tests only (`Path` is the file's existing import)
+    if not f.exists():
+        return set()
+    out = set()
+    for l in f.read_text().split("\n"):
+        if l.strip() and not l.startswith("#"):
+            fn, ind, ref, fam = (l.split("\t") + ["", "", "", ""])[:4]
+            out.add((fn, ind.strip().lower(), ref.strip(), fam.strip()))
+    return out
+
+
+def mirror_feed_ids() -> set[str]:
+    """Mirror feeds the complementarity validator really fetches (a seed's presence is checked there)."""
+    data = yaml.safe_load((SCRIPT_DIR / "kotlin-mirror-feeds.yml").read_text()) or {}
+    return {f["id"] for f in data.get("feeds", []) if f.get("parser_limited") is not True}
+
+
+def validate_ioc_file(data: dict, allowed_sources: set[str], filename: str, reference_prefixes: dict[str, list[str]],
+                      campaigns: set[str], mirror_feeds: set[str], section_tokens: set, not_campaign: set) -> list[str]:
     """Return list of error strings. Empty = valid."""
+    CAMPAIGNS, MIRROR_FEEDS, SECTION_TOKENS, NOT_CAMPAIGN = campaigns, mirror_feeds, section_tokens, not_campaign
     errors = []
     entries = data.get("entries", [])
     if not entries:
@@ -123,6 +205,96 @@ def validate_ioc_file(data: dict, allowed_sources: set[str], filename: str) -> l
             errors.append(f"{prefix}: missing 'source' field")
         elif source not in allowed_sources:
             errors.append(f"{prefix}: unknown source '{source}' (not in allowed-sources.json)")
+
+        # Provenance (Task A4): family and reference are mandatory; block_by_default is c2-domains.yml only.
+        indicator = entry.get("indicator", "")
+        campaign = entry.get("campaign")   # hoisted: the reference check below reads it
+        if not str(entry.get("family") or "").strip():
+            errors.append(f"{prefix}: missing 'family' field")
+        if not str(entry.get("reference") or "").strip():
+            errors.append(f"{prefix}: missing 'reference' field")
+        if "block_by_default" in entry and filename != "c2-domains.yml":
+            errors.append(f"{prefix}: block_by_default is only allowed in c2-domains.yml")
+        reference = entry.get("reference", "")
+        if reference:
+            m = FEED_REF.match(reference)
+            if m:
+                if m.group(1) not in allowed_sources:
+                    errors.append(f"{prefix}: feed reference names unknown source '{m.group(1)}'")
+                if m.group(1) != source:
+                    errors.append(f"{prefix}: feed reference names source '{m.group(1)}' but the entry's source is '{source}'")
+                frag = m.group(0).split("#", 1)[1]
+                tp = cr.token_problem(frag, [m.group(1)])
+                if tp:
+                    errors.append(f"{prefix}: {tp}")
+                elif cr.norm_name(frag) != cr.norm_name(entry.get("family", "")) and not (
+                        campaign is not None and cr.norm_name(frag) in
+                        {n for n, k in cr.campaign_names().items() if k == campaign}):
+                    # (a campaign entry may cite any of the campaign's own names — round 12, R12-5)
+                    # A section citation (Task A3 Step 2b): owner-approved only, never with a campaign key —
+                    # the feed confirms where the indicator is, not its family (round 8, S8-1).
+                    if (filename, str(indicator).lower(), reference, str(entry.get("family", "")).strip()) not in SECTION_TOKENS:
+                        errors.append(f"{prefix}: reference fragment '{frag}' is not the entry's family; a section "
+                                      f"citation needs an owner-approved line in validation/feed-section-tokens.txt")
+                    if entry.get("campaign") is not None:
+                        errors.append(f"{prefix}: a section-cited entry may not carry a campaign key")
+            elif reference.startswith("https://"):
+                # Offline: same shape, path-trick, code-host and prefix rules as check-reference.py,
+                # minus DNS resolution (CI validation does not touch the network).
+                ru, rhost = cr._parse(reference)
+                if cr.bad_input(indicator, reference) or ru is None or ru.username or ru.password:
+                    errors.append(f"{prefix}: reference URL is malformed or has unsafe characters")
+                elif cr._bad_path(ru.path):
+                    errors.append(f"{prefix}: reference path has '.'/'..' segments or encoded separators")
+                elif cr._is_code_host(rhost) and cr.code_host_problem(ru.path):
+                    errors.append(f"{prefix}: reference: {cr.code_host_problem(ru.path)}")
+                elif not any(cr._under_prefix(ru, rhost, p) for p in reference_prefixes.get(source, [])):
+                    errors.append(f"{prefix}: reference not under a reference prefix allowed for source '{source}'")
+            else:
+                errors.append(f"{prefix}: reference must be https:// or feed:<source>#<record>")
+        if campaign is not None and campaign not in CAMPAIGNS:
+            errors.append(f"{prefix}: unknown campaign '{campaign}' (allowed: {sorted(CAMPAIGNS)})")
+        if campaign is not None and source not in CAMPAIGN_SOURCES:
+            errors.append(f"{prefix}: campaign key on source '{source}' — only {sorted(CAMPAIGN_SOURCES)} may carry one")
+        # One resolution for both directions and for the checker: cr.resolve_campaigns (exact
+        # key/label/alias, else whole-word mentions such as "NSO Group" — round 10, S10-5).
+        resolved = cr.resolve_campaigns(entry.get("family", ""))
+        if len(resolved) > 1:
+            errors.append(f"{prefix}: family '{entry.get('family')}' names more than one campaign "
+                          f"{sorted(resolved)} — use one campaign's name (round 11, S11-2)")
+        key = next(iter(resolved)) if len(resolved) == 1 else None
+        if entry.get("not_campaign") is True:
+            # The family only shares a campaign's name (e.g. ThreatFox "Predator The Thief"): no key, no
+            # forward rule — but only for a distinct name and only with owner approval (round 13, S13-1).
+            if campaign is not None:
+                errors.append(f"{prefix}: not_campaign entries may not carry a campaign key")
+            if re.sub(r"[^a-z0-9 ]", "", cr.norm_name(entry.get("family", ""))).strip() in cr.campaign_names():
+                errors.append(f"{prefix}: not_campaign cannot mark a family that IS a campaign name")
+            if (filename, str(indicator).lower(), reference, str(entry.get("family", "")).strip()) not in NOT_CAMPAIGN:
+                errors.append(f"{prefix}: not_campaign needs an owner-approved line '<file>\\t<indicator>\\t<reference>\\t<family>' "
+                              f"in validation/not-campaign.txt")
+            key = None
+        if campaign is not None and key != campaign:
+            # Reverse rule (round 9, S9-1): the key must agree with the family. This ties the two strings
+            # together; whether the family is right is confirmed by the checker for feed references
+            # (strict folder/STIX-name match) and by the HitL reviewer for https ones.
+            errors.append(f"{prefix}: campaign '{campaign}' requires a family naming that campaign, not "
+                          f"'{entry.get('family')}'")
+        if key and entry.get("campaign") != key:
+            if source in CAMPAIGN_SOURCES:
+                errors.append(f"{prefix}: family '{entry['family']}' is campaign '{key}' — add `campaign: {key}`")
+            else:
+                errors.append(f"{prefix}: family '{entry['family']}' names campaign '{key}', but source '{source}' "
+                              f"may not carry a campaign key — re-source it as threat_research with a report "
+                              f"reference, or use the feed's own non-campaign label")
+        if "cold_start_seed" in entry:
+            m = FEED_REF.match(entry.get("reference", ""))
+            if (entry["cold_start_seed"] is not True or filename != "package-names.yml"
+                    or not m or m.group(1) not in MIRROR_FEEDS):
+                errors.append(f"{prefix}: cold_start_seed must be true, only in package-names.yml, "
+                              f"with a feed:<mirror feed>#… reference ({sorted(MIRROR_FEEDS)})")
+        if PLACEHOLDER_DOMAIN.search(indicator) or PLACEHOLDER_PACKAGE.match(indicator):
+            errors.append(f"{prefix}: placeholder-shaped indicator '{indicator}' — cite a real source")
 
         # Blocked categories
         category = entry.get("category", "")
@@ -328,7 +500,8 @@ def main():
         print(f"PASS: {ioc_path.name} (no entries)")
         sys.exit(0)
 
-    errors = validate_ioc_file(data, allowed_sources, ioc_path.name)
+    errors = validate_ioc_file(data, allowed_sources, ioc_path.name, load_reference_prefixes(sources_path),
+                               campaign_keys(), mirror_feed_ids(), section_tokens(), not_campaign_approvals())
 
     if errors:
         print(f"FAIL: {ioc_path.name} — {len(errors)} error(s):", file=sys.stderr)
