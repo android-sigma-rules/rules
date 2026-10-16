@@ -41,3 +41,12 @@ def test_rule_campaign_tags_are_in_vocabulary():
                 if str(t).startswith("campaign.") and str(t)[9:] not in names():
                     missing.append((rel, t))
     assert not missing, missing
+
+
+def test_every_campaign_has_label_and_https_references():
+    # The report row label and its provenance come from here (AndroDR Plan B, Task B7).
+    for c in yaml.safe_load((ROOT / "ioc-data" / "campaigns.yml").read_text())["campaigns"]:
+        assert isinstance(c.get("label"), str) and c["label"].strip(), f"{c['key']}: missing label"
+        refs = c.get("references")
+        assert isinstance(refs, list) and refs, f"{c['key']}: needs at least one reference"
+        assert all(isinstance(r, str) and r.startswith("https://") for r in refs), f"{c['key']}: {refs}"

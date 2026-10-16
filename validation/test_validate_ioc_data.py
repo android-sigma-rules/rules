@@ -377,3 +377,21 @@ def test_campaign_family_without_key_rejected(tmp_path):
     generic = _entry(family="Predator", source="threatfox", reference="feed:threatfox#Predator")
     r = run_validator(tmp_path, "c2-domains.yml", _body(generic))
     assert r.returncode == 1 and "re-source it as threat_research" in r.stderr
+
+
+def test_family_naming_two_campaigns_rejected(tmp_path):
+    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(family="Pegasus and Predator")))
+    assert r.returncode == 1 and "names more than one campaign" in r.stderr
+
+
+def test_not_campaign_approval_must_match_reference_and_family(tmp_path):
+    # An approval is for one exact (file, indicator, reference, family): a line that differs in the
+    # reference or the family approves nothing (round 13-14).
+    ok = _entry(indicator="thief.example", family="Predator The Thief", source="threatfox",
+                reference="feed:threatfox#Predator The Thief", not_campaign=True)
+    approvals = tmp_path / "not-campaign.txt"
+    for line in ("c2-domains.yml\tthief.example\tfeed:threatfox#Predator Stealer\tPredator The Thief\n",
+                 "c2-domains.yml\tthief.example\tfeed:threatfox#Predator The Thief\tPredator Stealer\n"):
+        approvals.write_text(line)
+        r = run_validator(tmp_path, "c2-domains.yml", _body(ok), env=dict(os.environ, NOT_CAMPAIGN_FILE=str(approvals)))
+        assert r.returncode == 1 and "not-campaign.txt" in r.stderr, line
