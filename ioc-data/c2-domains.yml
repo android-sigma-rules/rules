@@ -2063,25 +2063,27 @@ entries:
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada distribution host for OBWhatsApp modded-WhatsApp APKs (payload delivery). Remediation:
-      uninstall any WhatsApp mod (GBWhatsApp/OBWhatsApp/WhatsPlus) and reinstall official WhatsApp from
-      Google Play.'
+    description: 'Distribution host for OBWhatsApp modded-WhatsApp APKs (payload delivery). Listed by ThreatFox
+      without a malware family. Remediation: uninstall any WhatsApp mod (GBWhatsApp/OBWhatsApp/WhatsPlus)
+      and reinstall official WhatsApp from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: apk.whatsplus.online
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada distribution host for WhatsPlus modded-WhatsApp APKs (payload delivery). Remediation:
-      uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    description: 'Distribution host for WhatsPlus modded-WhatsApp APKs (payload delivery). Listed by ThreatFox without
+      a malware family. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from
+      Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: apk.whatsplusdownload.com
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada distribution host for WhatsPlus modded-WhatsApp APKs (payload delivery). Remediation:
-      uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    description: 'Distribution host for WhatsPlus modded-WhatsApp APKs (payload delivery). Listed by ThreatFox without
+      a malware family. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from
+      Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: app.gbwhat.pro
@@ -2104,24 +2106,26 @@ entries:
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada infrastructure for GBWhatsApp modded-WhatsApp distribution/C2. Remediation: uninstall
-      any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    description: 'Infrastructure for GBWhatsApp modded-WhatsApp distribution/C2. Listed by ThreatFox without a malware
+      family. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: gb-dwnplus.org
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada distribution host for GBWhatsApp-style modded-WhatsApp APKs (payload delivery).
-      Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    description: 'Distribution host for GBWhatsApp-style modded-WhatsApp APKs (payload delivery). Listed by ThreatFox
+      without a malware family. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp
+      from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: gbappze.com
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada distribution host for GBWhatsApp-style modded-WhatsApp APKs (payload delivery).
-      Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    description: 'Distribution host for GBWhatsApp-style modded-WhatsApp APKs (payload delivery). Listed by ThreatFox
+      without a malware family. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp
+      from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: gbw.cmpc.fun
@@ -2136,138 +2140,152 @@ entries:
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada distribution host for GBWhatsApp-style modded-WhatsApp APKs (payload delivery).
-      Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    description: 'Distribution host for GBWhatsApp-style modded-WhatsApp APKs (payload delivery). Listed by ThreatFox
+      without a malware family. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp
+      from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: h5.gbwhatsapp.download
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada distribution host for GBWhatsApp modded-WhatsApp APKs (payload delivery). Remediation:
-      uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    description: 'Distribution host for GBWhatsApp modded-WhatsApp APKs (payload delivery). Listed by ThreatFox
+      without a malware family. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp
+      from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: lb-ndrq4ayq-1h7mf9psqdkb65lv.clb.sg-tencentclb.net
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada backend load-balancer hostname (Tencent Cloud CLB instance) serving GBWhatsApp/WhatsPlus
-      mod distribution infrastructure. Instance-specific subdomain, not the shared clb.sg-tencentclb.net
-      parent. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    description: 'Backend load-balancer hostname (Tencent Cloud CLB instance) serving GBWhatsApp/WhatsPlus mod
+      distribution infrastructure. Instance-specific subdomain, not the shared clb.sg-tencentclb.net
+      parent. Listed by ThreatFox without a malware family. Remediation: uninstall any WhatsApp mod and
+      reinstall official WhatsApp from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: lb-rnypyjwi-rzm2gb9ys7wtc4u0.clb.sg-tencentclb.net
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada backend load-balancer hostname (Tencent Cloud CLB instance) serving GBWhatsApp/WhatsPlus
-      mod distribution infrastructure. Instance-specific subdomain, not the shared clb.sg-tencentclb.net
-      parent. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    description: 'Backend load-balancer hostname (Tencent Cloud CLB instance) serving GBWhatsApp/WhatsPlus mod
+      distribution infrastructure. Instance-specific subdomain, not the shared clb.sg-tencentclb.net
+      parent. Listed by ThreatFox without a malware family. Remediation: uninstall any WhatsApp mod and
+      reinstall official WhatsApp from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: node-vml.vidfree.net
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada infrastructure for VidMate/AlexMods modded-app distribution (payload delivery/C2).
-      Remediation: uninstall VidMate or AlexMods-sourced apps; install apps only from Google Play.'
+    description: 'Infrastructure for VidMate/AlexMods modded-app distribution (payload delivery/C2). Listed by
+      ThreatFox without a malware family. Remediation: uninstall VidMate or AlexMods-sourced apps; install
+      apps only from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: origin-apk.gbwhat.pro
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada origin server for GBWhatsApp modded-WhatsApp APK distribution (payload delivery).
-      Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    description: 'Origin server for GBWhatsApp modded-WhatsApp APK distribution (payload delivery). Listed by
+      ThreatFox without a malware family. Remediation: uninstall any WhatsApp mod and reinstall official
+      WhatsApp from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: origin-apk.obwhatsappdownload.com
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada origin server for OBWhatsApp modded-WhatsApp APK distribution (payload delivery).
-      Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    description: 'Origin server for OBWhatsApp modded-WhatsApp APK distribution (payload delivery). Listed by
+      ThreatFox without a malware family. Remediation: uninstall any WhatsApp mod and reinstall official
+      WhatsApp from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: origin-ug.whatsplus.online
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada origin server for WhatsPlus modded-WhatsApp distribution (payload delivery/C2).
-      Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    description: 'Origin server for WhatsPlus modded-WhatsApp distribution (payload delivery/C2). Listed by ThreatFox
+      without a malware family. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp
+      from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: origin-www.whatsplus.online
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada origin server for WhatsPlus modded-WhatsApp distribution (payload delivery/C2).
-      Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    description: 'Origin server for WhatsPlus modded-WhatsApp distribution (payload delivery/C2). Listed by ThreatFox
+      without a malware family. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp
+      from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: prod-weblink.videmateshare.com
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada infrastructure for VidMate modded-app distribution (payload delivery/C2). Remediation:
-      uninstall VidMate-sourced apps; install apps only from Google Play.'
+    description: 'Infrastructure for VidMate modded-app distribution (payload delivery/C2). Listed by ThreatFox
+      without a malware family. Remediation: uninstall VidMate-sourced apps; install apps only from Google
+      Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: static.cdns.space
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Static-content host used by Triada-bundled mod-app distribution infrastructure (payload
-      delivery). Remediation: uninstall modded WhatsApp/VidMate apps; install apps only from Google Play.'
+    description: 'Static-content host used by modded-app distribution infrastructure (payload delivery). Listed by
+      ThreatFox without a malware family. Remediation: uninstall modded WhatsApp/VidMate apps; install
+      apps only from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: ug.gbwhat.pro
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada infrastructure for GBWhatsApp modded-WhatsApp distribution/C2. Remediation: uninstall
-      any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    description: 'Infrastructure for GBWhatsApp modded-WhatsApp distribution/C2. Listed by ThreatFox without a malware
+      family. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: ug.obwhatsappdownload.com
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada infrastructure for OBWhatsApp modded-WhatsApp distribution/C2. Remediation: uninstall
-      any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    description: 'Infrastructure for OBWhatsApp modded-WhatsApp distribution/C2. Listed by ThreatFox without a malware
+      family. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: ug.whatsplus.online
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada infrastructure for WhatsPlus modded-WhatsApp distribution/C2. Remediation: uninstall
-      any WhatsApp mod and reinstall official WhatsApp from Google Play.'
+    description: 'Infrastructure for WhatsPlus modded-WhatsApp distribution/C2. Listed by ThreatFox without a malware
+      family. Remediation: uninstall any WhatsApp mod and reinstall official WhatsApp from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: vid-cdn.vidfree.net
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada infrastructure for VidMate/AlexMods modded-app distribution (payload delivery/C2).
-      Remediation: uninstall VidMate or AlexMods-sourced apps; install apps only from Google Play.'
+    description: 'Infrastructure for VidMate/AlexMods modded-app distribution (payload delivery/C2). Listed by
+      ThreatFox without a malware family. Remediation: uninstall VidMate or AlexMods-sourced apps; install
+      apps only from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: videmateshare.com
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada infrastructure for VidMate modded-app distribution (payload delivery/C2). Remediation:
-      uninstall VidMate-sourced apps; install apps only from Google Play.'
+    description: 'Infrastructure for VidMate modded-app distribution (payload delivery/C2). Listed by ThreatFox
+      without a malware family. Remediation: uninstall VidMate-sourced apps; install apps only from Google
+      Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: www.vidfree.net
     family: Unknown malware
     category: MALWARE
     severity: HIGH
-    description: 'Triada infrastructure for VidMate/AlexMods modded-app distribution (payload delivery/C2).
-      Remediation: uninstall VidMate or AlexMods-sourced apps; install apps only from Google Play.'
+    description: 'Infrastructure for VidMate/AlexMods modded-app distribution (payload delivery/C2). Listed by
+      ThreatFox without a malware family. Remediation: uninstall VidMate or AlexMods-sourced apps; install
+      apps only from Google Play.'
     source: threatfox
     reference: feed:threatfox#Unknown malware
   - indicator: garant-help.com
