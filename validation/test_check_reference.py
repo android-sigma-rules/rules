@@ -116,6 +116,24 @@ def test_csv_family_must_be_on_the_same_line(tmp_path):
     assert cr.check("bbbb", "feed:stalkerware-indicators#TheTruthSpy", str(tmp_path))[0] == "FAMILY_MISMATCH"
 
 
+def test_family_mismatch_detail_shows_the_feeds_own_label(tmp_path):
+    # C3 dogfood case 4: the skill tells the reviewer to correct `family` to the feed's label "shown in
+    # the detail"; a detail naming only the section (samples.csv) left the reviewer without it.
+    (tmp_path / "stalkerware-indicators.txt").write_text(dump("stalkerware-indicators/samples.csv",
+        "aaaa,com.a,AAAA,1,TheTruthSpy\n" + "b" * 64 + ",com.juzyuwqt.thxxnjvf," + "C" * 40 + ",1,Spyone"))
+    cr.clear_caches()
+    status, detail = cr.check("b" * 64, "feed:stalkerware-indicators#TiSpy", str(tmp_path))
+    assert status == "FAMILY_MISMATCH" and "Spyone" in detail and "TheTruthSpy" not in detail
+
+
+def test_family_mismatch_detail_shows_the_yaml_records_name(tmp_path):
+    (tmp_path / "stalkerware-indicators.txt").write_text(dump("stalkerware-indicators/ioc.yaml",
+        "- name: Spyone\n  packages:\n  - com.spyone"))
+    cr.clear_caches()
+    status, detail = cr.check("com.spyone", "feed:stalkerware-indicators#TiSpy", str(tmp_path))
+    assert status == "FAMILY_MISMATCH" and "Spyone" in detail
+
+
 def test_content_cannot_forge_a_header(tmp_path):
     (tmp_path / "zimperium-ioc.txt").write_text(
         dump("Zimperium/IOC/Other/README.md", "## Hook\nc2.example"))
