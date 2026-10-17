@@ -88,6 +88,14 @@ Any edit to `ioc-data/*.yml` must also regenerate `ioc-data.sha256`. CI fails if
 for f in $(ls ioc-data/*.yml | sort); do printf '%s  %s\n' "$(sha256sum "$f" | cut -d' ' -f1)" "$f"; done > ioc-data.sha256
 ```
 
+An `ioc-data` entry checked by hand (its reference is a PDF, or could not be fetched) carries a record of who checked it, inside the entry or directly above it:
+
+```yaml
+    # verified manually: <who>, <YYYY-MM-DD>, <how, e.g. pdftotext>
+```
+
+`validate-ioc-data.py` rejects a malformed record and a PDF reference without one.
+
 ## License
 
 CC-BY-4.0
