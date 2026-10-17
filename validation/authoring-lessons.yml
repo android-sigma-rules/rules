@@ -41,3 +41,9 @@ lessons:
       only" falsepositives wording from rules that lack the gate (069/087);
       state instead that every matching sideloaded app fires and needs user
       judgement.
+  - class: unverifiable_provenance
+    guidance: >
+      Every IOC entry needs a reference that actually lists it (Gate 2b checks).
+      A `source` id alone is not provenance: in 2026 about 290 invented entries
+      carried plausible back-filled source labels. Never invent an indicator,
+      including in examples or placeholders.
