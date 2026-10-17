@@ -72,8 +72,11 @@ def test_malwarebazaar_snippet_warns_and_writes_header_only_without_key(tmp_path
         "  category: SPYWARE\n  severity: CRITICAL\n  source: malwarebazaar\n")
     out = tmp_path / "malwarebazaar.txt"
     env = {k: v for k, v in os.environ.items() if k != "MALWAREBAZAAR_API_KEY"}
-    env["REPO"] = str(repo)
-    proc = subprocess.run([sys.executable, "-I", "-", str(out)], input=_malwarebazaar_snippet(),
+    sys.path.insert(0, str(THIS_DIR))
+    import mb_hashes
+    hashes = tmp_path / "mb-hashes.txt"
+    hashes.write_text("\n".join(mb_hashes.collect_mb_hashes(repo)))
+    proc = subprocess.run([sys.executable, "-I", "-", str(out), str(hashes)], input=_malwarebazaar_snippet(),
                           capture_output=True, text=True, env=env, timeout=60)
     assert proc.returncode == 0, proc.stderr
     assert "MALWAREBAZAAR_API_KEY not set" in proc.stderr
