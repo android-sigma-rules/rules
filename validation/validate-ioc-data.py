@@ -445,6 +445,43 @@ def validate_brand_file(data, filename):
     return errors
 
 
+_MANUAL_RE = re.compile(r"#\s*verified manually\b:?(.*)$")
+_ISO_DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
+
+
+def manual_verification_errors(text: str) -> list[str]:
+    """`# verified manually: <who>, <date>, <how>` records (rules#79), checked on the raw text.
+
+    Gate 2b sends an entry it cannot fetch to a person, who records how they checked it. Comments are not in
+    yaml.safe_load output, so this is a line-level pass: (1) every record has a name, an ISO date and a method;
+    (2) an entry whose reference is a PDF (the checker can never read one: FETCH_UNSUPPORTED) carries a record,
+    either inside the entry or on the comment lines directly above its `- ` line.
+    """
+    errors, lines = [], text.splitlines()
+    for n, line in enumerate(lines, 1):
+        m = _MANUAL_RE.search(line)
+        if not m:
+            continue
+        parts = [x.strip() for x in m.group(1).split(",", 2)]
+        if len(parts) < 3 or not parts[0] or not _ISO_DATE.fullmatch(parts[1]) or not parts[2]:
+            errors.append(f"line {n}: '# verified manually' needs '<who>, <YYYY-MM-DD>, <how>'")
+    # an entry starts at any `- <key>:` list item (yaml.safe_dump sorts keys, so not always `- indicator:`)
+    starts = [n for n, l in enumerate(lines) if re.match(r"\s*- [A-Za-z_]+:", l)]
+    for k, start in enumerate(starts):
+        end = starts[k + 1] if k + 1 < len(starts) else len(lines)
+        above = start
+        while above > 0 and lines[above - 1].lstrip().startswith("#"):
+            above -= 1
+        block = lines[above:end]
+        ref = next((l.split(":", 1)[1].strip().strip("\"'") for l in block if l.lstrip().startswith("reference:")), "")
+        if ref.split("?", 1)[0].split("#", 1)[0].lower().endswith(".pdf") and not any(_MANUAL_RE.search(l) for l in block):
+            ind = next((l.split(":", 1)[1].strip().strip("\"'") for l in block
+                        if l.lstrip(" -").startswith("indicator:")), f"entry at line {start + 1}")
+            errors.append(f"{ind}: a PDF reference cannot be fetched by Gate 2b; add "
+                          f"'# verified manually: <who>, <YYYY-MM-DD>, <how>' to the entry")
+    return errors
+
+
 def main():
     if len(sys.argv) < 2:
         print("Usage: python3 validate-ioc-data.py <ioc-data-file.yml>", file=sys.stderr)
@@ -462,12 +499,19 @@ def main():
 
     allowed_sources = load_allowed_sources(sources_path)
 
-    with open(ioc_path) as f:
-        try:
-            data = yaml.safe_load(f)
-        except yaml.YAMLError as e:
-            print(f"YAML parse error: {e}", file=sys.stderr)
-            sys.exit(2)
+    raw = ioc_path.read_text()
+    try:
+        data = yaml.safe_load(raw)
+    except yaml.YAMLError as e:
+        print(f"YAML parse error: {e}", file=sys.stderr)
+        sys.exit(2)
+    manual_errors = manual_verification_errors(raw)
+    if manual_errors and not (isinstance(data, dict) and data.get("entries")):
+        # files without an entries list still carry these records (campaigns.yml)
+        print(f"FAIL: {ioc_path.name} — {len(manual_errors)} error(s):", file=sys.stderr)
+        for err in manual_errors:
+            print(f"  - {err}", file=sys.stderr)
+        sys.exit(1)
 
     if not data:
         print(f"PASS: {ioc_path.name} (empty file)")
@@ -502,6 +546,7 @@ def main():
 
     errors = validate_ioc_file(data, allowed_sources, ioc_path.name, load_reference_prefixes(sources_path),
                                campaign_keys(), mirror_feed_ids(), section_tokens(), not_campaign_approvals())
+    errors += manual_errors
 
     if errors:
         print(f"FAIL: {ioc_path.name} — {len(errors)} error(s):", file=sys.stderr)

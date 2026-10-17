@@ -412,3 +412,77 @@ def test_threat_research_entry_cannot_borrow_threatfox_feed_reference(tmp_path):
         reference="feed:threatfox#Graphite")))
     assert r.returncode == 1
     assert "feed reference names source 'threatfox' but the entry's source is 'threat_research'" in r.stderr
+
+
+# ---------- `# verified manually` comments (rules#79) ----------
+# Gate 2b sends an entry it cannot fetch (a PDF, a fetch failure) to a person, who records
+# `# verified manually: <who>, <date>, <how>`. These gates make that record checkable.
+
+PDF_REF = "https://about.fb.com/wp-content/uploads/2022/08/Quarterly-Adversarial-Threat-Report-Q2-2022.pdf"
+
+
+def _with_comment(body, comment, before="    reference:"):
+    """Insert a comment line above the entry's `reference:` line (where the bundled data puts it)."""
+    lines = body.splitlines()
+    i = next(n for n, l in enumerate(lines) if l.lstrip().startswith("reference:"))
+    indent = lines[i][: len(lines[i]) - len(lines[i].lstrip())]
+    lines.insert(i, indent + comment)
+    return "\n".join(lines) + "\n"
+
+
+def test_pdf_reference_without_manual_record_rejected(tmp_path):
+    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(reference=PDF_REF)))
+    assert r.returncode == 1 and "verified manually" in r.stderr
+
+
+def test_pdf_reference_with_manual_record_passes(tmp_path):
+    body = _with_comment(_body(_entry(reference=PDF_REF)), "# verified manually: Claude (A3 research), 2026-10-16, pdftotext")
+    r = run_validator(tmp_path, "c2-domains.yml", body)
+    assert r.returncode == 0, r.stderr
+
+
+def test_pdf_query_string_still_counts_as_pdf(tmp_path):
+    r = run_validator(tmp_path, "c2-domains.yml", _body(_entry(reference=PDF_REF + "?dl=1")))
+    assert r.returncode == 1 and "verified manually" in r.stderr
+
+
+def test_manual_record_above_the_entry_counts(tmp_path):
+    body = _body(_entry(reference=PDF_REF))
+    lines = body.splitlines()
+    i = next(n for n, l in enumerate(lines) if l.lstrip().startswith("- "))
+    lines.insert(i, "# verified manually: owner, 2026-10-17, pdftotext")
+    assert run_validator(tmp_path, "c2-domains.yml", "\n".join(lines) + "\n").returncode == 0
+
+
+def test_manual_record_on_another_entry_does_not_count(tmp_path):
+    import yaml
+    a = _entry(indicator="a.example")
+    b = _entry(indicator="b.example", reference=PDF_REF)
+    body = yaml.safe_dump({"version": "x", "description": "t", "sources": ["threat_research"], "entries": [a, b]},
+                          sort_keys=False)
+    body = _with_comment(body, "# verified manually: owner, 2026-10-17, pdftotext")   # lands on entry a
+    r = run_validator(tmp_path, "c2-domains.yml", body)
+    assert r.returncode == 1 and "b.example" in r.stderr
+
+
+def test_malformed_manual_record_rejected(tmp_path):
+    for bad in ("# verified manually: owner",                      # no date, no method
+                "# verified manually: owner, yesterday, pdftotext",  # not an ISO date
+                "# verified manually: , 2026-10-17, pdftotext",      # no name
+                "# verified manually: owner, 2026-10-17, "):         # no method
+        r = run_validator(tmp_path, "c2-domains.yml", _with_comment(_body(_entry()), bad))
+        assert r.returncode == 1 and "verified manually" in r.stderr, bad
+
+
+def test_malformed_manual_record_rejected_in_a_file_without_entries(tmp_path):
+    # campaigns.yml carries these comments too; the format check must not depend on an `entries:` list.
+    body = "campaigns:\n  - key: x\n    # verified manually: owner\n    label: X\n"
+    r = run_validator(tmp_path, "campaigns-test.yml", body)
+    assert r.returncode == 1 and "verified manually" in r.stderr
+
+
+def test_bundled_ioc_data_manual_records_are_well_formed():
+    # The real data must pass both gates as it stands (77 records on 2026-10-17).
+    for f in sorted((THIS_DIR.parent / "ioc-data").glob("*.yml")):
+        r = subprocess.run([sys.executable, str(SCRIPT), str(f)], capture_output=True, text=True)
+        assert "verified manually" not in r.stderr, (f.name, r.stderr)
