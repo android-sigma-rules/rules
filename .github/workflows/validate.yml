@@ -32,7 +32,7 @@ jobs:
           done
       - name: IOC data gates and the reference checker (vocabulary, blocking baseline, cold-start seeds, file registry, check-reference)
         run: |
-          python3 -m pytest -q validation/test_campaign_vocabulary.py validation/test_blocking_baseline.py \
+          python3 -m pytest -q validation/test_campaign_vocabulary.py validation/test_campaign_detected_by.py validation/test_blocking_baseline.py \
             validation/test_cold_start_seeds.py validation/test_check_reference.py validation/test_approval_lists.py \
             "validation/test_validate_ioc_complementarity.py::test_every_ioc_data_file_is_registered"
 
