@@ -47,3 +47,20 @@ lessons:
       A `source` id alone is not provenance: in 2026 about 290 invented entries
       carried plausible back-filled source labels. Never invent an indicator,
       including in examples or placeholders.
+  - class: fp_risk
+    guidance: >
+      Every c2-domains.yml entry fires androdr-003, a critical "DNS query to
+      known C2 domain" finding, whatever the entry's own severity. List only
+      infrastructure the threat actor controls. Never add ad-tech, tracking,
+      CDN or shared-hosting domains that ordinary users reach, and never widen
+      a `*.domain` wildcard to a shared-hosting or public-suffix parent.
+  - class: fp_risk
+    guidance: >
+      Add no ioc-data entries and no rules for the AdFection campaign
+      (Citizen Lab, 2026-10-15: Candiru delivered through Discover-Tech ads),
+      including the Candiru servers the report names. Indicators are useless
+      here: it targets one advertising ID at a time and its infrastructure
+      rotates every few days. Only TTPs would work, and AndroDR cannot see
+      those signals until a later roadmap era grants the permissions, so the
+      owner parked it (2026-10-17). Ad blocking and deleting the advertising
+      ID fully mitigate it.
