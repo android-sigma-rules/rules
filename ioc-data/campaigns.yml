@@ -2,39 +2,47 @@ version: "2026-10-16"
 description: >
   The campaign vocabulary. Rule campaign.* tags may be a key or an alias here;
   IOC `campaign` values must be a key. AndroDR's report shows one
-  mercenary-check row per campaign.
+  mercenary-check row per campaign. detected_by lists the rule services that can make
+  the campaign DETECTED; validation/test_campaign_detected_by.py derives it from the rules and ioc-data.
 campaigns:
   - key: pegasus
     label: Pegasus
+    detected_by: [dns_monitor]
     aliases: [nso]          # NSO Group's product (round 7, Q7-3: an "NSO" family must key to pegasus)
     references: [https://citizenlab.ca/2016/08/million-dollar-dissident-iphone-zero-day-nso-group-uae/]
   - key: predator
     label: Predator
+    detected_by: [dns_monitor, file_scanner]
     aliases: [intellexa, cytrox]
     references:
       # verified manually: Claude (A5), 2026-10-16, live page, campaign named in body
       - https://citizenlab.ca/research/pegasus-vs-predator-dissidents-doubly-infected-iphone-reveals-cytrox-mercenary-spyware/
   - key: graphite
     label: Graphite (Paragon)
+    detected_by: [dns_monitor]
     aliases: [paragon]      # Graphite is Paragon's product: one row, never "Graphite DETECTED / Paragon not detected"
     references: [https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/]
   - key: cellebrite
     label: Cellebrite
+    detected_by: [app_scanner]
     references:
       # verified manually: Claude (A5), 2026-10-16, live page, campaign named in body
       - https://citizenlab.ca/research/cellebrite-used-on-kenyan-activist-and-politician-boniface-mwangi/
   - key: landfall
     label: LANDFALL
+    detected_by: []          # patch level only: no infection check exists
     references:
       # verified manually: Claude (A5), 2026-10-16, live page, campaign named in body
       - https://unit42.paloaltonetworks.com/landfall-is-new-commercial-grade-android-spyware/
   - key: massistant
     label: Massistant
+    detected_by: [app_scanner]
     references:
       # verified manually: Claude (A5), 2026-10-16, live page, campaign named in body
       - https://security.lookout.com/threat-intelligence/article/massistant-chinese-mobile-forensics
   - key: midnight-mimosa
     label: Midnight Mimosa
+    detected_by: [app_scanner, dns_monitor]
     references:
       # verified manually: Claude (A5), 2026-10-16, live page, campaign named in body
       - https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
