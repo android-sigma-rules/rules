@@ -19,7 +19,8 @@ candidates:
     verdict: approved        # approved | approved_with_modification | rejected
     reason: ""               # reviewer's words; REQUIRED unless verdict=approved
     failure_class: null      # severity_judgment | fp_risk | duplicate_semantics |
-                             # weak_sourcing | category_choice | other | null
+                             # weak_sourcing | category_choice | unverifiable_provenance |
+                             # other | null
 totals:
   candidates: 7
   approved: 5

@@ -619,7 +619,7 @@ def _check_feed(indicator, reference, feed_dir, family=None, campaign=None, reso
     fam = re.compile("|".join(r"(?<![a-z0-9])" + re.escape(n) + r"(?![a-z0-9])" for n in fam_names))
     pats = [re.compile(_pattern(v)) for v in _variants(indicator)]
     exact = [re.compile(re.escape(v)) for v in _variants(indicator)]
-    hit_any, sections_hit, accepted = False, [], 0
+    hit_any, sections_hit, accepted, first_record = False, [], 0, None
     for sec_idx, (path_, bodies, norms, joined, starts) in enumerate(_feed_sections(path)):
         is_stix = (os.path.splitext(path_)[1] in (".stix2", ".json")
                    and not path_.startswith(("threatfox/", "malwarebazaar/")))
@@ -651,6 +651,9 @@ def _check_feed(indicator, reference, feed_dir, family=None, campaign=None, reso
                 record = (_stix_family_names(path, sec_idx, indicator) if is_stix
                           else _record_lines(path_, bodies, norms, i))
                 in_record = not section_cite and any(fam.search(r) for r in record)
+                if first_record is None:
+                    raw = record if is_stix else _record_lines(path_, bodies, bodies, i)   # norms are lower-cased
+                    first_record = " ".join(" ".join(raw or [bodies[i]]).split())[:200]
                 weak_tag = (not in_path and not in_record and path_.startswith("malwarebazaar/")
                             and any(fam.search(t) for t in _mb_tags(bodies[i])))
                 if weak_tag:
@@ -664,8 +667,10 @@ def _check_feed(indicator, reference, feed_dir, family=None, campaign=None, reso
                     return "FOUND", snippet
     if hit_any:
         # The section path tells the reviewer where the feed has it (Task A3 Step 2b uses it).
-        return "FAMILY_MISMATCH", (f"{indicator} is in {m.group(1)} but its record does not name "
-                                   f"'{m.group(2)}'; found in section(s): {', '.join(sections_hit[:3])}")
+        # The record comes first so the 300-char cap in check() never cuts the feed's own label (C3 case 4).
+        return "FAMILY_MISMATCH", (f"in {m.group(1)}, but its record does not name '{m.group(2)}' "
+                                   f"(correct `family` to the record's label): {first_record}; "
+                                   f"section(s): {', '.join(sections_hit[:3])}")
     return "NOT_FOUND", f"{indicator} not in {m.group(1)}"
 
 

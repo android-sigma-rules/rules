@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Plain-text dumps of each mirror feed, one file per allowed-sources id.
 set -euo pipefail
-out="${1:?usage: fetch-feed-dumps.sh DIR}"; mkdir -p "$out"
+out="${1:?usage: fetch-feed-dumps.sh DIR [CANDIDATES_DIR]}"; mkdir -p "$out"
+candidates="${2:-}"   # optional: also query MalwareBazaar for `source: malwarebazaar` hashes in CANDIDATES_DIR/*.yml
 repo="$(cd "$(dirname "$0")/.." && pwd)"   # rules repo root, independent of cwd
 source "$repo/scripts/feed-dump.sh"           # cap() and dump(); unit-tested (test_check_reference.py)
 tmp=$(mktemp -d)
@@ -24,12 +25,13 @@ for recs in json.load(sys.stdin).values():
     for r in (recs if isinstance(recs, list) else [recs]):
         print("| " + json.dumps(r, separators=(",", ":")))' | cap > "$out/threatfox.txt"
 # MalwareBazaar needs MALWAREBAZAAR_API_KEY (one get_info call per `source: malwarebazaar` hash). Without the key every
-# malwarebazaar entry lands on the review list, so set it before running.
-REPO="$repo" python3 - "$out/malwarebazaar.txt" <<'PY'
-import os, sys, json, urllib.request, urllib.parse, yaml
+# malwarebazaar entry lands on the review list, so set it before running. Hashes come from ioc-data/malware-hashes.yml
+# plus, when CANDIDATES_DIR is given, every candidate file (a NEW hash is otherwise always NOT_FOUND).
+python3 -I "$repo/validation/mb_hashes.py" "$repo" ${candidates:+"$candidates"} > "$tmp/mb-hashes.txt"
+python3 -I - "$out/malwarebazaar.txt" "$tmp/mb-hashes.txt" <<'PY'
+import os, sys, json, urllib.request, urllib.parse
 key = os.environ.get("MALWAREBAZAAR_API_KEY")
-hashes = [e["indicator"] for e in yaml.safe_load(open(os.path.join(os.environ["REPO"], "ioc-data/malware-hashes.yml")))["entries"]
-          if e.get("source") == "malwarebazaar"]
+hashes = [h for h in open(sys.argv[2]).read().split() if h]
 if not key:
     print("WARNING: MALWAREBAZAAR_API_KEY not set; malwarebazaar dump is empty, every malwarebazaar entry will be on the review list", file=sys.stderr)
 with open(sys.argv[1], "w") as out:
