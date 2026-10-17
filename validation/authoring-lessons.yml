@@ -56,10 +56,11 @@ lessons:
       a `*.domain` wildcard to a shared-hosting or public-suffix parent.
   - class: fp_risk
     guidance: >
-      Add no ioc-data entries for the Discover-Tech / AdFection ad-delivery
-      infrastructure (Citizen Lab, 2026-10-15): its ad, bidding and tracking
-      domains. The campaign targets one advertising ID at a time, its
-      infrastructure rotates every few days, and ordinary ad traffic reaches
-      it, so domain IOCs would go stale fast and alarm on clean devices. The
-      owner ruled (2026-10-15) for posture advice instead; that is not the
-      pipeline's job.
+      Add no ioc-data entries and no rules for the AdFection campaign
+      (Citizen Lab, 2026-10-15: Candiru delivered through Discover-Tech ads),
+      including the Candiru servers the report names. Indicators are useless
+      here: it targets one advertising ID at a time and its infrastructure
+      rotates every few days. Only TTPs would work, and AndroDR cannot see
+      those signals until a later roadmap era grants the permissions, so the
+      owner parked it (2026-10-17). Ad blocking and deleting the advertising
+      ID fully mitigate it.
