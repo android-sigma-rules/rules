@@ -87,17 +87,70 @@ def mismatches(root):
             for k in sorted(derived) if declared[k] != derived[k]]
 
 
+def shape_errors(root):
+    """Each campaign's detected_by must be a sorted, duplicate-free list of taxonomy services."""
+    services = set(_load(root / "validation" / "logsource-taxonomy.yml").get("services") or {})
+    errors = []
+    for c in _load(root / "ioc-data" / "campaigns.yml").get("campaigns", []):
+        value = c.get("detected_by")
+        if not isinstance(value, list):
+            errors.append(f"{c['key']}: detected_by must be a list ([] = patch level only)")
+            continue
+        if value != sorted(set(value)):
+            errors.append(f"{c['key']}: detected_by must be sorted and unique: {value}")
+        if not set(value) <= services:
+            errors.append(f"{c['key']}: not taxonomy services: {sorted(set(value) - services)}")
+    return errors
+
+
+def _rules_txt_rules(root):
+    for rel in (root / "rules.txt").read_text().split():
+        if rel.endswith(".yml"):
+            yield rel, _load(root / rel)
+
+
+def unmapped_ioc_match_lookups(root):
+    """ioc_lookup names an ioc_match rule reads that LOOKUP_FOR_FILE maps to no ioc-data file.
+
+    derive() credits a campaign's ioc-data entries only through a mapped lookup, so an unmapped
+    one would leave detected_by silently under-claiming that rule's service.
+    """
+    mapped = set(LOOKUP_FOR_FILE.values())
+    out = set()
+    for _, rule in _rules_txt_rules(root):
+        if (rule.get("display") or {}).get("evidence_type") == "ioc_match":
+            out.update(name for name in _ioc_lookups(rule) if name not in mapped)
+    return sorted(out)
+
+
+def unmapped_campaign_ioc_files(root):
+    """ioc-data files whose entries carry a campaign but that LOOKUP_FOR_FILE does not map."""
+    out = []
+    for path in sorted((root / "ioc-data").glob("*.yml")):
+        doc = _load(path)
+        entries = doc.get("entries") if isinstance(doc, dict) else None
+        if any(isinstance(e, dict) and e.get("campaign") for e in entries or []) \
+                and path.name not in LOOKUP_FOR_FILE:
+            out.append(path.name)
+    return out
+
+
 def test_detected_by_matches_what_the_rules_can_detect():
     assert not mismatches(ROOT), "\n".join(mismatches(ROOT))
 
 
 def test_detected_by_is_a_sorted_unique_list_of_taxonomy_services():
-    services = set(_load(ROOT / "validation" / "logsource-taxonomy.yml")["services"])
-    for c in _load(ROOT / "ioc-data" / "campaigns.yml")["campaigns"]:
-        value = c.get("detected_by")
-        assert isinstance(value, list), f"{c['key']}: detected_by must be a list ([] = patch level only)"
-        assert value == sorted(set(value)), f"{c['key']}: detected_by must be sorted and unique: {value}"
-        assert set(value) <= services, f"{c['key']}: not taxonomy services: {set(value) - services}"
+    assert not shape_errors(ROOT), "\n".join(shape_errors(ROOT))
+
+
+def test_every_ioc_match_lookup_is_mapped_to_an_ioc_data_file():
+    assert not unmapped_ioc_match_lookups(ROOT), \
+        f"add these to LOOKUP_FOR_FILE: {unmapped_ioc_match_lookups(ROOT)}"
+
+
+def test_every_campaign_bearing_ioc_file_is_mapped():
+    assert not unmapped_campaign_ioc_files(ROOT), \
+        f"add these to LOOKUP_FOR_FILE: {unmapped_campaign_ioc_files(ROOT)}"
 
 
 # -- fixture repos: the gate fails on the mistakes it exists for ----------------------------------
@@ -178,3 +231,61 @@ def test_mvt_campaigns_count_through_the_domain_lookup_rule(tmp_path):
                              lookup="domain_ioc_db", evidence="ioc_match")]
     root = mini(tmp_path, ["dns_monitor"], rules=rules, mvt=[{"name": "n", "url": "u", "key": "pegasus"}])
     assert mismatches(root) == []
+
+
+def test_an_ioc_match_rule_on_an_unmapped_lookup_is_caught(tmp_path):
+    rules = [
+        IOC_RULE.format(id="androdr-003", service="dns_monitor", field="domain",
+                        lookup="domain_ioc_db", evidence="ioc_match"),
+        IOC_RULE.format(id="androdr-092", service="dns_monitor", field="domain",
+                        lookup="brand_domain_db", evidence="ioc_match"),
+        IOC_RULE.format(id="androdr-093", service="app_scanner", field="package_name",
+                        lookup="brand_name_db", evidence="none"),
+    ]
+    assert unmapped_ioc_match_lookups(mini(tmp_path, [], rules=rules)) == ["brand_domain_db"]
+
+
+def test_a_campaign_bearing_ioc_file_that_is_not_mapped_is_caught(tmp_path):
+    entries = {"new-file.yml": [{"indicator": "x", "campaign": "pegasus"}],
+               "no-campaign.yml": [{"indicator": "y", "campaign": ""}],
+               "c2-domains.yml": [{"indicator": "a.example", "campaign": "pegasus"}]}
+    assert unmapped_campaign_ioc_files(mini(tmp_path, [], entries=entries)) == ["new-file.yml"]
+
+
+def shape_root(tmp_path, **fields):
+    (tmp_path / "ioc-data").mkdir()
+    (tmp_path / "validation").mkdir()
+    (tmp_path / "validation" / "logsource-taxonomy.yml").write_text(
+        yaml.safe_dump({"services": {"dns_monitor": {}, "file_scanner": {}}}))
+    (tmp_path / "ioc-data" / "campaigns.yml").write_text(yaml.safe_dump({"campaigns": [
+        {"key": "pegasus", "label": "Pegasus", **fields}]}))
+    return tmp_path
+
+
+def test_shape_accepts_a_sorted_list_of_taxonomy_services(tmp_path):
+    assert shape_errors(shape_root(tmp_path, detected_by=["dns_monitor", "file_scanner"])) == []
+
+
+def test_shape_rejects_a_missing_detected_by(tmp_path):
+    assert shape_errors(shape_root(tmp_path)) == [
+        "pegasus: detected_by must be a list ([] = patch level only)"]
+
+
+def test_shape_rejects_a_non_list(tmp_path):
+    assert shape_errors(shape_root(tmp_path, detected_by="dns_monitor")) == [
+        "pegasus: detected_by must be a list ([] = patch level only)"]
+
+
+def test_shape_rejects_an_unsorted_list(tmp_path):
+    assert shape_errors(shape_root(tmp_path, detected_by=["file_scanner", "dns_monitor"])) == [
+        "pegasus: detected_by must be sorted and unique: ['file_scanner', 'dns_monitor']"]
+
+
+def test_shape_rejects_a_duplicate(tmp_path):
+    assert shape_errors(shape_root(tmp_path, detected_by=["dns_monitor", "dns_monitor"])) == [
+        "pegasus: detected_by must be sorted and unique: ['dns_monitor', 'dns_monitor']"]
+
+
+def test_shape_rejects_a_non_taxonomy_service(tmp_path):
+    assert shape_errors(shape_root(tmp_path, detected_by=["dns_monitor", "usage_stats"])) == [
+        "pegasus: not taxonomy services: ['usage_stats']"]
