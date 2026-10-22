@@ -89,7 +89,46 @@ def load_taxonomy(path: Path) -> dict:
         fields = svc.get("fields") if isinstance(svc, dict) else None
         if not isinstance(fields, dict) or not fields:
             sys.exit(f"FATAL: taxonomy service '{name}' lacks a non-empty fields map")
+        _check_service_metadata(name, svc)
     return services
+
+
+# Service-level taxonomy keys that name a field of the same service, and the
+# field-level flags (telemetry store, spec §4.2). Every reference must resolve
+# so a typo cannot silently disable the negation guard or the store's keys.
+_FIELD_REF_KEYS = ("event_time_field", "time_precision_field", "package_field")
+_FIELD_FLAGS = ("positive_only", "optional")
+_SERVICE_STATUSES = ("active", "emitter_only", "unwired")
+
+
+def positive_only_fields(service_def: dict) -> set:
+    """Fields old binaries lack: `positive_only`, or `optional` (which implies
+    it). A matcher on one evaluates false on old builds, so `not` inverts it."""
+    return {
+        fname
+        for fname, fdef in service_def["fields"].items()
+        if isinstance(fdef, dict) and (fdef.get("positive_only") or fdef.get("optional"))
+    }
+
+
+def _check_service_metadata(name: str, svc: dict) -> None:
+    fields = svc["fields"]
+    for key in _FIELD_REF_KEYS:
+        ref = svc.get(key)
+        if ref is not None and ref not in fields:
+            sys.exit(f"FATAL: taxonomy service '{name}' {key} '{ref}' is not one of its fields")
+    key_fields = svc.get("key_fields")
+    if key_fields is not None:
+        if not isinstance(key_fields, list) or not key_fields or any(k not in fields for k in key_fields):
+            sys.exit(f"FATAL: taxonomy service '{name}' key_fields must be a non-empty list of its own fields")
+    for fname, fdef in fields.items():
+        if not isinstance(fdef, dict):
+            continue
+        for flag in _FIELD_FLAGS:
+            if flag in fdef and not isinstance(fdef[flag], bool):
+                sys.exit(f"FATAL: taxonomy field '{name}/{fname}' {flag} must be a boolean")
+    if "status" in svc and svc["status"] not in _SERVICE_STATUSES:
+        sys.exit(f"FATAL: taxonomy service '{name}' has unknown status '{svc['status']}'")
 
 
 # Mirrors SeverityCapPolicy.kt severityOrder — the two must stay in lockstep.
@@ -527,32 +566,33 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
         for i, t in enumerate(_cond_tokens[:-1])
         if t.lower() == "not"
     }
+    _svc = logsource.get("service") if isinstance(logsource, dict) else None
+    _po_fields = (
+        positive_only_fields(taxonomy[_svc]) if _svc in taxonomy else set()
+    )
+    # requested_permissions predates the flag mechanism; kept explicit so the
+    # guard holds even for a taxonomy that dropped the marker.
+    if _svc == "app_scanner":
+        _po_fields = _po_fields | {"requested_permissions"}
     for _neg_name in _negated:
         _neg_body = detection.get(_neg_name)
-        if isinstance(_neg_body, dict) and any(
-            str(k).split("|")[0].lower() == "requested_permissions" for k in _neg_body
-        ):
-            errors.append(
-                f"selection '{_neg_name}' matches requested_permissions and is "
-                "referenced under 'not' — on builds that predate the emitter the "
-                "matcher is always false and negation inverts it to always-true, "
-                "defeating the exemption and over-firing on the old fleet; gate "
-                "the exemption on a field old builds emit, or wait for the fleet "
-                "floor to cover the emitter"
-            )
-        # dns_monitor.timestamp: same inversion class — binaries <= 0.9.0.656
-        # never set it, so the matcher is false there and `not` flips it.
-        _svc = (rule.get("logsource") or {}).get("service") if isinstance(rule.get("logsource"), dict) else None
-        if _svc == "dns_monitor" and isinstance(_neg_body, dict) and any(
-            str(k).split("|")[0].lower() == "timestamp" for k in _neg_body
-        ):
-            errors.append(
-                f"selection '{_neg_name}' matches dns_monitor timestamp and is "
-                "referenced under 'not' — app builds up to 0.9.0.656 never set "
-                "the field, so the matcher is always false there and negation "
-                "inverts it to always-true, over-firing on the old fleet; "
-                "reference timestamp positively only"
-            )
+        if not isinstance(_neg_body, dict):
+            continue
+        # Every positive_only / optional field (old binaries never emit it):
+        # the matcher is false there and `not` inverts it to always-true,
+        # defeating the exemption and over-firing on the old fleet (the #136
+        # Phase-2 inversion class; there is NO unknown-field skip floor).
+        for _k in _neg_body:
+            _base = str(_k).split("|")[0]
+            if _base in _po_fields or _base.lower() in _po_fields:
+                errors.append(
+                    f"selection '{_neg_name}' matches {_svc} {_base.lower()} and is "
+                    "referenced under 'not' — on builds that predate the emitter the "
+                    "matcher is always false and negation inverts it to always-true, "
+                    "defeating the exemption and over-firing on the old fleet; "
+                    "reference the field positively only, or gate the exemption on "
+                    "a field old builds emit"
+                )
 
     for sel_name, sel_value in detection.items():
         if sel_name == "condition":

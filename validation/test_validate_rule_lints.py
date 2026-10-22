@@ -1101,3 +1101,99 @@ def test_dns_timestamp_positive_reference_accepted(tmp_path):
     })
     result = run_validator_on(tmp_path, rule)
     assert result.returncode == 0, result.stderr
+
+
+# ---------- generalised positive_only / optional negation guard (telemetry store, spec §4.2) ----------
+
+import importlib.util  # noqa: E402
+
+import pytest  # noqa: E402
+
+
+def _load_validator():
+    spec = importlib.util.spec_from_file_location("validate_rule_mod", SCRIPT)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+# (service, field, selection value) — every field old binaries lack.
+_POSITIVE_ONLY_CASES = [
+    ("dns_monitor", "timestamp|gte", 1700000000000),
+    ("dns_monitor", "resolved_ips|contains", "1.2.3.4"),
+    ("file_scanner", "accessible", True),
+    ("appops_audit", "event_time_ms|gt", 0),
+    ("battery_daily", "timestamp|gt", 0),
+    ("battery_daily", "timestamp_precision", "day"),
+    ("db_info", "db_path|contains", "mmssms.db"),
+    ("db_info", "recent_query_count|gt", 5),
+    ("app_scanner", "requested_permissions", "android.permission.NEARBY_WIFI_DEVICES"),
+    ("app_scanner", "has_boot_receiver", True),
+]
+
+
+@pytest.mark.parametrize("service,field,value", _POSITIVE_ONLY_CASES)
+def test_every_positive_only_field_rejected_under_not(tmp_path, service, field, value):
+    rule = make_app_rule(id="androdr-314")
+    rule["logsource"] = {"product": "androdr", "service": service}
+    rule["detection"] = {
+        "selection": {"package_name": "com.example"},
+        "filter_x": {field: value},
+        "condition": "selection and not filter_x",
+    }
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "referenced under 'not'" in result.stderr and "over-firing" in result.stderr
+
+
+def test_taxonomy_flags_cover_the_spec_list():
+    mod = _load_validator()
+    tax = mod.load_taxonomy(REPO / "validation" / "logsource-taxonomy.yml")
+    for service, field, _ in _POSITIVE_ONLY_CASES:
+        assert field.split("|")[0] in mod.positive_only_fields(tax[service]), (service, field)
+    # optional implies positive-only
+    assert tax["appops_audit"]["fields"]["event_time_ms"].get("optional") is True
+
+
+def test_emitter_only_services_have_no_rule_access(tmp_path):
+    rule = make_app_rule(id="androdr-315")
+    rule["logsource"] = {"product": "androdr", "service": "usage_stats"}
+    rule["detection"] = {"selection": {"package_name": "com.example"}, "condition": "selection"}
+    result = run_validator_on(tmp_path, rule)
+    assert result.returncode == 1
+    assert "emitter_only" in result.stderr
+
+
+@pytest.mark.parametrize("svc", [
+    {"event_time_field": "nope"},
+    {"time_precision_field": "nope"},
+    {"package_field": "nope"},
+    {"key_fields": ["nope"]},
+    {"key_fields": []},
+    {"status": "bogus"},
+])
+def test_taxonomy_metadata_references_must_resolve(svc):
+    base = {"status": "active", "fields": {"a": {"kind": "raw_fact", "type": "string"}}}
+    with pytest.raises(SystemExit):
+        _load_validator()._check_service_metadata("svc", {**base, **svc})
+
+
+def test_taxonomy_flag_must_be_boolean():
+    with pytest.raises(SystemExit):
+        _load_validator()._check_service_metadata(
+            "svc", {"fields": {"a": {"kind": "raw_fact", "positive_only": "yes"}}}
+        )
+
+
+def test_taxonomy_time_fields_per_spec():
+    tax = _load_validator().load_taxonomy(REPO / "validation" / "logsource-taxonomy.yml")
+    assert "event_time_field" not in tax["db_info"]
+    assert tax["battery_daily"]["time_precision_field"] == "timestamp_precision"
+    expected = {
+        "usage_stats": "timestamp", "dns_monitor": "timestamp", "network_monitor": "timestamp",
+        "security_log": "timestamp", "appops_audit": "event_time_ms",
+        "tombstone_parser": "crash_timestamp", "wakelock_parser": "acquired_at",
+        "battery_daily": "timestamp", "package_install_history": "timestamp",
+    }
+    actual = {s: d["event_time_field"] for s, d in tax.items() if "event_time_field" in d}
+    assert actual == expected
