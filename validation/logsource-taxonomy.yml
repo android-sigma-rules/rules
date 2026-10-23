@@ -225,7 +225,7 @@ services:
     package_field: package_name
     fields:
       day_index: { kind: raw_fact, type: int, description: "Day offset in the battery stats history" }
-      version: { kind: raw_fact, type: long, positive_only: true, description: "Package version code parsed from the battery-stats entry (0 when unparseable). Emitted today only by BatteryDailyModule's IOC-match generic record; the typed BatteryDailyEvent does not carry it yet (AndroDR telemetry-store Task A6 must emit it there or remove it deliberately). FLEET SAFETY — POSITIVE REFERENCES ONLY: most records lack this field, so a matcher on it evaluates false there, which no-ops positive selections but INVERTS under `not`. Never reference it in a negated filter (validate-rule.py rejects it)" }
+      version: { kind: raw_fact, type: long, positive_only: true, description: "Package version code parsed from the battery-stats entry (0 when unparseable), carried on every typed BatteryDailyEvent. FLEET SAFETY — POSITIVE REFERENCES ONLY: old builds never emit this field, so a matcher on it evaluates false there, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference it in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)" }
       event_type: { kind: raw_fact, type: string, description: "Battery event type" }
       package_name: { kind: raw_fact, type: string, nullable: true, description: "Package associated with the event" }
       description: { kind: raw_fact, type: string, description: "Human-readable event description" }
@@ -257,7 +257,7 @@ services:
     fields:
       change_id: { kind: raw_fact, type: string, description: "Platform compatibility change ID" }
       package_name: { kind: raw_fact, type: string, description: "Package affected by the change" }
-      enabled: { kind: raw_fact, type: boolean, description: "Whether the compat change is enabled" }
+      enabled: { kind: raw_fact, type: boolean, optional: true, description: "Whether the compat change is enabled, parsed from the `enabled=` token of the dumpsys line; omitted when the line does not state it. OPTIONAL: only some records set it, and optional implies positive-only. FLEET SAFETY — POSITIVE REFERENCES ONLY: old builds never emit this field, so a matcher on it evaluates false there, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference it in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)" }
       source: { kind: raw_fact, type: string, description: "TelemetrySource enum name" }
       captured_at: { kind: raw_fact, type: long, description: "When this telemetry was captured (epoch ms)" }
 
