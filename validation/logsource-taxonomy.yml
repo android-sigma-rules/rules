@@ -225,7 +225,7 @@ services:
     package_field: package_name
     fields:
       day_index: { kind: raw_fact, type: int, description: "Day offset in the battery stats history" }
-      version: { kind: raw_fact, type: string, nullable: true, description: "Package version string parsed from the battery-stats entry, when present" }
+      version: { kind: raw_fact, type: string, nullable: true, optional: true, description: "Package version string parsed from the battery-stats entry, when present. OPTIONAL: set only by the bug-report BatteryDailyModule's generic record, not by the typed BatteryDailyEvent; optional implies positive-only (never reference it under `not`)" }
       event_type: { kind: raw_fact, type: string, description: "Battery event type" }
       package_name: { kind: raw_fact, type: string, nullable: true, description: "Package associated with the event" }
       description: { kind: raw_fact, type: string, description: "Human-readable event description" }
@@ -258,6 +258,7 @@ services:
       change_id: { kind: raw_fact, type: string, description: "Platform compatibility change ID" }
       package_name: { kind: raw_fact, type: string, description: "Package affected by the change" }
       enabled: { kind: raw_fact, type: boolean, description: "Whether the compat change is enabled" }
+      is_ioc: { kind: raw_fact, type: boolean, optional: true, description: "True if the package matched a known-bad package IOC at parse time. OPTIONAL: set only by the bug-report PlatformCompatModule record, not by the typed PlatformCompatChange; optional implies positive-only (never reference it under `not`)" }
       source: { kind: raw_fact, type: string, description: "TelemetrySource enum name" }
       captured_at: { kind: raw_fact, type: long, description: "When this telemetry was captured (epoch ms)" }
 
@@ -273,6 +274,7 @@ services:
       package_name: { kind: raw_fact, type: string, nullable: true, description: "Package that owns the database" }
       observation_timestamp: { kind: raw_fact, type: long, description: "When the database was observed (epoch ms)" }
       db_path: { kind: raw_fact, type: string, positive_only: true, description: "Database path as referenced in the bug report (typed DatabasePathObservation record). FLEET SAFETY — POSITIVE REFERENCES ONLY: old builds never emit this field, so a matcher on it evaluates false there, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference it in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)" }
+      is_ioc: { kind: raw_fact, type: boolean, optional: true, description: "True if the package matched a known-bad package IOC at parse time. OPTIONAL: set only by the bug-report DbInfoModule record, not by the typed DatabasePathObservation; optional implies positive-only (never reference it under `not`)" }
       recent_query_count: { kind: raw_fact, type: int, positive_only: true, description: "Recent query count parsed from the dbinfo section for this database. FLEET SAFETY — POSITIVE REFERENCES ONLY: old builds never emit this field, so a matcher on it evaluates false there, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference it in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)" }
       source: { kind: raw_fact, type: string, description: "TelemetrySource enum name" }
       captured_at: { kind: raw_fact, type: long, description: "When this telemetry was captured (epoch ms)" }
@@ -306,7 +308,7 @@ services:
   # the bug-report modules' current record keys (AdbKeysModule, ActivityModule).
 
   usage_stats:
-    model_class: UsageStatsEvent
+    model_class: UsageEvent
     field_map: member
     status: emitter_only
     event_time_field: timestamp
