@@ -62,3 +62,4 @@ wakelock_parser/androdr_072_persistent_wakelock.yml
 app_scanner/androdr_094_badbox_admoyu_component.yml
 app_scanner/androdr_095_manic_mesh_relay.yml
 app_scanner/androdr_109_midnight_mimosa_enabler.yml
+battery_daily/androdr_110_known_bad_package_uninstalled.yml
