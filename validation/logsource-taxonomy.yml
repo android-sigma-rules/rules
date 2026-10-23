@@ -6,6 +6,21 @@
 # names. The Rule Author skill uses this to constrain detection block fields.
 # LogsourceTaxonomyCrossCheckTest.kt validates this matches the Kotlin runtime.
 #
+# Service-level metadata (telemetry store, spec §4.2; validate-rule.py checks
+# that every reference resolves to one of the service's own fields):
+#   status:               active | emitter_only | unwired. emitter_only =
+#                         records are produced and stored but NO rule may
+#                         target the service.
+#   event_time_field:     field holding the event's epoch-ms time (events only;
+#                         absent for snapshot services such as db_info).
+#   time_precision_field: field stating the precision of event_time_field.
+#   key_fields:           fields identifying a snapshot record across scans.
+#   package_field:        field naming the owning package.
+# Field-level flags: positive_only: true marks a field old binaries never emit
+# (a matcher on it is false there, so `not` over-fires); optional: true marks a
+# field only some producers set and implies positive_only. validate-rule.py
+# rejects either under `not`.
+#
 # SAFE ORDERING (AndroDR #268): this file is the TRUST ROOT of the
 # validate-rule.py field lint — an edit merged straight to main is live for
 # remote-fetched rule validation within 12h with NO AndroDR gate having seen
@@ -26,6 +41,8 @@ services:
     model_class: AppTelemetry
     field_map: member
     status: active
+    key_fields: [package_name]
+    package_field: package_name
     fields:
       package_name: { kind: raw_fact, type: string, description: "Android package name (e.g., com.example.app)" }
       app_name: { kind: raw_fact, type: string, description: "User-visible app label" }
@@ -38,11 +55,11 @@ services:
       is_sideloaded: { kind: judgment, type: boolean, description: "True if installed outside trusted stores" }
       is_known_oem_app: { kind: judgment, type: boolean, description: "True if package matches known OEM prefix list" }
       permissions: { kind: raw_fact, type: list, description: "Curated security-relevant SHORT-NAME subset (surveillance + high-risk sets from AppScanner.EXPOSED_PERMISSION_SHORT_NAMES) — NOT the full requested list. FROZEN compat surface for shipped fleet rules; new rules match requested_permissions instead" }
-      requested_permissions: { kind: raw_fact, type: list, description: "EVERY permission the app requests, verbatim fully-qualified names, zero curation (emitter-emits-all-facts). Prefer this over the frozen curated short-name subset in `permissions` for new rules. MATCHING DISCIPLINE (validate-rule.py enforces): exact element-wise equals ONLY — bare key or |all combiner, never |contains/|startswith (android.permission.NFC is a substring of android.permission.NFC_TRANSACTION_EVENT; substring matching WILL false-positive). FLEET SAFETY — POSITIVE REFERENCES ONLY: emitted by app builds after AndroDR #317; older builds have NO unknown-field skip floor — a matcher on the missing field evaluates false, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference this field in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)" }
+      requested_permissions: { kind: raw_fact, type: list, description: "EVERY permission the app requests, verbatim fully-qualified names, zero curation (emitter-emits-all-facts). Prefer this over the frozen curated short-name subset in `permissions` for new rules. MATCHING DISCIPLINE (validate-rule.py enforces): exact element-wise equals ONLY — bare key or |all combiner, never |contains/|startswith (android.permission.NFC is a substring of android.permission.NFC_TRANSACTION_EVENT; substring matching WILL false-positive). FLEET SAFETY — POSITIVE REFERENCES ONLY: emitted by app builds after AndroDR #317; older builds have NO unknown-field skip floor — a matcher on the missing field evaluates false, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference this field in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)", positive_only: true }
       surveillance_permission_count: { kind: raw_fact, type: int, description: "Count of surveillance-related permissions (camera, mic, location, SMS, etc.)" }
       has_accessibility_service: { kind: raw_fact, type: boolean, description: "True if app declares an accessibility service" }
       has_device_admin: { kind: raw_fact, type: boolean, description: "True if app declares a device admin receiver" }
-      has_boot_receiver: { kind: raw_fact, type: boolean, description: "True if the app has a receiver registered for BOOT_COMPLETED or LOCKED_BOOT_COMPLETED (via queryBroadcastReceivers). FLEET SAFETY — POSITIVE REFERENCES ONLY: emitted by app builds after AndroDR #331; on older builds a matcher on this field evaluates false, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference this field in a negated filter until the fleet floor covers the emitter (AndroDR #331)" }
+      has_boot_receiver: { kind: raw_fact, type: boolean, description: "True if the app has a receiver registered for BOOT_COMPLETED or LOCKED_BOOT_COMPLETED (via queryBroadcastReceivers). FLEET SAFETY — POSITIVE REFERENCES ONLY: emitted by app builds after AndroDR #331; on older builds a matcher on this field evaluates false, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference this field in a negated filter until the fleet floor covers the emitter (AndroDR #331)", positive_only: true }
       known_app_category: { kind: raw_fact, type: string, nullable: true, description: "Category from known-good apps DB (e.g., SOCIAL, PRODUCTIVITY)" }
       service_permissions: { kind: raw_fact, type: list, description: "Permissions declared on exported services" }
       receiver_permissions: { kind: raw_fact, type: list, description: "Permissions declared on broadcast receivers" }
@@ -57,6 +74,7 @@ services:
     model_class: DeviceTelemetry
     field_map: member
     status: active
+    key_fields: [check_id]
     fields:
       check_id: { kind: raw_fact, type: string, description: "Identifier for the specific device check" }
       is_triggered: { kind: raw_fact, type: boolean, description: "True if the check found an issue" }
@@ -76,18 +94,23 @@ services:
     model_class: DnsEvent
     field_map: member
     status: active
+    event_time_field: timestamp
+    package_field: source_package
     fields:
       domain: { kind: raw_fact, type: string, description: "Queried domain name" }
       app_uid: { kind: raw_fact, type: int, description: "UID of the app that made the DNS query" }
       source_package: { kind: raw_fact, type: string, nullable: true, description: "Package name of querying app (key differs from property appName)" }
+      resolved_ips: { kind: raw_fact, type: list, positive_only: true, description: "IP addresses the DNS response resolved to (strings). Absent when the query was blocked or unanswered. Emitted by app builds after the telemetry-store change; older binaries never set it. FLEET SAFETY — POSITIVE REFERENCES ONLY: old builds never emit this field, so a matcher on it evaluates false there, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference it in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)" }
       is_blocked: { kind: raw_fact, type: boolean, description: "True if DNS response was replaced with NXDOMAIN" }
       reason: { kind: raw_fact, type: string, nullable: true, description: "Reason for blocking (blocklist match, etc.)" }
-      timestamp: { kind: raw_fact, type: long, description: "When the query was observed (epoch ms). Emitted only by app builds newer than 0.9.0.656 (the last release without it); older binaries never set it. FLEET SAFETY — POSITIVE REFERENCES ONLY: on builds up to 0.9.0.656 a matcher on this field evaluates false, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference this field in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)" }
+      timestamp: { kind: raw_fact, type: long, description: "When the query was observed (epoch ms). Emitted only by app builds newer than 0.9.0.656 (the last release without it); older binaries never set it. FLEET SAFETY — POSITIVE REFERENCES ONLY: on builds up to 0.9.0.656 a matcher on this field evaluates false, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference this field in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)", positive_only: true }
 
   process_monitor:
     model_class: ProcessTelemetry
     field_map: member
     status: active
+    key_fields: [process_uid, process_name]
+    package_field: package_name
     fields:
       process_name: { kind: raw_fact, type: string, description: "Process name from /proc" }
       process_uid: { kind: raw_fact, type: int, description: "Linux UID of the process" }
@@ -98,16 +121,20 @@ services:
     model_class: FileArtifactTelemetry
     field_map: member
     status: active
+    key_fields: [file_path]
     fields:
       file_path: { kind: raw_fact, type: string, description: "Absolute path to the file" }
       file_exists: { kind: raw_fact, type: boolean, description: "True if the file exists at scan time" }
       file_size: { kind: raw_fact, type: long, nullable: true, description: "File size in bytes" }
       file_modified: { kind: raw_fact, type: long, nullable: true, description: "Last modified timestamp (epoch ms)" }
+      accessible: { kind: raw_fact, type: boolean, positive_only: true, description: "True when the scanner could stat the path (distinguishes absent from unreadable). Emitted by app builds after the telemetry-store change. FLEET SAFETY — POSITIVE REFERENCES ONLY: old builds never emit this field, so a matcher on it evaluates false there, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference it in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)" }
 
   receiver_audit:
     model_class: ReceiverTelemetry
     field_map: member
     status: active
+    key_fields: [package_name, component_name, intent_action]
+    package_field: package_name
     fields:
       package_name: { kind: raw_fact, type: string, description: "Package declaring the receiver" }
       intent_action: { kind: raw_fact, type: string, description: "Intent action the receiver listens for" }
@@ -118,6 +145,8 @@ services:
     model_class: AccessibilityTelemetry
     field_map: member
     status: active
+    key_fields: [package_name, service_name]
+    package_field: package_name
     fields:
       package_name: { kind: raw_fact, type: string, description: "Package declaring the accessibility service" }
       service_name: { kind: raw_fact, type: string, description: "Fully qualified service class name" }
@@ -128,6 +157,9 @@ services:
     model_class: AppOpsTelemetry
     field_map: member
     status: active
+    event_time_field: event_time_ms
+    key_fields: [package_name, operation]
+    package_field: package_name
     fields:
       package_name: { kind: raw_fact, type: string, description: "Package the operation belongs to" }
       operation: { kind: raw_fact, type: string, description: "AppOps operation name (e.g., android:camera)" }
@@ -135,11 +167,14 @@ services:
       last_reject_time: { kind: raw_fact, type: long, description: "Epoch ms of last rejection" }
       access_count: { kind: raw_fact, type: int, description: "Total access count" }
       is_system_app: { kind: raw_fact, type: boolean, description: "True if app is a system app" }
+      event_time_ms: { kind: raw_fact, type: long, optional: true, description: "Epoch ms of the individual access event, set by the bug-report AppOps module only when the dumpsys line carries a real timestamp (0 when it does not). Live scans never set it. OPTIONAL: only some producers set it, and optional implies positive-only. FLEET SAFETY — POSITIVE REFERENCES ONLY: old builds never emit this field, so a matcher on it evaluates false there, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference it in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)" }
 
   network_monitor:
     model_class: NetworkTelemetry
     field_map: member
     status: active
+    event_time_field: timestamp
+    package_field: app_name
     fields:
       destination_ip: { kind: raw_fact, type: string, description: "Destination IP address" }
       destination_port: { kind: raw_fact, type: int, description: "Destination port number" }
@@ -156,6 +191,8 @@ services:
     model_class: TombstoneEvent
     field_map: extension  # internal fun TombstoneEvent.toFieldMap() in com.androdr.sigma
     status: active
+    event_time_field: crash_timestamp
+    package_field: package_name
     fields:
       process_name: { kind: raw_fact, type: string, description: "Crashed process name" }
       package_name: { kind: raw_fact, type: string, nullable: true, description: "Package name if resolvable" }
@@ -169,6 +206,8 @@ services:
     model_class: WakelockAcquisition
     field_map: extension
     status: active
+    event_time_field: acquired_at
+    package_field: package_name
     fields:
       package_name: { kind: raw_fact, type: string, description: "Package holding the wakelock" }
       wakelock_tag: { kind: raw_fact, type: string, description: "Wakelock tag string" }
@@ -181,11 +220,17 @@ services:
     model_class: BatteryDailyEvent
     field_map: extension
     status: active
+    event_time_field: timestamp
+    time_precision_field: timestamp_precision
+    package_field: package_name
     fields:
       day_index: { kind: raw_fact, type: int, description: "Day offset in the battery stats history" }
+      version: { kind: raw_fact, type: long, positive_only: true, description: "Package version code parsed from the battery-stats entry (0 when unparseable), carried on every typed BatteryDailyEvent. FLEET SAFETY — POSITIVE REFERENCES ONLY: old builds never emit this field, so a matcher on it evaluates false there, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference it in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)" }
       event_type: { kind: raw_fact, type: string, description: "Battery event type" }
       package_name: { kind: raw_fact, type: string, nullable: true, description: "Package associated with the event" }
       description: { kind: raw_fact, type: string, description: "Human-readable event description" }
+      timestamp: { kind: raw_fact, type: long, positive_only: true, description: "Epoch ms of the event, at day precision (see timestamp_precision). Present only when the battery-stats section yields a date. FLEET SAFETY — POSITIVE REFERENCES ONLY: old builds never emit this field, so a matcher on it evaluates false there, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference it in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)" }
+      timestamp_precision: { kind: raw_fact, type: string, positive_only: true, description: "Precision of timestamp; currently always `day`. FLEET SAFETY — POSITIVE REFERENCES ONLY: old builds never emit this field, so a matcher on it evaluates false there, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference it in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)" }
       source: { kind: raw_fact, type: string, description: "TelemetrySource enum name" }
       captured_at: { kind: raw_fact, type: long, description: "When this telemetry was captured (epoch ms)" }
 
@@ -193,6 +238,8 @@ services:
     model_class: PackageInstallHistoryEntry
     field_map: extension
     status: active
+    event_time_field: timestamp
+    package_field: package_name
     fields:
       package_name: { kind: raw_fact, type: string, description: "Installed/updated/uninstalled package name" }
       event_type: { kind: raw_fact, type: string, description: "INSTALL, UNINSTALL, or UPDATE" }
@@ -205,10 +252,12 @@ services:
     model_class: PlatformCompatChange
     field_map: extension
     status: active
+    key_fields: [package_name, change_id]
+    package_field: package_name
     fields:
       change_id: { kind: raw_fact, type: string, description: "Platform compatibility change ID" }
       package_name: { kind: raw_fact, type: string, description: "Package affected by the change" }
-      enabled: { kind: raw_fact, type: boolean, description: "Whether the compat change is enabled" }
+      enabled: { kind: raw_fact, type: boolean, optional: true, description: "Whether the compat change is enabled, parsed from the `enabled=` token of the dumpsys line; omitted when the line does not state it. OPTIONAL: only some records set it, and optional implies positive-only. FLEET SAFETY — POSITIVE REFERENCES ONLY: old builds never emit this field, so a matcher on it evaluates false there, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference it in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)" }
       source: { kind: raw_fact, type: string, description: "TelemetrySource enum name" }
       captured_at: { kind: raw_fact, type: long, description: "When this telemetry was captured (epoch ms)" }
 
@@ -216,11 +265,15 @@ services:
     model_class: DatabasePathObservation
     field_map: extension
     status: active
+    key_fields: [package_name, file_path]
+    package_field: package_name
     fields:
       file_path: { kind: raw_fact, type: string, description: "Absolute path to the database file" }
       process_name: { kind: raw_fact, type: string, nullable: true, description: "Process that owns the database" }
       package_name: { kind: raw_fact, type: string, nullable: true, description: "Package that owns the database" }
       observation_timestamp: { kind: raw_fact, type: long, description: "When the database was observed (epoch ms)" }
+      db_path: { kind: raw_fact, type: string, positive_only: true, description: "Database path as referenced in the bug report (typed DatabasePathObservation record). FLEET SAFETY — POSITIVE REFERENCES ONLY: old builds never emit this field, so a matcher on it evaluates false there, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference it in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)" }
+      recent_query_count: { kind: raw_fact, type: int, positive_only: true, description: "Recent query count parsed from the dbinfo section for this database. FLEET SAFETY — POSITIVE REFERENCES ONLY: old builds never emit this field, so a matcher on it evaluates false there, which no-ops positive selections but INVERTS under `not`, over-firing the old fleet. Never reference it in a negated filter until the fleet floor covers the emitter (validate-rule.py rejects it)" }
       source: { kind: raw_fact, type: string, description: "TelemetrySource enum name" }
       captured_at: { kind: raw_fact, type: long, description: "When this telemetry was captured (epoch ms)" }
 
@@ -228,6 +281,7 @@ services:
     model_class: SecurityLogEvent
     field_map: extension  # internal fun SecurityLogEvent.toFieldMap() in com.androdr.sigma
     status: active
+    event_time_field: timestamp
     fields:
       timestamp: { kind: raw_fact, type: long, description: "Event time (epoch ms)" }
       tag: { kind: raw_fact, type: int, description: "Numeric android.app.admin.SecurityLog tag" }
@@ -244,3 +298,58 @@ services:
     status: active
     fields:
       category: { kind: raw_fact, type: string, description: "Timeline event category an atom rule binds to (e.g. app_foreground, package_install, ioc_match). BINDING PRECONDITIONS (SigmaRuleEngine.computeAtomBindings / extractAtomCategory): matched by EXACT EQUALITY only; the atom must be enabled and level: informational; the detection selection must be literally named 'selection'; only the FIRST value of the matcher binds. An atom violating name/level/enabled NEVER binds; a |modifier on this field is silently IGNORED — the atom still binds by exact equality on the first value (dead only if that value is not an exact category literal, silently wrong-semantics otherwise)." }
+
+  # ── Emitter-only services (documented, NO rules; AndroDR telemetry store) ──
+  # status: emitter_only — the producer exists and its records are stored, but
+  # no rule may target the service (validate-rule.py rejects any non-active
+  # service outside staging/). adb_audit / activity_audit are documented from
+  # the bug-report modules' current record keys (AdbKeysModule, ActivityModule).
+
+  usage_stats:
+    model_class: UsageEvent
+    field_map: member
+    status: emitter_only
+    event_time_field: timestamp
+    package_field: package_name
+    fields:
+      timestamp: { kind: raw_fact, type: long, description: "When the foreground/background transition occurred (epoch ms)" }
+      package_name: { kind: raw_fact, type: string, description: "Package that moved to or from the foreground" }
+      app_name: { kind: raw_fact, type: string, description: "User-visible app label (falls back to the package name)" }
+      event_type: { kind: raw_fact, type: string, description: "Timeline category of the transition (app_foreground or app_background)" }
+      source: { kind: raw_fact, type: string, description: "TelemetrySource enum name" }
+      captured_at: { kind: raw_fact, type: long, description: "When this telemetry was captured (epoch ms)" }
+
+  system_property:
+    model_class: SystemPropertySnapshot
+    field_map: member
+    status: emitter_only
+    key_fields: [key]
+    fields:
+      key: { kind: raw_fact, type: string, description: "System property key (e.g. ro.boot.verifiedbootstate)" }
+      value: { kind: raw_fact, type: string, description: "System property value at snapshot time" }
+      source: { kind: raw_fact, type: string, description: "TelemetrySource enum name" }
+      captured_at: { kind: raw_fact, type: long, description: "When this telemetry was captured (epoch ms)" }
+
+  adb_audit:
+    model_class: AdbKeysModule record
+    field_map: none  # bug-report module emits a literal map; no data class
+    status: emitter_only
+    key_fields: [key_fragment, host]
+    fields:
+      key_fragment: { kind: raw_fact, type: string, description: "Truncated fragment of the trusted ADB public key" }
+      host: { kind: raw_fact, type: string, description: "Host label (user@machine) recorded in the trusted-key entry" }
+      source: { kind: raw_fact, type: string, description: "Record provenance (adb_trusted_key)" }
+
+  activity_audit:
+    model_class: ActivityModule record
+    field_map: none  # bug-report module emits a literal map; no data class
+    status: emitter_only
+    key_fields: [package_name, component_name, handled_scheme]
+    package_field: package_name
+    fields:
+      package_name: { kind: raw_fact, type: string, description: "Package declaring the activity" }
+      handled_scheme: { kind: raw_fact, type: string, description: "URI scheme the activity handles (colon stripped)" }
+      component_name: { kind: raw_fact, type: string, description: "Fully qualified activity component" }
+      is_system_app: { kind: raw_fact, type: boolean, description: "True if the declaring app is a system app" }
+      is_ioc: { kind: raw_fact, type: boolean, description: "True if the scheme matched an IOC at parse time" }
+      source: { kind: raw_fact, type: string, description: "Record provenance (bugreport_import)" }
