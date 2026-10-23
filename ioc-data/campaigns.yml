@@ -24,7 +24,7 @@ campaigns:
     references: [https://citizenlab.ca/2025/03/a-first-look-at-paragons-proliferating-spyware-operations/]
   - key: cellebrite
     label: Cellebrite
-    detected_by: [app_scanner]
+    detected_by: [app_scanner, battery_daily]
     references:
       # verified manually: Claude (A5), 2026-10-16, live page, campaign named in body
       - https://citizenlab.ca/research/cellebrite-used-on-kenyan-activist-and-politician-boniface-mwangi/
@@ -42,7 +42,7 @@ campaigns:
       - https://security.lookout.com/threat-intelligence/article/massistant-chinese-mobile-forensics
   - key: midnight-mimosa
     label: Midnight Mimosa
-    detected_by: [app_scanner, dns_monitor]
+    detected_by: [app_scanner, battery_daily, dns_monitor]
     references:
       # verified manually: Claude (A5), 2026-10-16, live page, campaign named in body
       - https://www.bitdefender.com/en-us/blog/labs/midnight-mimosa-malware
