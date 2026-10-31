@@ -1197,3 +1197,24 @@ def test_taxonomy_time_fields_per_spec():
     }
     actual = {s: d["event_time_field"] for s, d in tax.items() if "event_time_field" in d}
     assert actual == expected
+
+
+# ---------- malformed logsource (AndroDR #418) ----------
+# The schema rejects a non-string service, but validate_rule kept going and hit
+# `service not in taxonomy` -> TypeError (unhashable list), so the validator
+# crashed with a traceback instead of reporting the rule.
+
+def test_non_string_service_is_reported_not_a_crash(tmp_path):
+    rule = make_rule(logsource={"product": "androdr", "service": ["device_auditor"]})
+    r = run_validator_on(tmp_path, rule)
+    assert r.returncode != 0
+    assert "Traceback" not in r.stderr, r.stderr
+    assert "logsource.service" in (r.stdout + r.stderr)
+
+
+def test_non_mapping_logsource_is_reported_not_a_crash(tmp_path):
+    rule = make_rule(logsource="device_auditor")
+    r = run_validator_on(tmp_path, rule)
+    assert r.returncode != 0
+    assert "Traceback" not in r.stderr, r.stderr
+    assert "logsource" in (r.stdout + r.stderr)

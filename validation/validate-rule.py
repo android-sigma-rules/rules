@@ -516,11 +516,20 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
     if taxonomy is None:
         taxonomy = load_taxonomy(SCRIPT_DIR / "logsource-taxonomy.yml")
     logsource = rule.get("logsource", {})
+    if not isinstance(logsource, dict):
+        # The schema rejects this too, but validation continues past schema
+        # errors, so report it here instead of crashing on .get() (AndroDR #418).
+        errors.append(f"logsource must be a mapping, got: {type(logsource).__name__}")
+        logsource = {}
     if logsource.get("product") != "androdr":
         errors.append(f"logsource.product must be 'androdr', got: {logsource.get('product')}")
     service = logsource.get("service")
     service_fields = None
-    if service not in taxonomy:
+    if not isinstance(service, str):
+        # A list here made `service not in taxonomy` raise TypeError (unhashable).
+        errors.append(f"logsource.service must be a string, got: {service!r}")
+        service = None
+    elif service not in taxonomy:
         errors.append(
             f"Invalid logsource.service: {service} — not in "
             f"validation/logsource-taxonomy.yml (the taxonomy is the single "
@@ -566,7 +575,7 @@ def validate_rule(rule: dict, schema: dict, permissions: set[str],
         for i, t in enumerate(_cond_tokens[:-1])
         if t.lower() == "not"
     }
-    _svc = logsource.get("service") if isinstance(logsource, dict) else None
+    _svc = service  # normalised above: a str or None
     _po_fields = (
         positive_only_fields(taxonomy[_svc]) if _svc in taxonomy else set()
     )
