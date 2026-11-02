@@ -51,21 +51,8 @@ feeds:
       implemented in Python parser. Validator skips this feed with a warning
       instead of returning a misleading empty snapshot.
 
-  - id: threatfox
-    url: https://threatfox.abuse.ch/export/json/recent/
-    parser: threatfox-json
-    types: [C2_DOMAIN]
-    # AndroDR #127: live /export/json/recent/ now returns a flat numeric-id
-    # keyed dict (no `data` wrapper) with field name `ioc_value` (not `ioc`).
-    # The Python parser still expects the old `data: {date: [...]}` shape and
-    # `ioc` field, so it returns 0 against the live endpoint. The Kotlin
-    # ThreatFoxDomainFeed.kt parser uses the SAME stale assumption and is
-    # ALSO broken vs the live schema — needs a coordinated fix on the Kotlin
-    # side. Until then the complementarity invariant against ThreatFox is
-    # vacuously satisfied (Kotlin returns 0 too, so any threatfox-attributed
-    # ioc-data entry is genuinely additive). Treat as advisory only.
-    parser_limited: true
-    parser_limited_reason: >
-      Upstream schema drift (numeric-id-keyed top-level dict, ioc_value field
-      name). Kotlin parser has matching drift; coordinated fix tracked
-      separately. Validator skips this feed with a warning.
+  # threatfox: removed 2026-11-02. AndroDR retired ThreatFoxDomainFeed (branch fix/retire-threatfox-feed):
+  # ThreatFox answers HTTP 410 on its public export, and the replacement export needs a per-user
+  # abuse.ch Auth-Key the app cannot ship. The app no longer pulls ThreatFox on-device, so
+  # ThreatFox-sourced ioc-data entries are additive. ThreatFox stays an allowed IOC source, and
+  # scripts/fetch-feed-dumps.sh still dumps it for Gate 2b.
