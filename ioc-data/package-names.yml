@@ -1117,3 +1117,24 @@ entries:
   source: "stalkerware-indicators"
   reference: feed:stalkerware-indicators#Cocospy
   cold_start_seed: true
+- indicator: net.yy.vwork
+  family: Gigabud / Vwork (GoldFactory)
+  category: MALWARE
+  severity: HIGH
+  description: 'Vwork, a weaponized fork of the Shelter app cloner installed by GoldFactory''s Gigabud banking trojan; it creates an Android Work Profile and clones banking apps into it so fraud runs from a profile without malware signals (Group-IB, 2026-09-09). Remediation: remove the work profile (Settings > Accounts > Work profile > Remove), uninstall the app, and contact your bank.'
+  source: threat_research
+  reference: https://www.group-ib.com/blog/vwork-app-cloning-gigabud-goldfactory/
+- indicator: io.base.one887
+  family: StreamRat
+  category: MALWARE
+  severity: HIGH
+  description: 'StreamRat Android banking trojan / dropper package (ThreatFabric, 2026-09-02; fake free TV-streaming app spread via Meta/TikTok ads in Spain). Remediation: revoke Accessibility, uninstall, delete stray update_*.apk files from Downloads, contact your bank.'
+  source: threat_research
+  reference: https://www.threatfabric.com/blogs/from-meta-ads-to-full-device-takeover-uncovering-streamrat
+- indicator: io.meat.hint
+  family: StreamRat
+  category: MALWARE
+  severity: HIGH
+  description: 'StreamRat Android banking trojan / dropper package (ThreatFabric, 2026-09-02; fake free TV-streaming app spread via Meta/TikTok ads in Spain). Remediation: revoke Accessibility, uninstall, delete stray update_*.apk files from Downloads, contact your bank.'
+  source: threat_research
+  reference: https://www.threatfabric.com/blogs/from-meta-ads-to-full-device-takeover-uncovering-streamrat

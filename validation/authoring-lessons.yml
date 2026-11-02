@@ -64,3 +64,18 @@ lessons:
       those signals until a later roadmap era grants the permissions, so the
       owner parked it (2026-10-17). Ad blocking and deleting the advertising
       ID fully mitigate it.
+  - class: fp_risk
+    guidance: >
+      Add ioc-data only for infrastructure an Android device contacts because
+      the Android device is targeted or compromised. Skip C2 and exploit
+      infrastructure of threats with no Android component (iOS-only exploit
+      chains such as Coruna/DarkSword, Windows/Linux implants such as
+      CyberStrikeAI): every c2-domains entry fires androdr-003 as a critical C2
+      finding, but on Android a lookup there means a visit, not a compromise.
+  - class: weak_sourcing
+    guidance: >
+      Skip feed entries with no family attribution (ThreatFox 'Unknown
+      malware' / 'Unknown RAT' / 'Unknown Loader') and entries whose family
+      label is implausible for the sample type (e.g. a MalwareBazaar APK
+      labelled Mirai): the alert names the family to the user, and an
+      unattributed or mislabelled family can't be explained or remediated.
