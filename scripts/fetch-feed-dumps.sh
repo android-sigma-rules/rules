@@ -16,14 +16,23 @@ git clone -q --depth 1 https://github.com/prodaft/malware-ioc "$tmp/prodaft"
 dump "$tmp/prodaft" -name '*' > "$out/prodaft-malware-ioc.txt"
 git clone -q --depth 1 https://github.com/Zimperium/IOC "$tmp/zimperium"
 dump "$tmp/zimperium" -name '*' > "$out/zimperium-ioc.txt"
-curl -fsSL https://threatfox.abuse.ch/export/json/full/ -o "$tmp/tf.zip"
-# One record per line, so the checker's family test sees only that IOC's own malware name.
-unzip -p "$tmp/tf.zip" | python3 -I -c '
+# ThreatFox retired its public export (threatfox.abuse.ch/export/json/* returns HTTP 410 since 2026-11).
+# The replacement puts the abuse.ch Auth-Key in the URL path: never echo the URL or run this with set -x.
+# Without the key, write an empty dump (every threatfox entry then lands on the review list) instead of
+# aborting, so the other feeds' dumps still get written.
+if [ -n "${MALWAREBAZAAR_API_KEY:-}" ]; then
+  curl -fsS --proto '=https' "https://threatfox-api.abuse.ch/v2/files/exports/${MALWAREBAZAAR_API_KEY}/full.json.zip" -o "$tmp/tf.zip"
+  # One record per line, so the checker's family test sees only that IOC's own malware name.
+  unzip -p "$tmp/tf.zip" | python3 -I -c '
 import json, sys
 print("## threatfox/full.jsonl")
 for recs in json.load(sys.stdin).values():
     for r in (recs if isinstance(recs, list) else [recs]):
         print("| " + json.dumps(r, separators=(",", ":")))' | cap > "$out/threatfox.txt"
+else
+  echo "WARNING: MALWAREBAZAAR_API_KEY not set; threatfox dump is empty, every threatfox entry will be on the review list" >&2
+  printf '## threatfox/full.jsonl\n' > "$out/threatfox.txt"
+fi
 # MalwareBazaar needs MALWAREBAZAAR_API_KEY (one get_info call per `source: malwarebazaar` hash). Without the key every
 # malwarebazaar entry lands on the review list, so set it before running. Hashes come from ioc-data/malware-hashes.yml
 # plus, when CANDIDATES_DIR is given, every candidate file (a NEW hash is otherwise always NOT_FOUND).
