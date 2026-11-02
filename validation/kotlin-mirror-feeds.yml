@@ -51,7 +51,7 @@ feeds:
       implemented in Python parser. Validator skips this feed with a warning
       instead of returning a misleading empty snapshot.
 
-  # threatfox: removed 2026-11-02. AndroDR retired ThreatFoxDomainFeed (branch fix/retire-threatfox-feed):
+  # threatfox: removed 2026-11-02. AndroDR retired ThreatFoxDomainFeed (yasirhamza/AndroDR#435):
   # ThreatFox answers HTTP 410 on its public export, and the replacement export needs a per-user
   # abuse.ch Auth-Key the app cannot ship. The app no longer pulls ThreatFox on-device, so
   # ThreatFox-sourced ioc-data entries are additive. ThreatFox stays an allowed IOC source, and
