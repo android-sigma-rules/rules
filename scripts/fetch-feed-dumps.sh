@@ -21,7 +21,9 @@ dump "$tmp/zimperium" -name '*' > "$out/zimperium-ioc.txt"
 # Without the key, write an empty dump (every threatfox entry then lands on the review list) instead of
 # aborting, so the other feeds' dumps still get written.
 if [ -n "${MALWAREBAZAAR_API_KEY:-}" ]; then
-  curl -fsS --proto '=https' "https://threatfox-api.abuse.ch/v2/files/exports/${MALWAREBAZAAR_API_KEY}/full.json.zip" -o "$tmp/tf.zip"
+  # The URL goes to curl as a config on stdin (printf is a builtin), so the key never appears in argv / ps.
+  printf 'url = "https://threatfox-api.abuse.ch/v2/files/exports/%s/full.json.zip"\n' "$MALWAREBAZAAR_API_KEY" |
+    curl -fsS --proto '=https' -K - -o "$tmp/tf.zip"
   # One record per line, so the checker's family test sees only that IOC's own malware name.
   unzip -p "$tmp/tf.zip" | python3 -I -c '
 import json, sys

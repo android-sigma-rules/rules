@@ -17,7 +17,12 @@ SCRIPT = REPO / "scripts" / "fetch-feed-dumps.sh"
 def test_uses_the_auth_key_threatfox_export_not_the_retired_one():
     text = SCRIPT.read_text()
     assert not re.search(r"https://threatfox\.abuse\.ch/export", text), "retired ThreatFox export URL (HTTP 410)"
-    assert "https://threatfox-api.abuse.ch/v2/files/exports/${MALWAREBAZAAR_API_KEY}/full.json.zip" in text
+    assert "https://threatfox-api.abuse.ch/v2/files/exports/%s/full.json.zip" in text
+    # The key is in the URL path: it must reach curl via a stdin config (-K -), never argv (visible in ps).
+    assert re.search(r'printf \'url = "https://threatfox-api[^\n]*"\$MALWAREBAZAAR_API_KEY" \|\s*\n?\s*curl [^\n]*-K -', text)
+    for line in text.splitlines():
+        if re.match(r"\s*curl\b", line) or "| curl" in line:
+            assert "MALWAREBAZAAR_API_KEY" not in line, f"key on a curl command line: {line.strip()}"
     tracing = re.search(r"^\s*set\s+-[a-z]*x", text, re.M) or re.search(r"^#!.*\s-[a-z]*x", text)
     assert not tracing, "the ThreatFox export URL carries the Auth-Key; never trace the script"
 
