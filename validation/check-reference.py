@@ -23,9 +23,11 @@ import ipaddress
 import json
 import multiprocessing
 import os
+import queue
 import re
 import socket
 import sys
+import time
 import unicodedata
 import urllib.parse
 import urllib.request
@@ -366,15 +368,26 @@ def _check_url_with_deadline(indicator, reference, allowed_prefixes):
     proc = ctx.Process(target=_child, args=(q, indicator, reference, allowed_prefixes, _FETCHED.get(key)),
                        daemon=True)
     proc.start()
-    proc.join(DEADLINE_S)
-    if proc.is_alive():
-        proc.kill()
-        proc.join()
-        return "FETCH_FAILED", f"no complete result within {DEADLINE_S}s"
-    try:
-        status, detail, outcome = q.get(timeout=1)
-    except Exception:  # child crashed before reporting
-        return "FETCH_FAILED", f"checker child exited with code {proc.exitcode}"
+    # Read the queue BEFORE joining. The result carries the fetched page (to cache it), and a child
+    # with more than a pipe buffer (64 KB) queued cannot exit until the parent reads it: joining
+    # first deadlocked every page over 64 KB into "no complete result within 45s" (2026-11-03).
+    deadline = time.monotonic() + DEADLINE_S
+    result = None
+    while result is None:
+        try:
+            result = q.get(timeout=0.2)
+        except queue.Empty:
+            if not proc.is_alive():   # exited without reporting: one last read, then a crash
+                try:
+                    result = q.get(timeout=1)
+                except queue.Empty:
+                    return "FETCH_FAILED", f"checker child exited with code {proc.exitcode}"
+            elif time.monotonic() > deadline:
+                proc.kill()
+                proc.join()
+                return "FETCH_FAILED", f"no complete result within {DEADLINE_S}s"
+    proc.join()
+    status, detail, outcome = result
     if outcome is not None:
         _FETCHED[key] = outcome
     return status, detail
