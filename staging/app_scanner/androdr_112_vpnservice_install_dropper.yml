@@ -1,0 +1,58 @@
+title: Sideloaded app combining VpnService with APK-install capability (dropper traffic blackhole)
+id: androdr-112
+status: experimental
+category: incident
+description: >
+    An app installed outside the device's trusted stores both declares a VpnService
+    (an exported service guarded by BIND_VPN_SERVICE) and requests
+    REQUEST_INSTALL_PACKAGES. This is the StreamRat dropper pattern (ThreatFabric,
+    2026-09-02; fake free TV-streaming app pushed via Meta/TikTok ads to
+    Spanish-speaking users): the dropper downloads the banking-trojan payload and,
+    while installing it, raises a deliberately non-forwarding VPN tunnel that cuts
+    other apps' Internet access so cloud-based scanning cannot inspect the new APK.
+    ThreatFabric calls the install + VPN combination a notable risk signal; the same
+    technique has been reported for ToxicPanda. Either capability alone is common in
+    legitimate apps; together, on an unvetted app, they describe a payload installer
+    able to blind on-device defences. It is a stricter superset of androdr-091
+    (sideloaded VpnService, medium), which is staged only and not delivered,
+    so on delivered builds this is the only VpnService rule. 091 tests
+    is_sideloaded; this rule tests the equivalent installer|ioc_lookup:
+    trusted_installer_db.
+    ACTIVATION: matches only on app builds emitting requested_permissions
+    (AndroDR #317+) with the trusted-installer lookup wired (#136 Phase 2); older
+    binaries fail closed and silently skip.
+author: AndroDR AI Pipeline
+date: 2026/11/02
+references:
+    - https://www.threatfabric.com/blogs/from-meta-ads-to-full-device-takeover-uncovering-streamrat
+tags:
+    - attack.t1629
+    - attack.t1407
+logsource:
+    product: androdr
+    service: app_scanner
+detection:
+    selection:
+        is_system_app: false
+        service_permissions|contains: "BIND_VPN_SERVICE"
+        requested_permissions: "android.permission.REQUEST_INSTALL_PACKAGES"
+    store_installed:
+        installer|ioc_lookup: trusted_installer_db
+    condition: selection and not store_installed
+level: high
+falsepositives:
+    - "VPN or censorship-circumvention clients installed outside an app store that update themselves (for example website or GitHub builds of VPN and ad-blocking clients such as AdGuard, Blokada, Psiphon or Lantern, which may ship a self-updater) declare a VpnService and request REQUEST_INSTALL_PACKAGES for their self-updater. No known-good exemption exists, so every non-store-installed match needs user judgement."
+    - "A non-system OEM preload that holds both capabilities would match, because is_known_oem_app is a judgment field and cannot be used to exempt it."
+display:
+    category: app_risk
+    icon: vpn_lock
+    triggered_title: "VPN + App Installer (Sideloaded)"
+    evidence_type: none
+remediation:
+    - "This sideloaded app can both install other apps and take over all of your device's network traffic. Banking-trojan droppers such as StreamRat use this pair to install their payload while cutting off the Internet so security checks cannot run."
+    - "If you did not deliberately install this app as a VPN you trust, uninstall it: Settings > Apps > [this app] > Uninstall."
+    - "Check Settings > Network & internet > VPN and remove any VPN profile you did not create."
+    - "Look in your Downloads folder for APK files you did not download yourself (StreamRat saves its payload as update_<number>.apk), delete them, and check Settings > Apps > Default apps > Home app is the launcher you expect."
+    - "Review Settings > Accessibility and turn off accessibility access for any app you do not recognise; if you entered banking details recently, contact your bank."
+implies_flags:
+    - sideloaded

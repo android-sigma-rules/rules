@@ -156,3 +156,10 @@ entries:
     description: "Spynger stalkerware signing certificate (SHA-1) — if not self-installed, contact a DV hotline"
     source: "stalkerware-indicators"
     reference: feed:stalkerware-indicators#Spynger
+  - indicator: 86238ec6df27dd0886b701d73397e2da99c74066
+    family: EasyPhoneTrack
+    category: STALKERWARE
+    severity: CRITICAL
+    description: EasyPhoneTrack stalkerware signing certificate.
+    source: stalkerware-indicators
+    reference: feed:stalkerware-indicators#EasyPhoneTrack
