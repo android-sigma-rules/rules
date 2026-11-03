@@ -297,20 +297,34 @@ def fetch(url, allowed):
         return r.read(MAX_BYTES + 1)[:MAX_BYTES], ctype, r.geturl(), redirects.hops
 
 
-def _check_url(indicator, reference, allowed_prefixes):
-    """URL rules (incl. DNS) + fetch + parse. Runs in a child process (see _check_url_with_deadline)."""
-    problem = url_problem(reference, allowed_prefixes)
-    if problem:
-        return "BLOCKED_URL", problem
+def _fetch_outcome(reference, allowed_prefixes):
+    """("page", body, ctype, final_url, hops) or ("error", status, detail) for one reference URL."""
     try:
-        body, ctype, final_url, hops = fetch(reference, allowed_prefixes)
+        return ("page",) + tuple(fetch(reference, allowed_prefixes))
     except RedirectRefused as e:
-        return "BLOCKED_URL", f"redirect refused: {e}"
+        return ("error", "BLOCKED_URL", f"redirect refused: {e}")
     except Exception as e:  # network errors are a review item, never a removal
         cause = getattr(e, "reason", None)
         if isinstance(cause, RedirectRefused):
-            return "BLOCKED_URL", str(cause)
-        return "FETCH_FAILED", str(e)
+            return ("error", "BLOCKED_URL", str(cause))
+        return ("error", "FETCH_FAILED", str(e))
+
+
+def _check_url(indicator, reference, allowed_prefixes, outcome=None):
+    """URL rules (incl. DNS) + fetch + parse -> (status, detail, fetch outcome). Runs in a child process
+    (see _check_url_with_deadline). `outcome` is a fetch result the parent already holds for this URL."""
+    problem = url_problem(reference, allowed_prefixes)
+    if problem:
+        return "BLOCKED_URL", problem, None
+    if outcome is None:
+        outcome = _fetch_outcome(reference, allowed_prefixes)
+    if outcome[0] == "error":
+        return outcome[1], outcome[2], outcome
+    status, detail = _parse_page(indicator, reference, *outcome[1:])
+    return status, detail, outcome
+
+
+def _parse_page(indicator, reference, body, ctype, final_url, hops):
     if body[:5] == b"%PDF-" or (ctype and not ctype.startswith(TEXT_TYPES)):
         return "FETCH_UNSUPPORTED", f"content-type {ctype or 'pdf'}"
     text = body.decode("utf-8", errors="ignore")
@@ -334,15 +348,23 @@ def _is_js_shell(text):
     return len(prose) < JS_SHELL_MAX_PROSE and ("<script" in raw or "<noscript" in raw)
 
 
-def _child(q, indicator, reference, allowed_prefixes):
-    q.put(_check_url(indicator, reference, allowed_prefixes))
+def _child(q, indicator, reference, allowed_prefixes, outcome):
+    q.put(_check_url(indicator, reference, allowed_prefixes, outcome))
+
+
+# One fetch per (reference URL, allowed prefixes) per process. A batch cites the same report for many
+# entries (112 CyberDakait entries -> one Group-IB page): fetching it per entry got the checker HTTP 429
+# on 2026-11-02. A failure is kept too, so a rate-limited page is not hammered for every remaining entry.
+_FETCHED = {}
 
 
 def _check_url_with_deadline(indicator, reference, allowed_prefixes):
     """Hard wall-clock limit over fetch AND parse: the child is killed, not asked to stop."""
+    key = (reference, tuple(allowed_prefixes) if allowed_prefixes is not None else None)
     ctx = multiprocessing.get_context("fork")   # Linux (CI, maintainer workstation); inherits test monkeypatches
     q = ctx.Queue()
-    proc = ctx.Process(target=_child, args=(q, indicator, reference, allowed_prefixes), daemon=True)
+    proc = ctx.Process(target=_child, args=(q, indicator, reference, allowed_prefixes, _FETCHED.get(key)),
+                       daemon=True)
     proc.start()
     proc.join(DEADLINE_S)
     if proc.is_alive():
@@ -350,9 +372,12 @@ def _check_url_with_deadline(indicator, reference, allowed_prefixes):
         proc.join()
         return "FETCH_FAILED", f"no complete result within {DEADLINE_S}s"
     try:
-        return q.get(timeout=1)
+        status, detail, outcome = q.get(timeout=1)
     except Exception:  # child crashed before reporting
         return "FETCH_FAILED", f"checker child exited with code {proc.exitcode}"
+    if outcome is not None:
+        _FETCHED[key] = outcome
+    return status, detail
 
 
 @functools.lru_cache(maxsize=16)
@@ -389,9 +414,10 @@ _STIX_LITERAL = re.compile(r"(?i)(\bNOT\s*)?(?<![!<>=])==?\s*'([^']{1,512})'")  
 
 
 def clear_caches():
-    """Dump caches are linked: clear them together (tests, or a long-lived process re-reading dumps)."""
+    """Dump and fetch caches are linked: clear them together (tests, or a long-lived process re-reading dumps)."""
     _feed_sections.cache_clear()
     _stix_index.cache_clear()
+    _FETCHED.clear()
 
 
 @functools.lru_cache(maxsize=64)

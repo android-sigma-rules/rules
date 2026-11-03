@@ -18,6 +18,14 @@ import pytest
 
 
 @pytest.fixture(autouse=True)
+def fresh_fetch_cache():
+    """The per-URL fetch cache must never carry a page from one test into another."""
+    getattr(cr, "_FETCHED", {}).clear()
+    yield
+    getattr(cr, "_FETCHED", {}).clear()
+
+
+@pytest.fixture(autouse=True)
 def fixed_campaigns(monkeypatch):
     """Tests don't depend on the repo's current campaigns.yml (round 11)."""
     monkeypatch.setattr(cr, "campaign_names", lambda: {
@@ -678,3 +686,47 @@ def test_wbr_joins_only_within_a_text_run():
     assert not found("com.example.longname", "<div>com.example.</div><wbr/><div>longname</div>")
     assert found("com.example.longname", "<p>com.example.<WBR>longname</p>")
     assert found("com.example.longname", "<p>com.example.<WBR/>longname</p>")
+
+
+# 2026-11-02: a batch citing one Group-IB report for 112 entries fetched it 112 times and got HTTP 429.
+def _counting_fetch(tmp_path, result):
+    log = tmp_path / "fetches.log"
+
+    def fake(url, allowed):          # runs in the forked child: count through a file, not a variable
+        with open(log, "a") as f:
+            f.write(url + "\n")
+        if isinstance(result, Exception):
+            raise result
+        return result
+    return fake, log
+
+
+def test_same_reference_is_fetched_once_per_run(monkeypatch, tmp_path):
+    public_dns(monkeypatch)
+    page = b"<p>IOCs: a-evil.com b-evil.com c-evil.com and more ordinary report prose here.</p>"
+    fake, log = _counting_fetch(tmp_path, (page, "text/html", "https://example.org/report", []))
+    monkeypatch.setattr(cr, "fetch", fake)
+    for ind in ("a-evil.com", "b-evil.com", "c-evil.com"):
+        assert cr.check(ind, "https://example.org/report", None)[0] == "FOUND"
+    assert log.read_text().splitlines() == ["https://example.org/report"]
+
+
+def test_fetch_failure_is_kept_so_a_rate_limited_page_is_not_hammered(monkeypatch, tmp_path):
+    import urllib.error
+    public_dns(monkeypatch)
+    err = urllib.error.HTTPError("https://example.org/report", 429, "Too Many Requests", {}, None)
+    fake, log = _counting_fetch(tmp_path, err)
+    monkeypatch.setattr(cr, "fetch", fake)
+    statuses = [cr.check(ind, "https://example.org/report", None)[0] for ind in ("a.com", "b.com", "c.com")]
+    assert statuses == ["FETCH_FAILED"] * 3
+    assert len(log.read_text().splitlines()) == 1
+
+
+def test_different_references_are_fetched_separately(monkeypatch, tmp_path):
+    public_dns(monkeypatch)
+    fake, log = _counting_fetch(tmp_path, (b"<p>evil.com is listed in this ordinary report.</p>", "text/html",
+                                           "https://example.org/x", []))
+    monkeypatch.setattr(cr, "fetch", fake)
+    cr.check("evil.com", "https://example.org/one", None)
+    cr.check("evil.com", "https://example.org/two", None)
+    assert log.read_text().splitlines() == ["https://example.org/one", "https://example.org/two"]
