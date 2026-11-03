@@ -1,0 +1,59 @@
+title: XCPE preinstalled firmware backdoor (Videostrong TV-box system app)
+id: androdr-111
+status: experimental
+category: incident
+description: >
+    A system app installed from device firmware carries one of the two
+    package names GTIG (2026-11-02) documented as the XCPE botnet's
+    firmware-preloaded backdoor: x.cpe / com.oemservice, running as
+    android.uid.system on 1.3M+ Android TV boxes attributed to
+    manufacturer Videostrong Technology. The backdoor bootstraps via
+    *.anyevonline.com, takes MQTT tasking from mqtt.szbboys.com,
+    reinstalls itself from /oem/, disables Play Protect package
+    verification and loads affiliate monetization modules (proxyware,
+    ad fraud, backdoors) via com.abc.nexus. The generic package-IOC rule
+    (androdr-001) excludes system apps, so the firmware implant is
+    invisible to it; this rule closes that gap, mirroring androdr-109
+    (Midnight Mimosa) and androdr-094 (BADBOX). The droppers named like
+    system apps (com.android.system.ntp, com.android.sso.auth.handler) are
+    installed onto the device by the backdoor rather than shipped in
+    firmware, so they are covered by package-name IOC entries via
+    androdr-001, not by this rule.
+    COVERAGE BOUND: a firmware build that renames the backdoor evades this
+    rule, and a non-system reinstall of x.cpe / com.oemservice is caught only
+    once those names are in package-names.yml (pending the GTIG
+    allowed-source change). The com.abc.nexus monetization module is also
+    fingerprinted by androdr-094 (AdmoyuService component).
+author: AndroDR AI Pipeline
+date: 2026/11/02
+references:
+    - https://cloud.google.com/blog/topics/threat-intelligence/shutting-the-door-on-the-xcpe-botnet
+tags:
+    - attack.t1474
+    - attack.t1629
+logsource:
+    product: androdr
+    service: app_scanner
+detection:
+    selection:
+        is_system_app: true
+        package_name:
+            - "x.cpe"
+            - "com.oemservice"
+    condition: selection
+level: critical
+falsepositives:
+    - "None known: x.cpe and com.oemservice are the XCPE backdoor's own package names as GTIG documented them, not AOSP or mainstream OEM package names. A firmware from another vendor that reused one of these exact names would collide; no such app is known. The source is a single primary disclosure (GTIG, coordinated with Japan NPA, Lumen, HUMAN, Plume, Synthient and TrendAI); BleepingComputer reports the same disclosure."
+remediation:
+    - "This preinstalled system app is the XCPE botnet backdoor. It takes remote commands, turns off Play Protect checks, and installs proxy and ad-fraud modules that sell your connection and run fake ad clicks. A normal uninstall does not remove it: it reinstalls itself from the firmware."
+    - "Install clean firmware from a trustworthy source if one exists for this device; otherwise stop using the device (most affected devices are cheap Android TV boxes) and do not sign in to personal accounts on it."
+    - "Review the AndroDR DNS log for contact with anyevonline.com or szbboys.com."
+display:
+    category: app_risk
+    icon: warning
+    triggered_title: "XCPE Firmware Backdoor (Preinstalled)"
+    evidence_type: ioc_match
+    summary_template: "XCPE preinstalled backdoor: {matched_value}"
+    guidance: "CRITICAL -- device firmware carries a preinstalled botnet backdoor; consider the device compromised"
+implies_flags:
+    - known_malware
