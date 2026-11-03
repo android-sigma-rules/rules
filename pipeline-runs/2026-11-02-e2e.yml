@@ -1,0 +1,1095 @@
+# 2026-11-02 e2e run (workflow wf_9f1d3ed0-27d), news-sweep seeds: CyberDakait, BankBot-YNRK,
+# CVE-2026-58882/58704. Not recorded here: 228 XCPE IOC entries blocked by the allowed-sources
+# prefix (GTIG), deferred to a follow-up review after the allowed-sources PR; 9 author
+# decision-only records (no rule proposed) that the workflow mis-forwarded to validation.
+run: '2026-11-02'
+mode: e2e
+candidates:
+- id: androdr-111
+  verdict: approved_with_modification
+  reason: Reviewer notes applied (coverage-bound note, androdr-094 cross-reference); renumbered from workflow block
+    ID androdr-120. XCPE IOC entries deferred pending the GTIG allowed-source change.
+  failure_class: other
+- id: androdr-112
+  verdict: approved_with_modification
+  reason: Reviewer notes applied (androdr-091 is staging-only wording, named FP app classes); renumbered from workflow
+    block ID androdr-121. Remediation claims verified against the ThreatFabric report.
+  failure_class: other
+- id: z59ux9.he2o9t.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: he2o9t.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: ghostx-panel-default-rtdb.firebaseio.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: myuse-60542.firebasestorage.app
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: myuse-60542-default-rtdb.asia-southeast1.firebasedatabase.app
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: ghostx-panel.firebasestorage.app
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: mparivahan.hs.vc
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: mparivahan772.s.gy
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: nsx1-7f7aa-default-rtdb.asia-southeast1.firebasedatabase.app
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: nsx1-7f7aa.firebasestorage.app
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 81service.icu
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 81service.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: imanagec.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: applypointguides.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cancelcardprotection.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cancelcpservice.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cancelmyservice.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cancelservice.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cardforex.icu
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cardplan.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cardprotections.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cardsprotection.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cardsprotection.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: careidf.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: carep.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cpmanaged.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cppmanage.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: deactivatecpplan.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: deactivatecpservice.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: hamzaansari1612-ux.github.io
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: hdmanage.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: icppuser.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: icppuser.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: icservice.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: icuser.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: idcare.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: idfcare.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: idmanagecp.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: idservice.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: imobile.services
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: imobilelite.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: imobileservices.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: indeemanage.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: indemanage.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: indiuser.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: inducare.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: managebworld.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: managecare.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: managecare.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: managecp.co.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: managecp.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: manageici.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: manageinsurances.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: manageprotection.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: manageprotectionplan.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: manageprotections.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: myicuser.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: myinsuranceservice.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: mypnhelp.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: mypolicyservice.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: pmanage.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: pncare.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: policydeactivate.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: protectcc.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: protectionmanage.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: rohansingh253641-spec.github.io
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: secureici.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: servicecpp.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: serviceic.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: serviceici.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: serviceidf.in
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: serviceidf.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: servicescard.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: serviceshelp.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: suraj527526-cmyk.github.io
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: www.icppuser.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: www.icuser.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: www.protectcc.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: www.secureici.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: www.servicecpp.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: www.serviceic.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: aptabase.fud2026.xyz
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: accessor.fud2026.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: fud2026.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: pool.fud2026.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: pool-proxy.fud2026.com
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: install-update.xyz
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: app2-update2.site
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: update-app.online
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: ping.ynrkone.top
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: plp.foundzd.vip
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: plp.e1in2.top
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: plp.en1inei2.top
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: net.yy.vwork
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: io.base.one887
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: io.meat.hint
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 86238ec6df27dd0886b701d73397e2da99c74066
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: affbae7d9b039f377dec0fdc18e9a84ec49d77fbf7e10791b1d618d080ae503e
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: a9859c49d20baf131d1e9253acb0118fac412acaa97938d87c7c8daa7554cd54
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 1b40c5c5ede3f9986692526f2e1378fcb5c93fac4e07819c4e2fad2c382a3b06
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 5d58978d02b03f6274c3146320d17a1d64642901ae6984c1bddbd7e6293628f6
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 2dbcfb3b86ef108709d44d6a9213c095bb2ea51797ad5ff3e0e61bc99e8e0326
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 8dfb0686ea46ce428422587f9c835d30a4a39da23c428bca0aba4d716613f1eb
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: ca394e1603c83b57b41539cc893dc308e3d99e7542c35db4c2c4ece6f068161b
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 01004ec08124a75c496644d11a5a137dc24f5ddfe79e918a3aefd49d24316ca6
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: f6bf91fd210cf04592949131b3ed1a4a10986c9bdeebb4869f511b42c54c5328
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: ae5483625f278378e9d8930562c3be0dc41c9132fbcaad3894c78b76eb986141
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 0a592e8cbc7f6ece7de140a8f49c359fbf152f3d7bab474eb0f52f521f3e56c3
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 58f639084f153ff5241b8ee7de3aba11dc5db2cebbb755f8c17c1091b030f594
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 1ae3e8213b07e1d53eca54a1901e2dc6dc9e27a3ca10377a63e6adec2fe15426
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 7add757c3f09d52863fcc07948491ad967a7f0a9a51bbabb8567c26b8bfecfda
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 425469176c41994bc33ce0582948798875f5c9682b7d0967c925a10f813e1a3d
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 2fa0f3893ca8fff0ba2c2e30d0ba35712ec5dffa27ebe1b87b4a26cb4f7d0aa4
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 0ad853b29a7b3677488018061b109bba59b1a518c8f33b48de31ec532be69856
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 1e60421e83a317cfbfce980fefa926a847964bcc7b047908db65161148d0f624
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 2fbde057c22b6cb517116d6c797c3474de2f4d3bda09037a9f043a6ad843982f
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 3b64eeacacb94d70d498988fe8c6dcc25b133bcaea37fb69dc6f0cc26bde9921
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 5a0cd09adb09a79071a85edc931e02c8d565d6cb7cb58e5b0bffd866e6a2ffb4
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 5f09a31e28b755aab00fbf3669a7369d1205ac5dea85f0b328cb7cd76472e456
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 7e631e9f7791f4648f776419c020ce6c33071c3e195669dd473f1423f098d39d
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 47ae095fd9e5143798a70805a23eb294fc072170dac19c1fa112beca186d844a
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 65e64e65678f849871257dca43fccf8941ee0ee35fe6b72e86a34fe84e752e68
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 80de49a3bd719d62f3b2f24d584a03e3fff3e6ac46ad8bea3c04c8a09071ed3a
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 431ae9a0569c52de8fb5abffcf12919b8d685a879f4e777602ae490dbc2a6baa
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 902803b40aa30d12e60a37680b113d5fc7c79695b7e1b72904fa7de06cf9b27b
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: b2bfa29467c1979c044259d4ffe31fc32aa6ef33939779bd3b1ce6bedb44dea9
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: b332fa9c08020fbbc5503091b4f4a61ee66a05a0a76abf9a53db9f3d80c4862a
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: c9ead89d1bcb09923e1057bb4617726867154d36932ed1c2f82c2466bf11934c
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: c36d2b4480034a409f33cdef8d7c3501e75f14d2c5bd9a914a65fd7f3c47d74a
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: c6708166e0a6bf3484200fd6dd1569d89e81c36ffd76ff2ab5820b06fd2d5b54
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cb86017411708eb6e5384fc0288b0ec4692ea45ef38586b7c67f99148e1117c3
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cf32addd82960501859f205b0fca8c0b51a40857f71e4a2aee8d70b2433319b7
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cf66a1acebd878d85345377be53ac0b241f517253811ec969c8ff9c751151424
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: dfa02773f97f552deb7ff04f5c598a81be4d236fe33adca2a47551485a3aeb2a
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 9e7cdafcb473d28e134f87d758839265e97b03cf260a186d0e21e1de8aeb7fa8
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 1b9052d85e12573b4f64f6a47f64803007b19990def1bc62a865de00149a825e
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 5c0f8bca492c9ee79d6bbd7a532945514670321a605002987f69e3331110e447
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 53f9fcf3a6fdc59e9a28fd129a32064d78628289eac72d47f53d63cbc434de41
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 43b217184f7765c699fd887fe22c07c7656483dc088e0214587a4890b2b6aee6
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 34b75b78b6c575c8a9e71f712be9d90aa35a3a04b48839f86282678107f7876d
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 1bfaaa9aed67552a2c368df3f264ef6878a4e7b43468546db77f095517b15b56
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 04b35b0c199ef8a13d6ac18dfc6df2ea66a8ed5b6e464dc3a7db0839093882bd
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: d72335c0cbbcef002274c1a5087702ed4a91d91a79279104aaf111a33984ae5f
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 4a17171155997754ad735b460be67e344c5939d9cff498ce1d95bf554b93fc1b
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 3b6c2dcba751d1ea05b83fd609e13423dff575705920a1c835ff0d5f92403ffc
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 555e0506979e0b26e4318c0f7dfff0e3dc5c81bb7e3925f2cadd1bdeb843570f
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: cb25b1664a856f0c3e71a318f3e35eef8b331e047acaf8c53320439c3c23ef7c
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 19456fbe07ae3d5dc4a493bac27921b02fc75eaa02009a27ab1c6f52d0627423
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: a4126a8863d4ff43f4178119336fa25c0c092d56c46c633dc73e7fc00b4d0a07
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: b769721621aed0418b193e4a00e51bc772c8383a4149d23a5425b13475e2d501
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: ae6f6eeba2bd4cc948d24610d9447986e52f913f4b5ff960ddea26075ff621ae
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 4fff28eecc0ab6303e4948df77671009dda5b93ed3d1cead527b02d1317426bc
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 112fefc9348fa4acbb82d54d9688c96dd5671bcb2e6288c1f7f384baa8d2fdcf
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 9ca27df7938f12794bab0847434482955ca9adea714a34afd315c7a7be522611
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 1f5d99864564c088a3260e54ad1728a3eadc0b509386cae200993b33673b343c
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 0710ca983741bf6a95db1b6960c1985e45b10f276e5b26f4fae3157db283d1f3
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 66499653c0fff78d81db5dc319b9aaa0288dc5d76f555a5eba73660c0ee810eb
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: 61274cf9f49e04e559b267d18617d352c48ba3b1f453773ee9f30e5a4e25dbbc
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: e0714788b4e2518b0d9d4cbf18c7217bb97718e01689d77338f1cc4a230fcb6c
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: ba83cc3c9535690191018edf73ca5c6001609df9919462796aa2e551f142e4d3
+  verdict: approved
+  reason: ''
+  failure_class: null
+- id: vanta.im
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: heydear.duckdns.org
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: fuckthecisunion.duckdns.org
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: microbybit.duckdns.org
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: fuckrussiafuckukraine.duckdns.org
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: neighborcatfuckers.club
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: pedophile.onthewifi.com
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: anti.publicvm.com
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: kaloed.cfd
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: orgeconomics.cyou
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: greatwivesforme.wifenet.lol
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: test.hagaseca.com
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution; Gate 2b NOT_FOUND in the ThreatFox dump.
+  failure_class: unverifiable_provenance
+- id: ccsigen321qc.com
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: ssc.vever3eds.com
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: vrgrt4t33.com
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: melatibiru.win
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: test.ipsadminfastcloud.homes
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: dxhe16kfu01eco5.lat
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: prod79y5hyigrqj.icu
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: ipsadminuser.shop
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: ips.ipnewadminshop.shop
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: ip.zsqtxu.cn
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: gk2j9o117xfmclf.icu
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: ip.57x4l709amkhwbq.icu
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: dafuweng1888888.icu
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: ubigdan69741536.icu
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: amrcoolboy33333.icu
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: go32ip.74rcu0ntwgvtpzn.icu
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: 4wbzloj8bai3qw4.icu
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: gkxtguomb5mrs16.xyz
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: n65ca1ea16e1log.icu
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: a.uukkll.xyz
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: mza165114bm9w6a.icu
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: ipv17.icu
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: ipsadminfastcloud.homes
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: echomint.buzz
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: 3x3br.eu.cc
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: 1x8gmjbdq3tepgr.icu
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: hdmg57.cc
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: ifram.xoovo.top
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: xoovo.top
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: se.stripchati.xyz
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: ajax.googleapls.com
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: a111.life
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: ip.126tr8gfyiutgfwqo80y.xyz
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: commoditytrendpilot.site
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: gewc61.cc
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: dmrwq.cn
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: www.jx9adrpc5z8094di7.net
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: ushdwks.xyz
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: whcltjkyl.com
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: m.bunecemopu.pro
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: g1ha.lol
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: jiaoyou.eu.cc
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: u5d6a5j9mhx646g.icu
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: ak.wyincc.com
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: trxusdt.vip
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: pifilubihu.shop
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: nhju8wtvu3.pifilubihu.shop
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: pureaffection.shop
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: sweettwosome.shop
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: friendora.shop
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: buddyflow.shop
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: p1.amberpetal.win
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: p1.silkbloom.win
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: amorfinder.shop
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: datepulse.shop
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: yinyu.myloves.online
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: xby.yinuo79.online
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: quietbloom.win
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: serenecove.win
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: walink.win
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: tk.89gh.shop
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: tk.968227.shop
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: sdk.ftht8s6llvse581.cfd
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: www.edgecdnstatic.com
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: www.k1x513ppsb71yqvi8c9e8mj.info
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: 99dgg3skmm.fbflow.cloud
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: anzf27.cc
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: apexforge.best
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: cc3.uukkll.xyz
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: chan.wakwak.icu
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: dasferws.site
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: hiun78.cc
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: kkk.wyincc.com
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: mzpo30.cam
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: nmg067.cc
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: osid66.cc
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: rk.ehdkn68fqmd64jh.icu
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: sese.aadd6688.sbs
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: sweepstakes.cocoex.info
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: www.amazonawsapirds.com
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: www.cloudfareintcdn.com
+  verdict: rejected
+  reason: iOS-only exploit/watering-hole infrastructure; on Android a DNS hit means a visit, not a compromise.
+  failure_class: fp_risk
+- id: fastcdn.bar
+  verdict: rejected
+  reason: C2 of a Windows/Linux implant with no Android component.
+  failure_class: other
+- id: media.fastcdn.bar
+  verdict: rejected
+  reason: C2 of a Windows/Linux implant with no Android component.
+  failure_class: other
+- id: 0defa131ec7e1d8ada99b9d04e4a20d7749711690b9d7cd696404595647c4671
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: 86d73abb6eb454a283ef0ece663ba245904be3ccb68b3a158b0f8ec2a84a47b3
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: e36014f703387557802408f55e58759a2b8e7a4dd28bba1b491d4af23e642f03
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: d1bf06c4f40f463b3f7b5976bf221f9dd04c18abef2633707477bcc75807e4da
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: cd6e1c507f79344b2984410fdf44fe023be9ab9e47251cf7671caa55e8015a76
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: b4951d87ca99c0d86d7d04d2c23846d0d954015b3a7a963cd818af36d320290f
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: ad47c65ac004d6345533b43a8c26410f625bb59473ad529dcba02758509d0bdc
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: a9c218c7d2f700de189ebab1620464a445dfdb5fb896c78466c8bdeac4b260d5
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: 95bc38b877b9f949588d27a984bff479851d466d04e199f25734887a3f437bc8
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: 5196e9ed38861ad62e20910c70eaa043d564ca2efce9f62e73648382ddf0d8dd
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: 314f667e26f39cbf0020625986c6a70d227e11c1e455fa43bcaacd7ef8211250
+  verdict: rejected
+  reason: ThreatFox entry with no family attribution.
+  failure_class: weak_sourcing
+- id: 089688db8500d0776501de520205209535bf0e5104d0a728f484dde75c1ed9c2
+  verdict: rejected
+  reason: MalwareBazaar 'Mirai' label is implausible for an APK (likely mislabel).
+  failure_class: weak_sourcing
+- id: 6e136391f87beac4ae152e4f3f24ad61fb7b06df0fdb39d0005660ea1c5ea55e
+  verdict: rejected
+  reason: MalwareBazaar 'Mirai' label is implausible for an APK (likely mislabel).
+  failure_class: weak_sourcing
+totals:
+  candidates: 270
+  approved: 160
+  approved_with_modification: 2
+  rejected: 108
+  approval_without_modification_rate: 0.59
