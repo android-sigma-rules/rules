@@ -730,3 +730,33 @@ def test_different_references_are_fetched_separately(monkeypatch, tmp_path):
     cr.check("evil.com", "https://example.org/one", None)
     cr.check("evil.com", "https://example.org/two", None)
     assert log.read_text().splitlines() == ["https://example.org/one", "https://example.org/two"]
+
+
+# 2026-11-03: the child sends the fetched page back through a multiprocessing.Queue (for the
+# per-URL cache). Joining before reading deadlocked any page over the 64 KB pipe buffer until the
+# deadline: every real report came back FETCH_FAILED "no complete result within 45s".
+def test_a_page_larger_than_the_pipe_buffer_is_checked_not_deadlocked(monkeypatch):
+    import time as _time
+    public_dns(monkeypatch)
+    monkeypatch.setattr(cr, "DEADLINE_S", 10)
+    page = (b"<p>" + b"Ordinary report prose about Android malware infrastructure. " * 20000
+            + b" IOC: big-evil.com </p>")
+    assert len(page) > 1024 * 1024
+    monkeypatch.setattr(cr, "fetch", lambda url, allowed: (page, "text/html", url, []))
+    start = _time.monotonic()
+    assert cr.check("big-evil.com", "https://example.org/big-report", None)[0] == "FOUND"
+    assert _time.monotonic() - start < 8, "large page hit the deadline (queue/join deadlock)"
+    # The cached page serves the next entry citing the same report.
+    assert cr.check("big-evil.com", "https://example.org/big-report", None)[0] == "FOUND"
+
+
+def test_a_child_that_dies_without_reporting_is_a_fetch_failure(monkeypatch):
+    public_dns(monkeypatch)
+    monkeypatch.setattr(cr, "DEADLINE_S", 10)
+
+    def die(url, allowed):
+        import os as _os
+        _os._exit(3)
+    monkeypatch.setattr(cr, "fetch", die)
+    status, detail = cr.check("evil.com", "https://example.org/crash", None)
+    assert status == "FETCH_FAILED" and "code 3" in detail
