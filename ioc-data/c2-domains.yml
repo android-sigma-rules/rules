@@ -5099,3 +5099,52 @@ entries:
     description: BankBot-YNRK banking trojan WebView domain (CYFIRMA; published as Plp.en1inei2.top). Remove the app and contact your bank.
     source: threat_research
     reference: https://www.cyfirma.com/research/investigation-report-android-bankbot-ynrk-mobile-banking-trojan/
+  - indicator: anyevonline.com
+    family: XCPE
+    category: MALWARE
+    severity: CRITICAL
+    description: XCPE bootstrap/C2 (GTIG 2026-11-02)
+    source: threat_research
+    reference: https://cloud.google.com/blog/topics/threat-intelligence/shutting-the-door-on-the-xcpe-botnet
+  - indicator: intermedia-arts.tv
+    family: XCPE
+    category: MALWARE
+    severity: CRITICAL
+    description: XCPE C2 (GTIG 2026-11-02)
+    source: threat_research
+    reference: https://cloud.google.com/blog/topics/threat-intelligence/shutting-the-door-on-the-xcpe-botnet
+  - indicator: mcstb.anyevonline.com
+    family: XCPE
+    category: MALWARE
+    severity: CRITICAL
+    description: XCPE bootstrap/C2 (GTIG 2026-11-02)
+    source: threat_research
+    reference: https://cloud.google.com/blog/topics/threat-intelligence/shutting-the-door-on-the-xcpe-botnet
+  - indicator: mqtt.szbboys.com
+    family: XCPE
+    category: MALWARE
+    severity: CRITICAL
+    description: XCPE MQTT tasking C2 (GTIG 2026-11-02)
+    source: threat_research
+    reference: https://cloud.google.com/blog/topics/threat-intelligence/shutting-the-door-on-the-xcpe-botnet
+  - indicator: ott.szbboys.com
+    family: XCPE
+    category: MALWARE
+    severity: CRITICAL
+    description: XCPE upload C2 (GTIG 2026-11-02)
+    source: threat_research
+    reference: https://cloud.google.com/blog/topics/threat-intelligence/shutting-the-door-on-the-xcpe-botnet
+  - indicator: szbboys.com
+    family: XCPE
+    category: MALWARE
+    severity: CRITICAL
+    description: XCPE C2 (GTIG 2026-11-02)
+    source: threat_research
+    reference: https://cloud.google.com/blog/topics/threat-intelligence/shutting-the-door-on-the-xcpe-botnet
+  - indicator: yokatvonline.com
+    family: XCPE
+    category: MALWARE
+    severity: CRITICAL
+    description: XCPE C2 (GTIG 2026-11-02)
+    source: threat_research
+    reference: https://cloud.google.com/blog/topics/threat-intelligence/shutting-the-door-on-the-xcpe-botnet
