@@ -125,7 +125,18 @@ def _is_label(s) -> bool:
     return isinstance(s, str) and re.fullmatch(r"[a-z0-9-]+", s) is not None
 
 
+# ASCII-only on purpose: under plain re.IGNORECASE, [a-z] also matches U+212A KELVIN SIGN
+# and U+017F LONG S. The host class has no '@', so the authority can carry no userinfo;
+# an '@' in the path is allowed.
+_WEBSITE = re.compile(r"https?://[a-z0-9.-]+(:\d+)?(/\S*)?", re.ASCII | re.IGNORECASE)
+
+
+def _is_website(s) -> bool:
+    return isinstance(s, str) and (s == "" or _WEBSITE.fullmatch(s) is not None)
+
+
 FIELD_CHECKS: dict[str, Callable[[str], bool]] = {
+    "website": _is_website,
     "prefix": _is_prefix,
     "segment": _is_segment,
     "suffix": _is_suffix,

@@ -326,3 +326,10 @@ def test_campaigns_yml_is_skipped(tmp_path):
     f = tmp_path / "campaigns.yml"; f.write_text("campaigns:\n- key: graphite\n  label: Graphite (Paragon)\n")
     r = run_script(["--offline-snapshot", str(snap), "--file", str(f), "--mode", "strict"])
     assert r.returncode == 0, r.stderr
+
+
+def test_trackers_yml_is_skipped(tmp_path):
+    snap = tmp_path / "upstream.txt"; snap.write_text("PACKAGE_NAME\tx\n")
+    f = tmp_path / "trackers.yml"; f.write_text("version: 1\ntrackers:\n- id: 1\n  name: X\n")
+    r = run_script(["--offline-snapshot", str(snap), "--file", str(f), "--mode", "strict"])
+    assert r.returncode == 0, r.stderr

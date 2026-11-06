@@ -29,6 +29,8 @@ except ImportError:
     sys.exit("jsonschema required: pip install jsonschema")
 
 SCRIPT_DIR = Path(__file__).parent
+sys.path.insert(0, str(SCRIPT_DIR))
+import domain_grammar as dg  # noqa: E402
 BLOCKED_CATEGORIES = {"TEST", "FIXTURE", "SIMULATION", "DEBUG"}
 BLOCKED_FAMILY_PATTERNS = re.compile(
     r"(test|fixture|simulation|sample|example)", re.IGNORECASE
@@ -445,6 +447,96 @@ def validate_brand_file(data, filename):
     return errors
 
 
+TRACKER_CATEGORIES = {"Advertisement", "Profiling", "Identification", "Location", "Analytics",
+                      "Crash reporting", "Uncategorised"}
+MIN_TRACKERS = 300
+# (yaml field, domain_grammar.FIELD_CHECKS key, matches_host kind or None)
+_TRACKER_LISTS = (
+    ("code_prefixes", "prefix", None),
+    ("code_segments", "segment", None),
+    ("domain_suffixes", "suffix", "suffix"),
+    ("domain_labels", "label", "label"),
+    ("domain_patterns", "pattern", "pattern"),
+)
+
+
+def validate_trackers_file(data, filename):
+    """Structural validator for trackers.yml (Exodus mirror, privacy scan).
+
+    Reuses domain_grammar so the mirror, this validator and the app's Kotlin port
+    agree on what a signature may look like. Never raises on malformed input.
+    """
+    errors = []
+    if not isinstance(data, dict):
+        return [f"{filename}: top level must be a map"]
+    if data.get("version") != 1:
+        errors.append("`version` must be 1")
+    if data.get("license") != "ODbL-1.0":
+        errors.append("`license` must be 'ODbL-1.0'")
+    attribution = data.get("attribution")
+    if not isinstance(attribution, str) or not attribution.strip():
+        errors.append("`attribution` must be a non-empty string")
+    trackers = data.get("trackers")
+    if not isinstance(trackers, list):
+        errors.append("`trackers` must be a list")
+        return errors
+    if len(trackers) < MIN_TRACKERS:
+        errors.append(f"only {len(trackers)} trackers (< {MIN_TRACKERS})")
+
+    first_party = dg.load_first_party_hosts()
+    total_patterns = 0
+    last_id = None
+    for idx, t in enumerate(trackers):
+        if not isinstance(t, dict):
+            errors.append(f"trackers[{idx}]: must be a map")
+            continue
+        tid = t.get("id")
+        where = f"tracker {tid!r}" if isinstance(tid, int) and not isinstance(tid, bool) else f"trackers[{idx}]"
+        if not isinstance(tid, int) or isinstance(tid, bool):
+            errors.append(f"{where}: `id` must be an int")
+        else:
+            if last_id is not None and tid <= last_id:
+                errors.append(f"{where}: `id` must be unique and ascending (previous {last_id})")
+            last_id = tid
+        name = t.get("name")
+        if not isinstance(name, str) or not name.strip():
+            errors.append(f"{where}: `name` must be a non-empty string")
+        if not dg.FIELD_CHECKS["website"](t.get("website")):
+            errors.append(f"{where}: `website` must be empty or http(s)://host[/...] with no userinfo")
+        cats = t.get("categories")
+        if not isinstance(cats, list) or not cats:
+            errors.append(f"{where}: `categories` must be a non-empty list")
+        else:
+            for c in cats:
+                if not isinstance(c, str) or c not in TRACKER_CATEGORIES:
+                    errors.append(f"{where}: unknown category {c!r}")
+        any_signature = False
+        for field, check, kind in _TRACKER_LISTS:
+            values = t.get(field)
+            if not isinstance(values, list):
+                errors.append(f"{where}: `{field}` must be a list")
+                continue
+            if values:
+                any_signature = True
+            if field == "domain_patterns":
+                total_patterns += len(values)
+                if len(values) > dg.MAX_PATTERNS_PER_TRACKER:
+                    errors.append(f"{where}: {len(values)} domain_patterns exceeds cap {dg.MAX_PATTERNS_PER_TRACKER}")
+            for v in values:
+                if not dg.FIELD_CHECKS[check](v):
+                    errors.append(f"{where}: `{field}` entry {v!r} fails the {check} check")
+                elif kind and any(dg.matches_host(kind, v, h) for h in first_party):
+                    errors.append(f"{where}: `{field}` entry {v!r} matches a first-party host")
+        if not any_signature:
+            errors.append(f"{where}: no code or domain signature")
+        excluded = t.get("excluded_domains")
+        if not isinstance(excluded, list) or not all(isinstance(e, str) for e in excluded):
+            errors.append(f"{where}: `excluded_domains` must be a list of strings")
+    if total_patterns > dg.MAX_PATTERNS_TOTAL:
+        errors.append(f"{total_patterns} domain_patterns in the file exceeds cap {dg.MAX_PATTERNS_TOTAL}")
+    return errors
+
+
 _MANUAL_RE = re.compile(r"#\s*verified manually\b:?(.*)$")
 _ISO_DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
 
@@ -525,6 +617,17 @@ def main():
     # AndroDR's BrandImpersonationResolver.buildMatcher.
     if ioc_path.name in ("brand-names.yml", "brand-domains.yml"):
         errors = validate_brand_file(data, ioc_path.name)
+        if errors:
+            print(f"FAIL: {ioc_path.name} — {len(errors)} error(s):", file=sys.stderr)
+            for err in errors:
+                print(f"  - {err}", file=sys.stderr)
+            sys.exit(1)
+        print(f"PASS: {ioc_path.name}")
+        sys.exit(0)
+
+    # Exodus tracker registry (privacy scan): `trackers:` list, no `entries:`.
+    if ioc_path.name == "trackers.yml":
+        errors = validate_trackers_file(data, ioc_path.name)
         if errors:
             print(f"FAIL: {ioc_path.name} — {len(errors)} error(s):", file=sys.stderr)
             for err in errors:

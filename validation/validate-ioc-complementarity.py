@@ -244,7 +244,7 @@ IOC_TYPE_BY_FILENAME = {
 }
 
 # ioc-data files that carry no indicators (Task A4: the campaign vocabulary). Skipped, not an error.
-NON_IOC_FILES = {"campaigns.yml"}
+NON_IOC_FILES = {"campaigns.yml", "trackers.yml"}
 
 
 def check_file(ioc_file: pathlib.Path, upstream_union: set[tuple[str, str]]) -> list[str]:

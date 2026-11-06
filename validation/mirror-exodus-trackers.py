@@ -40,7 +40,6 @@ R_TRACKER = "tracker dropped"
 _PLAIN_CODE = re.compile(r"[a-z0-9_]+(\.[A-Za-z0-9_]+)+")
 _SUFFIX = re.compile(r"[a-z0-9-]+(\.[a-z0-9-]+)+")
 _LABEL = re.compile(r"[a-z0-9-]+")
-_WEBSITE = re.compile(r"https?://[a-z0-9.-]+(:\d+)?(/\S*)?", re.IGNORECASE)
 
 
 def _split(sig):
@@ -52,7 +51,7 @@ def _unescape(s):
 
 
 def _website(site):
-    if isinstance(site, str) and _WEBSITE.fullmatch(site):
+    if isinstance(site, str) and site and dg.FIELD_CHECKS["website"](site):
         return site
     return ""
 

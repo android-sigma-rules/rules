@@ -159,6 +159,18 @@ def test_unsafe_website_becomes_empty(site):
     assert doc["trackers"][0]["website"] == ""
 
 
+@pytest.mark.parametrize("site", ["https://\u212a.com/", "https://\u017f.com/", "HTTP\u212a://x.com/"])
+def test_non_ascii_lookalike_website_becomes_empty(site):
+    # re.IGNORECASE would let [a-z] match KELVIN SIGN / LONG S; the check is ASCII-only
+    doc, _ = render(api(code="com.x.y", website=site), None)
+    assert doc["trackers"][0]["website"] == ""
+
+
+def test_at_sign_in_website_path_is_kept():
+    doc, _ = render(api(code="com.x.y", website="https://x.com/@user"), None)
+    assert doc["trackers"][0]["website"] == "https://x.com/@user"
+
+
 def test_output_sorted_by_id_and_has_licence():
     doc, _ = render(api_many([dict(id=9, code="com.x.y"), dict(id=2, code="com.x.y")]), None)
     assert [t["id"] for t in doc["trackers"]] == [2, 9]
@@ -227,6 +239,4 @@ def test_snapshot_normalisation():
     assert not prefixes & {"com.facebook", "com.baidu", "com.dv", "com.prime31"}
 
     mod = _validator()
-    if not hasattr(mod, "validate_trackers_file"):
-        pytest.skip("validator lands in Task 2")
     assert mod.validate_trackers_file(doc, "trackers.yml") == []
