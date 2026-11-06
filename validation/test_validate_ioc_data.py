@@ -486,3 +486,144 @@ def test_bundled_ioc_data_manual_records_are_well_formed():
     for f in sorted((THIS_DIR.parent / "ioc-data").glob("*.yml")):
         r = subprocess.run([sys.executable, str(SCRIPT), str(f)], capture_output=True, text=True)
         assert "verified manually" not in r.stderr, (f.name, r.stderr)
+
+
+# ---------- trackers.yml (privacy-scan tracker registry) ----------
+
+import importlib.util
+
+import pytest
+
+
+def _validator_module():
+    spec = importlib.util.spec_from_file_location("validate_ioc_data_mod", SCRIPT)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def _trackers_doc(n=300):
+    trackers = []
+    for i in range(1, n + 1):
+        trackers.append({
+            "id": i, "name": f"Tracker {i}", "website": f"https://t{i}.example.org/",
+            "categories": ["Analytics"],
+            "code_prefixes": [f"com.vendor{i}.sdk"], "code_segments": [],
+            "domain_suffixes": [f"t{i}.example.net"], "domain_labels": [],
+            "domain_patterns": [], "excluded_domains": [],
+        })
+    return {"version": 1, "source": "exodus-privacy", "source_url": "https://example.org",
+            "license": "ODbL-1.0", "attribution": "Exodus Privacy - ODbL-1.0", "trackers": trackers}
+
+
+def _trackers_errors(doc):
+    return _validator_module().validate_trackers_file(doc, "trackers.yml")
+
+
+def _with(field, value, idx=0):
+    doc = _trackers_doc()
+    doc["trackers"][idx][field] = value
+    return doc
+
+
+def test_trackers_valid_passes():
+    assert _trackers_errors(_trackers_doc()) == []
+
+
+def test_trackers_unknown_category_fails():
+    assert _trackers_errors(_with("categories", ["Telemetry"]))
+
+
+def test_trackers_uncategorised_passes():
+    assert _trackers_errors(_with("categories", ["Uncategorised"])) == []
+
+
+def test_trackers_duplicate_id_fails():
+    doc = _trackers_doc()
+    doc["trackers"][1]["id"] = 1
+    assert _trackers_errors(doc)
+
+
+def test_trackers_hyphen_prefix_fails():
+    assert _trackers_errors(_with("code_prefixes", ["com.some-vendor.sdk"]))
+
+
+def test_trackers_single_label_suffix_fails():
+    # `fidzup` belongs in domain_labels, not domain_suffixes
+    assert _trackers_errors(_with("domain_suffixes", ["fidzup"]))
+    assert _trackers_errors(_with("domain_labels", ["fidzup"])) == []
+
+
+def test_trackers_upper_case_segment_fails():
+    assert _trackers_errors(_with("code_segments", ["Foo"]))
+
+
+def test_trackers_empty_matching_pattern_fails():
+    assert _trackers_errors(_with("domain_patterns", ["a*"]))
+
+
+@pytest.mark.parametrize("pat", ["((a+))+$", "(a+?)+$", "(a{1,30}){1,30}$", "a*b*c*d"])
+def test_trackers_backtracking_patterns_fail(pat):
+    assert _trackers_errors(_with("domain_patterns", [pat]))
+
+
+def test_trackers_grammar_accepts_the_three_real_patterns():
+    pats = [r"adservice\.google\..*", r"mst[0-9]*\.is\.autonavi\.com", r"mt[0-9]*\.google\.cn"]
+    assert _trackers_errors(_with("domain_patterns", pats[:2])) == []
+    assert _trackers_errors(_with("domain_patterns", pats[2:])) == []
+
+
+def test_trackers_first_party_suffix_fails():
+    assert _trackers_errors(_with("domain_suffixes", ["google.com"]))
+
+
+def test_trackers_javascript_website_fails():
+    assert _trackers_errors(_with("website", "javascript:alert(1)"))
+
+
+def test_trackers_userinfo_website_fails():
+    assert _trackers_errors(_with("website", "https://firebase.google.com@evil.example"))
+
+
+def test_trackers_empty_website_passes():
+    assert _trackers_errors(_with("website", "")) == []
+
+
+def test_trackers_bad_class_range_fails_not_raises():
+    errors = _trackers_errors(_with("domain_patterns", ["[z-a]x"]))
+    assert errors and all(isinstance(e, str) for e in errors)
+
+
+def test_trackers_pattern_caps_fail():
+    five = [f"a{c}x" for c in "bcdef"]
+    assert _trackers_errors(_with("domain_patterns", five))
+    doc = _trackers_doc()
+    for i in range(17):  # 17 trackers x 4 patterns = 68 > 64
+        doc["trackers"][i]["domain_patterns"] = [f"p{i}{c}x" for c in "abcd"]
+    assert _trackers_errors(doc)
+
+
+def test_trackers_missing_license_fails():
+    doc = _trackers_doc()
+    del doc["license"]
+    assert _trackers_errors(doc)
+
+
+def test_trackers_tracker_with_no_signatures_fails():
+    doc = _trackers_doc()
+    t = doc["trackers"][0]
+    t["code_prefixes"] = []
+    t["domain_suffixes"] = []
+    assert _trackers_errors(doc)
+
+
+def test_trackers_too_few_fails():
+    assert _trackers_errors(_trackers_doc(299))
+
+
+def test_trackers_cli_dispatch(tmp_path):
+    import yaml
+    r = run_validator(tmp_path, "trackers.yml", yaml.safe_dump(_trackers_doc()))
+    assert r.returncode == 0 and "PASS: trackers.yml" in r.stdout
+    r = run_validator(tmp_path, "trackers.yml", yaml.safe_dump(dict(_trackers_doc(), license="MIT")))
+    assert r.returncode == 1
