@@ -1,0 +1,29 @@
+# Shared by test_domain_grammar.py and the Kotlin port (Task 4).
+# ACCEPT <pattern> / REJECT <pattern>; one per line, no spaces inside a pattern.
+ACCEPT adservice\.google\..*
+ACCEPT mst[0-9]*\.is\.autonavi\.com
+ACCEPT mt[0-9]*\.google\.cn
+ACCEPT [a-z0-9-]+\.ex\.com
+ACCEPT [-a-z]x\.ex\.com
+ACCEPT a?b\.ex\.com
+REJECT ((a+))+$
+REJECT (a+?)+$
+REJECT (a{1,30}){1,30}$
+REJECT a*b*c*d
+REJECT .*
+REJECT a*
+REJECT a(b)c
+REJECT a|b
+REJECT a{2}
+REJECT ^abc
+REJECT abc$
+REJECT \d+x
+REJECT [0-z]x
+REJECT [z-a]x
+REJECT []x
+REJECT [a--]x
+REJECT [a-c]x
+REJECT a*+
+REJECT a??
+REJECT *a
+REJECT A+x

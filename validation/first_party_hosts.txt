@@ -1,0 +1,12 @@
+www.google.com
+mail.google.com
+accounts.google.com
+www.facebook.com
+m.facebook.com
+www.youtube.com
+www.instagram.com
+www.amazon.com
+www.microsoft.com
+www.apple.com
+login.microsoftonline.com
+www.hicloud.com
