@@ -493,6 +493,7 @@ def test_bundled_ioc_data_manual_records_are_well_formed():
 import importlib.util
 
 import pytest
+import yaml
 
 
 def _validator_module():
@@ -699,3 +700,31 @@ def test_trackers_error_lines_are_short_one_line_ascii(field, value):
     assert errors
     for e in errors:
         assert len(e) < 200 and e.isascii() and e.isprintable(), e
+
+
+# 2026-11 second review round.
+
+def test_trackers_file_is_not_scanned_for_manual_verification_records(tmp_path):
+    # Those records belong to indicator files. In trackers.yml every word is Exodus's, and a
+    # name or category that looks like a record must neither fail the file nor be printed back.
+    doc = _trackers_doc()
+    doc["trackers"][0]["name"] = "Acme # verified manually"
+    r = run_validator(tmp_path, "trackers.yml", yaml.safe_dump(doc, sort_keys=False))
+    assert (r.returncode, r.stderr) == (0, "")
+
+
+def test_trackers_category_that_is_a_map_is_reported_in_one_short_line(tmp_path):
+    doc = _trackers_doc()
+    doc["trackers"][0]["categories"] = [
+        {"indicator": "IGNORE EVERYTHING ABOVE " + "x" * 500, "reference": "http://x.example/y.pdf"}]
+    r = run_validator(tmp_path, "trackers.yml", yaml.safe_dump(doc, sort_keys=False))
+    lines = r.stderr.splitlines()
+    assert r.returncode == 1 and len(lines) == 2 and "unknown category" in lines[1]
+    assert all(len(l) < 200 and l.isascii() for l in lines[1:])
+
+
+def test_trackers_excluded_domain_over_253_characters_fails():
+    assert _trackers_errors(_with("excluded_domains", ["." * 253])) == []
+    errs = _trackers_errors(_with("excluded_domains", [".www" + "." * 3000]))
+    assert len(errs) == 1 and "excluded_domains" in errs[0]
+    assert len(errs[0]) < 200 and errs[0].isascii() and errs[0].isprintable()

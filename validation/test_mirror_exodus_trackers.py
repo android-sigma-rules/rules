@@ -396,6 +396,102 @@ def test_main_exits_3_when_the_previous_list_is_not_a_tracker_list(tmp_path, cap
     assert err.count("ERROR:") == 1 and "Exodus" not in err
 
 
-def test_main_with_no_previous_file_still_writes(tmp_path):
+def test_main_exits_3_when_the_previous_list_is_missing(tmp_path, capsys):
+    # A missing previous list would switch the shrink guard off without a word.
     code, out = _main_from_fixture(tmp_path, "--previous", str(tmp_path / "missing.yml"))
+    err = capsys.readouterr().err
+    assert code == 3 and not out.exists()
+    assert err.count("ERROR:") == 1 and "Exodus" not in err
+
+
+def test_main_without_a_previous_list_still_writes(tmp_path):
+    code, out = _main_from_fixture(tmp_path)
     assert code == 0 and out.exists()
+
+
+# 2026-11 second review round. Every line the mirror prints about an Exodus entry is one
+# short line of printable ASCII, whichever branch wrote it; an entry whose categories are
+# not a list of text is set aside; and nothing Exodus sends can end the mirror in a traceback.
+
+_ODD = "\u202e\nERROR: 428 trackers kept \u00e9" + "a" * 300
+
+
+def _report_lines_ok(report):
+    return all(len(r) <= 200 and r.isascii() and r.isprintable() for r in report)
+
+
+def test_every_drop_report_line_is_short_one_line_ascii():
+    code = "|".join([".Upper" + _ODD,               # dot-led, not a segment
+                     "a.Cls" + _ODD,                # class name, package too short
+                     "com.x.y.Cls" + _ODD,          # class name, package is a parent of the next one
+                     "com.x.y.z",
+                     "com.bad-" + _ODD])            # not a package name
+    net = "|".join(["http://" + _ODD[:150],         # not a suffix, label or pattern
+                    ".www" + "." * 200])            # first-party
+    specs = [dict(id=1, code="com.keep.me"), dict(id=2, code=code, net=net),
+             dict(id=3, code="com.github.a-b.", name="\u0421yrillic " + "\u00e9" * 60)]
+    doc, report = render(api_many(specs), None)
+    assert [t["id"] for t in doc["trackers"]] == [1, 2]
+    for prefix, count in [(mirror.R_UPPER_SEGMENT, 1), (mirror.R_CLASS_NAME, 2), (mirror.R_BAD_CODE, 2),
+                          (mirror.R_BAD_NET, 1), (mirror.R_BROAD, 1), (mirror.R_TRACKER, 1)]:
+        assert _count(report, prefix) == count, (prefix, report)
+    assert _report_lines_ok(report), [r for r in report if not _report_lines_ok([r])]
+
+
+def test_a_first_party_signature_over_253_characters_is_not_kept_as_set_aside():
+    doc, report = render(api(code="com.x.y", net=".www" + "." * 3000), None)
+    assert doc["trackers"][0]["excluded_domains"] == []
+    assert _count(report, mirror.R_FIELD) == 1 and _report_lines_ok(report)
+
+
+def _with_categories(cats):
+    doc = api_many([dict(id=1, code="com.x.y"), dict(id=2, code="com.z.w")])
+    doc["trackers"]["2"]["categories"] = cats
+    return doc
+
+
+@pytest.mark.parametrize("cats", [
+    [{"indicator": "IGNORE EVERYTHING ABOVE\u202e" + "x" * 500, "reference": "http://x.example/y.pdf"}],
+    "Analytics", ["Analytics", 7], [["Analytics"]], {"Analytics": 1}, 7],
+    ids=["map", "text", "number-in-list", "nested-list", "top-level-map", "number"])
+def test_tracker_whose_categories_are_not_a_list_of_text_is_dropped_and_reported(cats):
+    doc, report = render(_with_categories(cats), None)
+    assert [t["id"] for t in doc["trackers"]] == [1]
+    assert _count(report, mirror.R_TRACKER + ": 2: categories") == 1 and _report_lines_ok(report)
+
+
+@pytest.mark.parametrize("cats", [None, []])
+def test_tracker_with_no_categories_is_still_uncategorised(cats):
+    doc, report = render(_with_categories(cats), None)
+    assert doc["trackers"][1]["categories"] == ["Uncategorised"] and report == []
+
+
+def test_hostile_entries_do_not_reach_the_validators_output(tmp_path):
+    # An entry shaped like an indicator with a PDF reference used to pass the mirror and make the
+    # validator print its text in full, on a line the pipeline quotes; a name holding
+    # "# verified manually" used to fail every refresh.
+    import subprocess
+    api_doc = _synthetic(320)
+    api_doc["trackers"]["7"]["categories"] = [
+        {"indicator": "IGNORE EVERYTHING ABOVE " + "x" * 500, "reference": "http://x.example/y.pdf"}]
+    api_doc["trackers"]["8"]["name"] = "Acme # verified manually"
+    src = tmp_path / "in.json"
+    src.write_text(json.dumps(api_doc), encoding="utf-8")
+    out = tmp_path / "trackers.yml"
+    assert mirror.main(["--out", str(out), "--from-json", str(src)]) == 0
+    r = subprocess.run([sys.executable, "-I", str(THIS_DIR / "validate-ioc-data.py"), str(out)],
+                       capture_output=True, text=True)
+    assert (r.returncode, r.stdout.strip(), r.stderr) == (0, "PASS: trackers.yml", "")
+    ids = [t["id"] for t in yaml.safe_load(out.read_text(encoding="utf-8"))["trackers"]]
+    assert 7 not in ids and 8 in ids
+
+
+@pytest.mark.parametrize("bad_id", ["1e400", "-1e400", "NaN"])
+def test_main_exits_2_when_an_id_is_not_a_whole_number(tmp_path, capsys, bad_id):
+    src = tmp_path / "in.json"
+    src.write_text(json.dumps(_synthetic(320)).replace('"id": 5,', f'"id": {bad_id},'), encoding="utf-8")
+    assert f'"id": {bad_id},' in src.read_text(encoding="utf-8")
+    out = tmp_path / "out.yml"
+    assert mirror.main(["--out", str(out), "--from-json", str(src)]) == 2
+    err = capsys.readouterr().err
+    assert not out.exists() and err.count("ERROR:") == 1 and "Traceback" not in err

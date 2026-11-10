@@ -111,4 +111,5 @@ never edited by hand; a signature that is too broad is fixed by adding the host
 to `validation/first_party_hosts.txt` (network signatures) or the package to
 `validation/common_packages.txt` (code signatures) and running the refresh
 again. The mirror sets aside what breaks a limit in `validation/tracker_guards.py`
-and the validator refuses it, so every value the summary prints is printed whole.
+and the validator refuses it, so every name, website and signature the summary
+prints is printed whole.

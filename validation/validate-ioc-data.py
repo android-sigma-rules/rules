@@ -545,6 +545,9 @@ def validate_trackers_file(data, filename):
         excluded = t.get("excluded_domains")
         if not isinstance(excluded, list) or not all(isinstance(e, str) for e in excluded):
             errors.append(f"{where}: `excluded_domains` must be a list of strings")
+        else:
+            errors += [f"{where}: `excluded_domains` entry {tg.shown(e)} is longer than "
+                       f"{tg.SIGNATURE_MAX} characters" for e in excluded if len(e) > tg.SIGNATURE_MAX]
     if total_patterns > dg.MAX_PATTERNS_TOTAL:
         errors.append(f"{total_patterns} domain_patterns in the file exceeds cap {dg.MAX_PATTERNS_TOTAL}")
     return errors
@@ -610,7 +613,8 @@ def main():
     except yaml.YAMLError as e:
         print(f"YAML parse error: {e}", file=sys.stderr)
         sys.exit(2)
-    manual_errors = manual_verification_errors(raw)
+    # trackers.yml holds no such records: every word in it is Exodus's, and must not be read as one.
+    manual_errors = [] if ioc_path.name == "trackers.yml" else manual_verification_errors(raw)
     if manual_errors and not (isinstance(data, dict) and data.get("entries")):
         # files without an entries list still carry these records (campaigns.yml)
         print(f"FAIL: {ioc_path.name} — {len(manual_errors)} error(s):", file=sys.stderr)
