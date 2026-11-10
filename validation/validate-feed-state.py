@@ -79,6 +79,10 @@ FEED_SPEC = {
         [("last_commit_sha",
           lambda v, p, e: e.append(f"{p}: expected git SHA, got {v!r}") if not (isinstance(v, str) and SHA_RE.match(v)) else None)]
     ),
+    # The Exodus Privacy tracker list (ioc-data/trackers.yml), refreshed by the
+    # tracker step of /update-rules. last_seen_timestamp = the last successful
+    # check; ioc_data_last_write = the last approved refresh.
+    "exodus_trackers":        ([], []),
 }
 
 # Feeds that may be absent until their ingester first runs and writes a
