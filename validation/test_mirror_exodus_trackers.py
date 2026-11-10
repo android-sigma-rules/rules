@@ -240,3 +240,62 @@ def test_snapshot_normalisation():
 
     mod = _validator()
     assert mod.validate_trackers_file(doc, "trackers.yml") == []
+
+
+# A refresh that cannot read Exodus must fail cleanly and leave no output: the
+# /update-rules step reports exit code 2 as a feed failure, never as "no change".
+
+def _fetch_errors():
+    import http.client
+    import urllib.error
+    return [urllib.error.URLError("no route to SECRET-BODY"), TimeoutError("SECRET-BODY"),
+            http.client.IncompleteRead(b"SECRET-BODY")]
+
+
+@pytest.mark.parametrize("error", _fetch_errors(), ids=lambda e: type(e).__name__)
+def test_main_exits_2_and_writes_nothing_when_exodus_is_unreachable(tmp_path, monkeypatch, capsys, error):
+    def boom():
+        raise error
+    monkeypatch.setattr(mirror, "_fetch", boom)
+    prev = tmp_path / "prev.yml"
+    prev.write_text("trackers: []\n", encoding="utf-8")
+    out = tmp_path / "out.yml"
+    assert mirror.main(["--out", str(out), "--previous", str(prev)]) == 2
+    assert not out.exists() and prev.read_text(encoding="utf-8") == "trackers: []\n"
+    err = capsys.readouterr().err
+    assert err.startswith("ERROR: could not read the Exodus tracker list") and "SECRET-BODY" not in err
+
+
+def test_main_exits_2_when_the_fetched_answer_is_not_json(tmp_path, monkeypatch):
+    def not_json():
+        return json.loads("<html>503 Service Unavailable</html>")
+    monkeypatch.setattr(mirror, "_fetch", not_json)
+    out = tmp_path / "out.yml"
+    assert mirror.main(["--out", str(out)]) == 2
+    assert not out.exists()
+
+
+@pytest.mark.parametrize("body", [
+    "<html>503 Service Unavailable</html>", "[]", '{"trackers": []}', '{"detail": "throttled"}', "null", "",
+    '{"trackers": {"abc": {}}}', '{"trackers": {"1": "not a tracker"}}'])
+def test_main_exits_2_when_the_answer_is_not_the_tracker_list(tmp_path, body, capsys):
+    src = tmp_path / "in.json"
+    src.write_text(body, encoding="utf-8")
+    out = tmp_path / "out.yml"
+    assert mirror.main(["--out", str(out), "--from-json", str(src)]) == 2
+    assert not out.exists()
+    assert capsys.readouterr().err.count("ERROR:") == 1
+
+
+def test_main_exits_2_when_the_json_file_is_missing(tmp_path):
+    out = tmp_path / "out.yml"
+    assert mirror.main(["--out", str(out), "--from-json", str(tmp_path / "missing.json")]) == 2
+    assert not out.exists()
+
+
+def test_main_writes_nothing_when_the_list_is_too_small(tmp_path):
+    src = tmp_path / "in.json"
+    src.write_text(json.dumps({"trackers": {}}), encoding="utf-8")
+    out = tmp_path / "out.yml"
+    assert mirror.main(["--out", str(out), "--from-json", str(src)]) == 1
+    assert not out.exists()

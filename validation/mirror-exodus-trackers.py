@@ -6,11 +6,16 @@ generated file stays ODbL. Signatures are normalised into a few strict,
 validator-checked shapes (see domain_grammar.py) so the app never evaluates an
 arbitrary Exodus regular expression.
 
-Usage:
-    python3 validation/mirror-exodus-trackers.py --out ioc-data/trackers.yml \
-        [--from-json FILE] [--previous FILE]
+Usage (the candidate is written away from the list in use, then reviewed):
+    python3 validation/mirror-exodus-trackers.py --out CANDIDATE \
+        [--from-json FILE] [--previous ioc-data/trackers.yml]
+
+Exit codes: 0 the file was written; 1 a size guard tripped (too few trackers,
+or the list shrank by more than a tenth); 2 the source could not be read or
+did not answer with a tracker list. In cases 1 and 2 nothing is written.
 """
 import argparse
+import http.client
 import json
 import pathlib
 import re
@@ -190,6 +195,11 @@ def _fetch():
         return json.loads(resp.read().decode("utf-8"))
 
 
+def _unreadable(why):
+    print(f"ERROR: could not read the Exodus tracker list: {why}", file=sys.stderr)
+    return 2
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out", required=True)
@@ -197,15 +207,24 @@ def main(argv=None):
     ap.add_argument("--previous")
     args = ap.parse_args(argv)
 
-    if args.from_json:
-        api = json.loads(pathlib.Path(args.from_json).read_text(encoding="utf-8"))
-    else:
-        api = _fetch()
+    # The exception's message is never printed: it can carry the response body.
+    try:
+        if args.from_json:
+            api = json.loads(pathlib.Path(args.from_json).read_text(encoding="utf-8"))
+        else:
+            api = _fetch()
+    except (OSError, ValueError, http.client.HTTPException) as e:
+        return _unreadable(type(e).__name__)
+    if not isinstance(api, dict) or not isinstance(api.get("trackers"), dict):
+        return _unreadable("no trackers map")
     previous = None
     if args.previous and pathlib.Path(args.previous).exists():
         previous = yaml.safe_load(pathlib.Path(args.previous).read_text(encoding="utf-8"))
 
-    doc, report = render(api, previous)
+    try:
+        doc, report = render(api, previous)
+    except (AttributeError, KeyError, TypeError, ValueError) as e:
+        return _unreadable(f"an entry is not a tracker ({type(e).__name__})")
     for line in report:
         print(line, file=sys.stderr)
     n = len(doc["trackers"])
