@@ -1,0 +1,39 @@
+# Packages that ordinary Android apps contain: the platform, the Java and Kotlin
+# runtimes, AndroidX, and the base libraries most apps are built with.
+#
+# A tracker code signature that matches one of these by the app's rule (a prefix
+# that equals the package or is a dotted parent of it; a segment equal to one of
+# its dotted parts) would name a tracker in nearly every app. The mirror sets
+# such a signature aside and the validator refuses it. A signature below one of
+# these namespaces (com.google.android.gms.analytics) is not affected.
+#
+# One package per line. Add a package here when a signature in a tracker-list
+# refresh turns out to match ordinary apps, then run the refresh again.
+android.app
+android.content.pm
+android.os
+android.support.v4.app
+android.view
+android.widget
+androidx.activity
+androidx.appcompat.app
+androidx.core.app
+androidx.fragment.app
+androidx.lifecycle
+com.google.android.gms.common.api
+com.google.android.gms.tasks
+com.google.android.material.button
+com.google.common.collect
+com.google.gson
+dalvik.system
+java.lang
+java.util
+javax.crypto
+kotlin.collections
+kotlin.jvm.internal
+kotlinx.coroutines
+okhttp3.internal
+okio
+org.intellij.lang.annotations
+org.jetbrains.annotations
+org.json

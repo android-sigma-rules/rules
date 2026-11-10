@@ -12,7 +12,10 @@ Usage (the candidate is written away from the list in use, then reviewed):
 
 Exit codes: 0 the file was written; 1 a size guard tripped (too few trackers,
 or the list shrank by more than a tenth); 2 the source could not be read or
-did not answer with a tracker list. In cases 1 and 2 nothing is written.
+did not answer with a tracker list; 3 a file the mirror reads from the rules
+repository (first_party_hosts.txt, common_packages.txt, the previous list) is
+missing or broken. Each failure ends with one "ERROR:" line on stderr, and
+nothing is written.
 """
 import argparse
 import http.client
@@ -26,6 +29,7 @@ import yaml
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 import domain_grammar as dg  # noqa: E402
+import tracker_guards as tg  # noqa: E402
 
 SOURCE_URL = "https://reports.exodus-privacy.eu.org/api/trackers"
 ATTRIBUTION = "Exodus Privacy — https://exodus-privacy.eu.org — Open Database License 1.0"
@@ -56,12 +60,23 @@ def _unescape(s):
 
 
 def _website(site):
-    if isinstance(site, str) and site and dg.FIELD_CHECKS["website"](site):
+    if isinstance(site, str) and site and len(site) <= tg.WEBSITE_MAX and dg.FIELD_CHECKS["website"](site):
         return site
     return ""
 
 
-def _derive_code(tid, sigs, report):
+def _keep_code(kind, value, raw, tid, common, report):
+    """True when a derived prefix or segment may enter the list; otherwise it is reported."""
+    if not dg.FIELD_CHECKS[kind](value) or len(value) > tg.SIGNATURE_MAX:
+        report.append(f"{R_FIELD}: {tid}: {kind} {tg.shown(value)}")
+        return False
+    if any(tg.matches_package(kind, value, p) for p in common):
+        report.append(f"{R_BROAD}: {tid}: {tg.shown(raw)} (matches an ordinary package)")
+        return False
+    return True
+
+
+def _derive_code(tid, sigs, common, report):
     prefixes, segments = set(), set()
     plain = [s.rstrip(".") for s in sigs if not s.startswith(".")]
     non_class = [s for s in plain if not s.rsplit(".", 1)[-1][:1].isupper()]
@@ -71,10 +86,10 @@ def _derive_code(tid, sigs, report):
             continue
         if s.startswith("."):
             inner = s[1:]
-            if dg.FIELD_CHECKS["segment"](inner):
-                segments.add(inner)
-            else:
+            if not dg.FIELD_CHECKS["segment"](inner):
                 report.append(f"{R_UPPER_SEGMENT}: {tid}: {raw!r}")
+            elif _keep_code("segment", inner, raw, tid, common, report):
+                segments.add(inner)
             continue
         last = s.rsplit(".", 1)[-1]
         if last[:1].isupper():
@@ -92,10 +107,8 @@ def _derive_code(tid, sigs, report):
         else:
             report.append(f"{R_BAD_CODE}: {tid}: {raw!r}")
             continue
-        if dg.FIELD_CHECKS["prefix"](candidate):
+        if _keep_code("prefix", candidate, raw, tid, common, report):
             prefixes.add(candidate)
-        else:
-            report.append(f"{R_FIELD}: {tid}: prefix {candidate!r}")
     return sorted(prefixes), sorted(segments)
 
 
@@ -128,8 +141,8 @@ def _derive_net(tid, sigs, first_party, report):
         if kind is None:
             report.append(f"{R_BAD_NET}: {tid}: {sig!r} ({value})")
             continue
-        if not dg.FIELD_CHECKS[kind](value):
-            report.append(f"{R_FIELD}: {tid}: {kind} {value!r}")
+        if not dg.FIELD_CHECKS[kind](value) or len(value) > tg.SIGNATURE_MAX:
+            report.append(f"{R_FIELD}: {tid}: {kind} {tg.shown(value)}")
             continue
         if any(dg.matches_host(kind, value, h) for h in first_party):
             report.append(f"{R_BROAD}: {tid}: {sig!r}")
@@ -145,18 +158,28 @@ def _derive_net(tid, sigs, first_party, report):
     return sorted(suffixes), sorted(labels), patterns, excluded
 
 
-def render(api, previous):
+def render(api, previous, first_party=None, common=None):
     """Normalise an Exodus API dict into (document, drop_report).
 
     `previous` is the prior document, if any; the shrink guard lives in main().
+    `first_party` and `common` are the two breadth lists; main() loads them itself so
+    that a fault in either is not mistaken for a fault in an Exodus entry.
     """
-    first_party = dg.load_first_party_hosts()
+    if first_party is None:
+        first_party = dg.load_first_party_hosts()
+    if common is None:
+        common = tg.load_common_packages()
     report = []
     built = []
     for key in sorted(api.get("trackers", {}), key=lambda k: int(k)):
         t = api["trackers"][key]
         tid = int(t.get("id", key))
-        prefixes, segments = _derive_code(tid, _split(t.get("code_signature")), report)
+        name = t.get("name")
+        problem = tg.name_problem(name)
+        if problem:
+            report.append(f"{R_TRACKER}: {tid}: name {tg.shown(name)} {problem}")
+            continue
+        prefixes, segments = _derive_code(tid, _split(t.get("code_signature")), common, report)
         suffixes, labels, patterns, excluded = _derive_net(
             tid, _split(t.get("network_signature")), first_party, report)
         if len(patterns) > dg.MAX_PATTERNS_PER_TRACKER:
@@ -164,7 +187,7 @@ def render(api, previous):
                 report.append(f"{R_CAP}: {tid}: per-tracker cap, {p!r}")
             patterns = patterns[:dg.MAX_PATTERNS_PER_TRACKER]
         built.append(dict(
-            id=tid, name=t.get("name") or "", website=_website(t.get("website")),
+            id=tid, name=name, website=_website(t.get("website")),
             categories=list(t.get("categories") or []) or ["Uncategorised"],
             code_prefixes=prefixes, code_segments=segments, domain_suffixes=suffixes,
             domain_labels=labels, domain_patterns=patterns, excluded_domains=excluded))
@@ -200,12 +223,31 @@ def _unreadable(why):
     return 2
 
 
+def _previous(path):
+    """The list in use, or None when there is none yet. Raises ValueError when it is not a tracker list."""
+    if not path or not pathlib.Path(path).exists():
+        return None
+    doc = yaml.safe_load(pathlib.Path(path).read_text(encoding="utf-8"))
+    if not isinstance(doc, dict) or not isinstance(doc.get("trackers"), list):
+        raise ValueError("not a tracker list")
+    return doc
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out", required=True)
     ap.add_argument("--from-json")
     ap.add_argument("--previous")
     args = ap.parse_args(argv)
+
+    # Local files first: a fault here is the rules repository's, and must not read as Exodus's.
+    try:
+        first_party, common = dg.load_first_party_hosts(), tg.load_common_packages()
+        previous = _previous(args.previous)
+    except (OSError, ValueError, yaml.YAMLError) as e:
+        print("ERROR: a file the mirror reads from the rules repository is missing or broken "
+              f"({type(e).__name__})", file=sys.stderr)
+        return 3
 
     # The exception's message is never printed: it can carry the response body.
     try:
@@ -217,12 +259,9 @@ def main(argv=None):
         return _unreadable(type(e).__name__)
     if not isinstance(api, dict) or not isinstance(api.get("trackers"), dict):
         return _unreadable("no trackers map")
-    previous = None
-    if args.previous and pathlib.Path(args.previous).exists():
-        previous = yaml.safe_load(pathlib.Path(args.previous).read_text(encoding="utf-8"))
 
     try:
-        doc, report = render(api, previous)
+        doc, report = render(api, previous, first_party, common)
     except (AttributeError, KeyError, TypeError, ValueError) as e:
         return _unreadable(f"an entry is not a tracker ({type(e).__name__})")
     for line in report:
@@ -232,7 +271,7 @@ def main(argv=None):
     if n < MIN_TRACKERS:
         print(f"ERROR: only {n} trackers (< {MIN_TRACKERS})", file=sys.stderr)
         return 1
-    if previous and previous.get("trackers"):
+    if previous and previous["trackers"]:
         old = len(previous["trackers"])
         if n < old * (1 - MAX_SHRINK):
             print(f"ERROR: tracker count shrank from {old} to {n} (> {MAX_SHRINK:.0%})", file=sys.stderr)

@@ -120,6 +120,37 @@ def test_code_only_addition_is_not_a_network_signature():
     assert "NEW NETWORK SIGNATURES" not in s.render(out, [])
 
 
+def test_every_added_code_signature_is_listed_in_full():
+    long = "com." + "a" * 249
+    old = doc(tracker(1, code_prefixes=["com.sdk1"], code_segments=["kept"]))
+    new = doc(tracker(1, code_prefixes=["com.sdk1", long], code_segments=["kept"]),
+              tracker(2, code_prefixes=["com.sdk2"], code_segments=["seg"], domain_suffixes=["s.example"]))
+    out = s.diff(old, new)
+    assert out["new_code"] == [(1, "T1", "prefix", long), (2, "T2", "prefix", "com.sdk2"),
+                               (2, "T2", "segment", "seg")]
+    text = s.render(out, [])
+    assert text.index("NEW NETWORK SIGNATURES (1)") < text.index("NEW CODE SIGNATURES (3)") < text.index("ADDED (")
+    section = text.split("NEW CODE SIGNATURES (3)")[1].split("ADDED (")[0].splitlines()
+    assert "ordinary apps" in section[0]
+    for value in (long, "com.sdk2", "seg"):
+        assert any(line.endswith(" " + value) for line in section), value
+    assert not any(line.endswith(" kept") or line.endswith(" com.sdk1") for line in section)
+
+
+def test_network_only_addition_is_not_a_code_signature():
+    out = s.diff(doc(tracker(1)), doc(tracker(1, domain_suffixes=["new.example"])))
+    assert out["new_code"] == []
+    assert "NEW CODE SIGNATURES" not in s.render(out, [])
+
+
+def test_values_at_the_validator_limits_are_printed_whole():
+    website = "https://example.org/" + "a" * 180
+    new = doc(tracker(1), tracker(2, name="N" * 80, website=website, code_prefixes=["com." + "a" * 249],
+                          domain_suffixes=["a" * 249 + ".net"]))
+    assert "[cut]" not in s.render(s.diff(doc(tracker(1)), new), [])
+    assert (s.NAME_MAX, s.WEBSITE_MAX, s.LINE_MAX) == (s.tg.NAME_MAX, s.tg.WEBSITE_MAX, s.tg.SIGNATURE_MAX + 2)
+
+
 def test_newly_set_aside_first_party_signature():
     out = s.diff(doc(tracker(1)), doc(tracker(1, excluded_domains=[r"\.google\.com"])))
     assert out["changed"][0]["excluded"] == {"added": [r"\.google\.com"], "removed": []}

@@ -39,6 +39,8 @@ def api_many(specs):
         s = dict(s)
         t = _one(id=s["id"], code=s.get("code", ""), net=s.get("net", ""),
                  cats=s.get("cats", ("Analytics",)), website=s.get("website", "https://example.com/"))
+        if "name" in s:
+            t["name"] = s["name"]
         trackers[str(s["id"])] = t
     return {"trackers": trackers}
 
@@ -299,3 +301,101 @@ def test_main_writes_nothing_when_the_list_is_too_small(tmp_path):
     out = tmp_path / "out.yml"
     assert mirror.main(["--out", str(out), "--from-json", str(src)]) == 1
     assert not out.exists()
+
+
+# 2026-11 review of the /update-rules tracker step. The mirror applies the limits the
+# validator enforces, so one odd upstream entry is set aside with a drop-report line
+# instead of failing every refresh; and a fault in the rules repository's own files is
+# reported as that, never as "Exodus could not be read".
+
+@pytest.mark.parametrize("name", ["N" * 81, "", None, ["a", "list"], "Evil\nname", "Evil\u202ename"])
+def test_tracker_with_an_unusable_name_is_dropped_and_reported(name):
+    doc, report = render(api_many([dict(id=1, code="com.x.y"), dict(id=2, code="com.z.w", name=name)]), None)
+    assert [t["id"] for t in doc["trackers"]] == [1]
+    line = [r for r in report if r.startswith(mirror.R_TRACKER + ": 2: ")]
+    assert len(line) == 1 and len(line[0]) < 200 and line[0].isascii() and line[0].isprintable()
+
+
+def test_tracker_with_an_80_character_name_is_kept():
+    doc, report = render(api(code="com.x.y", name="N" * 80), None)
+    assert doc["trackers"][0]["name"] == "N" * 80 and report == []
+
+
+def test_website_over_200_characters_becomes_empty():
+    base = "https://example.org/"
+    doc, _ = render(api(code="com.x.y", website=base + "a" * (200 - len(base))), None)
+    assert len(doc["trackers"][0]["website"]) == 200
+    doc, _ = render(api(code="com.x.y", website=base + "a" * (201 - len(base))), None)
+    assert doc["trackers"][0]["website"] == ""
+
+
+def test_signatures_over_253_characters_are_dropped_and_reported():
+    doc, report = render(api(code="com.x.y|com." + "a" * 250 + "|." + "s" * 254 + ".",
+                             net="ok\\.example\\.com|" + "a" * 250 + "\\.net|\\." + "l" * 254 + "\\."), None)
+    t = doc["trackers"][0]
+    assert (t["code_prefixes"], t["code_segments"]) == (["com.x.y"], [])
+    assert (t["domain_suffixes"], t["domain_labels"]) == (["ok.example.com"], [])
+    assert sum(1 for r in report if r.startswith(mirror.R_FIELD)) == 4
+
+
+@pytest.mark.parametrize("code,kept", [
+    ("androidx.core|com.tracker.sdk", ["com.tracker.sdk"]),
+    ("com.google.android.gms.|com.google.android.gms.analytics", ["com.google.android.gms.analytics"]),
+    ("kotlin.jvm.internal.Intrinsics|com.tracker.sdk", ["com.tracker.sdk"])])
+def test_code_prefix_matching_an_ordinary_package_is_set_aside(code, kept):
+    doc, report = render(api(code=code), None)
+    assert doc["trackers"][0]["code_prefixes"] == kept
+    assert sum(1 for r in report if r.startswith(mirror.R_BROAD + ": 1: ")) == 1
+
+
+def test_code_segment_matching_an_ordinary_package_is_set_aside():
+    doc, report = render(api(code=".android.|.sizmek."), None)
+    assert doc["trackers"][0]["code_segments"] == ["sizmek"]
+    assert sum(1 for r in report if r.startswith(mirror.R_BROAD + ": 1: ")) == 1
+
+
+def test_whatever_the_mirror_keeps_the_validator_accepts():
+    odd = [dict(id=i, code=f"com.sdk{i}.core") for i in range(1, 301)]
+    odd += [dict(id=400, code="com.a.b", name="N" * 81), dict(id=401, code="androidx.core|com.c.d"),
+            dict(id=402, code="com.e.f", website="https://example.org/" + "a" * 200),
+            dict(id=403, code="com.g.h|com." + "a" * 250)]
+    doc, _ = render(api_many(odd), None)
+    assert _validator().validate_trackers_file(doc, "trackers.yml") == []
+
+
+def _main_from_fixture(tmp_path, *extra):
+    out = tmp_path / "out.yml"
+    return mirror.main(["--out", str(out), "--from-json", str(FIXTURE), *extra]), out
+
+
+@pytest.mark.parametrize("error", [FileNotFoundError("first_party_hosts.txt"),
+                                   UnicodeDecodeError("utf-8", b"\xff", 0, 1, "invalid start byte")],
+                         ids=lambda e: type(e).__name__)
+@pytest.mark.parametrize("loader", ["first_party", "common"])
+def test_main_exits_3_when_a_list_in_the_rules_repository_cannot_be_read(tmp_path, monkeypatch, capsys,
+                                                                         loader, error):
+    def boom(*_a, **_k):
+        raise error
+    if loader == "first_party":
+        monkeypatch.setattr(mirror.dg, "load_first_party_hosts", boom)
+    else:
+        monkeypatch.setattr(mirror.tg, "load_common_packages", boom)
+    code, out = _main_from_fixture(tmp_path)
+    err = capsys.readouterr().err
+    assert code == 3 and not out.exists()
+    assert err.count("ERROR:") == 1 and "Exodus" not in err
+
+
+@pytest.mark.parametrize("body", [": not yaml: [\n", "- just\n- a list\n", "trackers: nope\n", "just a string\n"])
+def test_main_exits_3_when_the_previous_list_is_not_a_tracker_list(tmp_path, capsys, body):
+    prev = tmp_path / "prev.yml"
+    prev.write_text(body, encoding="utf-8")
+    code, out = _main_from_fixture(tmp_path, "--previous", str(prev))
+    err = capsys.readouterr().err
+    assert code == 3 and not out.exists()
+    assert err.count("ERROR:") == 1 and "Exodus" not in err
+
+
+def test_main_with_no_previous_file_still_writes(tmp_path):
+    code, out = _main_from_fixture(tmp_path, "--previous", str(tmp_path / "missing.yml"))
+    assert code == 0 and out.exists()

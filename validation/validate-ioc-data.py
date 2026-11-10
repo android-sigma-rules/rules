@@ -31,6 +31,7 @@ except ImportError:
 SCRIPT_DIR = Path(__file__).parent
 sys.path.insert(0, str(SCRIPT_DIR))
 import domain_grammar as dg  # noqa: E402
+import tracker_guards as tg  # noqa: E402
 BLOCKED_CATEGORIES = {"TEST", "FIXTURE", "SIMULATION", "DEBUG"}
 BLOCKED_FAMILY_PATTERNS = re.compile(
     r"(test|fixture|simulation|sample|example)", re.IGNORECASE
@@ -465,6 +466,8 @@ def validate_trackers_file(data, filename):
 
     Reuses domain_grammar so the mirror, this validator and the app's Kotlin port
     agree on what a signature may look like. Never raises on malformed input.
+    Offending values are echoed through tracker_guards.shown: they come from an
+    external list and an agent relays these lines.
     """
     errors = []
     if not isinstance(data, dict):
@@ -484,6 +487,7 @@ def validate_trackers_file(data, filename):
         errors.append(f"only {len(trackers)} trackers (< {MIN_TRACKERS})")
 
     first_party = dg.load_first_party_hosts()
+    common = tg.load_common_packages()
     total_patterns = 0
     last_id = None
     for idx, t in enumerate(trackers):
@@ -498,18 +502,21 @@ def validate_trackers_file(data, filename):
             if last_id is not None and tid <= last_id:
                 errors.append(f"{where}: `id` must be unique and ascending (previous {last_id})")
             last_id = tid
-        name = t.get("name")
-        if not isinstance(name, str) or not name.strip():
-            errors.append(f"{where}: `name` must be a non-empty string")
-        if not dg.FIELD_CHECKS["website"](t.get("website")):
+        name_problem = tg.name_problem(t.get("name"))
+        if name_problem:
+            errors.append(f"{where}: `name` {tg.shown(t.get('name'))} {name_problem}")
+        website = t.get("website")
+        if not dg.FIELD_CHECKS["website"](website):
             errors.append(f"{where}: `website` must be empty or http(s)://host[/...] with no userinfo")
+        elif len(website) > tg.WEBSITE_MAX:
+            errors.append(f"{where}: `website` is longer than {tg.WEBSITE_MAX} characters")
         cats = t.get("categories")
         if not isinstance(cats, list) or not cats:
             errors.append(f"{where}: `categories` must be a non-empty list")
         else:
             for c in cats:
                 if not isinstance(c, str) or c not in TRACKER_CATEGORIES:
-                    errors.append(f"{where}: unknown category {c!r}")
+                    errors.append(f"{where}: unknown category {tg.shown(c)}")
         any_signature = False
         for field, check, kind in _TRACKER_LISTS:
             values = t.get(field)
@@ -524,9 +531,15 @@ def validate_trackers_file(data, filename):
                     errors.append(f"{where}: {len(values)} domain_patterns exceeds cap {dg.MAX_PATTERNS_PER_TRACKER}")
             for v in values:
                 if not dg.FIELD_CHECKS[check](v):
-                    errors.append(f"{where}: `{field}` entry {v!r} fails the {check} check")
+                    errors.append(f"{where}: `{field}` entry {tg.shown(v)} fails the {check} check")
+                elif len(v) > tg.SIGNATURE_MAX:
+                    errors.append(f"{where}: `{field}` entry {tg.shown(v)} is longer than "
+                                  f"{tg.SIGNATURE_MAX} characters")
                 elif kind and any(dg.matches_host(kind, v, h) for h in first_party):
-                    errors.append(f"{where}: `{field}` entry {v!r} matches a first-party host")
+                    errors.append(f"{where}: `{field}` entry {tg.shown(v)} matches a first-party host")
+                elif not kind and any(tg.matches_package(check, v, p) for p in common):
+                    errors.append(f"{where}: `{field}` entry {tg.shown(v)} matches an ordinary package "
+                                  "(validation/common_packages.txt)")
         if not any_signature:
             errors.append(f"{where}: no code or domain signature")
         excluded = t.get("excluded_domains")

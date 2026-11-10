@@ -3,8 +3,8 @@
 
 The summary is what a person reads before approving a tracker-list refresh, so
 it is generated, never written by hand: the two files are compared as data
-(formatting and list order are not changes) and every added network signature
-is printed in full.
+(formatting and list order are not changes) and every added signature, network
+and code, is printed in full.
 
 Tracker names, websites and signatures come from an external list. They are
 printed one value per line, escaped to printable ASCII and cut at a fixed
@@ -26,6 +26,9 @@ import sys
 
 import yaml
 
+sys.path.insert(0, str(pathlib.Path(__file__).parent))
+import tracker_guards as tg  # noqa: E402
+
 NO_CHANGE = "Tracker list: no change"
 
 SIGNATURE_KINDS = {
@@ -36,12 +39,14 @@ SIGNATURE_KINDS = {
     "domain_patterns": "pattern",
 }
 NETWORK_FIELDS = ("domain_suffixes", "domain_labels", "domain_patterns")
+CODE_FIELDS = ("code_prefixes", "code_segments")
 KNOWN_FIELDS = {"id", "name", "website", "categories", "excluded_domains", *SIGNATURE_KINDS}
 
-NAME_MAX = 80
-WEBSITE_MAX = 200
-# A valid signature is at most 253 characters (a full host name), so one is never cut.
-LINE_MAX = 255
+# The validator refuses longer names, websites and signatures (tracker_guards), so a value in
+# a candidate that passed validation is never cut. The cuts bound everything else.
+NAME_MAX = tg.NAME_MAX
+WEBSITE_MAX = tg.WEBSITE_MAX
+LINE_MAX = tg.SIGNATURE_MAX + 2
 CUT = " [cut]"
 
 ALWAYS_SHOWN_REASON = "tracker dropped"
@@ -133,16 +138,17 @@ def diff(old, new):
         if entry:
             changed.append(entry)
 
-    new_network = []
-    for t in added:
-        for field in NETWORK_FIELDS:
-            for value in set(_items(t.get(field))):
-                new_network.append((t["id"], t.get("name"), SIGNATURE_KINDS[field], value))
-    for c in changed:
-        for field in NETWORK_FIELDS:
-            for value in c["signatures"].get(field, {}).get("added", []):
-                new_network.append((c["id"], c["name"], SIGNATURE_KINDS[field], value))
-    new_network.sort(key=lambda n: (n[0], n[2], n[3]))
+    def new_signatures(fields):
+        out = []
+        for t in added:
+            for field in fields:
+                for value in set(_items(t.get(field))):
+                    out.append((t["id"], t.get("name"), SIGNATURE_KINDS[field], value))
+        for c in changed:
+            for field in fields:
+                for value in c["signatures"].get(field, {}).get("added", []):
+                    out.append((c["id"], c["name"], SIGNATURE_KINDS[field], value))
+        return sorted(out, key=lambda n: (n[0], n[2], n[3]))
 
     header_keys = sorted((set(old) | set(new)) - {"trackers"}, key=_text)
     return {
@@ -152,7 +158,8 @@ def diff(old, new):
         "added": added,
         "removed": removed,
         "changed": changed,
-        "new_network": new_network,
+        "new_network": new_signatures(NETWORK_FIELDS),
+        "new_code": new_signatures(CODE_FIELDS),
     }
 
 
@@ -220,6 +227,10 @@ def render(d, drop_lines):
         lines.append(f"NEW NETWORK SIGNATURES ({len(d['new_network'])}) - check each: "
                      "would it also match a host used for ordinary services?")
         lines += [f"  {tid}  {_quoted(name)}  {kind:<8} {_plain(value)}" for tid, name, kind, value in d["new_network"]]
+    if d["new_code"]:
+        lines.append(f"NEW CODE SIGNATURES ({len(d['new_code'])}) - check each: "
+                     "would it also match a package that ordinary apps contain?")
+        lines += [f"  {tid}  {_quoted(name)}  {kind:<8} {_plain(value)}" for tid, name, kind, value in d["new_code"]]
     if d["added"]:
         lines.append(f"ADDED ({len(d['added'])})")
         for t in d["added"]:
