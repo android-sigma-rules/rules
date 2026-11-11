@@ -793,17 +793,36 @@ def test_size_limits_are_the_ones_rules_ci_enforces():
     mod = _validator_module()
     workflow = (THIS_DIR.parent / ".github" / "workflows" / "validate.yml").read_text()
     step = workflow[workflow.index("- name: ioc-data files stay under their app fetch caps"):]
-    step = step[:step.index("esac")]
+    step = step[:step.index("\n      - name:")]
+    arms = step[step.index('case "$(basename "$1")" in'):step.index("esac")]
+    read = re.findall(r"^\s*(\S+)\) echo (\d+) ;;$", arms, re.M)
+    # Every arm is one this test can read, and the comparison is the validator's (bytes, "at
+    # the limit" passes): an arm written another way must fail here, not go unread.
+    assert len(read) == arms.count(";;") == 3
+    assert 's=$(stat -c %s "$f")' in step and '[ "$s" -le "$l" ]' in step
     in_ci = {}
-    for names, limit in re.findall(r"^\s*(\S+)\) echo (\d+) ;;$", step, re.M):
+    for names, limit in read:
         for name in names.split("|"):
             in_ci[name] = int(limit)
     assert in_ci.pop("*") == mod.DEFAULT_FILE_BYTE_LIMIT
     assert in_ci == mod.FILE_BYTE_LIMITS and in_ci
 
 
+def test_the_size_limit_counts_bytes_not_characters(tmp_path):
+    # Rules CI and the app's fetch both count bytes. 400,001 two-byte letters are under the
+    # limit as characters and over it as bytes.
+    p = tmp_path / "trackers.yml"
+    p.write_bytes(("\u00e9" * 400_001).encode("utf-8"))
+    r = subprocess.run([sys.executable, str(SCRIPT), str(p)], capture_output=True, text=True)
+    assert r.returncode == 1 and _size_lines(r) == [
+        "  - the file is 800002 bytes; the limit for trackers.yml is 800000 bytes "
+        "(80% of what the app will fetch)"]
+
+
 def test_trackers_at_the_apps_limit_pass_and_one_more_fails_with_one_line():
     # The app refuses a list of more than 2,000 trackers whole (TrackerRegistry.MAX_TRACKERS):
     # phones would keep the old list and take no update again.
     assert _trackers_errors(_trackers_doc(2000)) == []
-    assert _trackers_errors(_trackers_doc(2001)) == ["2001 trackers (> 2000, the most the app accepts)"]
+    too_many = _trackers_doc(2001)
+    too_many["trackers"][0]["name"] = ""      # a fault in one tracker adds no second line
+    assert _trackers_errors(too_many) == ["2001 trackers (> 2000, the most the app accepts)"]
