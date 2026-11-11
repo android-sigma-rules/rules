@@ -495,9 +495,10 @@ def validate_trackers_file(data, filename):
             errors.append(f"trackers[{idx}]: must be a map")
             continue
         tid = t.get("id")
-        where = f"tracker {tid!r}" if isinstance(tid, int) and not isinstance(tid, bool) else f"trackers[{idx}]"
-        if not isinstance(tid, int) or isinstance(tid, bool):
-            errors.append(f"{where}: `id` must be an int")
+        id_ok = isinstance(tid, int) and not isinstance(tid, bool) and 1 <= tid <= tg.ID_MAX
+        where = f"tracker {tid!r}" if id_ok else f"trackers[{idx}]"
+        if not id_ok:
+            errors.append(f"{where}: `id` must be a whole number between 1 and {tg.ID_MAX}")
         else:
             if last_id is not None and tid <= last_id:
                 errors.append(f"{where}: `id` must be unique and ascending (previous {last_id})")
@@ -517,6 +518,8 @@ def validate_trackers_file(data, filename):
             for c in cats:
                 if not isinstance(c, str) or c not in TRACKER_CATEGORIES:
                     errors.append(f"{where}: unknown category {tg.shown(c)}")
+            if all(isinstance(c, str) for c in cats) and len(set(cats)) != len(cats):
+                errors.append(f"{where}: `categories` repeats a category")
         any_signature = False
         for field, check, kind in _TRACKER_LISTS:
             values = t.get(field)
@@ -552,6 +555,10 @@ def validate_trackers_file(data, filename):
         errors.append(f"{total_patterns} domain_patterns in the file exceeds cap {dg.MAX_PATTERNS_TOTAL}")
     return errors
 
+
+# The app's fetch limit for every ioc-data file (AndroDR: SafeRemoteText.MAX_BYTES in
+# IocDataManifest.kt). A larger file would pass review and then never reach a phone.
+MAX_FILE_BYTES = 1_000_000
 
 _MANUAL_RE = re.compile(r"#\s*verified manually\b:?(.*)$")
 _ISO_DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
@@ -606,6 +613,13 @@ def main():
         sys.exit(2)
 
     allowed_sources = load_allowed_sources(sources_path)
+
+    size = ioc_path.stat().st_size
+    if size > MAX_FILE_BYTES:
+        print(f"FAIL: {ioc_path.name} — 1 error(s):", file=sys.stderr)
+        print(f"  - the file is {size} bytes; the app takes no ioc-data file over {MAX_FILE_BYTES} bytes",
+              file=sys.stderr)
+        sys.exit(1)
 
     raw = ioc_path.read_text()
     try:

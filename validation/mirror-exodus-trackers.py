@@ -18,7 +18,9 @@ names) is missing or broken. Each failure ends with one "ERROR:" line on
 stderr, and nothing is written.
 
 Every other stderr line is about one Exodus entry and repeats its text only
-through tracker_guards.shown: one line of printable ASCII, cut short.
+through tracker_guards.shown: one line of printable ASCII, cut short. The id
+that leads such a line is a number from 1 to 999999999 (0 stands for an id
+outside that range, whose entry is dropped).
 """
 import argparse
 import http.client
@@ -63,12 +65,12 @@ def _unescape(s):
 
 
 def _categories(raw):
-    """The entry's categories as a list of text, or None when they are anything else."""
+    """The entry's categories as a list of text, each once, or None when they are anything else."""
     if raw is None:
         raw = []
     if not isinstance(raw, list) or not all(isinstance(c, str) for c in raw):
         return None
-    return list(raw) or ["Uncategorised"]
+    return list(dict.fromkeys(raw)) or ["Uncategorised"]
 
 
 def _website(site):
@@ -189,6 +191,9 @@ def render(api, previous, first_party=None, common=None):
     for key in sorted(api.get("trackers", {}), key=lambda k: int(k)):
         t = api["trackers"][key]
         tid = int(t.get("id", key))
+        if not 1 <= tid <= tg.ID_MAX:
+            report.append(f"{R_TRACKER}: 0: its id {tg.shown(tid)} is not between 1 and {tg.ID_MAX}")
+            continue
         name = t.get("name")
         problem = tg.name_problem(name)
         if problem:
@@ -276,14 +281,14 @@ def main(argv=None):
             api = json.loads(pathlib.Path(args.from_json).read_text(encoding="utf-8"))
         else:
             api = _fetch()
-    except (OSError, ValueError, http.client.HTTPException) as e:
+    except (OSError, ValueError, RecursionError, http.client.HTTPException) as e:
         return _unreadable(type(e).__name__)
     if not isinstance(api, dict) or not isinstance(api.get("trackers"), dict):
         return _unreadable("no trackers map")
 
     try:
         doc, report = render(api, previous, first_party, common)
-    except (ArithmeticError, AttributeError, KeyError, TypeError, ValueError) as e:
+    except (ArithmeticError, AttributeError, KeyError, RecursionError, TypeError, ValueError) as e:
         return _unreadable(f"an entry is not a tracker ({type(e).__name__})")
     for line in report:
         print(line, file=sys.stderr)

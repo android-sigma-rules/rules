@@ -495,3 +495,60 @@ def test_main_exits_2_when_an_id_is_not_a_whole_number(tmp_path, capsys, bad_id)
     assert mirror.main(["--out", str(out), "--from-json", str(src)]) == 2
     err = capsys.readouterr().err
     assert not out.exists() and err.count("ERROR:") == 1 and "Traceback" not in err
+
+
+# 2026-11 third review round.
+
+def test_repeated_categories_are_kept_once_in_exodus_order():
+    # 50,000 repeats of one label used to pass the mirror and the validator and to be invisible in
+    # the review summary (it compares categories as sets), while the file outgrew the app's fetch limit.
+    cats = ["Analytics", "Advertisement", "Analytics"] + ["Analytics"] * 50000
+    doc, report = render(_with_categories(cats), None)
+    assert doc["trackers"][1]["categories"] == ["Analytics", "Advertisement"] and report == []
+
+
+@pytest.mark.parametrize("bad_id", [0, -5, 10 ** 9, 10 ** 400], ids=["zero", "negative", "ten-digits", "401-digits"])
+def test_tracker_whose_id_is_out_of_range_is_dropped_and_its_id_is_not_printed_in_full(bad_id):
+    doc = api_many([dict(id=1, code="com.x.y"), dict(id=2, code="com.z.w")])
+    doc["trackers"]["2"]["id"] = bad_id
+    built, report = render(doc, None)
+    assert [t["id"] for t in built["trackers"]] == [1]
+    assert len(report) == 1 and report[0].startswith(mirror.R_TRACKER + ": 0: its id ") and _report_lines_ok(report)
+    # the review summary counts and shows a drop line only when it has this shape
+    summary = _load(THIS_DIR / "summarize-tracker-changes.py", "summarize_tracker_changes_for_ids")
+    assert summary.DROP_LINE.match(report[0])
+
+
+def test_every_kept_id_fits_the_summary_scripts_drop_line_pattern():
+    doc, _ = render(api_many([dict(id=1, code="com.x.y"), dict(id=mirror.tg.ID_MAX, code="com.z.w")]), None)
+    assert [t["id"] for t in doc["trackers"]] == [1, 999_999_999]
+
+
+@pytest.mark.parametrize("depth", [20000, 200000])
+def test_main_exits_2_when_the_answer_is_nested_too_deep(tmp_path, capsys, depth):
+    src = tmp_path / "in.json"
+    src.write_text('{"trackers": {"1": {"id": 1, "categories": ' + "[" * depth + "]" * depth + "}}}",
+                   encoding="utf-8")
+    out = tmp_path / "out.yml"
+    assert mirror.main(["--out", str(out), "--from-json", str(src)]) == 2
+    err = capsys.readouterr().err
+    assert not out.exists() and err.count("ERROR:") == 1 and "Traceback" not in err
+
+
+def test_main_exits_2_when_an_entry_cannot_be_walked(tmp_path, monkeypatch, capsys):
+    def too_deep(*_a, **_k):
+        raise RecursionError("maximum recursion depth exceeded")
+    monkeypatch.setattr(mirror, "render", too_deep)
+    code, out = _main_from_fixture(tmp_path)
+    err = capsys.readouterr().err
+    assert code == 2 and not out.exists() and err.count("ERROR:") == 1
+
+
+def test_a_pattern_over_the_file_cap_is_reported_in_one_short_line():
+    long_pattern = "z[0-9]*\\." + "\\.".join(["a" * 40] * 3) + "\\.ex\\.com"
+    specs = [dict(id=i, code="com.x.y", net=f"a{i}[0-9]*\\.ex\\.com|b{i}[0-9]*\\.ex\\.com") for i in range(1, 33)]
+    specs.append(dict(id=33, code="com.x.y", net=long_pattern))
+    doc, report = render(api_many(specs), None)
+    assert doc["trackers"][-1]["domain_patterns"] == []
+    assert len(report) == 1 and report[0].startswith(mirror.R_CAP + ": 33: file cap, ")
+    assert report[0].endswith("...") and _report_lines_ok(report)

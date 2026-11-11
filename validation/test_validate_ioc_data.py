@@ -728,3 +728,46 @@ def test_trackers_excluded_domain_over_253_characters_fails():
     errs = _trackers_errors(_with("excluded_domains", [".www" + "." * 3000]))
     assert len(errs) == 1 and "excluded_domains" in errs[0]
     assert len(errs[0]) < 200 and errs[0].isascii() and errs[0].isprintable()
+
+
+# 2026-11 third review round.
+
+def test_trackers_repeated_category_fails_with_one_line():
+    # The review summary compares categories as sets, so repeats would grow the file unseen.
+    errs = _trackers_errors(_with("categories", ["Analytics"] * 50000))
+    assert len(errs) == 1 and "repeats a category" in errs[0] and len(errs[0]) < 200
+
+
+@pytest.mark.parametrize("bad_id", [0, -5, 10 ** 9, 10 ** 400], ids=["zero", "negative", "ten-digits", "401-digits"])
+def test_trackers_id_out_of_range_fails_and_is_not_printed_in_full(bad_id):
+    errs = _trackers_errors(_with("id", bad_id, idx=299))
+    assert len(errs) == 1 and "between 1 and 999999999" in errs[0]
+    assert errs[0].startswith("trackers[299]: ") and len(errs[0]) < 200
+
+
+def test_trackers_largest_id_passes():
+    assert _trackers_errors(_with("id", 999_999_999, idx=299)) == []
+
+
+def _padded_trackers_text(per_tracker):
+    doc = _trackers_doc()
+    for i, t in enumerate(doc["trackers"]):
+        t["excluded_domains"] = [f"h{i}-{k}." + "a" * 180 + ".example.org" for k in range(per_tracker)]
+    return yaml.safe_dump(doc, sort_keys=False)
+
+
+def test_a_trackers_file_over_the_apps_fetch_limit_fails(tmp_path):
+    # The app takes no ioc-data file over 1,000,000 bytes (SafeRemoteText in IocDataManifest.kt):
+    # a larger list would pass every other check and then never reach a phone.
+    ok, big = _padded_trackers_text(10), _padded_trackers_text(20)
+    assert len(ok.encode()) < 1_000_000 < len(big.encode())
+    r = run_validator(tmp_path, "trackers.yml", ok)
+    assert (r.returncode, r.stderr) == (0, "")
+    r = run_validator(tmp_path, "trackers.yml", big)
+    lines = r.stderr.splitlines()
+    assert r.returncode == 1 and len(lines) == 2 and "1000000 bytes" in lines[1]
+
+
+def test_any_ioc_data_file_over_the_apps_fetch_limit_fails(tmp_path):
+    r = run_validator(tmp_path, "c2-domains.yml", "# padding\n" * 110_000)
+    assert r.returncode == 1 and "1000000 bytes" in r.stderr

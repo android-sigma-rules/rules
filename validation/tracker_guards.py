@@ -7,6 +7,8 @@ that passed validation).
 import pathlib
 import unicodedata
 
+# Exodus numbers its trackers from 1; nine digits is also all the review summary reads as an id.
+ID_MAX = 999_999_999
 NAME_MAX = 80
 WEBSITE_MAX = 200
 # A full host name; the app ignores longer hosts (TrackerSet.MAX_HOST_CHARS).
