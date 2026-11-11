@@ -756,18 +756,54 @@ def _padded_trackers_text(per_tracker):
     return yaml.safe_dump(doc, sort_keys=False)
 
 
-def test_a_trackers_file_over_the_apps_fetch_limit_fails(tmp_path):
-    # The app takes no ioc-data file over 1,000,000 bytes (SafeRemoteText in IocDataManifest.kt):
-    # a larger list would pass every other check and then never reach a phone.
-    ok, big = _padded_trackers_text(10), _padded_trackers_text(20)
-    assert len(ok.encode()) < 1_000_000 < len(big.encode())
+def _size_lines(result):
+    return [line for line in result.stderr.splitlines() if " bytes; the limit for " in line]
+
+
+def test_a_trackers_file_over_its_size_limit_fails(tmp_path):
+    # Rules CI stops trackers.yml at 800,000 bytes, 80% of what the app will fetch. A list
+    # between that and the app's own 1,000,000 used to pass here, be approved, and then fail
+    # in the pull request.
+    ok, big = _padded_trackers_text(10), _padded_trackers_text(14)
+    assert len(ok.encode()) < 800_000 < len(big.encode()) < 1_000_000
     r = run_validator(tmp_path, "trackers.yml", ok)
     assert (r.returncode, r.stderr) == (0, "")
     r = run_validator(tmp_path, "trackers.yml", big)
     lines = r.stderr.splitlines()
-    assert r.returncode == 1 and len(lines) == 2 and "1000000 bytes" in lines[1]
+    assert r.returncode == 1 and len(lines) == 2 and _size_lines(r) == [lines[1]]
 
 
-def test_any_ioc_data_file_over_the_apps_fetch_limit_fails(tmp_path):
-    r = run_validator(tmp_path, "c2-domains.yml", "# padding\n" * 110_000)
-    assert r.returncode == 1 and "1000000 bytes" in r.stderr
+@pytest.mark.parametrize("name, limit", [
+    ("trackers.yml", 800_000), ("c2-domains.yml", 800_000), ("brand-names.yml", 209_715),
+    ("brand-domains.yml", 209_715), ("known-oem-prefixes.yml", 80_000),
+])
+def test_each_ioc_data_file_fails_one_byte_over_its_limit_and_not_at_it(tmp_path, name, limit):
+    at_the_limit = "#" * (limit - 1) + "\n"
+    assert _size_lines(run_validator(tmp_path, name, at_the_limit)) == []
+    r = run_validator(tmp_path, name, at_the_limit + "#")
+    assert r.returncode == 1 and _size_lines(r) == [
+        f"  - the file is {limit + 1} bytes; the limit for {name} is {limit} bytes "
+        f"(80% of what the app will fetch)"]
+
+
+def test_size_limits_are_the_ones_rules_ci_enforces():
+    # Two places hold these numbers: the validator, and the step of validate.yml that fails a
+    # pull request. They must not drift apart.
+    import re
+    mod = _validator_module()
+    workflow = (THIS_DIR.parent / ".github" / "workflows" / "validate.yml").read_text()
+    step = workflow[workflow.index("- name: ioc-data files stay under their app fetch caps"):]
+    step = step[:step.index("esac")]
+    in_ci = {}
+    for names, limit in re.findall(r"^\s*(\S+)\) echo (\d+) ;;$", step, re.M):
+        for name in names.split("|"):
+            in_ci[name] = int(limit)
+    assert in_ci.pop("*") == mod.DEFAULT_FILE_BYTE_LIMIT
+    assert in_ci == mod.FILE_BYTE_LIMITS and in_ci
+
+
+def test_trackers_at_the_apps_limit_pass_and_one_more_fails_with_one_line():
+    # The app refuses a list of more than 2,000 trackers whole (TrackerRegistry.MAX_TRACKERS):
+    # phones would keep the old list and take no update again.
+    assert _trackers_errors(_trackers_doc(2000)) == []
+    assert _trackers_errors(_trackers_doc(2001)) == ["2001 trackers (> 2000, the most the app accepts)"]

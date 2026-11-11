@@ -451,6 +451,8 @@ def validate_brand_file(data, filename):
 TRACKER_CATEGORIES = {"Advertisement", "Profiling", "Identification", "Location", "Analytics",
                       "Crash reporting", "Uncategorised"}
 MIN_TRACKERS = 300
+# The app refuses a longer list whole (AndroDR: TrackerRegistry.MAX_TRACKERS).
+MAX_TRACKERS = 2_000
 # (yaml field, domain_grammar.FIELD_CHECKS key, matches_host kind or None)
 _TRACKER_LISTS = (
     ("code_prefixes", "prefix", None),
@@ -485,6 +487,9 @@ def validate_trackers_file(data, filename):
         return errors
     if len(trackers) < MIN_TRACKERS:
         errors.append(f"only {len(trackers)} trackers (< {MIN_TRACKERS})")
+    if len(trackers) > MAX_TRACKERS:
+        errors.append(f"{len(trackers)} trackers (> {MAX_TRACKERS}, the most the app accepts)")
+        return errors
 
     first_party = dg.load_first_party_hosts()
     common = tg.load_common_packages()
@@ -556,9 +561,14 @@ def validate_trackers_file(data, filename):
     return errors
 
 
-# The app's fetch limit for every ioc-data file (AndroDR: SafeRemoteText.MAX_BYTES in
-# IocDataManifest.kt). A larger file would pass review and then never reach a phone.
-MAX_FILE_BYTES = 1_000_000
+# The largest size each ioc-data file may have: 80% of what the app will fetch for it. These
+# are the numbers rules CI enforces (.github/workflows/validate.yml, "ioc-data files stay
+# under their app fetch caps"); test_size_limits_are_the_ones_rules_ci_enforces keeps the two
+# equal. Checked here as well so that a file too large is refused before a person is asked to
+# approve it, not afterwards in the pull request.
+FILE_BYTE_LIMITS = {"brand-names.yml": 209_715, "brand-domains.yml": 209_715,
+                    "known-oem-prefixes.yml": 80_000}
+DEFAULT_FILE_BYTE_LIMIT = 800_000
 
 _MANUAL_RE = re.compile(r"#\s*verified manually\b:?(.*)$")
 _ISO_DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
@@ -615,10 +625,11 @@ def main():
     allowed_sources = load_allowed_sources(sources_path)
 
     size = ioc_path.stat().st_size
-    if size > MAX_FILE_BYTES:
+    limit = FILE_BYTE_LIMITS.get(ioc_path.name, DEFAULT_FILE_BYTE_LIMIT)
+    if size > limit:
         print(f"FAIL: {ioc_path.name} — 1 error(s):", file=sys.stderr)
-        print(f"  - the file is {size} bytes; the app takes no ioc-data file over {MAX_FILE_BYTES} bytes",
-              file=sys.stderr)
+        print(f"  - the file is {size} bytes; the limit for {ioc_path.name} is {limit} bytes "
+              f"(80% of what the app will fetch)", file=sys.stderr)
         sys.exit(1)
 
     raw = ioc_path.read_text()
