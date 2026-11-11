@@ -6,11 +6,24 @@ generated file stays ODbL. Signatures are normalised into a few strict,
 validator-checked shapes (see domain_grammar.py) so the app never evaluates an
 arbitrary Exodus regular expression.
 
-Usage:
-    python3 validation/mirror-exodus-trackers.py --out ioc-data/trackers.yml \
-        [--from-json FILE] [--previous FILE]
+Usage (the candidate is written away from the list in use, then reviewed):
+    python3 validation/mirror-exodus-trackers.py --out CANDIDATE \
+        [--from-json FILE] [--previous ioc-data/trackers.yml]
+
+Exit codes: 0 the file was written; 1 a size guard tripped (too few trackers,
+or the list shrank by more than a tenth); 2 the source could not be read or
+did not answer with a tracker list; 3 a file the mirror reads from the rules
+repository (first_party_hosts.txt, common_packages.txt, the list --previous
+names) is missing or broken. Each failure ends with one "ERROR:" line on
+stderr, and nothing is written.
+
+Every other stderr line is about one Exodus entry and repeats its text only
+through tracker_guards.shown: one line of printable ASCII, cut short. The id
+that leads such a line is a number from 1 to 999999999 (0 stands for an id
+outside that range, whose entry is dropped).
 """
 import argparse
+import http.client
 import json
 import pathlib
 import re
@@ -21,6 +34,7 @@ import yaml
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 import domain_grammar as dg  # noqa: E402
+import tracker_guards as tg  # noqa: E402
 
 SOURCE_URL = "https://reports.exodus-privacy.eu.org/api/trackers"
 ATTRIBUTION = "Exodus Privacy — https://exodus-privacy.eu.org — Open Database License 1.0"
@@ -50,13 +64,33 @@ def _unescape(s):
     return s.replace("\\.", ".").replace("\\-", "-")
 
 
+def _categories(raw):
+    """The entry's categories as a list of text, each once, or None when they are anything else."""
+    if raw is None:
+        raw = []
+    if not isinstance(raw, list) or not all(isinstance(c, str) for c in raw):
+        return None
+    return list(dict.fromkeys(raw)) or ["Uncategorised"]
+
+
 def _website(site):
-    if isinstance(site, str) and site and dg.FIELD_CHECKS["website"](site):
+    if isinstance(site, str) and site and len(site) <= tg.WEBSITE_MAX and dg.FIELD_CHECKS["website"](site):
         return site
     return ""
 
 
-def _derive_code(tid, sigs, report):
+def _keep_code(kind, value, raw, tid, common, report):
+    """True when a derived prefix or segment may enter the list; otherwise it is reported."""
+    if not dg.FIELD_CHECKS[kind](value) or len(value) > tg.SIGNATURE_MAX:
+        report.append(f"{R_FIELD}: {tid}: {kind} {tg.shown(value)}")
+        return False
+    if any(tg.matches_package(kind, value, p) for p in common):
+        report.append(f"{R_BROAD}: {tid}: {tg.shown(raw)} (matches an ordinary package)")
+        return False
+    return True
+
+
+def _derive_code(tid, sigs, common, report):
     prefixes, segments = set(), set()
     plain = [s.rstrip(".") for s in sigs if not s.startswith(".")]
     non_class = [s for s in plain if not s.rsplit(".", 1)[-1][:1].isupper()]
@@ -66,31 +100,29 @@ def _derive_code(tid, sigs, report):
             continue
         if s.startswith("."):
             inner = s[1:]
-            if dg.FIELD_CHECKS["segment"](inner):
+            if not dg.FIELD_CHECKS["segment"](inner):
+                report.append(f"{R_UPPER_SEGMENT}: {tid}: {tg.shown(raw)}")
+            elif _keep_code("segment", inner, raw, tid, common, report):
                 segments.add(inner)
-            else:
-                report.append(f"{R_UPPER_SEGMENT}: {tid}: {raw!r}")
             continue
         last = s.rsplit(".", 1)[-1]
         if last[:1].isupper():
             package = s.rsplit(".", 1)[0] if "." in s else ""
             parts = package.split(".") if package else []
             if len(parts) < 3:
-                report.append(f"{R_CLASS_NAME}: {tid}: {raw!r} (package has {len(parts)} segments)")
+                report.append(f"{R_CLASS_NAME}: {tid}: {tg.shown(raw)} (package has {len(parts)} segments)")
                 continue
             if any(o.startswith(package + ".") for o in non_class):
-                report.append(f"{R_CLASS_NAME}: {tid}: {raw!r} (package is a parent of another signature)")
+                report.append(f"{R_CLASS_NAME}: {tid}: {tg.shown(raw)} (package is a parent of another signature)")
                 continue
             candidate = package
         elif _PLAIN_CODE.fullmatch(s):
             candidate = s
         else:
-            report.append(f"{R_BAD_CODE}: {tid}: {raw!r}")
+            report.append(f"{R_BAD_CODE}: {tid}: {tg.shown(raw)}")
             continue
-        if dg.FIELD_CHECKS["prefix"](candidate):
+        if _keep_code("prefix", candidate, raw, tid, common, report):
             prefixes.add(candidate)
-        else:
-            report.append(f"{R_FIELD}: {tid}: prefix {candidate!r}")
     return sorted(prefixes), sorted(segments)
 
 
@@ -119,15 +151,18 @@ def _classify_net(sig):
 def _derive_net(tid, sigs, first_party, report):
     suffixes, labels, patterns, excluded = set(), set(), [], []
     for sig in sigs:
+        if len(sig) > tg.SIGNATURE_MAX:  # also bounds what excluded_domains can hold
+            report.append(f"{R_FIELD}: {tid}: signature {tg.shown(sig)}")
+            continue
         kind, value = _classify_net(sig)
         if kind is None:
-            report.append(f"{R_BAD_NET}: {tid}: {sig!r} ({value})")
+            report.append(f"{R_BAD_NET}: {tid}: {tg.shown(sig)} ({value})")
             continue
-        if not dg.FIELD_CHECKS[kind](value):
-            report.append(f"{R_FIELD}: {tid}: {kind} {value!r}")
+        if not dg.FIELD_CHECKS[kind](value) or len(value) > tg.SIGNATURE_MAX:
+            report.append(f"{R_FIELD}: {tid}: {kind} {tg.shown(value)}")
             continue
         if any(dg.matches_host(kind, value, h) for h in first_party):
-            report.append(f"{R_BROAD}: {tid}: {sig!r}")
+            report.append(f"{R_BROAD}: {tid}: {tg.shown(sig)}")
             if sig not in excluded:
                 excluded.append(sig)
             continue
@@ -140,27 +175,45 @@ def _derive_net(tid, sigs, first_party, report):
     return sorted(suffixes), sorted(labels), patterns, excluded
 
 
-def render(api, previous):
+def render(api, previous, first_party=None, common=None):
     """Normalise an Exodus API dict into (document, drop_report).
 
     `previous` is the prior document, if any; the shrink guard lives in main().
+    `first_party` and `common` are the two breadth lists; main() loads them itself so
+    that a fault in either is not mistaken for a fault in an Exodus entry.
     """
-    first_party = dg.load_first_party_hosts()
+    if first_party is None:
+        first_party = dg.load_first_party_hosts()
+    if common is None:
+        common = tg.load_common_packages()
     report = []
     built = []
     for key in sorted(api.get("trackers", {}), key=lambda k: int(k)):
         t = api["trackers"][key]
         tid = int(t.get("id", key))
-        prefixes, segments = _derive_code(tid, _split(t.get("code_signature")), report)
+        if not 1 <= tid <= tg.ID_MAX:
+            report.append(f"{R_TRACKER}: 0: its id {tg.shown(tid)} is not between 1 and {tg.ID_MAX}")
+            continue
+        name = t.get("name")
+        problem = tg.name_problem(name)
+        if problem:
+            report.append(f"{R_TRACKER}: {tid}: name {tg.shown(name)} {problem}")
+            continue
+        categories = _categories(t.get("categories"))
+        if categories is None:
+            report.append(f"{R_TRACKER}: {tid}: categories {tg.shown(t.get('categories'))} "
+                          "are not a list of text")
+            continue
+        prefixes, segments = _derive_code(tid, _split(t.get("code_signature")), common, report)
         suffixes, labels, patterns, excluded = _derive_net(
             tid, _split(t.get("network_signature")), first_party, report)
         if len(patterns) > dg.MAX_PATTERNS_PER_TRACKER:
             for p in patterns[dg.MAX_PATTERNS_PER_TRACKER:]:
-                report.append(f"{R_CAP}: {tid}: per-tracker cap, {p!r}")
+                report.append(f"{R_CAP}: {tid}: per-tracker cap, {tg.shown(p)}")
             patterns = patterns[:dg.MAX_PATTERNS_PER_TRACKER]
         built.append(dict(
-            id=tid, name=t.get("name") or "", website=_website(t.get("website")),
-            categories=list(t.get("categories") or []) or ["Uncategorised"],
+            id=tid, name=name, website=_website(t.get("website")),
+            categories=categories,
             code_prefixes=prefixes, code_segments=segments, domain_suffixes=suffixes,
             domain_labels=labels, domain_patterns=patterns, excluded_domains=excluded))
     built.sort(key=lambda t: t["id"])
@@ -170,12 +223,12 @@ def render(api, previous):
     for t in built:
         keep = max(0, dg.MAX_PATTERNS_TOTAL - total)
         for p in t["domain_patterns"][keep:]:
-            report.append(f"{R_CAP}: {t['id']}: file cap, {p!r}")
+            report.append(f"{R_CAP}: {t['id']}: file cap, {tg.shown(p)}")
         t["domain_patterns"] = t["domain_patterns"][:keep]
         total += len(t["domain_patterns"])
         if not (t["code_prefixes"] or t["code_segments"] or t["domain_suffixes"]
                 or t["domain_labels"] or t["domain_patterns"]):
-            report.append(f"{R_TRACKER}: {t['id']}: {t['name']!r} has no usable signature left")
+            report.append(f"{R_TRACKER}: {t['id']}: {tg.shown(t['name'])} has no usable signature left")
             continue
         trackers.append(t)
 
@@ -190,6 +243,22 @@ def _fetch():
         return json.loads(resp.read().decode("utf-8"))
 
 
+def _unreadable(why):
+    print(f"ERROR: could not read the Exodus tracker list: {why}", file=sys.stderr)
+    return 2
+
+
+def _previous(path):
+    """The list `--previous` names, or None when the option was not given. A missing file raises
+    (it would switch the shrink guard off without a word), and so does one that is not a tracker list."""
+    if not path:
+        return None
+    doc = yaml.safe_load(pathlib.Path(path).read_text(encoding="utf-8"))
+    if not isinstance(doc, dict) or not isinstance(doc.get("trackers"), list):
+        raise ValueError("not a tracker list")
+    return doc
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out", required=True)
@@ -197,15 +266,30 @@ def main(argv=None):
     ap.add_argument("--previous")
     args = ap.parse_args(argv)
 
-    if args.from_json:
-        api = json.loads(pathlib.Path(args.from_json).read_text(encoding="utf-8"))
-    else:
-        api = _fetch()
-    previous = None
-    if args.previous and pathlib.Path(args.previous).exists():
-        previous = yaml.safe_load(pathlib.Path(args.previous).read_text(encoding="utf-8"))
+    # Local files first: a fault here is the rules repository's, and must not read as Exodus's.
+    try:
+        first_party, common = dg.load_first_party_hosts(), tg.load_common_packages()
+        previous = _previous(args.previous)
+    except (OSError, ValueError, yaml.YAMLError) as e:
+        print("ERROR: a file the mirror reads from the rules repository is missing or broken "
+              f"({type(e).__name__})", file=sys.stderr)
+        return 3
 
-    doc, report = render(api, previous)
+    # The exception's message is never printed: it can carry the response body.
+    try:
+        if args.from_json:
+            api = json.loads(pathlib.Path(args.from_json).read_text(encoding="utf-8"))
+        else:
+            api = _fetch()
+    except (OSError, ValueError, RecursionError, http.client.HTTPException) as e:
+        return _unreadable(type(e).__name__)
+    if not isinstance(api, dict) or not isinstance(api.get("trackers"), dict):
+        return _unreadable("no trackers map")
+
+    try:
+        doc, report = render(api, previous, first_party, common)
+    except (ArithmeticError, AttributeError, KeyError, RecursionError, TypeError, ValueError) as e:
+        return _unreadable(f"an entry is not a tracker ({type(e).__name__})")
     for line in report:
         print(line, file=sys.stderr)
     n = len(doc["trackers"])
@@ -213,7 +297,7 @@ def main(argv=None):
     if n < MIN_TRACKERS:
         print(f"ERROR: only {n} trackers (< {MIN_TRACKERS})", file=sys.stderr)
         return 1
-    if previous and previous.get("trackers"):
+    if previous and previous["trackers"]:
         old = len(previous["trackers"])
         if n < old * (1 - MAX_SHRINK):
             print(f"ERROR: tracker count shrank from {old} to {n} (> {MAX_SHRINK:.0%})", file=sys.stderr)

@@ -31,6 +31,7 @@ except ImportError:
 SCRIPT_DIR = Path(__file__).parent
 sys.path.insert(0, str(SCRIPT_DIR))
 import domain_grammar as dg  # noqa: E402
+import tracker_guards as tg  # noqa: E402
 BLOCKED_CATEGORIES = {"TEST", "FIXTURE", "SIMULATION", "DEBUG"}
 BLOCKED_FAMILY_PATTERNS = re.compile(
     r"(test|fixture|simulation|sample|example)", re.IGNORECASE
@@ -450,6 +451,8 @@ def validate_brand_file(data, filename):
 TRACKER_CATEGORIES = {"Advertisement", "Profiling", "Identification", "Location", "Analytics",
                       "Crash reporting", "Uncategorised"}
 MIN_TRACKERS = 300
+# The app refuses a longer list whole (AndroDR: TrackerRegistry.MAX_TRACKERS).
+MAX_TRACKERS = 2_000
 # (yaml field, domain_grammar.FIELD_CHECKS key, matches_host kind or None)
 _TRACKER_LISTS = (
     ("code_prefixes", "prefix", None),
@@ -465,6 +468,8 @@ def validate_trackers_file(data, filename):
 
     Reuses domain_grammar so the mirror, this validator and the app's Kotlin port
     agree on what a signature may look like. Never raises on malformed input.
+    Offending values are echoed through tracker_guards.shown: they come from an
+    external list and an agent relays these lines.
     """
     errors = []
     if not isinstance(data, dict):
@@ -482,8 +487,12 @@ def validate_trackers_file(data, filename):
         return errors
     if len(trackers) < MIN_TRACKERS:
         errors.append(f"only {len(trackers)} trackers (< {MIN_TRACKERS})")
+    if len(trackers) > MAX_TRACKERS:
+        errors.append(f"{len(trackers)} trackers (> {MAX_TRACKERS}, the most the app accepts)")
+        return errors
 
     first_party = dg.load_first_party_hosts()
+    common = tg.load_common_packages()
     total_patterns = 0
     last_id = None
     for idx, t in enumerate(trackers):
@@ -491,25 +500,31 @@ def validate_trackers_file(data, filename):
             errors.append(f"trackers[{idx}]: must be a map")
             continue
         tid = t.get("id")
-        where = f"tracker {tid!r}" if isinstance(tid, int) and not isinstance(tid, bool) else f"trackers[{idx}]"
-        if not isinstance(tid, int) or isinstance(tid, bool):
-            errors.append(f"{where}: `id` must be an int")
+        id_ok = isinstance(tid, int) and not isinstance(tid, bool) and 1 <= tid <= tg.ID_MAX
+        where = f"tracker {tid!r}" if id_ok else f"trackers[{idx}]"
+        if not id_ok:
+            errors.append(f"{where}: `id` must be a whole number between 1 and {tg.ID_MAX}")
         else:
             if last_id is not None and tid <= last_id:
                 errors.append(f"{where}: `id` must be unique and ascending (previous {last_id})")
             last_id = tid
-        name = t.get("name")
-        if not isinstance(name, str) or not name.strip():
-            errors.append(f"{where}: `name` must be a non-empty string")
-        if not dg.FIELD_CHECKS["website"](t.get("website")):
+        name_problem = tg.name_problem(t.get("name"))
+        if name_problem:
+            errors.append(f"{where}: `name` {tg.shown(t.get('name'))} {name_problem}")
+        website = t.get("website")
+        if not dg.FIELD_CHECKS["website"](website):
             errors.append(f"{where}: `website` must be empty or http(s)://host[/...] with no userinfo")
+        elif len(website) > tg.WEBSITE_MAX:
+            errors.append(f"{where}: `website` is longer than {tg.WEBSITE_MAX} characters")
         cats = t.get("categories")
         if not isinstance(cats, list) or not cats:
             errors.append(f"{where}: `categories` must be a non-empty list")
         else:
             for c in cats:
                 if not isinstance(c, str) or c not in TRACKER_CATEGORIES:
-                    errors.append(f"{where}: unknown category {c!r}")
+                    errors.append(f"{where}: unknown category {tg.shown(c)}")
+            if all(isinstance(c, str) for c in cats) and len(set(cats)) != len(cats):
+                errors.append(f"{where}: `categories` repeats a category")
         any_signature = False
         for field, check, kind in _TRACKER_LISTS:
             values = t.get(field)
@@ -524,18 +539,36 @@ def validate_trackers_file(data, filename):
                     errors.append(f"{where}: {len(values)} domain_patterns exceeds cap {dg.MAX_PATTERNS_PER_TRACKER}")
             for v in values:
                 if not dg.FIELD_CHECKS[check](v):
-                    errors.append(f"{where}: `{field}` entry {v!r} fails the {check} check")
+                    errors.append(f"{where}: `{field}` entry {tg.shown(v)} fails the {check} check")
+                elif len(v) > tg.SIGNATURE_MAX:
+                    errors.append(f"{where}: `{field}` entry {tg.shown(v)} is longer than "
+                                  f"{tg.SIGNATURE_MAX} characters")
                 elif kind and any(dg.matches_host(kind, v, h) for h in first_party):
-                    errors.append(f"{where}: `{field}` entry {v!r} matches a first-party host")
+                    errors.append(f"{where}: `{field}` entry {tg.shown(v)} matches a first-party host")
+                elif not kind and any(tg.matches_package(check, v, p) for p in common):
+                    errors.append(f"{where}: `{field}` entry {tg.shown(v)} matches an ordinary package "
+                                  "(validation/common_packages.txt)")
         if not any_signature:
             errors.append(f"{where}: no code or domain signature")
         excluded = t.get("excluded_domains")
         if not isinstance(excluded, list) or not all(isinstance(e, str) for e in excluded):
             errors.append(f"{where}: `excluded_domains` must be a list of strings")
+        else:
+            errors += [f"{where}: `excluded_domains` entry {tg.shown(e)} is longer than "
+                       f"{tg.SIGNATURE_MAX} characters" for e in excluded if len(e) > tg.SIGNATURE_MAX]
     if total_patterns > dg.MAX_PATTERNS_TOTAL:
         errors.append(f"{total_patterns} domain_patterns in the file exceeds cap {dg.MAX_PATTERNS_TOTAL}")
     return errors
 
+
+# The largest size each ioc-data file may have: 80% of what the app will fetch for it. These
+# are the numbers rules CI enforces (.github/workflows/validate.yml, "ioc-data files stay
+# under their app fetch caps"); test_size_limits_are_the_ones_rules_ci_enforces keeps the two
+# equal. Checked here as well so that a file too large is refused before a person is asked to
+# approve it, not afterwards in the pull request.
+FILE_BYTE_LIMITS = {"brand-names.yml": 209_715, "brand-domains.yml": 209_715,
+                    "known-oem-prefixes.yml": 80_000}
+DEFAULT_FILE_BYTE_LIMIT = 800_000
 
 _MANUAL_RE = re.compile(r"#\s*verified manually\b:?(.*)$")
 _ISO_DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
@@ -591,13 +624,22 @@ def main():
 
     allowed_sources = load_allowed_sources(sources_path)
 
+    size = ioc_path.stat().st_size
+    limit = FILE_BYTE_LIMITS.get(ioc_path.name, DEFAULT_FILE_BYTE_LIMIT)
+    if size > limit:
+        print(f"FAIL: {ioc_path.name} — 1 error(s):", file=sys.stderr)
+        print(f"  - the file is {size} bytes; the limit for {ioc_path.name} is {limit} bytes "
+              f"(80% of what the app will fetch)", file=sys.stderr)
+        sys.exit(1)
+
     raw = ioc_path.read_text()
     try:
         data = yaml.safe_load(raw)
     except yaml.YAMLError as e:
         print(f"YAML parse error: {e}", file=sys.stderr)
         sys.exit(2)
-    manual_errors = manual_verification_errors(raw)
+    # trackers.yml holds no such records: every word in it is Exodus's, and must not be read as one.
+    manual_errors = [] if ioc_path.name == "trackers.yml" else manual_verification_errors(raw)
     if manual_errors and not (isinstance(data, dict) and data.get("entries")):
         # files without an entries list still carry these records (campaigns.yml)
         print(f"FAIL: {ioc_path.name} — {len(manual_errors)} error(s):", file=sys.stderr)

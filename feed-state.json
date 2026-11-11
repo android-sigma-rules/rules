@@ -35,6 +35,10 @@
       "last_seen_timestamp": "2026-11-02T00:00:00Z",
       "last_commit_sha": "6ecbec2f66cf18ea869e596ef451a072539ae588",
       "ioc_data_last_write": "2026-07-03T12:00:00Z"
+    },
+    "exodus_trackers": {
+      "last_seen_timestamp": "2026-11-06T12:40:04Z",
+      "ioc_data_last_write": "2026-11-06T12:40:04Z"
     }
   },
   "discover": {

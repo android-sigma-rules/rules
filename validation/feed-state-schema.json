@@ -26,7 +26,8 @@
         "nvd",
         "stalkerware_indicators",
         "attack_mobile",
-        "amnesty"
+        "amnesty",
+        "exodus_trackers"
       ],
       "properties": {
         "threatfox":              { "$ref": "#/$defs/FeedCursor" },
@@ -36,7 +37,8 @@
         "stalkerware_indicators": { "$ref": "#/$defs/FeedCursorWithCommit" },
         "attack_mobile":          { "$ref": "#/$defs/FeedCursorWithVersion" },
         "amnesty":                { "$ref": "#/$defs/FeedCursor" },
-        "prodaft":                { "$ref": "#/$defs/FeedCursorWithCommit" }
+        "prodaft":                { "$ref": "#/$defs/FeedCursorWithCommit" },
+        "exodus_trackers":        { "$ref": "#/$defs/FeedCursor" }
       }
     },
     "discover": {
