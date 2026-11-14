@@ -24,7 +24,8 @@
             "NATION_STATE_SPYWARE",
             "FORENSIC_TOOL",
             "MONITORING",
-            "DATA_BROKER_SDK"
+            "DATA_BROKER_SDK",
+            "PROXYWARE"
           ]
         },
         "severity":    { "type": "string", "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"] },

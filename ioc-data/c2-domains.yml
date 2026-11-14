@@ -5148,3 +5148,119 @@ entries:
     description: XCPE C2 (GTIG 2026-11-02)
     source: threat_research
     reference: https://cloud.google.com/blog/topics/threat-intelligence/shutting-the-door-on-the-xcpe-botnet
+  # Residential-proxy SDK — Bright SDK (Bright Data, formerly Luminati) — AndroDR #465
+  # An app embedding this SDK relays third parties' traffic through the device.
+  # androdr-003 surfaces the family; the corporate sites brightdata.com and
+  # luminati.io are deliberately NOT listed (a browser visit is not SDK presence).
+  - indicator: "brdtnet.com"
+    family: "Bright SDK (residential proxy)"
+    category: "PROXYWARE"
+    severity: "HIGH"
+    description: "Bright SDK peer-channel, config and per-IP relay-node domain (proxyjs., clientsdk., <a-b-c-d>.brdtnet.com)."
+    source: "threat_research"
+    reference: https://blog.includesecurity.com/2026/06/the-smart-tv-in-your-livingroom-is-a-node-in-the-aiscraping-economy/
+    block_by_default: true
+  - indicator: "bright-sdk.com"
+    family: "Bright SDK (residential proxy)"
+    category: "PROXYWARE"
+    severity: "HIGH"
+    description: "Bright SDK config, peer-channel and error-reporting domain (clientsdk., proxyjs., perr.)."
+    source: "threat_research"
+    reference: https://blog.includesecurity.com/2026/06/the-smart-tv-in-your-livingroom-is-a-node-in-the-aiscraping-economy/
+    block_by_default: true
+  - indicator: "luminatinet.com"
+    family: "Bright SDK (residential proxy)"
+    category: "PROXYWARE"
+    severity: "HIGH"
+    description: "Bright SDK peer-channel domain (proxyjs.); also the TLS certificate name served on the peer channel."
+    source: "threat_research"
+    reference: https://blog.includesecurity.com/2026/06/the-smart-tv-in-your-livingroom-is-a-node-in-the-aiscraping-economy/
+    block_by_default: true
+  - indicator: "luminati-china.io"
+    family: "Bright SDK (residential proxy)"
+    category: "PROXYWARE"
+    severity: "HIGH"
+    description: "Bright SDK config endpoint domain (clientsdk.)."
+    source: "threat_research"
+    reference: https://blazskufca.com/projects/webos-brightdata/
+    block_by_default: true
+  - indicator: "brdtest.com"
+    family: "Bright SDK (residential proxy)"
+    category: "PROXYWARE"
+    severity: "HIGH"
+    description: "Bright SDK connectivity-test domain."
+    source: "threat_research"
+    reference: https://blazskufca.com/projects/webos-brightdata/
+    block_by_default: true
+  - indicator: "l-err.biz"
+    family: "Bright SDK (residential proxy)"
+    category: "PROXYWARE"
+    severity: "HIGH"
+    description: "Bright SDK error-reporting domain (perr.), listed in the SDK cloud config."
+    source: "threat_research"
+    reference: https://blazskufca.com/projects/webos-brightdata/
+    block_by_default: true
+  - indicator: "cdn-cloud.b-cdn.net"
+    family: "Bright SDK (residential proxy)"
+    category: "PROXYWARE"
+    severity: "HIGH"
+    description: "Exact host serving the Bright SDK cloud config file. Tenant host on a shared CDN: never list the parent b-cdn.net."
+    source: "threat_research"
+    reference: https://blazskufca.com/projects/webos-brightdata/
+    block_by_default: true
+  - indicator: "perr.l-agent.me"
+    family: "Bright SDK (residential proxy)"
+    category: "PROXYWARE"
+    severity: "HIGH"
+    description: "Bright SDK error-reporting host, listed in the SDK cloud config (perr_domains). Exact host: the parent domain is not listed."
+    source: "threat_research"
+    reference: https://blazskufca.com/projects/webos-brightdata/
+    block_by_default: true
+  - indicator: "p.l-conn.net"
+    family: "Bright SDK (residential proxy)"
+    category: "PROXYWARE"
+    severity: "HIGH"
+    description: "Bright SDK peer-channel host, listed in the SDK cloud config (proxyjs_domains_a1). Exact host: the parent domain is not listed."
+    source: "threat_research"
+    reference: https://blazskufca.com/projects/webos-brightdata/
+    block_by_default: true
+  - indicator: "zagent108.l-cdn.com"
+    family: "Bright SDK (residential proxy)"
+    category: "PROXYWARE"
+    severity: "HIGH"
+    description: "Bright SDK update host, listed in the SDK cloud config (cdn_update_urls). Exact host: the parent domain is not listed."
+    source: "threat_research"
+    reference: https://blazskufca.com/projects/webos-brightdata/
+    block_by_default: true
+  - indicator: "zagent110.l-cdn.com"
+    family: "Bright SDK (residential proxy)"
+    category: "PROXYWARE"
+    severity: "HIGH"
+    description: "Bright SDK update host, listed in the SDK cloud config (cdn_update_urls). Exact host: the parent domain is not listed."
+    source: "threat_research"
+    reference: https://blazskufca.com/projects/webos-brightdata/
+    block_by_default: true
+  - indicator: "zagent111.l-cdn.com"
+    family: "Bright SDK (residential proxy)"
+    category: "PROXYWARE"
+    severity: "HIGH"
+    description: "Bright SDK update host, listed in the SDK cloud config (cdn_update_urls). Exact host: the parent domain is not listed."
+    source: "threat_research"
+    reference: https://blazskufca.com/projects/webos-brightdata/
+    block_by_default: true
+  - indicator: "zagent112.l-cdn.com"
+    family: "Bright SDK (residential proxy)"
+    category: "PROXYWARE"
+    severity: "HIGH"
+    description: "Bright SDK update host, listed in the SDK cloud config (cdn_update_urls). Exact host: the parent domain is not listed."
+    source: "threat_research"
+    reference: https://blazskufca.com/projects/webos-brightdata/
+    block_by_default: true
+  - indicator: "zagent113.l-cdn.com"
+    family: "Bright SDK (residential proxy)"
+    category: "PROXYWARE"
+    severity: "HIGH"
+    description: "Bright SDK update host, listed in the SDK cloud config (cdn_update_urls). Exact host: the parent domain is not listed."
+    source: "threat_research"
+    reference: https://blazskufca.com/projects/webos-brightdata/
+    block_by_default: true

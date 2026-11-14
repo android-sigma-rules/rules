@@ -40,7 +40,10 @@ bh-alert.com
 bimb.claybaster.top
 bin5y4muil.execute-api.us-east-1.amazonaws.com
 blestorians.cfd
+brdtest.com
+brdtnet.com
 brigadeirobeach.makeup
+bright-sdk.com
 browserupdate.download
 buka.clayrat.top
 bulk.fun
@@ -53,6 +56,7 @@ capone.claybaster.top
 capone.claydc.top
 capone.clayhusas.sbs
 catfoodeuro.shop
+cdn-cloud.b-cdn.net
 cerberusapp.com
 ch-ap-4-default-rtdb.firebaseio.com
 chh1-ac0a3-default-rtdb.firebaseio.com
@@ -151,9 +155,12 @@ kangarooeaglerabbit.info
 kidlogger.net
 kitchencoocing.shop
 krusty-crabs.sbs
+l-err.biz
 lidarfirmwareupdate.network
 lif0.top
 lowlight.xyz
+luminati-china.io
+luminatinet.com
 m-mgarg.com
 macmafia.top
 magic.claybaster.top
@@ -186,6 +193,7 @@ offservers.ru
 openkitchen22.site
 oslik.clayhusas.sbs
 outlogic.io
+p.l-conn.net
 packwa.claydc.top
 pacy.clayhusas.sbs
 pasha.claybaster.top
@@ -193,6 +201,7 @@ pasha.claydc.top
 pasha.dig.clayhusas.sbs
 passionfruitsz.info
 patrik.claybaster.top
+perr.l-agent.me
 phonedata.me
 piaystore.it.com
 piaystore.org
@@ -286,6 +295,11 @@ yandex-disk.net
 yard.claybaster.top
 youtubeplusandroid.ru
 youtubepremiumapp.com
+zagent108.l-cdn.com
+zagent110.l-cdn.com
+zagent111.l-cdn.com
+zagent112.l-cdn.com
+zagent113.l-cdn.com
 zam.claydc.top
 zizzytantonedai.store
 zumba.tampotrust.agency
