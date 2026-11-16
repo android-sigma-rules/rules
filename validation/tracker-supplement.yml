@@ -1,0 +1,52 @@
+# AndroDR's own entries for the privacy scan's tracker list.
+#
+# ioc-data/trackers.yml is a mirror of the Exodus Privacy tracker database.
+# Exodus does not list residential-proxy SDKs, so those are kept here and
+# validation/mirror-exodus-trackers.py appends them to the mirrored list on
+# every run. This file is the only place to edit them: trackers.yml itself is
+# never edited by hand.
+#
+# Rules for an entry:
+#   - `id` is 900001 or above (the range below is Exodus's); ids are unique.
+#   - Signatures are written in the list's final shape (code_prefixes,
+#     code_segments, domain_suffixes, domain_labels), not as Exodus regular
+#     expressions. They pass the same checks as a mirrored entry, and a fault
+#     stops the mirror: an entry here is never dropped quietly.
+#   - `references` are public https:// URLs for a reviewer. They are not
+#     copied into trackers.yml.
+version: 1
+trackers:
+- id: 900001
+  name: Bright SDK (residential proxy)
+  website: https://bright-sdk.com
+  categories:
+  - Proxyware
+  # io.lum.sdk, io.topvpn.vpn_api and org.hola.peer were read from sample
+  # apps. brdat.sdk and com.android.eapx are reported for current builds and
+  # were not seen in a sample.
+  code_prefixes:
+  - brdat.sdk
+  - com.android.eapx
+  - io.lum.sdk
+  - io.topvpn.vpn_api
+  - org.hola.peer
+  # The SDK's own hosts, as listed in ioc-data/c2-domains.yml.
+  domain_suffixes:
+  - brdtest.com
+  - brdtnet.com
+  - bright-sdk.com
+  - cdn-cloud.b-cdn.net
+  - l-err.biz
+  - luminati-china.io
+  - luminatinet.com
+  - p.l-conn.net
+  - perr.l-agent.me
+  - zagent108.l-cdn.com
+  - zagent110.l-cdn.com
+  - zagent111.l-cdn.com
+  - zagent112.l-cdn.com
+  - zagent113.l-cdn.com
+  references:
+  - https://blog.includesecurity.com/2026/06/the-smart-tv-in-your-livingroom-is-a-node-in-the-aiscraping-economy/
+  - https://blazskufca.com/projects/webos-brightdata/
+  - https://github.com/BrightSDK/documentation

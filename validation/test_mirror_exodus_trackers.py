@@ -205,7 +205,7 @@ def test_main_from_json_writes_file(tmp_path):
     src.write_text(json.dumps(_synthetic(320)))
     out = tmp_path / "out.yml"
     assert mirror.main(["--out", str(out), "--from-json", str(src)]) == 0
-    assert len(yaml.safe_load(out.read_text())["trackers"]) == 320
+    assert len(yaml.safe_load(out.read_text())["trackers"]) == 320 + len(mirror.load_supplement())
 
 
 def _validator():
@@ -520,8 +520,13 @@ def test_tracker_whose_id_is_out_of_range_is_dropped_and_its_id_is_not_printed_i
 
 
 def test_every_kept_id_fits_the_summary_scripts_drop_line_pattern():
-    doc, _ = render(api_many([dict(id=1, code="com.x.y"), dict(id=mirror.tg.ID_MAX, code="com.z.w")]), None)
-    assert [t["id"] for t in doc["trackers"]] == [1, 999_999_999]
+    # Exodus's range ends just below AndroDR's own (tracker_guards.SUPPLEMENT_ID_MIN).
+    top = mirror.tg.SUPPLEMENT_ID_MIN - 1
+    doc, report = render(api_many([dict(id=1, code="com.x.y"), dict(id=top, code="com.z.w"),
+                                   dict(id=mirror.tg.ID_MAX, code="com.q.r")]), None)
+    assert [t["id"] for t in doc["trackers"]] == [1, 900_000]
+    summary = _load(THIS_DIR / "summarize-tracker-changes.py", "summarize_tracker_changes_for_kept_ids")
+    assert len(report) == 1 and summary.DROP_LINE.match(report[0])
 
 
 @pytest.mark.parametrize("depth", [20000, 200000])
@@ -552,3 +557,166 @@ def test_a_pattern_over_the_file_cap_is_reported_in_one_short_line():
     assert doc["trackers"][-1]["domain_patterns"] == []
     assert len(report) == 1 and report[0].startswith(mirror.R_CAP + ": 33: file cap, ")
     assert report[0].endswith("...") and _report_lines_ok(report)
+
+
+# AndroDR's own entries (tracker-supplement.yml). Exodus lists no residential-proxy SDK, so
+# those are ours; the mirror appends them on every run. A fault in one stops the run (exit 3):
+# a quietly dropped supplement entry would be a detection lost without a word.
+
+BRIGHT_PREFIXES = ["brdat.sdk", "com.android.eapx", "io.lum.sdk", "io.topvpn.vpn_api", "org.hola.peer"]
+
+
+def _sup(**kw):
+    entry = dict(id=900001, name="Own SDK", website="https://example.org", categories=["Proxyware"],
+                 code_prefixes=["org.own.sdk"])
+    entry.update(kw)
+    return {k: v for k, v in entry.items() if v is not None}
+
+
+def _sup_file(tmp_path, *entries, body=None):
+    f = tmp_path / "supplement.yml"
+    f.write_text(body if body is not None else yaml.safe_dump({"version": 1, "trackers": list(entries)}),
+                 encoding="utf-8")
+    return f
+
+
+def test_the_real_supplement_loads_and_holds_bright_sdk():
+    entries = mirror.load_supplement()
+    bright = next(e for e in entries if e["id"] == 900001)
+    assert bright["name"] == "Bright SDK (residential proxy)"
+    assert bright["categories"] == ["Proxyware"]
+    assert bright["code_prefixes"] == BRIGHT_PREFIXES
+    assert {"brdtnet.com", "bright-sdk.com", "luminatinet.com"} <= set(bright["domain_suffixes"])
+    assert "references" not in bright  # for the reviewer, not for the list the app reads
+
+
+def test_supplement_hosts_stay_within_the_threat_list():
+    # The entry's hosts are the Bright SDK hosts of ioc-data/c2-domains.yml and nothing wider:
+    # brightdata.com, luminati.io and the shared CDN parents are deliberately not listed there.
+    c2 = yaml.safe_load((THIS_DIR.parent / "ioc-data" / "c2-domains.yml").read_text(encoding="utf-8"))
+    listed = {e["indicator"] for e in c2["entries"] if e.get("category") == "PROXYWARE"}
+    bright = next(e for e in mirror.load_supplement() if e["id"] == 900001)
+    assert set(bright["domain_suffixes"]) <= listed
+
+
+def test_supplement_entries_are_appended_after_the_exodus_ones():
+    sup = mirror.load_supplement()
+    doc, _ = render(api_many([dict(id=9, code="com.x.y"), dict(id=2, code="com.x.y")]), None, supplement=sup)
+    ids = [t["id"] for t in doc["trackers"]]
+    assert ids == [2, 9] + [e["id"] for e in sup] and ids == sorted(ids)
+    assert "900001" in doc["supplement"] and "Exodus" in doc["attribution"]
+
+
+def test_without_a_supplement_the_document_is_the_exodus_list_alone():
+    doc, _ = render(api(code="com.x.y"), None)
+    assert "supplement" not in doc and [t["id"] for t in doc["trackers"]] == [1]
+
+
+def test_a_regeneration_from_an_exodus_dump_keeps_the_supplement(tmp_path):
+    code, out = _main_from_fixture(tmp_path)
+    assert code == 0
+    doc = yaml.safe_load(out.read_text(encoding="utf-8"))
+    assert len(doc["trackers"]) == 428 + len(mirror.load_supplement())
+    last = doc["trackers"][-1]
+    assert last["id"] == 900001 and last["categories"] == ["Proxyware"] and last["code_prefixes"] == BRIGHT_PREFIXES
+    assert _validator().validate_trackers_file(doc, "trackers.yml") == []
+
+
+def test_the_list_in_use_is_the_mirror_of_the_snapshot_plus_the_supplement(tmp_path):
+    # ioc-data/trackers.yml is only ever the mirror's whole output; the supplement is in it.
+    in_use = yaml.safe_load((THIS_DIR.parent / "ioc-data" / "trackers.yml").read_text(encoding="utf-8"))
+    ours = [t for t in in_use["trackers"] if t["id"] >= mirror.tg.SUPPLEMENT_ID_MIN]
+    assert ours == mirror.load_supplement()
+
+
+def test_an_exodus_entry_in_the_supplement_id_range_is_set_aside():
+    doc, report = render(api_many([dict(id=5, code="com.x.y"), dict(id=900001, code="com.evil.sdk")]),
+                         None, supplement=mirror.load_supplement())
+    assert [t["id"] for t in doc["trackers"]].count(900001) == 1
+    assert doc["trackers"][-1]["name"] == "Bright SDK (residential proxy)"
+    assert _count(report, mirror.R_TRACKER) == 1 and "900001" in report[0] and "reserved" in report[0]
+
+
+@pytest.mark.parametrize("entry, why", [
+    (_sup(id=900000), "whole number"),
+    (_sup(id=448), "whole number"),
+    (_sup(id="900001"), "whole number"),
+    (_sup(id=True), "whole number"),
+    (_sup(name=""), "name"),
+    (_sup(name="N" * 81), "name"),
+    (_sup(website="javascript:alert(1)"), "website"),
+    (_sup(categories=[]), "categories"),
+    (_sup(categories="Proxyware"), "categories"),
+    (_sup(categories=["Proxyware", "Proxyware"]), "categories"),
+    (_sup(code_prefixes=["com.google.gson"]), "ordinary package"),
+    (_sup(code_prefixes=["java.util"]), "ordinary package"),
+    (_sup(code_prefixes=["Not A Package"]), "prefix check"),
+    (_sup(code_prefixes="org.own.sdk"), "not a list"),
+    (_sup(code_prefixes=["org.own.sdk", "org.own.sdk"]), "repeats"),
+    (_sup(code_prefixes=None), "no signature"),
+    (_sup(domain_suffixes=["youtube.com"]), "first-party host"),
+    (_sup(domain_suffixes=["not a host"]), "suffix check"),
+    (_sup(domain_patterns=[r"mt[0-9]*\.google\.cn"]), "unknown key"),
+    (_sup(note="x"), "unknown key"),
+    (_sup(references=["http://example.org"]), "references"),
+    (_sup(references="https://example.org"), "references"),
+    ("just text", "not a map"),
+])
+def test_a_faulty_supplement_entry_stops_the_load(tmp_path, entry, why):
+    with pytest.raises(ValueError, match=why):
+        mirror.load_supplement(_sup_file(tmp_path, entry))
+
+
+def test_a_repeated_supplement_id_stops_the_load(tmp_path):
+    with pytest.raises(ValueError, match="used twice"):
+        mirror.load_supplement(_sup_file(tmp_path, _sup(), _sup(name="Other")))
+
+
+@pytest.mark.parametrize("body", ["- a\n- list\n", "version: 2\ntrackers: []\n", "version: 1\ntrackers: nope\n",
+                                  "just a string\n"])
+def test_a_supplement_that_is_not_a_supplement_stops_the_load(tmp_path, body):
+    with pytest.raises(ValueError, match="version 1 supplement"):
+        mirror.load_supplement(_sup_file(tmp_path, body=body))
+
+
+def test_supplement_entries_come_back_sorted_by_id(tmp_path):
+    f = _sup_file(tmp_path, _sup(id=900005, name="B"), _sup(id=900002, name="A"))
+    assert [e["id"] for e in mirror.load_supplement(f)] == [900002, 900005]
+
+
+@pytest.mark.parametrize("body", [None, ": not yaml: [\n", "version: 1\ntrackers:\n- id: 5\n  name: X\n"],
+                         ids=["missing", "not-yaml", "bad-entry"])
+def test_main_exits_3_and_writes_nothing_when_the_supplement_is_missing_or_faulty(tmp_path, monkeypatch,
+                                                                                    capsys, body):
+    f = tmp_path / "supplement.yml"
+    if body is not None:
+        f.write_text(body, encoding="utf-8")
+    monkeypatch.setattr(mirror, "SUPPLEMENT_FILE", f)
+    code, out = _main_from_fixture(tmp_path)
+    err = capsys.readouterr().err
+    assert code == 3 and not out.exists()
+    assert err.count("ERROR:") == 1 and "Exodus" not in err
+
+
+def test_the_size_guards_count_exodus_entries_only(tmp_path):
+    # 299 from Exodus plus our own is still a broken Exodus answer, and a previous list is
+    # compared without its supplement entries.
+    src = tmp_path / "in.json"
+    src.write_text(json.dumps(_synthetic(360)))
+    prev = tmp_path / "prev.yml"
+    prev.write_text(yaml.safe_dump({"trackers": [{"id": i} for i in range(1, 401)] + [{"id": 900001}]}))
+    out = tmp_path / "out.yml"
+    assert mirror.main(["--out", str(out), "--from-json", str(src), "--previous", str(prev)]) == 0
+    prev.write_text(yaml.safe_dump({"trackers": [{"id": i} for i in range(1, 402)] + [{"id": 900001}]}))
+    assert mirror.main(["--out", str(tmp_path / "o2.yml"), "--from-json", str(src), "--previous", str(prev)]) == 1
+
+
+def test_the_kept_line_keeps_the_shape_the_update_rules_step_reads(tmp_path, capsys):
+    # scripts/test_update_rules_pipeline.py (AndroDR) pins: ^[0-9]+ trackers kept, [0-9]+ drop-report lines$
+    import re
+    code, _ = _main_from_fixture(tmp_path)
+    lines = capsys.readouterr().err.splitlines()
+    assert code == 0
+    assert [l for l in lines if re.fullmatch(r"[0-9]+ trackers kept, [0-9]+ drop-report lines", l)] == \
+        ["428 trackers kept, 36 drop-report lines"]
+    assert lines[-1] == "1 of AndroDR's own entries appended"

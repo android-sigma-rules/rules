@@ -535,6 +535,18 @@ def test_trackers_unknown_category_fails():
     assert _trackers_errors(_with("categories", ["Telemetry"]))
 
 
+def test_trackers_proxyware_passes_on_an_androdr_entry():
+    # "Proxyware" is AndroDR's own category (validation/tracker-supplement.yml, ids from 900001).
+    doc = _trackers_doc()
+    doc["trackers"][-1].update(id=900001, categories=["Proxyware"])
+    assert _trackers_errors(doc) == []
+
+
+def test_trackers_proxyware_fails_on_an_exodus_id():
+    errors = _trackers_errors(_with("categories", ["Proxyware"]))
+    assert len(errors) == 1 and "only for AndroDR's own entries" in errors[0]
+
+
 def test_trackers_uncategorised_passes():
     assert _trackers_errors(_with("categories", ["Uncategorised"])) == []
 

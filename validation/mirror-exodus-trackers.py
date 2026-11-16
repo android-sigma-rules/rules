@@ -10,12 +10,17 @@ Usage (the candidate is written away from the list in use, then reviewed):
     python3 validation/mirror-exodus-trackers.py --out CANDIDATE \
         [--from-json FILE] [--previous ioc-data/trackers.yml]
 
+AndroDR's own entries (validation/tracker-supplement.yml: SDKs Exodus does not
+list, such as residential-proxy SDKs) are appended to the mirrored list on every
+run. Their ids start at 900001. They pass the same checks as a mirrored entry,
+but a fault in one stops the run: a supplement entry is never dropped quietly.
+
 Exit codes: 0 the file was written; 1 a size guard tripped (too few trackers,
 or the list shrank by more than a tenth); 2 the source could not be read or
 did not answer with a tracker list; 3 a file the mirror reads from the rules
-repository (first_party_hosts.txt, common_packages.txt, the list --previous
-names) is missing or broken. Each failure ends with one "ERROR:" line on
-stderr, and nothing is written.
+repository (first_party_hosts.txt, common_packages.txt, tracker-supplement.yml,
+the list --previous names) is missing or broken. Each failure ends with one
+"ERROR:" line on stderr, and nothing is written.
 
 Every other stderr line is about one Exodus entry and repeats its text only
 through tracker_guards.shown: one line of printable ASCII, cut short. The id
@@ -38,6 +43,9 @@ import tracker_guards as tg  # noqa: E402
 
 SOURCE_URL = "https://reports.exodus-privacy.eu.org/api/trackers"
 ATTRIBUTION = "Exodus Privacy — https://exodus-privacy.eu.org — Open Database License 1.0"
+SUPPLEMENT_FILE = pathlib.Path(__file__).parent / "tracker-supplement.yml"
+SUPPLEMENT_NOTE = (f"Entries with id {tg.SUPPLEMENT_ID_MIN} and above are AndroDR's own "
+                   "(validation/tracker-supplement.yml), not Exodus Privacy's")
 MIN_TRACKERS = 300
 MAX_SHRINK = 0.10
 
@@ -175,12 +183,102 @@ def _derive_net(tid, sigs, first_party, report):
     return sorted(suffixes), sorted(labels), patterns, excluded
 
 
-def render(api, previous, first_party=None, common=None):
+# (field, domain_grammar.FIELD_CHECKS key, matches_host kind or None): the signature lists a
+# supplement entry may carry. Patterns are left out on purpose: none is needed yet, and they
+# share a file-wide cap with Exodus's.
+_SUPPLEMENT_LISTS = (
+    ("code_prefixes", "prefix", None),
+    ("code_segments", "segment", None),
+    ("domain_suffixes", "suffix", "suffix"),
+    ("domain_labels", "label", "label"),
+)
+_SUPPLEMENT_KEYS = {"id", "name", "website", "categories", "references"} | {f for f, _, _ in _SUPPLEMENT_LISTS}
+
+
+def _supplement_signatures(t, tid, first_party, common):
+    """The entry's signature lists, each sorted; raises ValueError on the first fault."""
+    lists = {}
+    for field, check, host_kind in _SUPPLEMENT_LISTS:
+        values = t.get(field, [])
+        if not isinstance(values, list) or not all(isinstance(v, str) for v in values):
+            raise ValueError(f"entry {tid}: `{field}` is not a list of text")
+        if len(set(values)) != len(values):
+            raise ValueError(f"entry {tid}: `{field}` repeats a value")
+        for v in values:
+            if not dg.FIELD_CHECKS[check](v) or len(v) > tg.SIGNATURE_MAX:
+                raise ValueError(f"entry {tid}: `{field}` value {tg.shown(v)} fails the {check} check")
+            if host_kind and any(dg.matches_host(host_kind, v, h) for h in first_party):
+                raise ValueError(f"entry {tid}: `{field}` value {tg.shown(v)} matches a first-party host")
+            if not host_kind and any(tg.matches_package(check, v, p) for p in common):
+                raise ValueError(f"entry {tid}: `{field}` value {tg.shown(v)} matches an ordinary package")
+        lists[field] = sorted(values)
+    if not any(lists.values()):
+        raise ValueError(f"entry {tid}: has no signature")
+    return lists
+
+
+def _supplement_entry(t, seen, first_party, common):
+    if not isinstance(t, dict):
+        raise ValueError("an entry is not a map")
+    tid = t.get("id")
+    if not isinstance(tid, int) or isinstance(tid, bool) or not tg.SUPPLEMENT_ID_MIN <= tid <= tg.ID_MAX:
+        raise ValueError(f"entry id {tg.shown(tid)} is not a whole number from {tg.SUPPLEMENT_ID_MIN} "
+                         f"to {tg.ID_MAX}")
+    if tid in seen:
+        raise ValueError(f"entry {tid}: its id is used twice")
+    unknown = sorted(str(k) for k in set(t) - _SUPPLEMENT_KEYS)
+    if unknown:
+        raise ValueError(f"entry {tid}: unknown key {tg.shown(unknown[0])}")
+    problem = tg.name_problem(t.get("name"))
+    if problem:
+        raise ValueError(f"entry {tid}: name {tg.shown(t.get('name'))} {problem}")
+    website = t.get("website", "")
+    if not isinstance(website, str) or len(website) > tg.WEBSITE_MAX or not dg.FIELD_CHECKS["website"](website):
+        raise ValueError(f"entry {tid}: website {tg.shown(website)} is not empty or http(s)://host[/...]")
+    cats = t.get("categories")
+    if (not isinstance(cats, list) or not cats or not all(isinstance(c, str) and c.strip() for c in cats)
+            or len(set(cats)) != len(cats)):
+        raise ValueError(f"entry {tid}: categories are not a non-empty list of distinct text")
+    refs = t.get("references", [])
+    if not isinstance(refs, list) or not all(isinstance(r, str) and r.startswith("https://") for r in refs):
+        raise ValueError(f"entry {tid}: references are not a list of https:// addresses")
+    lists = _supplement_signatures(t, tid, first_party, common)
+    return dict(id=tid, name=t["name"], website=website, categories=list(cats),
+                code_prefixes=lists["code_prefixes"], code_segments=lists["code_segments"],
+                domain_suffixes=lists["domain_suffixes"], domain_labels=lists["domain_labels"],
+                domain_patterns=[], excluded_domains=[])
+
+
+def load_supplement(path=SUPPLEMENT_FILE, first_party=None, common=None):
+    """AndroDR's own entries, in the list's final shape and sorted by id.
+
+    Raises (OSError, yaml.YAMLError, ValueError) when the file is missing or any entry is
+    faulty. Nothing here is set aside the way a faulty Exodus entry is: the file is written by
+    us, so a fault is a mistake to fix, and a quietly dropped entry would be a lost detection.
+    """
+    if first_party is None:
+        first_party = dg.load_first_party_hosts()
+    if common is None:
+        common = tg.load_common_packages()
+    doc = yaml.safe_load(pathlib.Path(path).read_text(encoding="utf-8"))
+    if not isinstance(doc, dict) or doc.get("version") != 1 or not isinstance(doc.get("trackers"), list):
+        raise ValueError("not a version 1 supplement with a `trackers` list")
+    entries, seen = [], set()
+    for t in doc["trackers"]:
+        entry = _supplement_entry(t, seen, first_party, common)
+        seen.add(entry["id"])
+        entries.append(entry)
+    return sorted(entries, key=lambda e: e["id"])
+
+
+def render(api, previous, first_party=None, common=None, supplement=None):
     """Normalise an Exodus API dict into (document, drop_report).
 
     `previous` is the prior document, if any; the shrink guard lives in main().
     `first_party` and `common` are the two breadth lists; main() loads them itself so
     that a fault in either is not mistaken for a fault in an Exodus entry.
+    `supplement` is the output of load_supplement(), appended after the Exodus entries;
+    None renders the Exodus list alone.
     """
     if first_party is None:
         first_party = dg.load_first_party_hosts()
@@ -193,6 +291,9 @@ def render(api, previous, first_party=None, common=None):
         tid = int(t.get("id", key))
         if not 1 <= tid <= tg.ID_MAX:
             report.append(f"{R_TRACKER}: 0: its id {tg.shown(tid)} is not between 1 and {tg.ID_MAX}")
+            continue
+        if tid >= tg.SUPPLEMENT_ID_MIN:
+            report.append(f"{R_TRACKER}: {tid}: its id is in the range reserved for AndroDR's own entries")
             continue
         name = t.get("name")
         problem = tg.name_problem(name)
@@ -233,7 +334,11 @@ def render(api, previous, first_party=None, common=None):
         trackers.append(t)
 
     doc = dict(version=1, source="exodus-privacy", source_url=SOURCE_URL, license="ODbL-1.0",
-               attribution=ATTRIBUTION, trackers=trackers)
+               attribution=ATTRIBUTION)
+    if supplement:
+        doc["supplement"] = SUPPLEMENT_NOTE
+        trackers = trackers + supplement  # every Exodus id is below every supplement id
+    doc["trackers"] = trackers
     return doc, report
 
 
@@ -259,6 +364,14 @@ def _previous(path):
     return doc
 
 
+def _exodus_count(trackers):
+    """How many of `trackers` are Exodus's: all but those with an id in the supplement's range."""
+    def ours(t):
+        tid = t.get("id") if isinstance(t, dict) else None
+        return isinstance(tid, int) and not isinstance(tid, bool) and tid >= tg.SUPPLEMENT_ID_MIN
+    return sum(1 for t in trackers if not ours(t))
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out", required=True)
@@ -269,6 +382,7 @@ def main(argv=None):
     # Local files first: a fault here is the rules repository's, and must not read as Exodus's.
     try:
         first_party, common = dg.load_first_party_hosts(), tg.load_common_packages()
+        supplement = load_supplement(SUPPLEMENT_FILE, first_party, common)
         previous = _previous(args.previous)
     except (OSError, ValueError, yaml.YAMLError) as e:
         print("ERROR: a file the mirror reads from the rules repository is missing or broken "
@@ -287,18 +401,21 @@ def main(argv=None):
         return _unreadable("no trackers map")
 
     try:
-        doc, report = render(api, previous, first_party, common)
+        doc, report = render(api, previous, first_party, common, supplement)
     except (ArithmeticError, AttributeError, KeyError, RecursionError, TypeError, ValueError) as e:
         return _unreadable(f"an entry is not a tracker ({type(e).__name__})")
     for line in report:
         print(line, file=sys.stderr)
-    n = len(doc["trackers"])
+    # The size guards watch Exodus's answer, so our own entries are counted on neither side.
+    n = _exodus_count(doc["trackers"])
+    # /update-rules reads the first of these two lines by its exact shape; keep it as it is.
     print(f"{n} trackers kept, {len(report)} drop-report lines", file=sys.stderr)
+    print(f"{len(doc['trackers']) - n} of AndroDR's own entries appended", file=sys.stderr)
     if n < MIN_TRACKERS:
         print(f"ERROR: only {n} trackers (< {MIN_TRACKERS})", file=sys.stderr)
         return 1
     if previous and previous["trackers"]:
-        old = len(previous["trackers"])
+        old = _exodus_count(previous["trackers"])
         if n < old * (1 - MAX_SHRINK):
             print(f"ERROR: tracker count shrank from {old} to {n} (> {MAX_SHRINK:.0%})", file=sys.stderr)
             return 1

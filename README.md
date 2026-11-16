@@ -113,3 +113,10 @@ to `validation/first_party_hosts.txt` (network signatures) or the package to
 again. The mirror sets aside what breaks a limit in `validation/tracker_guards.py`
 and the validator refuses it, so every name, website and signature the summary
 prints is printed whole.
+
+Exodus does not list every kind of SDK the privacy scan should name
+(residential-proxy SDKs, for example). Those entries are AndroDR's own: they are
+kept in `validation/tracker-supplement.yml`, carry ids from 900001, and are
+appended to `ioc-data/trackers.yml` by the mirror on every run, so a refresh
+never loses them. To add or change one, edit the supplement and run the
+refresh. As part of the combined file they are distributed under ODbL-1.0 too.

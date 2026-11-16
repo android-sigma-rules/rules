@@ -448,8 +448,11 @@ def validate_brand_file(data, filename):
     return errors
 
 
+# Exodus's categories, plus "Proxyware": AndroDR's own, carried only by entries from
+# validation/tracker-supplement.yml (ids from tracker_guards.SUPPLEMENT_ID_MIN).
+SUPPLEMENT_CATEGORIES = {"Proxyware"}
 TRACKER_CATEGORIES = {"Advertisement", "Profiling", "Identification", "Location", "Analytics",
-                      "Crash reporting", "Uncategorised"}
+                      "Crash reporting", "Uncategorised"} | SUPPLEMENT_CATEGORIES
 MIN_TRACKERS = 300
 # The app refuses a longer list whole (AndroDR: TrackerRegistry.MAX_TRACKERS).
 MAX_TRACKERS = 2_000
@@ -523,6 +526,9 @@ def validate_trackers_file(data, filename):
             for c in cats:
                 if not isinstance(c, str) or c not in TRACKER_CATEGORIES:
                     errors.append(f"{where}: unknown category {tg.shown(c)}")
+                elif c in SUPPLEMENT_CATEGORIES and not (id_ok and tid >= tg.SUPPLEMENT_ID_MIN):
+                    errors.append(f"{where}: category {tg.shown(c)} is only for AndroDR's own entries "
+                                  f"(ids from {tg.SUPPLEMENT_ID_MIN})")
             if all(isinstance(c, str) for c in cats) and len(set(cats)) != len(cats):
                 errors.append(f"{where}: `categories` repeats a category")
         any_signature = False
