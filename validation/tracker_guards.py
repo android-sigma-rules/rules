@@ -9,6 +9,23 @@ import unicodedata
 
 # Exodus numbers its trackers from 1; nine digits is also all the review summary reads as an id.
 ID_MAX = 999_999_999
+# Ids from here up belong to AndroDR's own entries (validation/tracker-supplement.yml). An Exodus
+# entry that reaches this range is set aside.
+SUPPLEMENT_ID_MIN = 900_001
+# The categories Exodus uses, and the ones only AndroDR's own entries may carry.
+EXODUS_CATEGORIES = frozenset({"Advertisement", "Profiling", "Identification", "Location", "Analytics",
+                               "Crash reporting", "Uncategorised"})
+SUPPLEMENT_CATEGORIES = frozenset({"Proxyware"})
+TRACKER_CATEGORIES = EXODUS_CATEGORIES | SUPPLEMENT_CATEGORIES
+# (yaml field, domain_grammar.FIELD_CHECKS key, matches_host kind or None) for each signature list
+# of a tracker entry. The mirror's supplement loader and the validator both walk this table.
+SIGNATURE_LISTS = (
+    ("code_prefixes", "prefix", None),
+    ("code_segments", "segment", None),
+    ("domain_suffixes", "suffix", "suffix"),
+    ("domain_labels", "label", "label"),
+    ("domain_patterns", "pattern", "pattern"),
+)
 NAME_MAX = 80
 WEBSITE_MAX = 200
 # A full host name; the app ignores longer hosts (TrackerSet.MAX_HOST_CHARS).
@@ -51,3 +68,9 @@ def matches_package(kind: str, value: str, package: str) -> bool:
     if kind == "segment":
         return value in package.split(".")
     raise ValueError(f"unknown kind: {kind}")
+
+
+def name_key(name):
+    """What two tracker names are compared by: an Exodus entry must not carry the name of one of
+    AndroDR's own, however it is cased or spaced."""
+    return " ".join(name.split()).casefold() if isinstance(name, str) else ""
