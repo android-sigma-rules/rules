@@ -594,7 +594,9 @@ def test_supplement_hosts_stay_within_the_threat_list():
     # The entry's hosts are the Bright SDK hosts of ioc-data/c2-domains.yml and nothing wider:
     # brightdata.com, luminati.io and the shared CDN parents are deliberately not listed there.
     c2 = yaml.safe_load((THIS_DIR.parent / "ioc-data" / "c2-domains.yml").read_text(encoding="utf-8"))
-    listed = {e["indicator"] for e in c2["entries"] if e.get("category") == "PROXYWARE"}
+    listed = {e["indicator"] for e in c2["entries"]
+              if e.get("category") == "PROXYWARE" and e.get("family") == "Bright SDK (residential proxy)"}
+    assert len(listed) == 14
     bright = next(e for e in mirror.load_supplement() if e["id"] == 900001)
     assert set(bright["domain_suffixes"]) <= listed
 
@@ -622,8 +624,8 @@ def test_a_regeneration_from_an_exodus_dump_keeps_the_supplement(tmp_path):
     assert _validator().validate_trackers_file(doc, "trackers.yml") == []
 
 
-def test_the_list_in_use_is_the_mirror_of_the_snapshot_plus_the_supplement(tmp_path):
-    # ioc-data/trackers.yml is only ever the mirror's whole output; the supplement is in it.
+def test_the_list_in_use_carries_exactly_the_supplement_entries():
+    # A supplement edit and the regenerated list land together, never one without the other.
     in_use = yaml.safe_load((THIS_DIR.parent / "ioc-data" / "trackers.yml").read_text(encoding="utf-8"))
     ours = [t for t in in_use["trackers"] if t["id"] >= mirror.tg.SUPPLEMENT_ID_MIN]
     assert ours == mirror.load_supplement()
@@ -660,6 +662,8 @@ def test_an_exodus_entry_in_the_supplement_id_range_is_set_aside():
     (_sup(note="x"), "unknown key"),
     (_sup(references=["http://example.org"]), "references"),
     (_sup(references="https://example.org"), "references"),
+    (_sup(categories=["Proxywear"]), "not one the list knows"),
+    (_sup(categories=[" Proxyware"]), "not one the list knows"),
     ("just text", "not a map"),
 ])
 def test_a_faulty_supplement_entry_stops_the_load(tmp_path, entry, why):
@@ -672,8 +676,9 @@ def test_a_repeated_supplement_id_stops_the_load(tmp_path):
         mirror.load_supplement(_sup_file(tmp_path, _sup(), _sup(name="Other")))
 
 
-@pytest.mark.parametrize("body", ["- a\n- list\n", "version: 2\ntrackers: []\n", "version: 1\ntrackers: nope\n",
-                                  "just a string\n"])
+@pytest.mark.parametrize("body", ["- a\n- list\n", "version: 2\ntrackers: [{}]\n", "version: 1\ntrackers: nope\n",
+                                  "just a string\n", "version: true\ntrackers: [{}]\n",
+                                  "version: 1\ntrackers: []\n"])
 def test_a_supplement_that_is_not_a_supplement_stops_the_load(tmp_path, body):
     with pytest.raises(ValueError, match="version 1 supplement"):
         mirror.load_supplement(_sup_file(tmp_path, body=body))
@@ -712,7 +717,7 @@ def test_the_size_guards_count_exodus_entries_only(tmp_path):
 
 
 def test_the_kept_line_keeps_the_shape_the_update_rules_step_reads(tmp_path, capsys):
-    # scripts/test_update_rules_pipeline.py (AndroDR) pins: ^[0-9]+ trackers kept, [0-9]+ drop-report lines$
+    # AndroDR's /update-rules step finds this line by its shape (pinned in its own pipeline test).
     import re
     code, _ = _main_from_fixture(tmp_path)
     lines = capsys.readouterr().err.splitlines()
@@ -720,3 +725,40 @@ def test_the_kept_line_keeps_the_shape_the_update_rules_step_reads(tmp_path, cap
     assert [l for l in lines if re.fullmatch(r"[0-9]+ trackers kept, [0-9]+ drop-report lines", l)] == \
         ["428 trackers kept, 36 drop-report lines"]
     assert lines[-1] == "1 of AndroDR's own entries appended"
+
+
+# Review round, 2026-11-16.
+
+def test_a_key_written_twice_in_the_supplement_stops_the_load(tmp_path):
+    # safe_load would keep the second list and lose the first without a word.
+    body = ("version: 1\ntrackers:\n- id: 900001\n  name: Own SDK\n  categories: [Proxyware]\n"
+            "  code_prefixes: [org.own.a]\n  code_prefixes: [org.own.b]\n")
+    with pytest.raises(ValueError, match="written twice"):
+        mirror.load_supplement(_sup_file(tmp_path, body=body))
+
+
+def test_an_exodus_entry_with_the_name_of_one_of_ours_is_set_aside():
+    sup = mirror.load_supplement()
+    for name in ["Bright SDK (residential proxy)", "  bright sdk  (RESIDENTIAL proxy) "]:
+        doc, report = render(api_many([dict(id=5, code="org.victim.app", name=name, cats=("Advertisement",)),
+                                       dict(id=6, code="com.x.y")]), None, supplement=sup)
+        assert [t["id"] for t in doc["trackers"]] == [6, 900001]
+        assert _count(report, mirror.R_TRACKER) == 1 and "AndroDR's own" in report[0]
+        assert _report_lines_ok(report)
+
+
+def test_an_exodus_entry_with_a_category_reserved_for_ours_is_set_aside():
+    # Left in, the validator would refuse the whole candidate and every refresh would stop.
+    doc, report = render(api_many([dict(id=5, code="org.victim.app", cats=("Analytics", "Proxyware")),
+                                   dict(id=6, code="com.x.y")]), None, supplement=mirror.load_supplement())
+    assert [t["id"] for t in doc["trackers"]] == [6, 900001]
+    assert _count(report, mirror.R_TRACKER) == 1 and "only for AndroDR's own" in report[0]
+    assert not any("category" in e for e in _validator().validate_trackers_file(doc, "trackers.yml"))
+
+
+def test_main_exits_3_when_the_supplement_is_nested_too_deep(tmp_path, monkeypatch, capsys):
+    def boom(*_a, **_k):
+        raise RecursionError("maximum recursion depth exceeded")
+    monkeypatch.setattr(mirror, "load_supplement", boom)
+    code, out = _main_from_fixture(tmp_path)
+    assert code == 3 and not out.exists() and capsys.readouterr().err.count("ERROR:") == 1

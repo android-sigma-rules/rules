@@ -448,22 +448,13 @@ def validate_brand_file(data, filename):
     return errors
 
 
-# Exodus's categories, plus "Proxyware": AndroDR's own, carried only by entries from
-# validation/tracker-supplement.yml (ids from tracker_guards.SUPPLEMENT_ID_MIN).
-SUPPLEMENT_CATEGORIES = {"Proxyware"}
-TRACKER_CATEGORIES = {"Advertisement", "Profiling", "Identification", "Location", "Analytics",
-                      "Crash reporting", "Uncategorised"} | SUPPLEMENT_CATEGORIES
+# The category vocabulary and the signature-list table live in tracker_guards, shared with the mirror.
+SUPPLEMENT_CATEGORIES = tg.SUPPLEMENT_CATEGORIES
+TRACKER_CATEGORIES = tg.TRACKER_CATEGORIES
 MIN_TRACKERS = 300
 # The app refuses a longer list whole (AndroDR: TrackerRegistry.MAX_TRACKERS).
 MAX_TRACKERS = 2_000
-# (yaml field, domain_grammar.FIELD_CHECKS key, matches_host kind or None)
-_TRACKER_LISTS = (
-    ("code_prefixes", "prefix", None),
-    ("code_segments", "segment", None),
-    ("domain_suffixes", "suffix", "suffix"),
-    ("domain_labels", "label", "label"),
-    ("domain_patterns", "pattern", "pattern"),
-)
+_TRACKER_LISTS = tg.SIGNATURE_LISTS
 
 
 def validate_trackers_file(data, filename):
@@ -498,6 +489,10 @@ def validate_trackers_file(data, filename):
     common = tg.load_common_packages()
     total_patterns = 0
     last_id = None
+    # An Exodus entry must not carry the name of one of AndroDR's own: the app shows the name alone.
+    own_names = {tg.name_key(t.get("name")) for t in trackers
+                 if isinstance(t, dict) and isinstance(t.get("id"), int) and not isinstance(t.get("id"), bool)
+                 and t["id"] >= tg.SUPPLEMENT_ID_MIN} - {""}
     for idx, t in enumerate(trackers):
         if not isinstance(t, dict):
             errors.append(f"trackers[{idx}]: must be a map")
@@ -514,6 +509,8 @@ def validate_trackers_file(data, filename):
         name_problem = tg.name_problem(t.get("name"))
         if name_problem:
             errors.append(f"{where}: `name` {tg.shown(t.get('name'))} {name_problem}")
+        elif id_ok and tid < tg.SUPPLEMENT_ID_MIN and tg.name_key(t["name"]) in own_names:
+            errors.append(f"{where}: `name` {tg.shown(t['name'])} is the name of one of AndroDR's own entries")
         website = t.get("website")
         if not dg.FIELD_CHECKS["website"](website):
             errors.append(f"{where}: `website` must be empty or http(s)://host[/...] with no userinfo")

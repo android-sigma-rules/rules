@@ -547,6 +547,15 @@ def test_trackers_proxyware_fails_on_an_exodus_id():
     assert len(errors) == 1 and "only for AndroDR's own entries" in errors[0]
 
 
+def test_trackers_exodus_entry_named_like_an_androdr_entry_fails():
+    # The app shows the name alone: two entries with our entry's name would pass one off as the other.
+    doc = _trackers_doc()
+    doc["trackers"][-1].update(id=900001, name="Bright SDK (residential proxy)", categories=["Proxyware"])
+    doc["trackers"][0]["name"] = "bright sdk  (Residential Proxy)"
+    errors = _trackers_errors(doc)
+    assert len(errors) == 1 and "AndroDR's own entries" in errors[0] and "tracker 1" in errors[0]
+
+
 def test_trackers_uncategorised_passes():
     assert _trackers_errors(_with("categories", ["Uncategorised"])) == []
 

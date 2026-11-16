@@ -183,16 +183,24 @@ def _derive_net(tid, sigs, first_party, report):
     return sorted(suffixes), sorted(labels), patterns, excluded
 
 
-# (field, domain_grammar.FIELD_CHECKS key, matches_host kind or None): the signature lists a
-# supplement entry may carry. Patterns are left out on purpose: none is needed yet, and they
-# share a file-wide cap with Exodus's.
-_SUPPLEMENT_LISTS = (
-    ("code_prefixes", "prefix", None),
-    ("code_segments", "segment", None),
-    ("domain_suffixes", "suffix", "suffix"),
-    ("domain_labels", "label", "label"),
-)
+# The signature lists a supplement entry may carry: the list's own (tracker_guards.SIGNATURE_LISTS)
+# without patterns. None is needed yet, and patterns share a file-wide cap with Exodus's.
+_SUPPLEMENT_LISTS = tuple(row for row in tg.SIGNATURE_LISTS if row[0] != "domain_patterns")
 _SUPPLEMENT_KEYS = {"id", "name", "website", "categories", "references"} | {f for f, _, _ in _SUPPLEMENT_LISTS}
+
+
+class _NoDuplicateKeys(yaml.SafeLoader):
+    """safe_load keeps the last of two equal keys, which would drop a signature list without a word."""
+
+
+def _mapping_without_duplicates(loader, node, deep=False):
+    keys = [loader.construct_object(k, deep=True) for k, _ in node.value]
+    if len({repr(k) for k in keys}) != len(keys):
+        raise ValueError("a key is written twice in one map")
+    return yaml.SafeLoader.construct_mapping(loader, node, deep)
+
+
+_NoDuplicateKeys.add_constructor(yaml.resolver.BaseResolver.DEFAULT_MAPPING_TAG, _mapping_without_duplicates)
 
 
 def _supplement_signatures(t, tid, first_party, common):
@@ -236,9 +244,12 @@ def _supplement_entry(t, seen, first_party, common):
     if not isinstance(website, str) or len(website) > tg.WEBSITE_MAX or not dg.FIELD_CHECKS["website"](website):
         raise ValueError(f"entry {tid}: website {tg.shown(website)} is not empty or http(s)://host[/...]")
     cats = t.get("categories")
-    if (not isinstance(cats, list) or not cats or not all(isinstance(c, str) and c.strip() for c in cats)
-            or len(set(cats)) != len(cats)):
+    if not isinstance(cats, list) or not cats or not all(isinstance(c, str) for c in cats) or len(set(cats)) != len(cats):
         raise ValueError(f"entry {tid}: categories are not a non-empty list of distinct text")
+    unknown_cat = next((c for c in cats if c not in tg.TRACKER_CATEGORIES), None)
+    if unknown_cat is not None:
+        raise ValueError(f"entry {tid}: category {tg.shown(unknown_cat)} is not one the list knows "
+                         "(tracker_guards.TRACKER_CATEGORIES)")
     refs = t.get("references", [])
     if not isinstance(refs, list) or not all(isinstance(r, str) and r.startswith("https://") for r in refs):
         raise ValueError(f"entry {tid}: references are not a list of https:// addresses")
@@ -252,17 +263,19 @@ def _supplement_entry(t, seen, first_party, common):
 def load_supplement(path=SUPPLEMENT_FILE, first_party=None, common=None):
     """AndroDR's own entries, in the list's final shape and sorted by id.
 
-    Raises (OSError, yaml.YAMLError, ValueError) when the file is missing or any entry is
+    Raises (OSError, yaml.YAMLError, ValueError) when the file is missing, empty or any entry is
     faulty. Nothing here is set aside the way a faulty Exodus entry is: the file is written by
     us, so a fault is a mistake to fix, and a quietly dropped entry would be a lost detection.
+    An emptied file is a fault too: entries are removed one by one, by a reviewed edit.
     """
     if first_party is None:
         first_party = dg.load_first_party_hosts()
     if common is None:
         common = tg.load_common_packages()
-    doc = yaml.safe_load(pathlib.Path(path).read_text(encoding="utf-8"))
-    if not isinstance(doc, dict) or doc.get("version") != 1 or not isinstance(doc.get("trackers"), list):
-        raise ValueError("not a version 1 supplement with a `trackers` list")
+    doc = yaml.load(pathlib.Path(path).read_text(encoding="utf-8"), Loader=_NoDuplicateKeys)  # noqa: S506
+    if (not isinstance(doc, dict) or type(doc.get("version")) is not int or doc["version"] != 1
+            or not isinstance(doc.get("trackers"), list) or not doc["trackers"]):
+        raise ValueError("not a version 1 supplement with a non-empty `trackers` list")
     entries, seen = [], set()
     for t in doc["trackers"]:
         entry = _supplement_entry(t, seen, first_party, common)
@@ -286,6 +299,7 @@ def render(api, previous, first_party=None, common=None, supplement=None):
         common = tg.load_common_packages()
     report = []
     built = []
+    own_names = {tg.name_key(e["name"]) for e in supplement or []}
     for key in sorted(api.get("trackers", {}), key=lambda k: int(k)):
         t = api["trackers"][key]
         tid = int(t.get("id", key))
@@ -300,10 +314,17 @@ def render(api, previous, first_party=None, common=None, supplement=None):
         if problem:
             report.append(f"{R_TRACKER}: {tid}: name {tg.shown(name)} {problem}")
             continue
+        if tg.name_key(name) in own_names:
+            report.append(f"{R_TRACKER}: {tid}: name {tg.shown(name)} is the name of one of AndroDR's own entries")
+            continue
         categories = _categories(t.get("categories"))
         if categories is None:
             report.append(f"{R_TRACKER}: {tid}: categories {tg.shown(t.get('categories'))} "
                           "are not a list of text")
+            continue
+        reserved = next((c for c in categories if c in tg.SUPPLEMENT_CATEGORIES), None)
+        if reserved is not None:
+            report.append(f"{R_TRACKER}: {tid}: category {tg.shown(reserved)} is only for AndroDR's own entries")
             continue
         prefixes, segments = _derive_code(tid, _split(t.get("code_signature")), common, report)
         suffixes, labels, patterns, excluded = _derive_net(
@@ -384,7 +405,7 @@ def main(argv=None):
         first_party, common = dg.load_first_party_hosts(), tg.load_common_packages()
         supplement = load_supplement(SUPPLEMENT_FILE, first_party, common)
         previous = _previous(args.previous)
-    except (OSError, ValueError, yaml.YAMLError) as e:
+    except (OSError, ValueError, RecursionError, yaml.YAMLError) as e:
         print("ERROR: a file the mirror reads from the rules repository is missing or broken "
               f"({type(e).__name__})", file=sys.stderr)
         return 3
@@ -407,7 +428,7 @@ def main(argv=None):
     for line in report:
         print(line, file=sys.stderr)
     # The size guards watch Exodus's answer, so our own entries are counted on neither side.
-    n = _exodus_count(doc["trackers"])
+    n = len(doc["trackers"]) - len(supplement)
     # /update-rules reads the first of these two lines by its exact shape; keep it as it is.
     print(f"{n} trackers kept, {len(report)} drop-report lines", file=sys.stderr)
     print(f"{len(doc['trackers']) - n} of AndroDR's own entries appended", file=sys.stderr)
