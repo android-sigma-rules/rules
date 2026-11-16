@@ -195,7 +195,11 @@ class _NoDuplicateKeys(yaml.SafeLoader):
 
 def _mapping_without_duplicates(loader, node, deep=False):
     keys = [loader.construct_object(k, deep=True) for k, _ in node.value]
-    if len({repr(k) for k in keys}) != len(keys):
+    try:
+        distinct = len(set(keys))
+    except TypeError:  # a key that cannot be a map key at all; construct_mapping reports it
+        distinct = len(keys)
+    if distinct != len(keys):
         raise ValueError("a key is written twice in one map")
     return yaml.SafeLoader.construct_mapping(loader, node, deep)
 
@@ -232,7 +236,7 @@ def _supplement_entry(t, seen, first_party, common):
     if not isinstance(tid, int) or isinstance(tid, bool) or not tg.SUPPLEMENT_ID_MIN <= tid <= tg.ID_MAX:
         raise ValueError(f"entry id {tg.shown(tid)} is not a whole number from {tg.SUPPLEMENT_ID_MIN} "
                          f"to {tg.ID_MAX}")
-    if tid in seen:
+    if tid in seen["ids"]:
         raise ValueError(f"entry {tid}: its id is used twice")
     unknown = sorted(str(k) for k in set(t) - _SUPPLEMENT_KEYS)
     if unknown:
@@ -240,6 +244,8 @@ def _supplement_entry(t, seen, first_party, common):
     problem = tg.name_problem(t.get("name"))
     if problem:
         raise ValueError(f"entry {tid}: name {tg.shown(t.get('name'))} {problem}")
+    if tg.name_key(t["name"]) in seen["names"]:  # the app shows the name alone
+        raise ValueError(f"entry {tid}: name {tg.shown(t['name'])} is used twice")
     website = t.get("website", "")
     if not isinstance(website, str) or len(website) > tg.WEBSITE_MAX or not dg.FIELD_CHECKS["website"](website):
         raise ValueError(f"entry {tid}: website {tg.shown(website)} is not empty or http(s)://host[/...]")
@@ -276,10 +282,11 @@ def load_supplement(path=SUPPLEMENT_FILE, first_party=None, common=None):
     if (not isinstance(doc, dict) or type(doc.get("version")) is not int or doc["version"] != 1
             or not isinstance(doc.get("trackers"), list) or not doc["trackers"]):
         raise ValueError("not a version 1 supplement with a non-empty `trackers` list")
-    entries, seen = [], set()
+    entries, seen = [], {"ids": set(), "names": set()}
     for t in doc["trackers"]:
         entry = _supplement_entry(t, seen, first_party, common)
-        seen.add(entry["id"])
+        seen["ids"].add(entry["id"])
+        seen["names"].add(tg.name_key(entry["name"]))
         entries.append(entry)
     return sorted(entries, key=lambda e: e["id"])
 

@@ -762,3 +762,15 @@ def test_main_exits_3_when_the_supplement_is_nested_too_deep(tmp_path, monkeypat
     monkeypatch.setattr(mirror, "load_supplement", boom)
     code, out = _main_from_fixture(tmp_path)
     assert code == 3 and not out.exists() and capsys.readouterr().err.count("ERROR:") == 1
+
+
+def test_two_of_our_entries_with_one_name_stop_the_load(tmp_path):
+    f = _sup_file(tmp_path, _sup(), _sup(id=900002, name="own  SDK", code_prefixes=["org.other.sdk"]))
+    with pytest.raises(ValueError, match="used twice"):
+        mirror.load_supplement(f)
+
+
+def test_keys_that_are_equal_as_values_count_as_written_twice(tmp_path):
+    body = "version: 1\ntrackers:\n- id: 900001\n  name: Own SDK\n  categories: [Proxyware]\n  1: a\n  1.0: b\n"
+    with pytest.raises(ValueError, match="written twice"):
+        mirror.load_supplement(_sup_file(tmp_path, body=body))
